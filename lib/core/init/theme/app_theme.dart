@@ -51,7 +51,7 @@ final ThemeData appTheme = ThemeData(
       color: Color(0xff0e150e),
       fontSize: 22,
       fontFamily: "Signika",
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     headline4: TextStyle(
@@ -122,6 +122,16 @@ extension CustomStyles on TextTheme {
       fontFamily: "Signika",
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle get addRecipeText {
+    return const TextStyle(
+      color: Color(0xffFF8473),
+      fontSize: 20,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w600,
     );
   }
 
