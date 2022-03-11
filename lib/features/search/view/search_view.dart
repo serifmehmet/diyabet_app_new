@@ -1,5 +1,6 @@
 import 'package:diyabet_app/core/extensions/context_extensions.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
+import 'package:diyabet_app/core/theme_widgets/input/carbapp_text_input.dart';
 import 'package:diyabet_app/features/home/view/tab/model/food_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -15,31 +16,14 @@ class SearchView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              style: Theme.of(context).textTheme.headline4,
-              decoration: InputDecoration(
-                fillColor: const Color(0xffF4F4F4),
-                filled: true,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                prefixIcon: Icon(
-                  IconlyLight.search,
-                  color: Theme.of(context).colorScheme.secondaryVariant,
-                  size: 16,
-                ),
-                hintText: "Gıda ara...",
-                hintStyle: Theme.of(context).textTheme.headline4,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-              ),
+            CarbAppTextInput(
+              inputText: "Gıda ara...",
+              inputIcon: IconlyLight.search,
+              iconSize: 16,
+              iconColor: Theme.of(context).colorScheme.secondaryVariant,
+              inputTextStyle: Theme.of(context).textTheme.headline4,
+              inputBorderRadius: 24,
+              isPassword: false,
             ),
             const SizedBox(
               height: 46,
