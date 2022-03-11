@@ -1,6 +1,6 @@
-import 'package:diyabet_app/core/extensions/context_extensions.dart';
-import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+
+import '../../extensions/context_extensions.dart';
 
 class MainSubHeaderWidget extends StatelessWidget {
   const MainSubHeaderWidget({Key? key}) : super(key: key);
