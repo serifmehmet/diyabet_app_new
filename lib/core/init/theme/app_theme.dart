@@ -80,6 +80,13 @@ final ThemeData appTheme = ThemeData(
       fontSize: 15,
       decoration: TextDecoration.none,
     ),
+    caption: TextStyle(
+      color: Color(0xffFFFFFF),
+      fontFamily: "Signika",
+      fontSize: 30,
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.none,
+    ),
   ),
 );
 
