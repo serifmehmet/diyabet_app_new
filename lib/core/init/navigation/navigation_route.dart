@@ -1,0 +1,32 @@
+import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
+import 'package:diyabet_app/core/theme_widgets/card/not_found_navigation_widget.dart';
+import 'package:diyabet_app/features/profile/view/profile_view.dart';
+import 'package:diyabet_app/features/splash/view/splash_view.dart';
+import 'package:flutter/material.dart';
+
+class NavigationRoute {
+  static final NavigationRoute _instance = NavigationRoute._init();
+  static NavigationRoute get instance => _instance;
+
+  NavigationRoute._init();
+
+  Route<dynamic> generateRoute(RouteSettings args) {
+    switch (args.name) {
+      case NavigationConstants.DEFAULT:
+        return normalNavigate(const SplashView(), NavigationConstants.DEFAULT);
+      case NavigationConstants.PROFILE:
+        return normalNavigate(const ProfileView(), NavigationConstants.PROFILE);
+      default:
+        return MaterialPageRoute(
+          builder: (context) => const NotFoundNavigationWidget(),
+        );
+    }
+  }
+
+  MaterialPageRoute normalNavigate(Widget widget, String pageName) {
+    return MaterialPageRoute(
+      builder: (context) => widget,
+      settings: RouteSettings(name: pageName),
+    );
+  }
+}
