@@ -23,7 +23,6 @@ class SearchView extends StatelessWidget {
               iconColor: Theme.of(context).colorScheme.secondaryVariant,
               inputTextStyle: Theme.of(context).textTheme.headline4,
               inputBorderRadius: 24,
-              isPassword: false,
             ),
             const SizedBox(
               height: 46,
