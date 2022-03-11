@@ -18,11 +18,12 @@ class SearchView extends StatelessWidget {
           children: [
             CarbAppTextInput(
               inputText: "Gıda ara...",
-              inputIcon: const Icon(IconlyLight.search),
+              inputIcon: IconlyLight.search,
               iconSize: 16,
               iconColor: Theme.of(context).colorScheme.secondaryVariant,
               inputTextStyle: Theme.of(context).textTheme.headline4,
               inputBorderRadius: 24,
+              isPassword: false,
             ),
             const SizedBox(
               height: 46,

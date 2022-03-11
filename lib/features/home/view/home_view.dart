@@ -133,7 +133,9 @@ class HomeView extends StatelessWidget {
               children: [
                 // Login button
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xffffffff),
                     elevation: 0,
@@ -147,7 +149,7 @@ class HomeView extends StatelessWidget {
                         "Giriş Yap",
                         style: Theme.of(context).textTheme.homepageLoginButton,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       const Icon(

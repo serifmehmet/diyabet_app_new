@@ -30,6 +30,7 @@ final ThemeData appTheme = ThemeData(
         fontSize: 25,
         fontFamily: "Signika",
       ),
+      elevation: 0,
     ),
   ),
   textTheme: const TextTheme(
@@ -83,6 +84,18 @@ final ThemeData appTheme = ThemeData(
 );
 
 extension CustomStyles on TextTheme {
+  TextStyle get loginHeader {
+    return const TextStyle(
+      color: Color(0xff000000),
+      fontSize: 25,
+      fontStyle: FontStyle.normal,
+      fontFamily: "Signika",
+      letterSpacing: 1,
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.none,
+    );
+  }
+
   TextStyle get logo {
     return const TextStyle(
       color: Color(0xffffffff),
@@ -115,6 +128,18 @@ extension CustomStyles on TextTheme {
     );
   }
 
+  TextStyle get textLogo {
+    return const TextStyle(
+      color: Color(0xff91C788),
+      fontSize: 25,
+      letterSpacing: 0.24,
+      fontStyle: FontStyle.normal,
+      fontFamily: "Nunito",
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.none,
+    );
+  }
+
   TextStyle get orangeText {
     return const TextStyle(
       color: Color(0xffFF8473),
@@ -135,10 +160,30 @@ extension CustomStyles on TextTheme {
     );
   }
 
+  TextStyle get orangeForgotPasswordText {
+    return const TextStyle(
+      color: Color(0xffFF8473),
+      fontSize: 18,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
   TextStyle get profileHeader {
     return const TextStyle(
       color: Color(0xff272727),
       fontSize: 25,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle get inputLabel {
+    return const TextStyle(
+      color: Color(0xff999999),
+      fontSize: 20,
       fontFamily: "Signika",
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w400,
