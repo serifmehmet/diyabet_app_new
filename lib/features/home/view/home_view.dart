@@ -1,10 +1,11 @@
-import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
-import 'package:diyabet_app/core/extensions/context_extensions.dart';
-import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
-import 'package:diyabet_app/core/init/theme/app_theme.dart';
-import 'package:diyabet_app/features/home/view/tab/model/food_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+
+import '../../../core/constants/navigation/navigation_constants.dart';
+import '../../../core/extensions/context_extensions.dart';
+import '../../../core/init/navigation/navigation_service.dart';
+import '../../../core/init/theme/app_theme.dart';
+import 'tab/model/food_model.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
@@ -15,17 +16,17 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              NavigationService.instance.navigateToPage(path: NavigationConstants.PROFILE);
-            },
-            icon: Icon(
-              Icons.menu,
-              size: 40,
-              color: Theme.of(context).colorScheme.secondaryVariant,
-            ),
-          ),
+        actions: const [
+          // IconButton(
+          //   onPressed: () {
+          //     NavigationService.instance.navigateToPage(path: NavigationConstants.PROFILE);
+          //   },
+          //   icon: Icon(
+          //     Icons.menu,
+          //     size: 40,
+          //     color: Theme.of(context).colorScheme.secondaryVariant,
+          //   ),
+          // ),
         ],
       ),
       backgroundColor: Theme.of(context).backgroundColor,
@@ -35,7 +36,7 @@ class HomeView extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              "Merhaba, Abdülrezzak Kiraz",
+              "Merhaba, Konuk",
               style: Theme.of(context).textTheme.welcomeText,
             ),
           ),
@@ -49,6 +50,7 @@ class HomeView extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
+          //MainSubHeaderWidget(),
           subHeaderArea(context),
           const SizedBox(
             height: 30,
@@ -133,7 +135,9 @@ class HomeView extends StatelessWidget {
               children: [
                 // Login button
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xffffffff),
                     elevation: 0,
@@ -147,7 +151,7 @@ class HomeView extends StatelessWidget {
                         "Giriş Yap",
                         style: Theme.of(context).textTheme.homepageLoginButton,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       const Icon(

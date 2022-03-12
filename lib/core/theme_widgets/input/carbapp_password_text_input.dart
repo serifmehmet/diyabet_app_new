@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
-class CarbAppTextInput extends StatefulWidget {
+class CarbAppPasswordTextInput extends StatefulWidget {
   final String? inputText;
   final String? labelText;
   final IconData inputIcon;
@@ -12,27 +12,30 @@ class CarbAppTextInput extends StatefulWidget {
   final TextStyle? labelTextStyle;
   final double inputBorderRadius;
 
-  const CarbAppTextInput({
+  const CarbAppPasswordTextInput({
     Key? key,
     this.inputText,
+    this.labelText,
     required this.inputIcon,
     required this.iconSize,
     required this.iconColor,
-    required this.inputTextStyle,
-    required this.inputBorderRadius,
-    this.labelText,
+    this.inputTextStyle,
     this.labelTextStyle,
+    required this.inputBorderRadius,
   }) : super(key: key);
 
   @override
-  State<CarbAppTextInput> createState() => _CarbAppTextInputState();
+  State<CarbAppPasswordTextInput> createState() => _CarbAppPasswordTextInputState();
 }
 
-class _CarbAppTextInputState extends State<CarbAppTextInput> {
+class _CarbAppPasswordTextInputState extends State<CarbAppPasswordTextInput> {
+  bool? _isPass = true;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       style: widget.inputTextStyle,
+      obscureText: _isPass!,
       decoration: InputDecoration(
         labelText: widget.labelText,
         labelStyle: widget.labelTextStyle,
@@ -57,6 +60,18 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
         hintText: widget.inputText,
         hintStyle: widget.inputTextStyle,
         contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+        suffixIcon: IconButton(
+          icon: Icon(
+            !_isPass! ? IconlyLight.show : IconlyLight.hide,
+            color: const Color(0xff130F26),
+            size: 24,
+          ),
+          onPressed: () {
+            setState(() {
+              _isPass = !_isPass!;
+            });
+          },
+        ),
       ),
     );
   }
