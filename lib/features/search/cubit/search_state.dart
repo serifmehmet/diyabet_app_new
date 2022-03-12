@@ -1,6 +1,10 @@
 part of 'search_cubit.dart';
 
-@immutable
-abstract class SearchState {}
+abstract class SearchState extends Equatable {
+  const SearchState();
+
+  @override
+  List<Object> get props => [];
+}
 
 class SearchInitial extends SearchState {}

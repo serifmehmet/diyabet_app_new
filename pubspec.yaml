@@ -42,7 +42,9 @@ dependencies:
   json_serializable: ^6.1.4
   json_annotation: ^4.4.0
 
+  #Core
   equatable: ^2.0.3
+  async: any
 
   #Network Manager
   vexana: ^2.6.0
