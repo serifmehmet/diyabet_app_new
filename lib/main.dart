@@ -1,12 +1,33 @@
-import 'package:diyabet_app/core/init/navigation/navigation_route.dart';
-import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
+import 'package:diyabet_app/data/datasources/remote/food/food_remote_datasouce.dart';
+import 'package:diyabet_app/data/repositories/food_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vexana/vexana.dart';
 
+import 'core/init/navigation/navigation_route.dart';
+import 'core/init/navigation/navigation_service.dart';
 import 'core/init/theme/app_theme.dart' as Theme;
-import 'features/home/view/tab/app_tab_view.dart';
+import 'ui/home/view/tab/app_tab_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(MultiRepositoryProvider(
+    providers: [
+      RepositoryProvider(
+        create: (context) => NetworkManager(options: BaseOptions()),
+      ),
+      RepositoryProvider<FoodRemoteDataSource>(
+        create: (context) => FoodRemoteDataSource(context.read<NetworkManager>()),
+      ),
+      RepositoryProvider<FoodRepository>(
+        create: (context) => FoodRepositoryImpl(
+          foodRemoteDataSource: context.read<FoodRemoteDataSource>(),
+        ),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

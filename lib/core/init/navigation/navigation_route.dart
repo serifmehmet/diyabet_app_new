@@ -1,12 +1,13 @@
-import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
-import 'package:diyabet_app/core/theme_widgets/card/not_found_navigation_widget.dart';
-import 'package:diyabet_app/features/auth/view/forgot_password_view.dart';
-import 'package:diyabet_app/features/auth/view/login_view.dart';
-import 'package:diyabet_app/features/auth/view/register_view.dart';
-import 'package:diyabet_app/features/home/view/tab/app_tab_view.dart';
-import 'package:diyabet_app/features/profile/view/profile_view.dart';
-import 'package:diyabet_app/features/splash/view/splash_view.dart';
 import 'package:flutter/material.dart';
+
+import '../../../ui/auth/view/forgot_password_view.dart';
+import '../../../ui/auth/view/login_view.dart';
+import '../../../ui/auth/view/register_view.dart';
+import '../../../ui/home/view/tab/app_tab_view.dart';
+import '../../../ui/profile/view/profile_view.dart';
+import '../../../ui/splash/view/splash_view.dart';
+import '../../constants/navigation/navigation_constants.dart';
+import '../../theme_widgets/card/not_found_navigation_widget.dart';
 
 class NavigationRoute {
   static final NavigationRoute _instance = NavigationRoute._init();
