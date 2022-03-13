@@ -50,9 +50,10 @@ class SearchView extends StatelessWidget {
                                   shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
                                   ),
+                                  isScrollControlled: true,
                                   builder: (BuildContext context) {
                                     return SizedBox(
-                                        height: 1000,
+                                        height: 600,
                                         child: Padding(
                                           padding: context.paddingNormal,
                                           child: Column(
@@ -61,7 +62,9 @@ class SearchView extends StatelessWidget {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   IconButton(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
                                                     icon: const Icon(
                                                       Icons.close,
                                                       size: 24,
@@ -83,7 +86,13 @@ class SearchView extends StatelessWidget {
                                                 "Havuç",
                                                 style: Theme.of(context).textTheme.headline3,
                                               ),
-                                              ElevatedButton(onPressed: () {}, child: Text("Ekle"))
+                                              ElevatedButton(
+                                                onPressed: () {},
+                                                child: Center(
+                                                  child: Text("Ekle"),
+                                                ),
+                                                style: ElevatedButton.styleFrom(elevation: 0),
+                                              ),
                                             ],
                                           ),
                                         ));
