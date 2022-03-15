@@ -45,6 +45,7 @@ dependencies:
   #Core
   equatable: ^2.0.3
   async: any
+  get_it: ^7.2.0
 
   #Network Manager
   vexana: ^2.6.0
