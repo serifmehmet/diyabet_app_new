@@ -1,3 +1,4 @@
+import 'package:diyabet_app/data/datasources/remote/models/items.dart';
 import 'package:diyabet_app/domain/entities/food.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
@@ -5,33 +6,9 @@ part 'food.g.dart';
 
 @JsonSerializable()
 class FoodModel extends INetworkModel<FoodModel> {
-  double? sugarG;
-  double? fiberG;
-  int? servingSizeG;
-  int? sodiumMg;
-  String? name;
-  int? potassiumMg;
-  int? fatSaturatedG;
-  double? fatTotalG;
-  int? calories;
-  int? cholesterolMg;
-  double? proteinG;
-  double? carbohydratesTotalG;
+  List<ItemsModel>? items;
 
-  FoodModel({
-    this.sugarG,
-    this.fiberG,
-    this.servingSizeG,
-    this.sodiumMg,
-    this.name,
-    this.potassiumMg,
-    this.fatSaturatedG,
-    this.fatTotalG,
-    this.calories,
-    this.cholesterolMg,
-    this.proteinG,
-    this.carbohydratesTotalG,
-  });
+  FoodModel({this.items});
 
   @override
   Map<String, dynamic> toJson() {
@@ -39,21 +16,17 @@ class FoodModel extends INetworkModel<FoodModel> {
   }
 
   @override
-  FoodModel fromJson(Map<String, dynamic> json) {
+  factory FoodModel.fromJson(Map<String, dynamic> json) {
     return _$FoodModelFromJson(json);
   }
 
   Food toEntity() => Food(
-      sugarG: sugarG,
-      fiberG: fiberG,
-      servingSizeG: servingSizeG,
-      sodiumMg: sodiumMg,
-      name: name,
-      potassiumMg: potassiumMg,
-      fatSaturatedG: fatSaturatedG,
-      fatTotalG: fatTotalG,
-      calories: calories,
-      cholesterolMg: cholesterolMg,
-      proteinG: proteinG,
-      carbohydratesTotalG: carbohydratesTotalG);
+        items: items != null ? items?.map((item) => item.toEntity()).toList() : null,
+      );
+
+  @override
+  FoodModel fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    return FoodModel.fromJson(json);
+  }
 }

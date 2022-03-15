@@ -67,6 +67,7 @@ final ThemeData appTheme = ThemeData(
       fontSize: 16,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
+      fontFamily: "Signika",
     ),
     headline6: TextStyle(
       color: Color(0xff0e150e),

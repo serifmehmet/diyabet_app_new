@@ -4,10 +4,10 @@ import 'package:iconly/iconly.dart';
 class CarbAppTextInput extends StatefulWidget {
   final String? inputText;
   final String? labelText;
-  final IconData inputIcon;
+  final IconData? inputIcon;
 
-  final double iconSize;
-  final Color iconColor;
+  final double? iconSize;
+  final Color? iconColor;
   final TextStyle? inputTextStyle;
   final TextStyle? labelTextStyle;
   final double inputBorderRadius;
@@ -15,9 +15,9 @@ class CarbAppTextInput extends StatefulWidget {
   const CarbAppTextInput({
     Key? key,
     this.inputText,
-    required this.inputIcon,
-    required this.iconSize,
-    required this.iconColor,
+    this.inputIcon,
+    this.iconSize,
+    this.iconColor,
     required this.inputTextStyle,
     required this.inputBorderRadius,
     this.labelText,
