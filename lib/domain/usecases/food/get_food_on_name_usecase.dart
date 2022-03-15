@@ -6,7 +6,7 @@ import 'package:diyabet_app/domain/usecases/food/params/get_food_param.dart';
 class GetFoodOnNameUseCase extends UseCase<Food?, GetFoodParam> {
   final FoodRepository foodRepositoryImpl;
 
-  const GetFoodOnNameUseCase(this.foodRepositoryImpl);
+  const GetFoodOnNameUseCase({required this.foodRepositoryImpl});
 
   @override
   Future<Food?> call(GetFoodParam params) {
