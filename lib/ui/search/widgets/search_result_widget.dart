@@ -13,6 +13,7 @@ class SearchResultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+        shrinkWrap: true,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
