@@ -74,7 +74,7 @@ class ForgotPasswordView extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
+                        NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
                       },
                       child: const Text(
                         "Giriş Yap",
@@ -94,7 +94,7 @@ class ForgotPasswordView extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Center(
+                  child: const Center(
                     child: Text("Gönder"),
                   ),
                   style: ElevatedButton.styleFrom(elevation: 0),
