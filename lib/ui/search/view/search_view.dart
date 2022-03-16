@@ -27,7 +27,11 @@ class SearchView extends StatelessWidget {
               inputTextStyle: Theme.of(context).textTheme.headline4,
               inputBorderRadius: 24,
               onChanged: (value) {
-                context.read<SearchCubit>().getSearchItem(value);
+                if (value.isNotEmpty) {
+                  context.read<SearchCubit>().getSearchItem(value);
+                } else {
+                  context.read<SearchCubit>().clearSearch();
+                }
               },
             ),
             const SizedBox(
@@ -46,6 +50,10 @@ class SearchView extends StatelessWidget {
 
                 if (state is SearchSuccess) {
                   return searchSuccess(context, state);
+                }
+
+                if (state is SearchFailure) {
+                  return searchFailure(context);
                 }
 
                 return const SizedBox();
@@ -70,29 +78,58 @@ class SearchView extends StatelessWidget {
     );
   }
 
-  Column searchInitial(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          IconlyBold.search,
-          size: 36,
-          color: Color(0xff000000),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          "Aramak istediğiniz gıda adını yukarıya yazın.",
-          style: Theme.of(context).textTheme.headline3,
-          textAlign: TextAlign.center,
-        ),
-      ],
+  Widget searchFailure(BuildContext context) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Icon(
+            IconlyBold.danger,
+            color: Color(0xFF000000),
+            size: 50,
+          ),
+          const SizedBox(
+            height: 18,
+          ),
+          Text("Sonuç Bulunamadı", style: Theme.of(context).textTheme.searchNotFound),
+          Text(
+            "Baska bir kelime ile arayabilir ya da kendi tarinizi ekleyebilirsiniz.",
+            style: Theme.of(context).textTheme.searchNotFoundLight,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
     );
   }
 
-  Center searching() => const Center(child: CircularProgressIndicator());
+  Widget searchInitial(BuildContext context) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            IconlyBold.search,
+            size: 36,
+            color: Color(0xff000000),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            "Aramak istediğiniz gıda adını yukarıya yazın.",
+            style: Theme.of(context).textTheme.headline3,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
 
-  Expanded searchSuccess(BuildContext context, SearchSuccess state) {
+  Widget searching() {
+    return const Expanded(child: Center(child: CircularProgressIndicator()));
+  }
+
+  Widget searchSuccess(BuildContext context, SearchSuccess state) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
