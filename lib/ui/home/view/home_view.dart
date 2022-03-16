@@ -1,4 +1,7 @@
+import 'package:diyabet_app/core/theme_widgets/card/main_subheader_widget.dart';
+import 'package:diyabet_app/ui/auth/cubit/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../core/constants/navigation/navigation_constants.dart';
@@ -10,23 +13,28 @@ import 'tab/model/food_model.dart';
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
   var items = FoodModels.create();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
-        actions: const [
-          // IconButton(
-          //   onPressed: () {
-          //     NavigationService.instance.navigateToPage(path: NavigationConstants.PROFILE);
-          //   },
-          //   icon: Icon(
-          //     Icons.menu,
-          //     size: 40,
-          //     color: Theme.of(context).colorScheme.secondaryVariant,
-          //   ),
-          // ),
+        actions: [
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is Authenticated) {
+                return IconButton(
+                  onPressed: () {
+                    NavigationService.instance.navigateToPage(path: NavigationConstants.PROFILE);
+                  },
+                  icon: Icon(Icons.menu, size: 40, color: Theme.of(context).colorScheme.secondaryVariant),
+                );
+              }
+
+              return const SizedBox();
+            },
+          )
         ],
       ),
       backgroundColor: Theme.of(context).backgroundColor,
@@ -51,7 +59,20 @@ class HomeView extends StatelessWidget {
             height: 30,
           ),
           //MainSubHeaderWidget(),
-          subHeaderArea(context),
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is Authenticated) {
+                return MainSubHeaderWidget();
+              }
+
+              if (state is UnAuthenticated) {
+                return subHeaderArea(context);
+              }
+
+              return const SizedBox();
+            },
+          ),
+
           const SizedBox(
             height: 30,
           ),

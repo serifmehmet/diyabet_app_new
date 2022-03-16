@@ -1,5 +1,8 @@
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/data/datasources/local/local_datasource.dart';
+import 'package:diyabet_app/ui/auth/cubit/cubit/auth_cubit.dart';
 import 'package:diyabet_app/ui/search/cubit/search_cubit.dart';
+import 'package:diyabet_app/ui/auth/view/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await LocalDataSource.initialize();
+  await CacheManager.preferencesInit();
 
   runApp(const MyApp());
 }
@@ -26,16 +30,20 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (authContext) => di.sl<AuthCubit>()..appStarted(),
+        ),
+        BlocProvider(
           create: (searchContext) => di.sl<SearchCubit>(),
         )
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Pedider App',
-          theme: Theme.appTheme,
-          home: const AppTabView(),
-          navigatorKey: NavigationService.instance.navigatorKey,
-          onGenerateRoute: (settings) => NavigationRoute.instance.generateRoute(settings)),
+        debugShowCheckedModeBanner: false,
+        title: 'Pedider App',
+        theme: Theme.appTheme,
+        navigatorKey: NavigationService.instance.navigatorKey,
+        onGenerateRoute: (settings) => NavigationRoute.instance.generateRoute(settings),
+        home: const SplashView(),
+      ),
     );
   }
 }

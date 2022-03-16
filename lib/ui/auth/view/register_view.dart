@@ -104,7 +104,7 @@ class RegisterView extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
+                        NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
                       },
                       child: const Text(
                         "Giriş Yap",

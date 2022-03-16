@@ -5,7 +5,7 @@ import '../../../ui/auth/view/login_view.dart';
 import '../../../ui/auth/view/register_view.dart';
 import '../../../ui/home/view/tab/app_tab_view.dart';
 import '../../../ui/profile/view/profile_view.dart';
-import '../../../ui/splash/view/splash_view.dart';
+import '../../../ui/auth/view/splash_view.dart';
 import '../../constants/navigation/navigation_constants.dart';
 import '../../theme_widgets/card/not_found_navigation_widget.dart';
 

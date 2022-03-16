@@ -1,4 +1,8 @@
+import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
+import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
+import 'package:diyabet_app/ui/auth/cubit/cubit/auth_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:diyabet_app/core/extensions/context_extensions.dart';
 import 'package:iconly/iconly.dart';
@@ -111,9 +115,21 @@ class ProfileView extends StatelessWidget {
         const SizedBox(width: 16),
         Expanded(
           flex: 5,
-          child: Text(
-            "Çıkış Yap",
-            style: Theme.of(context).textTheme.headline4,
+          child: TextButton(
+            style: ButtonStyle(
+              alignment: Alignment.centerLeft,
+              padding: MaterialStateProperty.all<EdgeInsets>(
+                const EdgeInsets.all(0),
+              ),
+            ),
+            child: Text(
+              "Çıkış Yap",
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            onPressed: () {
+              BlocProvider.of<AuthCubit>(context).logOut();
+              NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
+            },
           ),
         ),
         Expanded(

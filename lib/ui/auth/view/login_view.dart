@@ -1,12 +1,14 @@
-import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
-import 'package:diyabet_app/core/extensions/context_extensions.dart';
-import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
-import 'package:diyabet_app/core/init/theme/app_theme.dart';
-import 'package:diyabet_app/core/theme_widgets/button/app_button.dart';
-import 'package:diyabet_app/core/theme_widgets/input/carbapp_password_text_input.dart';
-import 'package:diyabet_app/core/theme_widgets/input/carbapp_text_input.dart';
+import '../../../core/constants/navigation/navigation_constants.dart';
+import '../../../core/extensions/context_extensions.dart';
+import '../../../core/init/navigation/navigation_service.dart';
+import '../../../core/init/theme/app_theme.dart';
+import '../../../core/theme_widgets/button/app_button.dart';
+import '../../../core/theme_widgets/input/carbapp_password_text_input.dart';
+import '../../../core/theme_widgets/input/carbapp_text_input.dart';
+import '../cubit/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -73,9 +75,10 @@ class LoginView extends StatelessWidget {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
+                    BlocProvider.of<AuthCubit>(context).logIn();
                     NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
                   },
-                  child: Center(
+                  child: const Center(
                     child: Text("Giriş Yap"),
                   ),
                   style: ElevatedButton.styleFrom(elevation: 0),
