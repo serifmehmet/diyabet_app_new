@@ -19,10 +19,18 @@ class SearchCubit extends Cubit<SearchState> {
     final response = await searchUseCase?.call(GetFoodParam(foodName));
 
     if (response != null) {
-      _food = response;
-      emit(SearchSuccess(_food));
+      if (response.items!.isNotEmpty) {
+        _food = response;
+        emit(SearchSuccess(_food));
+      } else {
+        emit(const SearchFailure("No food found"));
+      }
     } else {
       emit(const SearchFailure("No food found"));
     }
+  }
+
+  clearSearch() {
+    emit(SearchInitial());
   }
 }

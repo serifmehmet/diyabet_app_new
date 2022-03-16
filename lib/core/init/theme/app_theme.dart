@@ -197,4 +197,24 @@ extension CustomStyles on TextTheme {
       fontWeight: FontWeight.w400,
     );
   }
+
+  TextStyle get searchNotFound {
+    return const TextStyle(
+      color: Color(0xff696969),
+      fontSize: 22,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle get searchNotFoundLight {
+    return const TextStyle(
+      color: Color(0xffA9A9A9),
+      fontSize: 16,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w400,
+    );
+  }
 }

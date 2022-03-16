@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => di.sl<SearchCubit>(),
+          create: (searchContext) => di.sl<SearchCubit>(),
         )
       ],
       child: MaterialApp(
