@@ -5,11 +5,19 @@ import 'package:diyabet_app/domain/entities/food.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
-class SearchResultWidget extends StatelessWidget {
+class SearchResultWidget extends StatefulWidget {
   final Food? foodEntity;
 
   const SearchResultWidget({Key? key, this.foodEntity}) : super(key: key);
 
+  @override
+  State<SearchResultWidget> createState() => _SearchResultWidgetState();
+}
+
+class _SearchResultWidgetState extends State<SearchResultWidget> {
+  var items = ["Adet", "Gr", "Birim Seçiniz."];
+
+  String dropDownValue = "Birim Seçiniz.";
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -21,23 +29,12 @@ class SearchResultWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  foodEntity!.items![index].name!,
+                  widget.foodEntity!.items![index].name!,
                   style: Theme.of(context).textTheme.orangeText,
                 ),
                 IconButton(
                   onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(32),
-                        ),
-                      ),
-                      builder: (BuildContext context) {
-                        return bottomSheetContent(context, index);
-                      },
-                    );
+                    showModal(index);
                   },
                   icon: Icon(
                     Icons.add,
@@ -57,10 +54,10 @@ class SearchResultWidget extends StatelessWidget {
             ),
           );
         },
-        itemCount: foodEntity!.items!.length);
+        itemCount: widget.foodEntity!.items!.length);
   }
 
-  Row bottomSheetHeader(BuildContext context) {
+  Widget bottomSheetHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -86,40 +83,70 @@ class SearchResultWidget extends StatelessWidget {
     );
   }
 
-  SizedBox bottomSheetContent(BuildContext context, int index) {
-    return SizedBox(
-      height: 600,
-      child: Padding(
-        padding: context.paddingLow,
-        child: Column(
-          children: [
-            bottomSheetHeader(context),
-            const SizedBox(height: 30),
-            Padding(
-              padding: context.paddingNormal,
-              child: bottomSheetLowerSide(context, index),
-            )
-          ],
-        ),
-      ),
+  Widget bottomSheetContent(BuildContext context, int index, StateSetter setter) {
+    return StatefulBuilder(
+      builder: (context, setStateChild) {
+        return SizedBox(
+          height: 600,
+          child: Padding(
+            padding: context.paddingLow,
+            child: Column(
+              children: [
+                bottomSheetHeader(context),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: context.paddingNormal,
+                  child: bottomSheetLowerSide(context, index, setter),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Column bottomSheetLowerSide(BuildContext context, int index) {
+  Widget bottomSheetLowerSide(BuildContext context, int index, StateSetter setter) {
     return Column(
       children: [
         Text(
-          foodEntity!.items![0].name!,
+          widget.foodEntity!.items![0].name!,
           style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(height: 50),
-        CarbAppTextInput(
-          inputIcon: IconlyLight.arrow_down_circle,
-          iconSize: 24,
-          iconColor: const Color(0xff000000),
-          inputTextStyle: Theme.of(context).textTheme.headline4,
-          inputBorderRadius: 24,
-          inputText: "Birim Seçin",
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            color: Theme.of(context).colorScheme.copyWith(background: const Color(0xfff4f4f4)).background,
+          ),
+          child: Padding(
+            padding: context.paddingLow,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                isExpanded: true,
+                icon: const Icon(
+                  IconlyLight.arrow_down_circle,
+                  color: Color(0xFF000000),
+                  size: 24,
+                ),
+                items: items.map((itemName) {
+                  return DropdownMenuItem(
+                    value: itemName,
+                    child: Text(
+                      itemName,
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  setter(() {
+                    dropDownValue = value!;
+                  });
+                },
+                value: dropDownValue,
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 20),
         Row(
@@ -138,7 +165,7 @@ class SearchResultWidget extends StatelessWidget {
               children: [
                 Text("Karbonhidrat", style: Theme.of(context).textTheme.headline5),
                 Text(
-                  foodEntity!.items![index].carbohydratesTotalG.toString() + "Gr.",
+                  widget.foodEntity!.items![index].carbohydratesTotalG.toString() + "Gr.",
                   style: const TextStyle(
                     color: Color(0xff0e150e),
                     fontSize: 30,
@@ -160,6 +187,23 @@ class SearchResultWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(elevation: 0),
         ),
       ],
+    );
+  }
+
+  showModal(int index) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(32),
+        ),
+      ),
+      builder: (context) {
+        return StatefulBuilder(builder: (context, setStateChild) {
+          return bottomSheetContent(context, index, setStateChild);
+        });
+      },
     );
   }
 }
