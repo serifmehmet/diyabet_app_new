@@ -1,3 +1,4 @@
+import 'package:diyabet_app/data/datasources/local/local_datasource.dart';
 import 'package:diyabet_app/ui/search/cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,8 @@ import 'ui/home/view/tab/app_tab_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
+  await LocalDataSource.initialize();
+
   runApp(const MyApp());
 }
 
