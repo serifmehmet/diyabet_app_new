@@ -34,8 +34,19 @@ class TotalsView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: TextButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
+                ),
+                onPressed: () {},
+                child: Text("Hepsini Temizle", style: Theme.of(context).textTheme.overline),
+              ),
+            ),
             Expanded(
               child: ListView.separated(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return Padding(
@@ -58,6 +69,14 @@ class TotalsView extends StatelessWidget {
                   );
                 },
                 itemCount: items.totalItems.length,
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text("Kaydet"),
+                style: ElevatedButton.styleFrom(elevation: 0),
               ),
             ),
           ],
