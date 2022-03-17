@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     var authCubit = BlocProvider.of<AuthCubit>(context);
     Timer(
-      const Duration(seconds: 4),
+      const Duration(seconds: 1),
       () {
         if (authCubit.state is Authenticated) {
           NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
