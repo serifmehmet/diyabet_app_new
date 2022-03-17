@@ -1,7 +1,8 @@
-import 'package:diyabet_app/core/init/theme/app_theme.dart';
-import 'package:diyabet_app/ui/calc_report/models/calc_report_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+
+import '../../../core/init/theme/app_theme.dart';
+import '../models/calc_report_model.dart';
 
 class CalcTileWidget extends StatefulWidget {
   const CalcTileWidget({Key? key, this.itemsModel}) : super(key: key);
