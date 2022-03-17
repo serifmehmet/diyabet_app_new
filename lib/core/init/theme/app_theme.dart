@@ -34,61 +34,72 @@ final ThemeData appTheme = ThemeData(
     ),
   ),
   textTheme: const TextTheme(
-    headline1: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 48,
-      fontWeight: FontWeight.w600,
-      fontStyle: FontStyle.normal,
-      fontFamily: "Nunito",
-    ),
-    headline2: TextStyle(
-      color: Color(0xffCFE7CB),
-      fontSize: 25,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-      fontFamily: "Nunito",
-    ),
-    headline3: TextStyle(
-      color: Color(0xff0e150e),
-      fontSize: 22,
-      fontFamily: "Signika",
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    headline4: TextStyle(
-      color: Color(0xff7b7b7b),
-      fontSize: 18,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-      fontFamily: "Signika",
-    ),
-    headline5: TextStyle(
-      color: Color(0xff0e150e),
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-      fontFamily: "Signika",
-    ),
-    headline6: TextStyle(
-      color: Color(0xff0e150e),
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    subtitle1: TextStyle(
-      color: Color(0xffFFFFFF),
-      fontFamily: "Signika",
-      fontSize: 15,
-      decoration: TextDecoration.none,
-    ),
-    caption: TextStyle(
-      color: Color(0xffFFFFFF),
-      fontFamily: "Signika",
-      fontSize: 30,
-      fontWeight: FontWeight.w600,
-      decoration: TextDecoration.none,
-    ),
-  ),
+      headline1: TextStyle(
+        color: Color(0xffffffff),
+        fontSize: 48,
+        fontWeight: FontWeight.w600,
+        fontStyle: FontStyle.normal,
+        fontFamily: "Nunito",
+      ),
+      headline2: TextStyle(
+        color: Color(0xffCFE7CB),
+        fontSize: 25,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+        fontFamily: "Nunito",
+      ),
+      headline3: TextStyle(
+        color: Color(0xff0e150e),
+        fontSize: 22,
+        fontFamily: "Signika",
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      headline4: TextStyle(
+        color: Color(0xff7b7b7b),
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+        fontFamily: "Signika",
+      ),
+      headline5: TextStyle(
+        color: Color(0xff0e150e),
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+        fontFamily: "Signika",
+      ),
+      headline6: TextStyle(
+        color: Color(0xff0e150e),
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      subtitle1: TextStyle(
+        color: Color(0xffFFFFFF),
+        fontFamily: "Signika",
+        fontSize: 15,
+        decoration: TextDecoration.none,
+      ),
+      caption: TextStyle(
+        color: Color(0xffFFFFFF),
+        fontFamily: "Signika",
+        fontSize: 30,
+        fontWeight: FontWeight.w600,
+        decoration: TextDecoration.none,
+      ),
+      bodyText1: TextStyle(
+        color: Color(0xff000000),
+        fontFamily: "Signika",
+        fontSize: 24,
+        fontWeight: FontWeight.w400,
+      ),
+      overline: TextStyle(
+        color: Colors.red,
+        fontFamily: "Signika",
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+      )),
 );
 
 extension CustomStyles on TextTheme {
@@ -215,6 +226,16 @@ extension CustomStyles on TextTheme {
       fontFamily: "Signika",
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle get genericHeader {
+    return const TextStyle(
+      color: Color(0xff000000),
+      fontSize: 30,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w600,
     );
   }
 }

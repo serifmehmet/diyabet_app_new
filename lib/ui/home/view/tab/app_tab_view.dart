@@ -1,10 +1,11 @@
+import 'package:diyabet_app/ui/totals/view/totals_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../../core/extensions/context_extensions.dart';
 import '../../../../core/init/theme/app_theme.dart';
 import '../../../../ui/home/view/home_view.dart';
-import '../../../../ui/profile/view/profile_view.dart';
+
 import '../../../../ui/search/view/search_view.dart';
 
 class AppTabView extends StatefulWidget {
@@ -15,7 +16,7 @@ class AppTabView extends StatefulWidget {
 }
 
 class _AppTabViewState extends State<AppTabView> {
-  final _items = [HomeView(), SearchView(), ListView(), ProfileView()];
+  final _items = [HomeView(), const SearchView(), TotalsView(), ListView()];
   int _currentIndex = 0;
   void onTap(int index) {
     setState(() {
@@ -61,7 +62,7 @@ class _AppTabViewState extends State<AppTabView> {
         ],
         currentIndex: _currentIndex,
         selectedIconTheme: IconThemeData(color: appTheme.primaryColor, size: 30),
-        unselectedIconTheme: IconThemeData(
+        unselectedIconTheme: const IconThemeData(
           color: Color(0xff999999),
         ),
         showSelectedLabels: false,
