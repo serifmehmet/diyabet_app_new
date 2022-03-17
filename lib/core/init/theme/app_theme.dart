@@ -88,6 +88,12 @@ final ThemeData appTheme = ThemeData(
       fontWeight: FontWeight.w600,
       decoration: TextDecoration.none,
     ),
+    bodyText1: TextStyle(
+      color: Color(0xff000000),
+      fontFamily: "Signika",
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+    ),
   ),
 );
 
@@ -215,6 +221,16 @@ extension CustomStyles on TextTheme {
       fontFamily: "Signika",
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle get genericHeader {
+    return const TextStyle(
+      color: Color(0xff000000),
+      fontSize: 30,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w600,
     );
   }
 }
