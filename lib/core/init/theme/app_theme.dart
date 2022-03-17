@@ -14,6 +14,7 @@ final ThemeData appTheme = ThemeData(
     secondary: const Color(0xffFF8473),
     secondaryVariant: const Color(0xff999999),
     primaryVariant: const Color(0xff9E9BC7),
+    surface: const Color(0xFFF5F5F5),
   ),
   dividerColor: const Color(0xfff6f6f6),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -233,6 +234,16 @@ extension CustomStyles on TextTheme {
     return const TextStyle(
       color: Color(0xff000000),
       fontSize: 30,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  TextStyle get genericHeaderBig {
+    return const TextStyle(
+      color: Color(0xff000000),
+      fontSize: 40,
       fontFamily: "Signika",
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w600,
