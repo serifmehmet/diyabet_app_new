@@ -31,7 +31,7 @@ class NavigationRoute {
       case NavigationConstants.FORGOT_PASSWORD:
         return normalNavigate(const ForgotPasswordView(), NavigationConstants.FORGOT_PASSWORD);
       case NavigationConstants.ADD_RECIEPT:
-        return normalNavigate(const AddRecieptView(), NavigationConstants.ADD_RECIEPT);
+        return normalNavigate(AddRecieptView(), NavigationConstants.ADD_RECIEPT);
       default:
         return MaterialPageRoute(
           builder: (context) => const NotFoundNavigationWidget(),

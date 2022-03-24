@@ -18,7 +18,7 @@ class AppTabView extends StatefulWidget {
 }
 
 class _AppTabViewState extends State<AppTabView> {
-  final _items = [HomeView(), const SearchView(), TotalsView(), CalcReportView(), BolusView()];
+  final _items = [HomeView(), SearchView(), TotalsView(), CalcReportView(), BolusView()];
   int _currentIndex = 0;
   void onTap(int index) {
     setState(() {
