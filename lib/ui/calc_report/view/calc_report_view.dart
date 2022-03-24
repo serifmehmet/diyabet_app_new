@@ -1,10 +1,10 @@
-import 'package:diyabet_app/ui/calc_report/widgets/calc_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/theme/app_theme.dart';
 import '../models/calc_report_model.dart';
+import '../widgets/calc_tile_widget.dart';
 
 class CalcReportView extends StatelessWidget {
   CalcReportView({Key? key}) : super(key: key);
