@@ -1,3 +1,4 @@
+import 'package:diyabet_app/ui/bolus/view/bolus_view.dart';
 import 'package:diyabet_app/ui/calc_report/view/calc_report_view.dart';
 import 'package:diyabet_app/ui/totals/view/totals_view.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class AppTabView extends StatefulWidget {
 }
 
 class _AppTabViewState extends State<AppTabView> {
-  final _items = [HomeView(), const SearchView(), TotalsView(), CalcReportView()];
+  final _items = [HomeView(), const SearchView(), TotalsView(), CalcReportView(), BolusView()];
   int _currentIndex = 0;
   void onTap(int index) {
     setState(() {
@@ -58,7 +59,7 @@ class _AppTabViewState extends State<AppTabView> {
           BottomNavigationBarItem(
             icon: Icon(IconlyLight.voice_2),
             activeIcon: Icon(IconlyBold.voice_2),
-            label: "Profile",
+            label: "Bolus",
           ),
         ],
         currentIndex: _currentIndex,

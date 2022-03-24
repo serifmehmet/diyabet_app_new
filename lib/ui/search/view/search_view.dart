@@ -1,3 +1,5 @@
+import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
+import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -62,9 +64,14 @@ class SearchView extends StatelessWidget {
             const SizedBox(height: 60),
             Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                "Tarif Ekle   +",
-                style: Theme.of(context).textTheme.addRecipeText,
+              child: TextButton(
+                child: Text(
+                  "Tarif Ekle   +",
+                  style: Theme.of(context).textTheme.addRecipeText,
+                ),
+                onPressed: () {
+                  NavigationService.instance.navigateToPage(path: NavigationConstants.ADD_RECIEPT);
+                },
               ),
             ),
             const SizedBox(height: 15),

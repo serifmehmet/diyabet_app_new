@@ -1,6 +1,7 @@
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/data/datasources/local/local_datasource.dart';
 import 'package:diyabet_app/ui/auth/cubit/cubit/auth_cubit.dart';
+import 'package:diyabet_app/ui/reciept/cubit/reciept_cubit.dart';
 import 'package:diyabet_app/ui/search/cubit/search_cubit.dart';
 import 'package:diyabet_app/ui/auth/view/splash_view.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (searchContext) => di.sl<SearchCubit>(),
-        )
+        ),
+        BlocProvider(
+          create: (recieptCubit) => di.sl<RecieptCubit>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
