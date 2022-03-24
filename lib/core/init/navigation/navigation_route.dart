@@ -1,3 +1,4 @@
+import 'package:diyabet_app/ui/reciept/view/add_reciept_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../ui/auth/view/forgot_password_view.dart';
@@ -29,6 +30,8 @@ class NavigationRoute {
         return normalNavigate(const RegisterView(), NavigationConstants.REGISTER);
       case NavigationConstants.FORGOT_PASSWORD:
         return normalNavigate(const ForgotPasswordView(), NavigationConstants.FORGOT_PASSWORD);
+      case NavigationConstants.ADD_RECIEPT:
+        return normalNavigate(AddRecieptView(), NavigationConstants.ADD_RECIEPT);
       default:
         return MaterialPageRoute(
           builder: (context) => const NotFoundNavigationWidget(),

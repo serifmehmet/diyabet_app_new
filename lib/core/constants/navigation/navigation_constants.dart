@@ -5,4 +5,5 @@ class NavigationConstants {
   static const REGISTER = '/register';
   static const FORGOT_PASSWORD = '/forgotpassword';
   static const HOME_PAGE = '/homepage';
+  static const ADD_RECIEPT = 'addReciept';
 }

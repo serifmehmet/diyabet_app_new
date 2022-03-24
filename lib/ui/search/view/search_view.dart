@@ -1,3 +1,5 @@
+import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
+import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -9,8 +11,8 @@ import '../cubit/search_cubit.dart';
 import '../widgets/search_result_widget.dart';
 
 class SearchView extends StatelessWidget {
-  const SearchView({Key? key}) : super(key: key);
-
+  SearchView({Key? key}) : super(key: key);
+  String? lastSearchFood;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,9 +29,11 @@ class SearchView extends StatelessWidget {
               inputTextStyle: Theme.of(context).textTheme.headline4,
               inputBorderRadius: 24,
               onChanged: (value) {
-                if (value.isNotEmpty) {
+                if (value.isNotEmpty && lastSearchFood != value) {
+                  lastSearchFood = value;
                   context.read<SearchCubit>().getSearchItem(value);
-                } else {
+                } else if (value.isEmpty) {
+                  FocusManager.instance.primaryFocus!.unfocus();
                   context.read<SearchCubit>().clearSearch();
                 }
               },
@@ -62,9 +66,14 @@ class SearchView extends StatelessWidget {
             const SizedBox(height: 60),
             Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                "Tarif Ekle   +",
-                style: Theme.of(context).textTheme.addRecipeText,
+              child: TextButton(
+                child: Text(
+                  "Tarif Ekle   +",
+                  style: Theme.of(context).textTheme.addRecipeText,
+                ),
+                onPressed: () {
+                  NavigationService.instance.navigateToPage(path: NavigationConstants.ADD_RECIEPT);
+                },
               ),
             ),
             const SizedBox(height: 15),
