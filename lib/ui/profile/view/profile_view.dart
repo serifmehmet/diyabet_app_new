@@ -128,7 +128,7 @@ class ProfileView extends StatelessWidget {
             ),
             onPressed: () {
               BlocProvider.of<AuthCubit>(context).logOut();
-              NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
+              NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
             },
           ),
         ),

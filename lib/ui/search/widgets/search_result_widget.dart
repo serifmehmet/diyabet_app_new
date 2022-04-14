@@ -157,7 +157,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
               child: CarbAppTextInput(
                 inputTextStyle: Theme.of(context).textTheme.headline4,
                 inputBorderRadius: 24,
-                inputText: "Miktar",
+                inputText: "1",
               ),
             ),
             Column(

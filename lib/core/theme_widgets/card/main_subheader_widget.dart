@@ -1,3 +1,4 @@
+import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../extensions/context_extensions.dart';
@@ -44,9 +45,9 @@ class MainSubHeaderWidget extends StatelessWidget {
               ],
             ),
           ),
-          decoration: const BoxDecoration(
-            color: Color(0xffA3A0CA),
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(70),
               topRight: Radius.circular(15),
               bottomRight: Radius.circular(15),
