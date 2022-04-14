@@ -116,6 +116,19 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                     style: Theme.of(context).textTheme.inputLabel,
                   ),
                   Text(
+                    "Karbonhidrat",
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "100gr.",
+                    style: Theme.of(context).textTheme.inputLabel,
+                  ),
+                  Text(
                     widget.itemsModel!.calcItems[index].foodsOnRepast![i].totalCarb.toString() + " Gr.",
                     style: Theme.of(context).textTheme.bodyText1,
                   ),

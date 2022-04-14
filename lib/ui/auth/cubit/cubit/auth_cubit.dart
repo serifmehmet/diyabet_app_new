@@ -19,10 +19,12 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> logIn() async {
+    emit(Authenticated());
     CacheManager.instance.setBoolValue(PreferencesKeys.IS_LOGGEDIN, true);
   }
 
   Future<void> logOut() async {
+    emit(UnAuthenticated());
     CacheManager.instance.setBoolValue(PreferencesKeys.IS_LOGGEDIN, false);
   }
 }

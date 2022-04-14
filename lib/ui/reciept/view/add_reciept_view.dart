@@ -1,8 +1,10 @@
 import 'package:diyabet_app/core/extensions/context_extensions.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/input/carbapp_search_input.dart';
+import 'package:diyabet_app/core/theme_widgets/list/food_list_widget.dart';
 import 'package:diyabet_app/ui/reciept/cubit/reciept_cubit.dart';
 import 'package:diyabet_app/ui/search/widgets/search_result_widget.dart';
+import 'package:diyabet_app/ui/totals/view/models/total_items_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -10,11 +12,20 @@ import 'package:iconly/iconly.dart';
 class AddRecieptView extends StatelessWidget {
   AddRecieptView({Key? key}) : super(key: key);
   String? lastSearchedFood;
+  var items = TotalsModel.create();
+
   @override
   Widget build(BuildContext context) {
     bool shouldPop = true;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).backgroundColor,
+        elevation: 0,
+        iconTheme: const IconThemeData(
+          color: Color(0xff000000),
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
       body: WillPopScope(
@@ -28,7 +39,6 @@ class AddRecieptView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(height: 20),
                     Align(
                       child: Text("Tarif Ekle", style: Theme.of(context).textTheme.genericHeader),
                     ),
@@ -56,7 +66,7 @@ class AddRecieptView extends StatelessWidget {
                     BlocConsumer<RecieptCubit, RecieptState>(
                       builder: (context, state) {
                         if (state is RecieptInitial) {
-                          return recieptInitial(context);
+                          return Flexible(flex: 2, child: recieptInitial(context));
                         }
 
                         if (state is RecieptSearch) {
@@ -80,13 +90,7 @@ class AddRecieptView extends StatelessWidget {
                       "Tarife Eklenen Gıdalar",
                       style: Theme.of(context).textTheme.genericHeader,
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Text("Gıda $index+1");
-                      },
-                      itemCount: 10,
-                    ),
+                    FoodListWidget(),
                   ],
                 ),
               ),

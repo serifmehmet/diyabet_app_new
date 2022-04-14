@@ -3,6 +3,7 @@ import 'package:diyabet_app/ui/calc_report/view/calc_report_view.dart';
 import 'package:diyabet_app/ui/totals/view/totals_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'dart:math' as math;
 
 import '../../../../core/extensions/context_extensions.dart';
 import '../../../../core/init/theme/app_theme.dart';
@@ -29,36 +30,39 @@ class _AppTabViewState extends State<AppTabView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: context.paddingNormal,
-        child: _items[_currentIndex],
-      ),
+      body: _items[_currentIndex],
       backgroundColor: Theme.of(context).backgroundColor,
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
             icon: Icon(IconlyLight.home),
             activeIcon: Icon(IconlyBold.home),
             label: "Home",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(IconlyLight.search),
             activeIcon: Icon(IconlyBold.search),
             label: "Search",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(IconlyLight.paper),
             activeIcon: Icon(IconlyBold.paper),
             label: "List",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(IconlyLight.edit_square),
             activeIcon: Icon(IconlyBold.editSquare),
             label: "Calc",
           ),
           BottomNavigationBarItem(
-            icon: Icon(IconlyLight.voice_2),
-            activeIcon: Icon(IconlyBold.voice_2),
+            icon: Transform.rotate(
+              angle: 225 * math.pi / 180,
+              child: Icon(IconlyLight.voice_2),
+            ),
+            activeIcon: Transform.rotate(
+              angle: 225 * math.pi / 180,
+              child: const Icon(IconlyBold.voice_2),
+            ),
             label: "Bolus",
           ),
         ],

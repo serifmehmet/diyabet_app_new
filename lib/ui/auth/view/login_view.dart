@@ -101,9 +101,7 @@ class LoginView extends StatelessWidget {
                       child: const Text(
                         "Kayıt Ol",
                         style: TextStyle(
-                          color: Color(
-                            0xff91C788,
-                          ),
+                          color: Color(0xFFD6578A),
                           fontSize: 17,
                           fontFamily: "Signika",
                         ),

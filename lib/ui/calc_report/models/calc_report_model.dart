@@ -21,17 +21,7 @@ class CalculatedItemsModel {
   CalculatedItemsModel.create() {
     calcItems = [
       CalcItemModel(
-        repast: "Öğle",
-        totalCarb: 20,
-        totalBolus: 1,
-        foodsOnRepast: [
-          _FoodItemModel(itemName: "İmam Bayıldı", itemUnit: "1 Porsiyon", totalCarb: 20),
-          _FoodItemModel(itemName: "Havuç", itemUnit: "1 Adet", totalCarb: 1),
-          _FoodItemModel(itemName: "Beyaz ekmek", itemUnit: "1 Dilim", totalCarb: 1.2),
-        ],
-      ),
-      CalcItemModel(
-        repast: "Sabah",
+        repast: "09:45",
         totalCarb: 30,
         totalBolus: 1,
         foodsOnRepast: [
@@ -41,7 +31,17 @@ class CalculatedItemsModel {
         ],
       ),
       CalcItemModel(
-        repast: "Akşam",
+        repast: "13:15",
+        totalCarb: 20,
+        totalBolus: 1,
+        foodsOnRepast: [
+          _FoodItemModel(itemName: "İmam Bayıldı", itemUnit: "1 Porsiyon", totalCarb: 20),
+          _FoodItemModel(itemName: "Havuç", itemUnit: "1 Adet", totalCarb: 1),
+          _FoodItemModel(itemName: "Beyaz ekmek", itemUnit: "1 Dilim", totalCarb: 1.2),
+        ],
+      ),
+      CalcItemModel(
+        repast: "19:32",
         totalCarb: 25,
         totalBolus: 1,
         foodsOnRepast: [

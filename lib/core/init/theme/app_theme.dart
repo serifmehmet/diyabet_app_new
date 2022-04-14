@@ -4,14 +4,14 @@ const String FONT_FAMILY = "WorkSans";
 
 final ThemeData appTheme = ThemeData(
   fontFamily: FONT_FAMILY,
-  primaryColor: const Color(0xff91C788),
+  primaryColor: const Color(0xff578AD6),
   primaryColorBrightness: Brightness.light,
   primaryColorDark: const Color(0xff335234),
   primaryColorLight: const Color(0xffCFE7CB),
   backgroundColor: const Color(0xffFFFFFF),
   cardColor: const Color(0xffFFF8EE),
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    secondary: const Color(0xffFF8473),
+    secondary: const Color(0xffD6578A),
     secondaryVariant: const Color(0xff999999),
     primaryVariant: const Color(0xff9E9BC7),
     surface: const Color(0xFFF5F5F5),
@@ -19,7 +19,7 @@ final ThemeData appTheme = ThemeData(
   dividerColor: const Color(0xfff6f6f6),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      primary: const Color(0xff91C788),
+      primary: const Color(0xff578AD6),
       padding: const EdgeInsets.symmetric(
         vertical: 21,
       ),
@@ -95,8 +95,14 @@ final ThemeData appTheme = ThemeData(
         fontSize: 24,
         fontWeight: FontWeight.w400,
       ),
+      bodyText2: TextStyle(
+        color: Color(0xff000000),
+        fontFamily: "Signika",
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
       overline: TextStyle(
-        color: Colors.red,
+        color: Color(0xFFFF0000),
         fontFamily: "Signika",
         fontSize: 18,
         fontWeight: FontWeight.w400,
@@ -139,7 +145,7 @@ extension CustomStyles on TextTheme {
 
   TextStyle get welcomeText {
     return const TextStyle(
-      color: Color(0xff91C788),
+      color: Color(0xff1BC47D),
       fontSize: 25,
       fontStyle: FontStyle.normal,
       fontFamily: "Signika",
@@ -150,7 +156,7 @@ extension CustomStyles on TextTheme {
 
   TextStyle get textLogo {
     return const TextStyle(
-      color: Color(0xff91C788),
+      color: Color(0xff578AD6),
       fontSize: 25,
       letterSpacing: 0.24,
       fontStyle: FontStyle.normal,
@@ -162,7 +168,7 @@ extension CustomStyles on TextTheme {
 
   TextStyle get orangeText {
     return const TextStyle(
-      color: Color(0xffFF8473),
+      color: Color(0xffD6578A),
       fontSize: 16,
       fontFamily: "Signika",
       decoration: TextDecoration.none,
@@ -172,7 +178,7 @@ extension CustomStyles on TextTheme {
 
   TextStyle get addRecipeText {
     return const TextStyle(
-      color: Color(0xffFF8473),
+      color: Color(0xffD6578A),
       fontSize: 20,
       fontFamily: "Signika",
       decoration: TextDecoration.none,
@@ -182,7 +188,7 @@ extension CustomStyles on TextTheme {
 
   TextStyle get orangeForgotPasswordText {
     return const TextStyle(
-      color: Color(0xffFF8473),
+      color: Color(0xffD6578A),
       fontSize: 18,
       fontFamily: "Signika",
       decoration: TextDecoration.none,
@@ -233,7 +239,7 @@ extension CustomStyles on TextTheme {
   TextStyle get genericHeader {
     return const TextStyle(
       color: Color(0xff000000),
-      fontSize: 30,
+      fontSize: 24,
       fontFamily: "Signika",
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w600,

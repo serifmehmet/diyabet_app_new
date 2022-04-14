@@ -1,5 +1,6 @@
 import 'package:diyabet_app/core/extensions/context_extensions.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
+import 'package:diyabet_app/core/theme_widgets/list/food_list_widget.dart';
 import 'package:diyabet_app/ui/totals/view/models/total_items_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -44,33 +45,7 @@ class TotalsView extends StatelessWidget {
                 child: Text("Hepsini Temizle", style: Theme.of(context).textTheme.overline),
               ),
             ),
-            Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: Column(
-                      children: [
-                        firstRow(index, context),
-                        secondRow(index, context),
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Container(
-                    width: double.infinity,
-                    height: 1,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFF5F5F5),
-                    ),
-                  );
-                },
-                itemCount: items.totalItems.length,
-              ),
-            ),
+            Expanded(child: FoodListWidget()),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -82,72 +57,6 @@ class TotalsView extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Row secondRow(int index, BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          items.totalItems[index].itemUnit!,
-          style: Theme.of(context).textTheme.inputLabel,
-        ),
-        Text(
-          items.totalItems[index].totalCarb.toString() + " Gr.",
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      ],
-    );
-  }
-
-  Row firstRow(int index, BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          items.totalItems[index].itemName!,
-          style: Theme.of(context).textTheme.addRecipeText,
-        ),
-        actionIcons(context),
-      ],
-    );
-  }
-
-  Row actionIcons(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        IconButton(
-          icon: Icon(
-            IconlyLight.edit,
-            color: Theme.of(context).primaryColor,
-            size: 24,
-          ),
-          onPressed: () {},
-          constraints: const BoxConstraints(
-            maxWidth: 26,
-            maxHeight: 26,
-          ),
-          padding: EdgeInsets.zero,
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            IconlyLight.delete,
-            color: Colors.red,
-            size: 24,
-          ),
-          constraints: const BoxConstraints(
-            maxWidth: 26,
-            maxHeight: 26,
-          ),
-          padding: EdgeInsets.zero,
-        ),
-      ],
     );
   }
 }

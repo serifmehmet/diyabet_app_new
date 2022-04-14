@@ -26,7 +26,7 @@ class _SplashViewState extends State<SplashView> {
         if (authCubit.state is Authenticated) {
           NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
         } else if (authCubit.state is UnAuthenticated) {
-          NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
+          NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
         }
       },
     );
