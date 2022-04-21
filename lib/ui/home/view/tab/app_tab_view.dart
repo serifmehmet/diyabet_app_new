@@ -30,7 +30,10 @@ class _AppTabViewState extends State<AppTabView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _items[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _items,
+      ),
       backgroundColor: Theme.of(context).backgroundColor,
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
