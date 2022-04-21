@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:diyabet_app/ui/bolus/view/bolus_view.dart';
 import 'package:diyabet_app/ui/calc_report/view/calc_report_view.dart';
 import 'package:diyabet_app/ui/totals/view/totals_view.dart';
@@ -21,7 +23,13 @@ class AppTabView extends StatefulWidget {
 class _AppTabViewState extends State<AppTabView> {
   final _items = [HomeView(), SearchView(), TotalsView(), CalcReportView(), BolusView()];
   int _currentIndex = 0;
+  final ListQueue<int> _navigationQueue = ListQueue();
+
   void onTap(int index) {
+    if (index != _currentIndex) {
+      _navigationQueue.removeWhere((element) => element == index);
+      _navigationQueue.addLast(index);
+    }
     setState(() {
       _currentIndex = index;
     });
@@ -29,54 +37,71 @@ class _AppTabViewState extends State<AppTabView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _items[_currentIndex],
-      backgroundColor: Theme.of(context).backgroundColor,
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(IconlyLight.home),
-            activeIcon: Icon(IconlyBold.home),
-            label: "Home",
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(IconlyLight.search),
-            activeIcon: Icon(IconlyBold.search),
-            label: "Search",
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(IconlyLight.paper),
-            activeIcon: Icon(IconlyBold.paper),
-            label: "List",
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(IconlyLight.edit_square),
-            activeIcon: Icon(IconlyBold.editSquare),
-            label: "Calc",
-          ),
-          BottomNavigationBarItem(
-            icon: Transform.rotate(
-              angle: 225 * math.pi / 180,
-              child: Icon(IconlyLight.voice_2),
-            ),
-            activeIcon: Transform.rotate(
-              angle: 225 * math.pi / 180,
-              child: const Icon(IconlyBold.voice_2),
-            ),
-            label: "Bolus",
-          ),
-        ],
-        currentIndex: _currentIndex,
-        selectedIconTheme: IconThemeData(color: appTheme.primaryColor, size: 30),
-        unselectedIconTheme: const IconThemeData(
-          color: Color(0xff999999),
+    return WillPopScope(
+      onWillPop: () async {
+        if (_navigationQueue.isEmpty) {
+          return true;
+        }
+
+        setState(() {
+          _navigationQueue.removeLast();
+          int position = _navigationQueue.isEmpty ? 0 : _navigationQueue.last;
+          _currentIndex = position;
+        });
+        return false;
+      },
+      child: Scaffold(
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _items,
         ),
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        elevation: 0,
-        onTap: onTap,
-        type: BottomNavigationBarType.fixed,
         backgroundColor: Theme.of(context).backgroundColor,
+        bottomNavigationBar: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            const BottomNavigationBarItem(
+              icon: Icon(IconlyLight.home),
+              activeIcon: Icon(IconlyBold.home),
+              label: "Home",
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(IconlyLight.search),
+              activeIcon: Icon(IconlyBold.search),
+              label: "Search",
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(IconlyLight.paper),
+              activeIcon: Icon(IconlyBold.paper),
+              label: "List",
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(IconlyLight.edit_square),
+              activeIcon: Icon(IconlyBold.editSquare),
+              label: "Calc",
+            ),
+            BottomNavigationBarItem(
+              icon: Transform.rotate(
+                angle: 225 * math.pi / 180,
+                child: Icon(IconlyLight.voice_2),
+              ),
+              activeIcon: Transform.rotate(
+                angle: 225 * math.pi / 180,
+                child: const Icon(IconlyBold.voice_2),
+              ),
+              label: "Bolus",
+            ),
+          ],
+          currentIndex: _currentIndex,
+          selectedIconTheme: IconThemeData(color: appTheme.primaryColor, size: 30),
+          unselectedIconTheme: const IconThemeData(
+            color: Color(0xff999999),
+          ),
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          elevation: 0,
+          onTap: onTap,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Theme.of(context).backgroundColor,
+        ),
       ),
     );
   }
