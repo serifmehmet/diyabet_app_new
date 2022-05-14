@@ -74,7 +74,7 @@ class _HomeViewState extends State<HomeView> {
                 builder: (context, state) {
                   if (state is Authenticated) {
                     return Text(
-                      "Merhaba, Ali",
+                      "Merhaba, " + CacheManager.instance.getStringValue(PreferencesKeys.USER_NAME),
                       style: Theme.of(context).textTheme.welcomeText,
                     );
                   }

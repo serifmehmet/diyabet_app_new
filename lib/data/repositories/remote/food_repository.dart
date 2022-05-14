@@ -1,6 +1,5 @@
-import 'package:diyabet_app/data/datasources/remote/food/food_remote_datasouce.dart';
-
-import '../../domain/entities/food.dart';
+import '../../../domain/entities/food.dart';
+import '../../datasources/remote/food/food_remote_datasouce.dart';
 
 abstract class FoodRepository {
   Future<Food?> getFoodByName(String foodName);

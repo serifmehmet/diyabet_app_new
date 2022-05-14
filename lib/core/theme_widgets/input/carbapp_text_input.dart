@@ -11,6 +11,7 @@ class CarbAppTextInput extends StatefulWidget {
   final TextStyle? inputTextStyle;
   final TextStyle? labelTextStyle;
   final double inputBorderRadius;
+  final TextEditingController? textController;
 
   const CarbAppTextInput({
     Key? key,
@@ -22,6 +23,7 @@ class CarbAppTextInput extends StatefulWidget {
     required this.inputBorderRadius,
     this.labelText,
     this.labelTextStyle,
+    this.textController,
   }) : super(key: key);
 
   @override
@@ -58,6 +60,7 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
         hintStyle: widget.inputTextStyle,
         contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       ),
+      controller: widget.textController,
     );
   }
 }
