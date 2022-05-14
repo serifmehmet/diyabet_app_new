@@ -11,18 +11,20 @@ class CarbAppPasswordTextInput extends StatefulWidget {
   final TextStyle? inputTextStyle;
   final TextStyle? labelTextStyle;
   final double inputBorderRadius;
+  final TextEditingController? textController;
 
-  const CarbAppPasswordTextInput({
-    Key? key,
-    this.inputText,
-    this.labelText,
-    required this.inputIcon,
-    required this.iconSize,
-    required this.iconColor,
-    this.inputTextStyle,
-    this.labelTextStyle,
-    required this.inputBorderRadius,
-  }) : super(key: key);
+  const CarbAppPasswordTextInput(
+      {Key? key,
+      this.inputText,
+      this.labelText,
+      required this.inputIcon,
+      required this.iconSize,
+      required this.iconColor,
+      this.inputTextStyle,
+      this.labelTextStyle,
+      required this.inputBorderRadius,
+      this.textController})
+      : super(key: key);
 
   @override
   State<CarbAppPasswordTextInput> createState() => _CarbAppPasswordTextInputState();
@@ -36,6 +38,7 @@ class _CarbAppPasswordTextInputState extends State<CarbAppPasswordTextInput> {
     return TextField(
       style: widget.inputTextStyle,
       obscureText: _isPass!,
+      controller: widget.textController,
       decoration: InputDecoration(
         labelText: widget.labelText,
         labelStyle: widget.labelTextStyle,

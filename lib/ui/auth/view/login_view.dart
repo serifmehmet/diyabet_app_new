@@ -11,8 +11,9 @@ import 'package:iconly/iconly.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
-
+  LoginView({Key? key}) : super(key: key);
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,6 +47,7 @@ class LoginView extends StatelessWidget {
                   iconColor: const Color(0xff130F26),
                   inputTextStyle: Theme.of(context).textTheme.headline4,
                   inputBorderRadius: 15,
+                  textController: emailController,
                 ),
                 const SizedBox(height: 40),
                 Text("Şifre", style: Theme.of(context).textTheme.inputLabel),
@@ -56,6 +58,7 @@ class LoginView extends StatelessWidget {
                   iconColor: const Color(0xff130F26),
                   inputTextStyle: Theme.of(context).textTheme.headline4,
                   inputBorderRadius: 15,
+                  textController: passwordController,
                 ),
                 const SizedBox(
                   height: 12,
@@ -75,8 +78,11 @@ class LoginView extends StatelessWidget {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    BlocProvider.of<AuthCubit>(context).logIn();
-                    NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+                    BlocProvider.of<AuthCubit>(context).logIn(
+                      emailController.text,
+                      passwordController.text,
+                    );
+                    // NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
                   },
                   child: const Center(
                     child: Text("Giriş Yap"),
