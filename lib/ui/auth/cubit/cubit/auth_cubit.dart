@@ -34,7 +34,7 @@ class AuthCubit extends Cubit<AuthState> {
     if (response != null) {
       if (response.ErrorCode == "OK") {
         _user = response;
-        emit(LoginSuccess(_user));
+        emit(LoginCompleted(_user));
         emit(Authenticated());
 
         CacheManager.instance.setBoolValue(PreferencesKeys.IS_LOGGEDIN, true);
@@ -42,8 +42,6 @@ class AuthCubit extends Cubit<AuthState> {
         CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, _user.FullName!);
 
         NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
-      } else {
-        emit(const LoginFailure("Login olamadık."));
       }
     } else {
       emit(const LoginFailure("Login olamadık"));

@@ -24,10 +24,10 @@ class LoginInfoPosting extends AuthState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-class LoginSuccess extends AuthState {
+class LoginCompleted extends AuthState {
   final User? user;
 
-  const LoginSuccess(this.user);
+  const LoginCompleted(this.user);
   @override
   List<Object?> get props => throw UnimplementedError();
 }
