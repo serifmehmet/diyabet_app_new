@@ -1,3 +1,6 @@
+import 'package:diyabet_app/data/datasources/remote/food_cache/food_cache_remote_datasource.dart';
+import 'package:diyabet_app/data/repositories/remote/food_cache_repository.dart';
+import 'package:diyabet_app/domain/usecases/food_cache/get_all_foods_for_cache.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
 
@@ -15,26 +18,29 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //Bloc
-  sl.registerFactory<AuthCubit>(() => AuthCubit(userLoginUseCase: sl.call()));
+  sl.registerFactory<AuthCubit>(() => AuthCubit(userLoginUseCase: sl.call(), getAllFoodsForCache: sl.call()));
   sl.registerFactory<SearchCubit>(() => SearchCubit(searchUseCase: sl.call()));
   sl.registerFactory<RecieptCubit>(() => RecieptCubit(searchFoodUseCase: sl.call()));
 
   //UserUseCases
+  sl.registerLazySingleton<GetAllFoodsForCache>(() => GetAllFoodsForCache(foodCacheRepository: sl()));
   sl.registerLazySingleton<UserLoginUseCase>(() => UserLoginUseCase(userRepositoryImpl: sl()));
   sl.registerLazySingleton<GetFoodOnNameUseCase>(() => GetFoodOnNameUseCase(foodRepositoryImpl: sl.call()));
 
   //remote datasource
+  sl.registerLazySingleton<FoodCacheRemoteDataSource>(() => FoodCacheRemoteDataSource(sl.call()));
   sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSource(sl.call()));
   sl.registerLazySingleton<FoodRemoteDataSource>(() => FoodRemoteDataSource(sl.call()));
 
   //Repositories
+  sl.registerLazySingleton<FoodCacheRepository>(() => FoodCacheRepositoryImpl(foodCacheRemoteDataSource: sl.call()));
   sl.registerLazySingleton<FoodRepository>(() => FoodRepositoryImpl(foodRemoteDataSource: sl.call()));
   sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(userRemoteDataSource: sl.call()));
 
   final networkManager = NetworkManager(
     isEnableLogger: true,
     options: BaseOptions(
-      baseUrl: "http://192.168.1.39:8080",
+      baseUrl: "http://62.248.1.53",
       contentType: 'application/json',
     ),
   );
