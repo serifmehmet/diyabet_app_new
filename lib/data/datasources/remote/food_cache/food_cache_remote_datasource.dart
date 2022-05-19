@@ -8,8 +8,8 @@ class FoodCacheRemoteDataSource {
 
   FoodCacheRemoteDataSource(this.networkManager);
 
-  Future<List<FoodCacheModel>?> getAllFoodsForCache() async {
-    final response = await networkManager.send<FoodCacheModel, List<FoodCacheModel>>(
+  Future<FoodCacheModel?> getAllFoodsForCache() async {
+    final response = await networkManager.send<FoodCacheModel, FoodCacheModel>(
       foodCacheUrl,
       parseModel: FoodCacheModel(),
       method: RequestType.GET,

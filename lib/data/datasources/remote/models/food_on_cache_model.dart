@@ -1,3 +1,4 @@
+import 'package:diyabet_app/data/datasources/local/models/food_to_cache_hive_model.dart';
 import 'package:diyabet_app/domain/entities/food_on_cache.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
@@ -34,4 +35,8 @@ class FoodOnCacheModel extends INetworkModel<FoodOnCacheModel> {
         Id: Id,
         Name: Name,
       );
+
+  FoodToCacheHiveModel toHiveModel() => FoodToCacheHiveModel()
+    ..id = Id!
+    ..name = Name!;
 }

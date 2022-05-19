@@ -1,3 +1,4 @@
+import 'package:diyabet_app/data/datasources/local/models/food_cache_hive_model.dart';
 import 'package:diyabet_app/data/datasources/remote/models/food_on_cache_model.dart';
 import 'package:diyabet_app/domain/entities/food_on_cache.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -38,4 +39,8 @@ class FoodCacheModel extends INetworkModel<FoodCacheModel> {
   FoodCacheModel fromJson(Map<String, dynamic> json) {
     return FoodCacheModel.fromJson(json);
   }
+
+  FoodCacheHiveModel toHiveModel() => FoodCacheHiveModel()
+    ..foodList = FoodOnCache!.map((e) => e.toHiveModel()).toList()
+    ..errorCode = ErrorCode!;
 }
