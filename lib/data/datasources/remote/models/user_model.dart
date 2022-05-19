@@ -1,8 +1,8 @@
-import 'package:diyabet_app/data/datasources/remote/models/user_bolus_model.dart';
-import 'package:diyabet_app/data/datasources/remote/models/user_bolus_model.dart';
-import 'package:diyabet_app/domain/entities/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
+
+import '../../../../domain/entities/user.dart';
+import 'user_bolus_model.dart';
 
 part "user_model.g.dart";
 

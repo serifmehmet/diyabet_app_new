@@ -8,8 +8,6 @@ abstract class UseCase<T, P> extends BaseUseCase<T> {
   Future<T> call(P params);
 }
 
-abstract class NoParamsUseCase<T> extends BaseUseCase<T> {
-  const NoParamsUseCase() : super();
-
-  Future<T> call();
+class NoParams<T> extends BaseUseCase<T> {
+  const NoParams() : super();
 }
