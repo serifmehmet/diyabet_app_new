@@ -1,23 +1,28 @@
-import 'package:diyabet_app/core/extensions/context_extensions.dart';
-import 'package:diyabet_app/core/init/theme/app_theme.dart';
-import 'package:diyabet_app/core/theme_widgets/input/carbapp_text_input.dart';
-import 'package:diyabet_app/domain/entities/food.dart';
+import 'package:diyabet_app/domain/entities/remote_food_root.dart';
+import 'package:diyabet_app/ui/food/cubit/food_unit_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
-class SearchResultWidget extends StatefulWidget {
-  final Food? foodEntity;
+import '../../../core/extensions/context_extensions.dart';
+import '../../../core/init/theme/app_theme.dart';
+import '../../../core/theme_widgets/input/carbapp_text_input.dart';
+import '../../../domain/entities/cache_food_list_item.dart';
+import '../../../domain/entities/remote_food.dart';
+import '../../food/cubit/food_cubit.dart';
 
-  const SearchResultWidget({Key? key, this.foodEntity}) : super(key: key);
+class SearchResultWidget extends StatefulWidget {
+  final List<CacheFoodListItem?> foodEntity;
+
+  const SearchResultWidget({Key? key, required this.foodEntity}) : super(key: key);
 
   @override
   State<SearchResultWidget> createState() => _SearchResultWidgetState();
 }
 
 class _SearchResultWidgetState extends State<SearchResultWidget> {
-  var items = ["Adet", "Gr", "Birim Seçiniz."];
-
-  String dropDownValue = "Birim Seçiniz.";
+  String? dropDownValue;
+  double? carbValue;
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -29,12 +34,12 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.foodEntity!.items![index].name!,
+                  widget.foodEntity[index]!.Name!,
                   style: Theme.of(context).textTheme.orangeText,
                 ),
                 IconButton(
                   onPressed: () {
-                    showModal(index);
+                    showModal(widget.foodEntity[index]!.Id!, context);
                   },
                   icon: Icon(
                     Icons.add,
@@ -54,7 +59,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
             ),
           );
         },
-        itemCount: widget.foodEntity!.items!.length);
+        itemCount: widget.foodEntity.length);
   }
 
   Widget bottomSheetHeader(BuildContext context) {
@@ -83,7 +88,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
     );
   }
 
-  Widget bottomSheetContent(BuildContext context, int index, StateSetter setter) {
+  Widget bottomSheetContent(BuildContext context, RemoteFoodRoot remoteFood) {
     return StatefulBuilder(
       builder: (context, setStateChild) {
         return SizedBox(
@@ -96,7 +101,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                 const SizedBox(height: 30),
                 Padding(
                   padding: context.paddingNormal,
-                  child: bottomSheetLowerSide(context, index, setter),
+                  child: bottomSheetLowerSide(context, remoteFood, setStateChild),
                 )
               ],
             ),
@@ -106,11 +111,11 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
     );
   }
 
-  Widget bottomSheetLowerSide(BuildContext context, int index, StateSetter setter) {
+  Widget bottomSheetLowerSide(BuildContext context, RemoteFoodRoot remoteFood, StateSetter setter) {
     return Column(
       children: [
         Text(
-          widget.foodEntity!.items![0].name!,
+          remoteFood.Food!.Name!,
           style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(height: 50),
@@ -123,17 +128,18 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
             padding: context.paddingLow,
             child: DropdownButtonHideUnderline(
               child: DropdownButton(
+                hint: const Text("Birim Seçiniz"),
                 isExpanded: true,
                 icon: const Icon(
                   IconlyLight.arrow_down_circle,
                   color: Color(0xFF000000),
                   size: 24,
                 ),
-                items: items.map((itemName) {
+                items: remoteFood.FoodUnits!.map((item) {
                   return DropdownMenuItem(
-                    value: itemName,
+                    value: item.UnitName,
                     child: Text(
-                      itemName,
+                      item.UnitName!,
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                   );
@@ -141,6 +147,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                 onChanged: (String? value) {
                   setter(() {
                     dropDownValue = value!;
+                    BlocProvider.of<FoodUnitCubit>(context).changeSelectedFoodUnit(value, remoteFood.FoodUnits);
                   });
                 },
                 value: dropDownValue,
@@ -164,15 +171,23 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text("Karbonhidrat", style: Theme.of(context).textTheme.headline5),
-                Text(
-                  widget.foodEntity!.items![index].carbohydratesTotalG.toString() + "Gr.",
-                  style: const TextStyle(
-                    color: Color(0xff0e150e),
-                    fontSize: 30,
-                    fontFamily: "Signika",
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                  ),
+                BlocBuilder<FoodUnitCubit, FoodUnitState>(
+                  builder: (context, state) {
+                    if (state is SelectedUnitChanged) {
+                      return Text(
+                        state.selectedFoodUnit!.CarbValue.toString() + " Gr.",
+                        style: const TextStyle(
+                          color: Color(0xff0e150e),
+                          fontSize: 30,
+                          fontFamily: "Signika",
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      );
+                    }
+
+                    return Container();
+                  },
                 ),
               ],
             )
@@ -190,7 +205,8 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
     );
   }
 
-  showModal(int index) {
+  showModal(int foodId, BuildContext foodContext) {
+    BlocProvider.of<FoodCubit>(foodContext).getFoodOnId(foodId);
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -200,9 +216,19 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
         ),
       ),
       builder: (context) {
-        return StatefulBuilder(builder: (context, setStateChild) {
-          return bottomSheetContent(context, index, setStateChild);
-        });
+        return BlocBuilder<FoodCubit, FoodState>(
+          builder: (context, state) {
+            if (state is SingleFoodLoading) {
+              return const CircularProgressIndicator();
+            }
+
+            if (state is SingleFoodLoadSuccess) {
+              return bottomSheetContent(context, state.remoteFood!);
+            }
+
+            return Container();
+          },
+        );
       },
     );
   }

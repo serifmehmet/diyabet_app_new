@@ -1,6 +1,7 @@
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/data/datasources/local/local_datasource.dart';
 import 'package:diyabet_app/ui/auth/cubit/cubit/auth_cubit.dart';
+import 'package:diyabet_app/ui/food/cubit/food_cubit.dart';
 import 'package:diyabet_app/ui/reciept/cubit/reciept_cubit.dart';
 import 'package:diyabet_app/ui/search/cubit/search_cubit.dart';
 import 'package:diyabet_app/ui/auth/view/splash_view.dart';
@@ -11,6 +12,7 @@ import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
 import 'core/init/theme/app_theme.dart' as Theme;
 import 'injection_container.dart' as di;
+import 'ui/food/cubit/food_unit_cubit.dart';
 import 'ui/home/view/tab/app_tab_view.dart';
 
 void main() async {
@@ -35,6 +37,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (searchContext) => di.sl<SearchCubit>(),
+        ),
+        BlocProvider(
+          create: (foodContext) => di.sl<FoodCubit>(),
+        ),
+        BlocProvider(
+          create: (foodUnitContext) => di.sl<FoodUnitCubit>(),
         ),
         BlocProvider(
           create: (recieptCubit) => di.sl<RecieptCubit>(),

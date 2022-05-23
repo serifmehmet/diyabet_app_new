@@ -10,9 +10,9 @@ class SearchInitial extends SearchState {
 }
 
 class SearchSuccess extends SearchState {
-  final Food? food;
+  final List<CacheFoodListItem?> cacheFoodListItem;
 
-  const SearchSuccess(this.food);
+  const SearchSuccess(this.cacheFoodListItem);
 
   @override
   List<Object> get props => [];

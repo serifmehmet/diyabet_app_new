@@ -1,23 +1,21 @@
-import 'package:diyabet_app/data/datasources/remote/food_cache/food_cache_remote_datasource.dart';
-import 'package:diyabet_app/domain/entities/food_cache.dart';
+import '../../datasources/local/cache_food/cache_food_local_datasource.dart';
+import '../../datasources/remote/food_cache/food_cache_remote_datasource.dart';
 
 abstract class FoodCacheRepository {
-  Future<List<FoodCache>?> getAllFoodsForCache();
+  Future<void> getAllFoodsForCache();
 }
 
 class FoodCacheRepositoryImpl extends FoodCacheRepository {
   final FoodCacheRemoteDataSource foodCacheRemoteDataSource;
+  final CacheFoodLocalDataSource foodCacheLocalDataSource;
 
-  FoodCacheRepositoryImpl({required this.foodCacheRemoteDataSource});
+  FoodCacheRepositoryImpl({required this.foodCacheRemoteDataSource, required this.foodCacheLocalDataSource});
 
   @override
-  Future<List<FoodCache>?> getAllFoodsForCache() async {
+  Future<void> getAllFoodsForCache() async {
     final foodCacheModel = await foodCacheRemoteDataSource.getAllFoodsForCache();
 
-    if (foodCacheModel == null) return null;
-
-    final foodCache = foodCacheModel.map((e) => e.toEntity()).toList();
-
-    return foodCache;
+    final foodCacheHiveModels = foodCacheModel!.toHiveModel();
+    await foodCacheLocalDataSource.saveLocalFood(foodCacheHiveModels);
   }
 }

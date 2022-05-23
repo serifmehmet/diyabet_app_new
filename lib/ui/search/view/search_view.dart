@@ -150,7 +150,7 @@ class SearchView extends StatelessWidget {
           const SizedBox(height: 32),
           Expanded(
             child: SearchResultWidget(
-              foodEntity: state.food,
+              foodEntity: state.cacheFoodListItem,
             ),
           ),
         ],

@@ -68,9 +68,51 @@ class _AppTabViewState extends State<AppTabView> {
               activeIcon: Icon(IconlyBold.search),
               label: "Search",
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(IconlyLight.paper),
-              activeIcon: Icon(IconlyBold.paper),
+            BottomNavigationBarItem(
+              icon: Stack(
+                children: [
+                  const Icon(
+                    IconlyLight.paper,
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 8,
+                    child: Container(
+                      width: 15,
+                      height: 15,
+                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+                      child: const Center(
+                        child: Text(
+                          "1",
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              activeIcon: Stack(
+                children: [
+                  const Icon(
+                    IconlyBold.paper,
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 8,
+                    child: Container(
+                      width: 15,
+                      height: 15,
+                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+                      child: const Center(
+                        child: Text(
+                          "1",
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
               label: "List",
             ),
             const BottomNavigationBarItem(

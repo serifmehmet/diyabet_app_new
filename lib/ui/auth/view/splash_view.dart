@@ -37,27 +37,28 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          width: double.infinity,
-          height: context.height,
-          color: Theme.of(context).primaryColor,
-          child: Padding(
-            padding: context.paddingNormal,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "CARBAPP",
-                  style: Theme.of(context).textTheme.logo,
-                ),
-                SizedBox(height: context.mediaQuery.size.height / 2.5),
-                Text(
-                  "PediDER",
-                  style: Theme.of(context).textTheme.headline2,
-                )
-              ],
-            ),
-          )),
+        width: double.infinity,
+        height: context.height,
+        color: Theme.of(context).primaryColor,
+        child: Padding(
+          padding: context.paddingNormal,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                "CARBAPP",
+                style: Theme.of(context).textTheme.logo,
+              ),
+              SizedBox(height: context.mediaQuery.size.height / 2.5),
+              Text(
+                "PediDER",
+                style: Theme.of(context).textTheme.headline2,
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

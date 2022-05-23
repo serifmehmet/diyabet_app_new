@@ -14,7 +14,7 @@ class RecieptCubit extends Cubit<RecieptState> {
   Future<void> searchFoodItemForReciept(String foodName) async {
     emit(RecieptSearch());
 
-    final response = await searchFoodUseCase?.call(GetFoodParam(foodName));
+    final response = await searchFoodUseCase?.call(GetFoodParam(foodName: foodName));
 
     if (response != null) {
       if (response.items!.isNotEmpty) {
