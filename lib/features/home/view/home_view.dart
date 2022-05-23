@@ -1,16 +1,15 @@
-import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
-import 'package:diyabet_app/core/init/cache/cache_manager.dart';
-import 'package:diyabet_app/core/theme_widgets/card/main_subheader_widget.dart';
-import 'package:diyabet_app/ui/auth/cubit/cubit/auth_cubit.dart';
-import 'package:diyabet_app/ui/home/widgets/home_end_drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
+import '../../../core/constants/enums/preferences_keys.dart';
 import '../../../core/constants/navigation/navigation_constants.dart';
 import '../../../core/extensions/context_extensions.dart';
+import '../../../core/init/cache/cache_manager.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/init/theme/app_theme.dart';
+import '../../auth/cubit/cubit/auth_cubit.dart';
+import '../widgets/home_end_drawer_widget.dart';
 import 'tab/model/food_model.dart';
 
 class HomeView extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
-import 'package:diyabet_app/ui/totals/view/models/total_items_model.dart';
+import 'package:diyabet_app/features/totals/view/models/total_items_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 

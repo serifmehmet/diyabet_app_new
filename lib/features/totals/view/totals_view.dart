@@ -1,9 +1,9 @@
-import 'package:diyabet_app/core/extensions/context_extensions.dart';
-import 'package:diyabet_app/core/init/theme/app_theme.dart';
-import 'package:diyabet_app/core/theme_widgets/list/food_list_widget.dart';
-import 'package:diyabet_app/ui/totals/view/models/total_items_model.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
+
+import '../../../core/extensions/context_extensions.dart';
+import '../../../core/init/theme/app_theme.dart';
+import '../../../core/theme_widgets/list/food_list_widget.dart';
+import 'models/total_items_model.dart';
 
 class TotalsView extends StatelessWidget {
   TotalsView({Key? key}) : super(key: key);

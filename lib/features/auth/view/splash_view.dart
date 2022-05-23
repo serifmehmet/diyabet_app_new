@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
 import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
-import 'package:diyabet_app/ui/auth/cubit/cubit/auth_cubit.dart';
+import 'package:diyabet_app/features/auth/cubit/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

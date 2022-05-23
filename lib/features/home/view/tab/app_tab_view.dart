@@ -1,17 +1,17 @@
 import 'dart:collection';
 
-import 'package:diyabet_app/ui/bolus/view/bolus_view.dart';
-import 'package:diyabet_app/ui/calc_report/view/calc_report_view.dart';
-import 'package:diyabet_app/ui/totals/view/totals_view.dart';
+import 'package:diyabet_app/features/bolus/view/bolus_view.dart';
+import 'package:diyabet_app/features/calc_report/view/calc_report_view.dart';
+import 'package:diyabet_app/features/totals/view/totals_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'dart:math' as math;
 
 import '../../../../core/extensions/context_extensions.dart';
 import '../../../../core/init/theme/app_theme.dart';
-import '../../../../ui/home/view/home_view.dart';
+import '../../../../features/home/view/home_view.dart';
 
-import '../../../../ui/search/view/search_view.dart';
+import '../../../../features/search/view/search_view.dart';
 
 class AppTabView extends StatefulWidget {
   const AppTabView({Key? key}) : super(key: key);

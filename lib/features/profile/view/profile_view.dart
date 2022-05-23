@@ -1,11 +1,12 @@
-import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
-import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
-import 'package:diyabet_app/core/init/theme/app_theme.dart';
-import 'package:diyabet_app/ui/auth/cubit/cubit/auth_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:diyabet_app/core/extensions/context_extensions.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+
+import '../../../core/constants/navigation/navigation_constants.dart';
+import '../../../core/extensions/context_extensions.dart';
+import '../../../core/init/navigation/navigation_service.dart';
+import '../../../core/init/theme/app_theme.dart';
+import '../../auth/cubit/cubit/auth_cubit.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);

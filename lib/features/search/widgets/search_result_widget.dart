@@ -1,5 +1,3 @@
-import 'package:diyabet_app/domain/entities/remote_food_root.dart';
-import 'package:diyabet_app/ui/food/cubit/food_unit_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -8,8 +6,9 @@ import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/theme/app_theme.dart';
 import '../../../core/theme_widgets/input/carbapp_text_input.dart';
 import '../../../domain/entities/cache_food_list_item.dart';
-import '../../../domain/entities/remote_food.dart';
+import '../../../domain/entities/remote_food_root.dart';
 import '../../food/cubit/food_cubit.dart';
+import '../../food/cubit/food_unit_cubit.dart';
 
 class SearchResultWidget extends StatefulWidget {
   final List<CacheFoodListItem?> foodEntity;

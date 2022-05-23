@@ -1,6 +1,6 @@
 import 'package:diyabet_app/domain/usecases/food/get_food_on_id_usecase.dart';
-import 'package:diyabet_app/ui/food/cubit/food_cubit.dart';
-import 'package:diyabet_app/ui/food/cubit/food_unit_cubit.dart';
+import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
+import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
 
@@ -16,9 +16,9 @@ import 'domain/usecases/cache_food/get_all_foods_for_cache.dart';
 import 'domain/usecases/cache_food/get_foods_from_cache_on_name.dart';
 import 'domain/usecases/food/get_food_on_name_usecase.dart';
 import 'domain/usecases/user/user_login_usecase.dart';
-import 'ui/auth/cubit/cubit/auth_cubit.dart';
-import 'ui/reciept/cubit/reciept_cubit.dart';
-import 'ui/search/cubit/search_cubit.dart';
+import 'features/auth/cubit/cubit/auth_cubit.dart';
+import 'features/reciept/cubit/reciept_cubit.dart';
+import 'features/search/cubit/search_cubit.dart';
 
 final sl = GetIt.instance;
 
