@@ -1,5 +1,6 @@
 class GetFoodParam {
-  final String foodName;
+  String? foodName;
+  int? foodId;
 
-  const GetFoodParam(this.foodName);
+  GetFoodParam({this.foodName, this.foodId});
 }

@@ -151,11 +151,11 @@ class AddRecieptView extends StatelessWidget {
           style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(height: 32),
-        Flexible(
-          child: SearchResultWidget(
-            foodEntity: state.food,
-          ),
-        ),
+        // Flexible(
+        //   child: SearchResultWidget(
+        //     foodEntity: state,
+        //   ),
+        // ),
       ],
     );
   }

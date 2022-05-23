@@ -8,7 +8,7 @@ part of 'food_to_cache_hive_model.dart';
 
 class FoodToCacheHiveModelAdapter extends TypeAdapter<FoodToCacheHiveModel> {
   @override
-  final int typeId = 4;
+  final int typeId = 6;
 
   @override
   FoodToCacheHiveModel read(BinaryReader reader) {
@@ -17,7 +17,7 @@ class FoodToCacheHiveModelAdapter extends TypeAdapter<FoodToCacheHiveModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FoodToCacheHiveModel()
-      ..id = fields[0] as double
+      ..id = fields[0] as int
       ..name = fields[1] as String;
   }
 

@@ -7,7 +7,7 @@ import '../../../../core/init/cache/cache_manager.dart';
 import '../../../../core/init/navigation/navigation_service.dart';
 import '../../../../core/init/usecase/usecase.dart';
 import '../../../../domain/entities/user.dart';
-import '../../../../domain/usecases/food_cache/get_all_foods_for_cache.dart';
+import '../../../../domain/usecases/cache_food/get_all_foods_for_cache.dart';
 import '../../../../domain/usecases/user/params/user_login_param.dart';
 import '../../../../domain/usecases/user/user_login_usecase.dart';
 
@@ -22,7 +22,7 @@ class AuthCubit extends Cubit<AuthState> {
   }) : super(AuthInitial());
 
   Future<void> appStarted() async {
-    await getAllFoodsForCache?.call(const NoParams());
+    getAllFoodsForCache?.call(const NoParams());
     bool isSignIn = CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN);
 
     if (isSignIn) {

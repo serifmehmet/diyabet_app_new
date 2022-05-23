@@ -1,6 +1,5 @@
-import 'package:diyabet_app/data/datasources/local/food_cache/food_cache_local_datasource.dart';
-import 'package:diyabet_app/data/datasources/remote/food_cache/food_cache_remote_datasource.dart';
-import 'package:diyabet_app/domain/entities/food_cache.dart';
+import '../../datasources/local/cache_food/cache_food_local_datasource.dart';
+import '../../datasources/remote/food_cache/food_cache_remote_datasource.dart';
 
 abstract class FoodCacheRepository {
   Future<void> getAllFoodsForCache();
@@ -8,7 +7,7 @@ abstract class FoodCacheRepository {
 
 class FoodCacheRepositoryImpl extends FoodCacheRepository {
   final FoodCacheRemoteDataSource foodCacheRemoteDataSource;
-  final FoodCacheLocalDataSource foodCacheLocalDataSource;
+  final CacheFoodLocalDataSource foodCacheLocalDataSource;
 
   FoodCacheRepositoryImpl({required this.foodCacheRemoteDataSource, required this.foodCacheLocalDataSource});
 

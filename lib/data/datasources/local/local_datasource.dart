@@ -10,8 +10,9 @@ class LocalDataSource {
     await Hive.initFlutter();
 
     Hive.registerAdapter<FoodHiveModel>(FoodHiveModelAdapter());
-    Hive.registerAdapter<FoodCacheHiveModel>(FoodCacheHiveModelAdapter());
     Hive.registerAdapter<FoodToCacheHiveModel>(FoodToCacheHiveModelAdapter());
+    Hive.registerAdapter<FoodCacheHiveModel>(FoodCacheHiveModelAdapter());
+
     Hive.registerAdapter<DailyCarbsHiveModel>(DailyCarbsHiveModelAdapter());
     Hive.registerAdapter<UserHiveModel>(UserHiveModelAdapter());
 

@@ -1,4 +1,4 @@
-import 'package:diyabet_app/data/datasources/remote/models/food_cache_model.dart';
+import 'package:diyabet_app/data/datasources/remote/models/food/cache_food_model.dart';
 import 'package:vexana/vexana.dart';
 
 class FoodCacheRemoteDataSource {
@@ -8,10 +8,10 @@ class FoodCacheRemoteDataSource {
 
   FoodCacheRemoteDataSource(this.networkManager);
 
-  Future<FoodCacheModel?> getAllFoodsForCache() async {
-    final response = await networkManager.send<FoodCacheModel, FoodCacheModel>(
+  Future<CacheFoodModel?> getAllFoodsForCache() async {
+    final response = await networkManager.send<CacheFoodModel, CacheFoodModel>(
       foodCacheUrl,
-      parseModel: FoodCacheModel(),
+      parseModel: CacheFoodModel(),
       method: RequestType.GET,
     );
 

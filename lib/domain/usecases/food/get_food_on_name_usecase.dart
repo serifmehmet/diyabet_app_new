@@ -10,6 +10,6 @@ class GetFoodOnNameUseCase extends UseCase<Food?, GetFoodParam> {
 
   @override
   Future<Food?> call(GetFoodParam params) {
-    return foodRepositoryImpl.getFoodByName(params.foodName);
+    return foodRepositoryImpl.getFoodByName(params.foodName!);
   }
 }
