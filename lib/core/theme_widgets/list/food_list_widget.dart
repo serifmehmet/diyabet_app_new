@@ -1,11 +1,15 @@
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
+import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:diyabet_app/features/totals/view/models/total_items_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
 class FoodListWidget extends StatelessWidget {
-  FoodListWidget({Key? key}) : super(key: key);
+  FoodListWidget({Key? key, this.savedFoods}) : super(key: key);
 
+  final List<LocalFood?>? savedFoods;
   var items = TotalsModel.create();
   @override
   Widget build(BuildContext context) {
@@ -33,20 +37,20 @@ class FoodListWidget extends StatelessWidget {
           ),
         );
       },
-      itemCount: items.totalItems.length,
+      itemCount: savedFoods!.length,
     );
   }
 
   Widget thirdRow(int index, BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        // Text(
+        //   "100 gr.",
+        //   style: Theme.of(context).textTheme.inputLabel,
+        // ),
         Text(
-          "100 gr.",
-          style: Theme.of(context).textTheme.inputLabel,
-        ),
-        Text(
-          items.totalItems[index].totalCarb.toString() + " Gr.",
+          savedFoods![index]!.CarbTotal.toString() + " Gr.",
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ],
@@ -58,7 +62,7 @@ class FoodListWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          items.totalItems[index].itemUnit!,
+          savedFoods![index]!.Quantity.toString() + ' ' + savedFoods![index]!.UnitType.toString(),
           style: Theme.of(context).textTheme.inputLabel,
         ),
         Text(
@@ -73,16 +77,19 @@ class FoodListWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          items.totalItems[index].itemName!,
-          style: Theme.of(context).textTheme.addRecipeText,
+        Expanded(
+          child: Text(
+            savedFoods![index]!.FoodName!,
+            style: Theme.of(context).textTheme.addRecipeText,
+            overflow: TextOverflow.fade,
+          ),
         ),
-        actionIcons(context),
+        actionIcons(context, savedFoods![index]!.Id!),
       ],
     );
   }
 
-  Row actionIcons(BuildContext context) {
+  Row actionIcons(BuildContext context, int foodId) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -103,7 +110,9 @@ class FoodListWidget extends StatelessWidget {
           width: 5,
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            BlocProvider.of<TotalsCubit>(context).deleteSingleFood(foodId);
+          },
           icon: const Icon(
             IconlyLight.delete,
             color: Color(0xFFFF0000),

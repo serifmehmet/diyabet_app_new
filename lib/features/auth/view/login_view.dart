@@ -23,10 +23,8 @@ class LoginView extends StatelessWidget {
         backgroundColor: Theme.of(context).backgroundColor,
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is LoginCompleted) {
-              if (state.user!.ErrorCode != "OK") {
-                buildSnackBar(context, "Kullanıcı adı veya Şifre yanlış.");
-              }
+            if (state is LoginFailure) {
+              buildSnackBar(context, "Kullanıcı adı veya Şifre yanlış.");
             }
           },
           builder: (context, state) {
@@ -35,6 +33,7 @@ class LoginView extends StatelessWidget {
                 child: CircularProgressIndicator.adaptive(),
               );
             }
+
             return buildForm(context);
           },
         ),

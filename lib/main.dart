@@ -5,6 +5,7 @@ import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
 import 'package:diyabet_app/features/reciept/cubit/reciept_cubit.dart';
 import 'package:diyabet_app/features/search/cubit/search_cubit.dart';
 import 'package:diyabet_app/features/auth/view/splash_view.dart';
+import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (authContext) => di.sl<AuthCubit>()..appStarted(),
+        ),
+        BlocProvider(
+          create: (totalsContext) => di.sl<TotalsCubit>(),
         ),
         BlocProvider(
           create: (searchContext) => di.sl<SearchCubit>(),

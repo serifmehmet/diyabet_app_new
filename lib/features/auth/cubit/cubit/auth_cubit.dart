@@ -48,6 +48,8 @@ class AuthCubit extends Cubit<AuthState> {
         CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, _user.FullName!);
 
         NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+      } else {
+        emit(LoginFailure("Login olamadık"));
       }
     } else {
       emit(const LoginFailure("Login olamadık"));

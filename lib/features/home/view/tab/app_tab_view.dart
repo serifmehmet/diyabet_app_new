@@ -2,8 +2,10 @@ import 'dart:collection';
 
 import 'package:diyabet_app/features/bolus/view/bolus_view.dart';
 import 'package:diyabet_app/features/calc_report/view/calc_report_view.dart';
+import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:diyabet_app/features/totals/view/totals_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'dart:math' as math;
 
@@ -74,20 +76,31 @@ class _AppTabViewState extends State<AppTabView> {
                   const Icon(
                     IconlyLight.paper,
                   ),
-                  Positioned(
-                    top: 0,
-                    left: 8,
-                    child: Container(
-                      width: 15,
-                      height: 15,
-                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                      child: const Center(
-                        child: Text(
-                          "1",
-                          style: TextStyle(fontSize: 10),
-                        ),
-                      ),
-                    ),
+                  BlocBuilder<TotalsCubit, TotalsState>(
+                    builder: (context, state) {
+                      if (state is GetFoodsSuccess && state.foodCount > 0) {
+                        return Positioned(
+                          top: 0,
+                          left: 8,
+                          child: Container(
+                            width: 15,
+                            height: 15,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color(0xff1BC47D),
+                            ),
+                            child: Center(
+                              child: Text(
+                                state.foodCount.toString(),
+                                style: const TextStyle(fontSize: 10, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return SizedBox(width: 0, height: 0);
+                    },
                   )
                 ],
               ),
@@ -96,20 +109,28 @@ class _AppTabViewState extends State<AppTabView> {
                   const Icon(
                     IconlyBold.paper,
                   ),
-                  Positioned(
-                    top: 0,
-                    left: 8,
-                    child: Container(
-                      width: 15,
-                      height: 15,
-                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                      child: const Center(
-                        child: Text(
-                          "1",
-                          style: TextStyle(fontSize: 10),
-                        ),
-                      ),
-                    ),
+                  BlocBuilder<TotalsCubit, TotalsState>(
+                    builder: (context, state) {
+                      if (state is GetFoodsSuccess && state.foodCount > 0) {
+                        return Positioned(
+                          top: 0,
+                          left: 10,
+                          child: Container(
+                            width: 15,
+                            height: 15,
+                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xff1BC47D)),
+                            child: Center(
+                              child: Text(
+                                state.foodCount.toString(),
+                                style: const TextStyle(fontSize: 10, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return SizedBox(width: 0, height: 0);
+                    },
                   )
                 ],
               ),

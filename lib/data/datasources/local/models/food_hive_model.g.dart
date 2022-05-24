@@ -17,16 +17,19 @@ class FoodHiveModelAdapter extends TypeAdapter<FoodHiveModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FoodHiveModel()
+      ..id = fields[0] as int
       ..foodName = fields[1] as String
       ..unitType = fields[2] as String
-      ..quantity = fields[3] as String
+      ..quantity = fields[3] as int
       ..carbTotal = fields[4] as double;
   }
 
   @override
   void write(BinaryWriter writer, FoodHiveModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.id)
       ..writeByte(1)
       ..write(obj.foodName)
       ..writeByte(2)

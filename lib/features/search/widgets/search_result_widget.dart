@@ -1,3 +1,5 @@
+import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,23 +47,28 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.foodEntity[index]!.Name!,
-                  style: Theme.of(context).textTheme.orangeText,
+            child: GestureDetector(
+              onTap: () {
+                showModal(widget.foodEntity[index]!.Id!, context);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.foodEntity[index]!.Name!,
+                        style: Theme.of(context).textTheme.orangeText,
+                      ),
+                    ),
+                    Icon(
+                      Icons.add,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    showModal(widget.foodEntity[index]!.Id!, context);
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                ),
-              ],
+              ),
             ),
           );
         },
@@ -235,7 +242,18 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
         ),
         const SizedBox(height: 100),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            LocalFood localFood = LocalFood(
+              Id: remoteFood.Food!.Id!,
+              CarbTotal: int.parse(quantityController.text) * (context.read<FoodUnitCubit>().selectedUnit.CarbValue!),
+              FoodName: remoteFood.Food!.Name!,
+              Quantity: int.parse(quantityController.text),
+              UnitType: context.read<FoodUnitCubit>().selectedUnit.UnitName,
+            );
+
+            BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);
+            Navigator.pop(context);
+          },
           child: const Center(
             child: Text("Ekle"),
           ),
