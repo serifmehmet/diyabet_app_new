@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
@@ -22,6 +23,21 @@ class SearchResultWidget extends StatefulWidget {
 class _SearchResultWidgetState extends State<SearchResultWidget> {
   String? dropDownValue;
   double? carbValue;
+  TextEditingController quantityController = TextEditingController();
+  String onChangedValue = "1";
+
+  @override
+  void initState() {
+    quantityController.text = "1";
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    quantityController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -67,6 +83,10 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
       children: [
         IconButton(
           onPressed: () {
+            setState(() {
+              quantityController.text = "1";
+            });
+            BlocProvider.of<FoodUnitCubit>(context).clearUnits();
             Navigator.pop(context);
           },
           icon: const Icon(
@@ -146,7 +166,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                 onChanged: (String? value) {
                   setter(() {
                     dropDownValue = value!;
-                    BlocProvider.of<FoodUnitCubit>(context).changeSelectedFoodUnit(value, remoteFood.FoodUnits);
+                    BlocProvider.of<FoodUnitCubit>(context).changeSelectedFoodUnit(value, remoteFood.FoodUnits, quantityController.text);
                   });
                 },
                 value: dropDownValue,
@@ -161,9 +181,17 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
             SizedBox(
               width: 150,
               child: CarbAppTextInput(
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                 inputTextStyle: Theme.of(context).textTheme.headline4,
                 inputBorderRadius: 24,
                 inputText: "1",
+                textController: quantityController,
+                onChanged: (value) {
+                  if (value != "") {
+                    BlocProvider.of<FoodUnitCubit>(context).changeCarbValue(value);
+                  }
+                },
               ),
             ),
             Column(
@@ -174,7 +202,20 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                   builder: (context, state) {
                     if (state is SelectedUnitChanged) {
                       return Text(
-                        state.selectedFoodUnit!.CarbValue.toString() + " Gr.",
+                        state.newCarbValue.toString() + " Gr.",
+                        style: const TextStyle(
+                          color: Color(0xff0e150e),
+                          fontSize: 30,
+                          fontFamily: "Signika",
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      );
+                    }
+
+                    if (state is SelectedQuantityChanged) {
+                      return Text(
+                        state.newCarbValue.toString() + " Gr.",
                         style: const TextStyle(
                           color: Color(0xff0e150e),
                           fontSize: 30,
@@ -229,6 +270,9 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
           },
         );
       },
-    );
+    ).whenComplete(() {
+      quantityController.text = "1";
+      BlocProvider.of<FoodUnitCubit>(context).clearUnits();
+    });
   }
 }
