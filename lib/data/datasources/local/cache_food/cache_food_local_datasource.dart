@@ -13,7 +13,11 @@ class CacheFoodLocalDataSource {
   Future<List<FoodToCacheHiveModel?>> searchFoodByName(String foodName) async {
     final foodCacheBox = Hive.box<FoodCacheHiveModel>(FoodCacheHiveModel.boxKey).values.single;
 
-    final foods = foodCacheBox.foodList.where((element) => element.name.contains(foodName)).toList();
+    final foods = foodCacheBox.foodList
+        .where(
+          (element) => element.name.toLowerCase().contains(foodName.toLowerCase()),
+        )
+        .toList();
 
     return foods;
   }

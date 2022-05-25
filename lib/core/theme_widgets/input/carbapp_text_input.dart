@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 
 class CarbAppTextInput extends StatefulWidget {
@@ -12,6 +13,9 @@ class CarbAppTextInput extends StatefulWidget {
   final TextStyle? labelTextStyle;
   final double inputBorderRadius;
   final TextEditingController? textController;
+  final ValueChanged<String>? onChanged;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CarbAppTextInput({
     Key? key,
@@ -24,6 +28,9 @@ class CarbAppTextInput extends StatefulWidget {
     this.labelText,
     this.labelTextStyle,
     this.textController,
+    this.onChanged,
+    this.keyboardType,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -61,6 +68,9 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
         contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       ),
       controller: widget.textController,
+      onChanged: widget.onChanged,
+      keyboardType: widget.keyboardType,
+      inputFormatters: widget.inputFormatters,
     );
   }
 }
