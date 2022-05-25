@@ -23,7 +23,7 @@ class SearchCubit extends Cubit<SearchState> {
       emit(SearchSuccess(_cacheFoodListItem));
     } else {
       emit(
-        const SearchFailure("Aradığınız gıda bulunamadı."),
+        const SearchFailure("Aradığınız besin bulunamadı."),
       );
     }
     // if (response != null) {

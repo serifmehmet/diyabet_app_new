@@ -118,7 +118,7 @@ class _HomeViewState extends State<HomeView> {
               height: 30,
             ),
             Text(
-              "En Çok Eklenen Gıdalar",
+              "En Çok Eklenen Besinler",
               style: Theme.of(context).textTheme.headline3,
             ),
             const SizedBox(

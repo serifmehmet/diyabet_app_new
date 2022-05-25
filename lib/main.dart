@@ -1,20 +1,19 @@
-import 'package:diyabet_app/core/init/cache/cache_manager.dart';
-import 'package:diyabet_app/data/datasources/local/local_datasource.dart';
-import 'package:diyabet_app/features/auth/cubit/cubit/auth_cubit.dart';
-import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
-import 'package:diyabet_app/features/reciept/cubit/reciept_cubit.dart';
-import 'package:diyabet_app/features/search/cubit/search_cubit.dart';
-import 'package:diyabet_app/features/auth/view/splash_view.dart';
-import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/init/cache/cache_manager.dart';
 import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
 import 'core/init/theme/app_theme.dart' as Theme;
-import 'injection_container.dart' as di;
+import 'data/datasources/local/local_datasource.dart';
+import 'features/auth/cubit/cubit/auth_cubit.dart';
+import 'features/auth/view/splash_view.dart';
+import 'features/food/cubit/food_cubit.dart';
 import 'features/food/cubit/food_unit_cubit.dart';
-import 'features/home/view/tab/app_tab_view.dart';
+import 'features/reciept/cubit/reciept_cubit.dart';
+import 'features/search/cubit/search_cubit.dart';
+import 'features/totals/cubit/totals_cubit.dart';
+import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

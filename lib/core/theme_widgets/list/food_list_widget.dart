@@ -50,7 +50,7 @@ class FoodListWidget extends StatelessWidget {
         //   style: Theme.of(context).textTheme.inputLabel,
         // ),
         Text(
-          savedFoods![index]!.CarbTotal.toString() + " Gr.",
+          savedFoods![index]!.CarbTotal!.toStringAsFixed(1) + " G.",
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ],
@@ -84,12 +84,12 @@ class FoodListWidget extends StatelessWidget {
             overflow: TextOverflow.fade,
           ),
         ),
-        actionIcons(context, savedFoods![index]!.Id!),
+        actionIcons(context, savedFoods![index]!.Index!),
       ],
     );
   }
 
-  Row actionIcons(BuildContext context, int foodId) {
+  Row actionIcons(BuildContext context, int foodIndex) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -111,7 +111,7 @@ class FoodListWidget extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            BlocProvider.of<TotalsCubit>(context).deleteSingleFood(foodId);
+            BlocProvider.of<TotalsCubit>(context).deleteSingleFood(foodIndex);
           },
           icon: const Icon(
             IconlyLight.delete,

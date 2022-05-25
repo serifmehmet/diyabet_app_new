@@ -54,11 +54,11 @@ class TotalsCubit extends Cubit<TotalsState> {
     }
   }
 
-  Future<void> deleteSingleFood(int foodId) async {
-    await deleteSingleFoodUseCase.call(DeleteFoodParam(foodId));
+  Future<void> deleteSingleFood(int foodIndex) async {
+    await deleteSingleFoodUseCase.call(DeleteFoodParam(foodIndex));
 
-    foodsLocal!.removeWhere((element) => element!.Id == foodId);
-
+    foodsLocal!.removeWhere((element) => element!.Index == foodIndex);
+    carbValue = 0;
     if (foodsLocal!.isNotEmpty) {
       if (foodsLocal!.length > 1) {
         for (var e in foodsLocal!) {

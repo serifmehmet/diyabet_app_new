@@ -22,7 +22,7 @@ class SearchView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CarbAppSearchInput(
-              inputText: "Gıda ara...",
+              inputText: "Besin ara...",
               inputIcon: IconlyLight.search,
               iconSize: 16,
               iconColor: Theme.of(context).colorScheme.secondaryVariant,
@@ -125,7 +125,7 @@ class SearchView extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            "Aramak istediğiniz gıda adını yukarıya yazın.",
+            "Aramak istediğiniz besin adını yukarıya yazın.",
             style: Theme.of(context).textTheme.headline3,
             textAlign: TextAlign.center,
           ),

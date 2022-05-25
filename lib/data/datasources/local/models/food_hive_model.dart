@@ -22,11 +22,15 @@ class FoodHiveModel extends HiveObject {
   @HiveField(4)
   late double carbTotal;
 
+  @HiveField(5)
+  late int index;
+
   LocalFood toEntity() => LocalFood(
         Id: id,
         FoodName: foodName,
         UnitType: unitType,
         Quantity: quantity,
         CarbTotal: carbTotal,
+        Index: index,
       );
 }

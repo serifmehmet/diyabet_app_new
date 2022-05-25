@@ -1,105 +1,80 @@
-import 'package:diyabet_app/core/theme_widgets/bottom_sheet/bottom_sheet_widget.dart';
+import 'package:diyabet_app/core/extensions/context_extensions.dart';
+import 'package:diyabet_app/core/theme_widgets/input/carbapp_text_input.dart';
 import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/domain/entities/remote_food_root.dart';
+import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
+import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
-import '../../../core/extensions/context_extensions.dart';
-import '../../../core/init/theme/app_theme.dart';
-import '../../../core/theme_widgets/input/carbapp_text_input.dart';
-import '../../../domain/entities/cache_food_list_item.dart';
-import '../../../domain/entities/remote_food_root.dart';
-import '../../food/cubit/food_cubit.dart';
-import '../../food/cubit/food_unit_cubit.dart';
-
-class SearchResultWidget extends StatefulWidget {
-  final List<CacheFoodListItem?> foodEntity;
-
-  const SearchResultWidget({Key? key, required this.foodEntity}) : super(key: key);
+class BottomSheetWidget extends StatefulWidget {
+  final int foodId;
+  const BottomSheetWidget({Key? key, required this.foodId}) : super(key: key);
 
   @override
-  State<SearchResultWidget> createState() => _SearchResultWidgetState();
+  State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
 }
 
-class _SearchResultWidgetState extends State<SearchResultWidget> {
-  String? dropDownValue;
-  double? carbValue;
+class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   TextEditingController quantityController = TextEditingController();
-  String onChangedValue = "1";
-
+  String? dropDownValue;
   @override
   void initState() {
     quantityController.text = "1";
+    BlocProvider.of<FoodCubit>(context).getFoodOnId(widget.foodId);
     super.initState();
   }
 
   @override
   void dispose() {
-    quantityController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                    context: context,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(32),
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return SizedBox(
+          height: 600,
+          child: BlocBuilder<FoodCubit, FoodState>(
+            builder: (context, state) {
+              if (state is SingleFoodLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (state is SingleFoodLoadSuccess) {
+                return Padding(
+                  padding: context.paddingLow,
+                  child: Column(
+                    children: [
+                      bottomSheetHeader(context),
+                      const SizedBox(
+                        height: 30,
                       ),
-                    ),
-                    isScrollControlled: true,
-                    builder: (context) {
-                      // return SizedBox(
-                      //   height: 600,
-                      //   child: Text("sss"),
-                      // );
-                      return BottomSheetWidget(
-                        foodId: widget.foodEntity[index]!.Id!,
-                      );
-                    }).whenComplete(() => BlocProvider.of<FoodUnitCubit>(context).clearUnits());
-                // showModal(widget.foodEntity[index]!.Id!, context);
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        widget.foodEntity[index]!.Name!,
-                        style: Theme.of(context).textTheme.orangeText,
-                      ),
-                    ),
-                    Icon(
-                      Icons.add,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Container(
-            width: double.infinity,
-            height: 1,
-            decoration: const BoxDecoration(
-              color: Color(0xFFF5F5F5),
-            ),
-          );
-        },
-        itemCount: widget.foodEntity.length);
+                      Padding(
+                        padding: context.paddingNormal,
+                        child: bottomSheetLowerSide(
+                          context,
+                          state.remoteFood!,
+                          setState,
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
+
+              return const Center(child: Text("Besin detayı getirilemedi."));
+            },
+          ),
+        );
+      },
+    );
   }
 
   Widget bottomSheetHeader(BuildContext context) {
@@ -132,29 +107,6 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
     );
   }
 
-  Widget bottomSheetContent(BuildContext context, RemoteFoodRoot remoteFood) {
-    return StatefulBuilder(
-      builder: (context, setStateChild) {
-        return SizedBox(
-          height: 600,
-          child: Padding(
-            padding: context.paddingLow,
-            child: Column(
-              children: [
-                bottomSheetHeader(context),
-                const SizedBox(height: 30),
-                Padding(
-                  padding: context.paddingNormal,
-                  child: bottomSheetLowerSide(context, remoteFood, setStateChild),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   Widget bottomSheetLowerSide(BuildContext context, RemoteFoodRoot remoteFood, StateSetter setter) {
     return Column(
       children: [
@@ -171,7 +123,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
           child: Padding(
             padding: context.paddingLow,
             child: DropdownButtonHideUnderline(
-              child: DropdownButton(
+              child: DropdownButton<String>(
                 hint: const Text("Birim Seçiniz"),
                 isExpanded: true,
                 icon: const Icon(
@@ -267,6 +219,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
               FoodName: remoteFood.Food!.Name!,
               Quantity: int.parse(quantityController.text),
               UnitType: context.read<FoodUnitCubit>().selectedUnit.UnitName,
+              Index: UniqueKey().hashCode,
             );
 
             BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);
@@ -279,36 +232,5 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
         ),
       ],
     );
-  }
-
-  showModal(int foodId, BuildContext foodContext) {
-    BlocProvider.of<FoodCubit>(foodContext).getFoodOnId(foodId);
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(32),
-        ),
-      ),
-      builder: (context) {
-        return BlocBuilder<FoodCubit, FoodState>(
-          builder: (context, state) {
-            if (state is SingleFoodLoading) {
-              return const CircularProgressIndicator();
-            }
-
-            if (state is SingleFoodLoadSuccess) {
-              return bottomSheetContent(context, state.remoteFood!);
-            }
-
-            return Container();
-          },
-        );
-      },
-    ).whenComplete(() {
-      quantityController.text = "1";
-      BlocProvider.of<FoodUnitCubit>(context).clearUnits();
-    });
   }
 }

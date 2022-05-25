@@ -21,7 +21,7 @@ class FoodCubit extends Cubit<FoodState> {
 
       emit(SingleFoodLoadSuccess(_remoteFood));
     } else {
-      emit(const SingleFoodLoadFailure("Gıda detayı gelirken bir hata oluştu"));
+      emit(const SingleFoodLoadFailure("Besin detayı gelirken bir hata oluştu"));
     }
   }
 }

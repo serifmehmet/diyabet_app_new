@@ -49,7 +49,7 @@ class TotalsView extends StatelessWidget {
                     child: Padding(
                       padding: context.paddingNormal,
                       child: const Text(
-                        "Henüz gıda eklemediniz. Eklemek için arama ekranına gidebilirsiniz.",
+                        "Henüz besin eklemediniz. Eklemek için arama ekranına gidebilirsiniz.",
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -69,7 +69,7 @@ class TotalsView extends StatelessWidget {
                   Text("Toplam Karbonhidrat", style: Theme.of(context).textTheme.genericHeader),
                   const SizedBox(height: 30),
                   Text(
-                    state.carbValue.toString() + " Gr.",
+                    state.carbValue!.toStringAsFixed(1) + " G.",
                     style: const TextStyle(
                       color: Color(0xff000000),
                       fontFamily: "Signika",

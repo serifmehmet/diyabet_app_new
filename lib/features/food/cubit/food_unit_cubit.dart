@@ -8,21 +8,23 @@ class FoodUnitCubit extends Cubit<FoodUnitState> {
   FoodUnitCubit() : super(FoodUnitInitial(const RemoteFoodUnit()));
 
   late RemoteFoodUnit selectedUnit;
+  double? carbValue;
   void changeSelectedFoodUnit(String foodUnitName, List<RemoteFoodUnit>? remoteFoodUnits, String quantity) {
     final changedFoodUnit = remoteFoodUnits!.where((element) => element.UnitName!.toLowerCase() == foodUnitName.toLowerCase()).first;
     selectedUnit = changedFoodUnit;
-    double carbValue = (changedFoodUnit.CarbValue! * double.parse(quantity));
+    carbValue = (changedFoodUnit.CarbValue! * double.parse(quantity));
 
     emit(SelectedUnitChanged(carbValue));
   }
 
   void changeCarbValue(String quantity) {
-    double carbValue = selectedUnit.CarbValue! * double.parse(quantity);
+    carbValue = selectedUnit.CarbValue! * double.parse(quantity);
 
     emit(SelectedQuantityChanged(carbValue));
   }
 
   void clearUnits() {
+    carbValue = double.nan;
     emit(FoodUnitInitial(const RemoteFoodUnit()));
   }
 }

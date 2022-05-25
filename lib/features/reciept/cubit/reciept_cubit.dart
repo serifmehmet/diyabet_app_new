@@ -21,10 +21,10 @@ class RecieptCubit extends Cubit<RecieptState> {
         _food = response;
         emit(RecieptSearchSuccess(_food));
       } else {
-        emit(const RecieptSearchFailure("Gıda bulunamadı"));
+        emit(const RecieptSearchFailure("Besin bulunamadı"));
       }
     } else {
-      emit(const RecieptSearchFailure("Gıda bulunamadı"));
+      emit(const RecieptSearchFailure("Besin bulunamadı"));
     }
   }
 

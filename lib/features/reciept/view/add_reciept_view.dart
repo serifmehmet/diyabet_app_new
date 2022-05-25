@@ -44,7 +44,7 @@ class AddRecieptView extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     CarbAppSearchInput(
-                      inputText: "Gıda ara...",
+                      inputText: "Besin ara...",
                       inputTextStyle: Theme.of(context).textTheme.headline4,
                       inputIcon: IconlyLight.search,
                       iconSize: 16,
@@ -87,7 +87,7 @@ class AddRecieptView extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      "Tarife Eklenen Gıdalar",
+                      "Tarife Eklenen Besinler",
                       style: Theme.of(context).textTheme.genericHeader,
                     ),
                     FoodListWidget(),
@@ -175,7 +175,7 @@ class AddRecieptView extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Text(
-          "Tarif eklemek için önce yukarıdan gıda aramalısınız.",
+          "Tarif eklemek için önce yukarıdan besin aramalısınız.",
           style: Theme.of(context).textTheme.headline3,
           textAlign: TextAlign.center,
         ),
