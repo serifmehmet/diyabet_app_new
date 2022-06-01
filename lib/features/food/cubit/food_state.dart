@@ -31,3 +31,14 @@ class SingleFoodLoadFailure extends FoodState {
   @override
   List<Object?> get props => [];
 }
+
+class EditFoodLoadSuccess extends FoodState {
+  final LocalFood? localFood;
+  final RemoteFoodRoot? remoteFood;
+  final RemoteFoodUnit? remoteFoodUnit;
+
+  const EditFoodLoadSuccess(this.localFood, this.remoteFood, this.remoteFoodUnit);
+
+  @override
+  List<Object?> get props => [localFood, remoteFood, remoteFoodUnit];
+}

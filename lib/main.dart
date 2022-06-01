@@ -1,3 +1,4 @@
+import 'package:diyabet_app/features/calc_report/cubit/food_consumption_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,6 +51,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (recieptCubit) => di.sl<RecieptCubit>(),
         ),
+        BlocProvider(
+          create: (foodConsumptionContext) => di.sl<FoodConsumptionCubit>(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

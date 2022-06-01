@@ -18,6 +18,20 @@ class FoodLocalDataSource {
     return foods;
   }
 
+  Future<FoodHiveModel?> getSingleFood(int foodIndex) async {
+    final foodBox = Hive.box<FoodHiveModel>(FoodHiveModel.boxKey);
+
+    final singleFood = foodBox.values.singleWhere((e) => e.index == foodIndex);
+
+    return singleFood;
+  }
+
+  Future<void> updateSingleFood(FoodHiveModel foodToUpdate) async {
+    final foodBox = Hive.box<FoodHiveModel>(FoodHiveModel.boxKey);
+    final key = foodBox.values.singleWhere((e) => e.index == foodToUpdate.index).key;
+    await foodBox.putAt(key, foodToUpdate);
+  }
+
   Future<void> deleteAllFoods() async {
     final foodBox = Hive.box<FoodHiveModel>(FoodHiveModel.boxKey);
 

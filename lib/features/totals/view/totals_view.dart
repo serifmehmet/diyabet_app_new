@@ -1,3 +1,4 @@
+import 'package:diyabet_app/features/calc_report/cubit/food_consumption_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,7 +87,35 @@ class TotalsView extends StatelessWidget {
                               padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
                             ),
                             onPressed: () {
-                              BlocProvider.of<TotalsCubit>(context).deleteAllFoods();
+                              showDialog<String>(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Uyarı"),
+                                    content: const Text(
+                                      "Eklediğiniz besinleri silmek üzeresiniz. Onaylıyor musunuz?",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context, "Cancel"),
+                                        child: const Text("İptal", style: TextStyle(color: Colors.red)),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          BlocProvider.of<TotalsCubit>(context).deleteAllFoods();
+                                          Navigator.pop(context, "OK");
+                                        },
+                                        child: const Text(
+                                          "Onaylıyorum",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             child: Text("Hepsini Temizle", style: Theme.of(context).textTheme.overline),
                           )
@@ -100,7 +129,9 @@ class TotalsView extends StatelessWidget {
                       ? SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              BlocProvider.of<FoodConsumptionCubit>(context).saveConsumption(state.localSavedFoods);
+                            },
                             child: const Text("Kaydet"),
                             style: ElevatedButton.styleFrom(elevation: 0),
                           ),

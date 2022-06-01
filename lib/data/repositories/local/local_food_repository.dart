@@ -15,6 +15,8 @@ abstract class LocalFoodRepository {
   Future<List<LocalFood?>> getSavedFoodsFromLocal();
   Future<void> deleteAllFoods();
   Future<void> deleteSingleFood(int foodId);
+  Future<LocalFood?> getSingleFood(int foodIndex);
+  Future<void> updateSingleFood(FoodHiveModel foodToUpdate);
 }
 
 class LocalFoodRepositoryImpl extends LocalFoodRepository {
@@ -62,5 +64,19 @@ class LocalFoodRepositoryImpl extends LocalFoodRepository {
   @override
   Future<void> deleteSingleFood(int foodId) async {
     await foodLocalDataSource.deleteSingleFood(foodId);
+  }
+
+  @override
+  Future<LocalFood?> getSingleFood(int foodIndex) async {
+    final localFood = await foodLocalDataSource.getSingleFood(foodIndex);
+
+    final foodEntity = localFood!.toEntity();
+
+    return foodEntity;
+  }
+
+  @override
+  Future<void> updateSingleFood(FoodHiveModel foodToUpdate) async {
+    await foodLocalDataSource.updateSingleFood(foodToUpdate);
   }
 }

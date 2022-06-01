@@ -22,13 +22,14 @@ class FoodHiveModelAdapter extends TypeAdapter<FoodHiveModel> {
       ..unitType = fields[2] as String
       ..quantity = fields[3] as int
       ..carbTotal = fields[4] as double
-      ..index = fields[5] as int;
+      ..index = fields[5] as int
+      ..unitId = fields[7] as int;
   }
 
   @override
   void write(BinaryWriter writer, FoodHiveModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -40,7 +41,9 @@ class FoodHiveModelAdapter extends TypeAdapter<FoodHiveModel> {
       ..writeByte(4)
       ..write(obj.carbTotal)
       ..writeByte(5)
-      ..write(obj.index);
+      ..write(obj.index)
+      ..writeByte(7)
+      ..write(obj.unitId);
   }
 
   @override
