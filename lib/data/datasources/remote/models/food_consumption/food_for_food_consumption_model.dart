@@ -1,28 +1,29 @@
-import 'package:diyabet_app/domain/entities/food_consumption.dart';
-import 'package:diyabet_app/domain/entities/food_for_food_consumption.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
+
+import '../../../../../domain/entities/food_for_food_consumption.dart';
 
 part 'food_for_food_consumption_model.g.dart';
 
 @JsonSerializable()
 class FoodForFoodConsumptionModel extends INetworkModel<FoodForFoodConsumptionModel> {
+  @JsonKey(name: "Id", includeIfNull: false)
   int? id;
+  @JsonKey(name: "FoodId")
   int? foodId;
+  @JsonKey(name: "UnitId")
   int? unitId;
-  double? carbTotal;
+  @JsonKey(name: "Quantity")
   int? quantity;
-  String? foodName;
-  String? unitName;
+  @JsonKey(name: "UserId")
+  int? userId;
 
   FoodForFoodConsumptionModel({
     this.id,
-    this.carbTotal,
     this.foodId,
     this.quantity,
     this.unitId,
-    this.foodName,
-    this.unitName,
+    this.userId,
   });
 
   @override
@@ -40,5 +41,5 @@ class FoodForFoodConsumptionModel extends INetworkModel<FoodForFoodConsumptionMo
     return FoodForFoodConsumptionModel.fromJson(json);
   }
 
-  FoodForFoodConsumption toEntity() => FoodForFoodConsumption(Id: id, FoodId: foodId, UnitTypeId: unitId, CarbTotal: carbTotal, Quantity: quantity);
+  FoodForFoodConsumption toEntity() => FoodForFoodConsumption(Id: id, FoodId: foodId, UnitTypeId: unitId, UserId: userId, Quantity: quantity);
 }

@@ -5,16 +5,19 @@ class FoodConsumption {
   final int? Id;
   final List<FoodForFoodConsumption>? FoodList;
   final DateTime? CreateDate;
+  final int? UserId;
 
   FoodConsumption({
     this.Id,
     this.FoodList,
     this.CreateDate,
+    this.UserId,
   });
 
   FoodConsumptionModel toModel() => FoodConsumptionModel(
         id: Id,
         foodList: FoodList!.map((e) => e.toModel()).toList(),
         createDate: CreateDate,
+        userId: UserId,
       );
 }

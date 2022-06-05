@@ -9,23 +9,27 @@ part of 'food_for_food_consumption_model.dart';
 FoodForFoodConsumptionModel _$FoodForFoodConsumptionModelFromJson(
         Map<String, dynamic> json) =>
     FoodForFoodConsumptionModel(
-      id: json['id'] as int?,
-      carbTotal: (json['carbTotal'] as num?)?.toDouble(),
-      foodId: json['foodId'] as int?,
-      quantity: json['quantity'] as int?,
-      unitId: json['unitId'] as int?,
-      foodName: json['foodName'] as String?,
-      unitName: json['unitName'] as String?,
+      id: json['Id'] as int?,
+      foodId: json['FoodId'] as int?,
+      quantity: json['Quantity'] as int?,
+      unitId: json['UnitId'] as int?,
+      userId: json['UserId'] as int?,
     );
 
 Map<String, dynamic> _$FoodForFoodConsumptionModelToJson(
-        FoodForFoodConsumptionModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'foodId': instance.foodId,
-      'unitId': instance.unitId,
-      'carbTotal': instance.carbTotal,
-      'quantity': instance.quantity,
-      'foodName': instance.foodName,
-      'unitName': instance.unitName,
-    };
+    FoodForFoodConsumptionModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('Id', instance.id);
+  val['FoodId'] = instance.foodId;
+  val['UnitId'] = instance.unitId;
+  val['Quantity'] = instance.quantity;
+  val['UserId'] = instance.userId;
+  return val;
+}

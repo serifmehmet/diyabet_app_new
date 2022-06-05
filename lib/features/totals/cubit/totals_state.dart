@@ -51,3 +51,18 @@ class NoFoodState extends TotalsState {
   // TODO: implement props
   List<Object?> get props => [];
 }
+
+class FoodConsumptionSaving extends TotalsState {
+  @override
+  List<Object> get props => [];
+}
+
+class FoodConsumptionSavingSuccess extends TotalsState {
+  @override
+  List<Object> get props => [];
+}
+
+class FoodConsumptionSavingFailure extends TotalsState {
+  @override
+  List<Object> get props => [];
+}

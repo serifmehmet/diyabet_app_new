@@ -1,4 +1,5 @@
 import 'package:diyabet_app/features/calc_report/cubit/food_consumption_cubit.dart';
+import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (bottomBarContext) => di.sl<BottomNavCubit>(),
+        ),
         BlocProvider(
           create: (authContext) => di.sl<AuthCubit>()..appStarted(),
         ),

@@ -4,27 +4,22 @@ class FoodForFoodConsumption {
   final int? Id;
   final int? FoodId;
   final int? UnitTypeId;
-  final String? FoodName;
-  final String? UnitName;
-  final double? CarbTotal;
   final int? Quantity;
+  final int? UserId;
 
   FoodForFoodConsumption({
     this.Id,
     this.FoodId,
     this.UnitTypeId,
-    this.FoodName,
-    this.UnitName,
-    this.CarbTotal,
     this.Quantity,
+    this.UserId,
   });
 
   FoodForFoodConsumptionModel toModel() => FoodForFoodConsumptionModel(
         id: Id,
         foodId: FoodId,
         quantity: Quantity,
-        carbTotal: CarbTotal,
-        foodName: FoodName,
-        unitName: UnitName,
+        unitId: UnitTypeId,
+        userId: UserId,
       );
 }

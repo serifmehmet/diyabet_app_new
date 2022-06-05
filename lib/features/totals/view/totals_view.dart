@@ -1,4 +1,5 @@
 import 'package:diyabet_app/features/calc_report/cubit/food_consumption_cubit.dart';
+import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,10 +20,19 @@ class TotalsView extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
         padding: context.paddingNormal,
-        child: BlocBuilder<TotalsCubit, TotalsState>(
-          builder: (context, state) {
+        child: BlocConsumer<TotalsCubit, TotalsState>(
+          listener: (context, state) {
+            if (state is FoodConsumptionSavingSuccess) {
+              context.read<BottomNavCubit>().getConsumption();
+            }
+          },
+          builder: (context, TotalsState state) {
             if (state is TotalsInitial) {
               if (state.foodCount == 0) {}
+            }
+
+            if (state is FoodConsumptionSaving) {
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (state is NoFoodState) {
@@ -130,7 +140,7 @@ class TotalsView extends StatelessWidget {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              BlocProvider.of<FoodConsumptionCubit>(context).saveConsumption(state.localSavedFoods);
+                              BlocProvider.of<TotalsCubit>(context).saveConsumption(state.localSavedFoods);
                             },
                             child: const Text("Kaydet"),
                             style: ElevatedButton.styleFrom(elevation: 0),
@@ -141,7 +151,9 @@ class TotalsView extends StatelessWidget {
               );
             }
 
-            return Container();
+            if (state is FoodConsumptionSavingSuccess) {}
+
+            return Center();
           },
         ),
       ),

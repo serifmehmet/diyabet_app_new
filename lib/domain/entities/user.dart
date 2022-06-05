@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:diyabet_app/domain/entities/user_bolus.dart';
 
 class User {
-  final double? Id;
+  final int? UserId;
   final String? FullName;
   final String? Email;
   final String? Password;
@@ -15,7 +15,7 @@ class User {
   final UserBolus? UserBls;
 
   User({
-    this.Id,
+    this.UserId,
     this.FullName,
     this.Email,
     this.Password,

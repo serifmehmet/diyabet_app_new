@@ -12,6 +12,7 @@ import 'package:diyabet_app/domain/usecases/food_consumption/save_food_consumpti
 import 'package:diyabet_app/features/calc_report/cubit/food_consumption_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
+import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
@@ -36,6 +37,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //Bloc
+  sl.registerFactory<BottomNavCubit>(() => BottomNavCubit());
   sl.registerFactory<AuthCubit>(() => AuthCubit(userLoginUseCase: sl.call(), getAllFoodsForCache: sl.call()));
   sl.registerFactory<SearchCubit>(() => SearchCubit(getFoodFromCacheUseCase: sl.call()));
   sl.registerFactory<FoodCubit>(() => FoodCubit(getFoodOnIdUseCase: sl.call(), getSingleFoodFromLocal: sl.call()));
@@ -49,9 +51,8 @@ Future<void> init() async {
         deleteAllFoodsUseCase: sl.call(),
         deleteSingleFoodUseCase: sl.call(),
         updateLocalFoodUseCase: sl.call(),
+        foodConsumptionUseCase: sl.call(),
       ));
-
-  sl.registerFactory<FoodConsumptionCubit>(() => FoodConsumptionCubit(foodConsumptionUseCase: sl.call()));
 
   //RemoteUseCases
   sl.registerLazySingleton<GetAllFoodsForCache>(() => GetAllFoodsForCache(foodCacheRepository: sl()));

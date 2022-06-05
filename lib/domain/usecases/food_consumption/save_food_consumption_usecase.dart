@@ -3,15 +3,13 @@ import 'package:diyabet_app/data/repositories/remote/food_consumption_repository
 import 'package:diyabet_app/domain/entities/food_consumption.dart';
 import 'package:diyabet_app/domain/usecases/food_consumption/params/save_food_consumption_params.dart';
 
-class SaveFoodConsumptionUseCase extends UseCase<FoodConsumption?, SaveFoodConsumptionParams> {
+class SaveFoodConsumptionUseCase extends UseCase<void, SaveFoodConsumptionParams> {
   final FoodConsumptionRepository foodConsumptionRepository;
 
   SaveFoodConsumptionUseCase({required this.foodConsumptionRepository});
 
   @override
-  Future<FoodConsumption?> call(SaveFoodConsumptionParams params) async {
+  Future<void> call(SaveFoodConsumptionParams params) async {
     final response = await foodConsumptionRepository.addFoodConsumption(params.foodConsumption!.toModel());
-
-    return response;
   }
 }

@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/domain/entities/food_consumption.dart';
 import 'package:diyabet_app/domain/entities/food_for_food_consumption.dart';
 import 'package:diyabet_app/domain/entities/local_food.dart';
@@ -9,28 +11,5 @@ import 'package:equatable/equatable.dart';
 part 'food_consumption_state.dart';
 
 class FoodConsumptionCubit extends Cubit<FoodConsumptionState> {
-  final SaveFoodConsumptionUseCase foodConsumptionUseCase;
-  FoodConsumptionCubit({required this.foodConsumptionUseCase}) : super(FoodConsumptionInitial());
-
-  Future<void> saveConsumption(List<LocalFood?> localFoods) async {
-    List<FoodForFoodConsumption> foodList = [];
-
-    for (var e in localFoods) {
-      FoodForFoodConsumption foodForFoodConsumption = FoodForFoodConsumption(
-        FoodId: e!.Id,
-        UnitTypeId: e.UnitId,
-        CarbTotal: e.CarbTotal,
-        Quantity: e.Quantity,
-      );
-
-      foodList.add(foodForFoodConsumption);
-    }
-
-    FoodConsumption consumption = FoodConsumption(
-      FoodList: foodList,
-      CreateDate: DateTime.now(),
-    );
-
-    await foodConsumptionUseCase.call(SaveFoodConsumptionParams(consumption));
-  }
+  FoodConsumptionCubit() : super(FoodConsumptionInitial());
 }

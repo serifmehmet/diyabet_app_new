@@ -7,14 +7,20 @@ part 'food_consumption_model.g.dart';
 
 @JsonSerializable()
 class FoodConsumptionModel extends INetworkModel<FoodConsumptionModel> {
+  @JsonKey(name: "Id", includeIfNull: false)
   int? id;
+  @JsonKey(name: "FoodList")
   List<FoodForFoodConsumptionModel>? foodList;
+  @JsonKey(name: "CreateDate")
   DateTime? createDate;
+  @JsonKey(name: "UserId")
+  int? userId;
 
   FoodConsumptionModel({
     this.id,
     this.foodList,
     this.createDate,
+    this.userId,
   });
 
   @override
@@ -36,5 +42,6 @@ class FoodConsumptionModel extends INetworkModel<FoodConsumptionModel> {
         Id: id,
         FoodList: foodList!.map((e) => e.toEntity()).toList(),
         CreateDate: createDate,
+        UserId: userId,
       );
 }

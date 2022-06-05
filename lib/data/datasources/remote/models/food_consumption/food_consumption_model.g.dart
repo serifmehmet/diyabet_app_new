@@ -9,20 +9,30 @@ part of 'food_consumption_model.dart';
 FoodConsumptionModel _$FoodConsumptionModelFromJson(
         Map<String, dynamic> json) =>
     FoodConsumptionModel(
-      id: json['id'] as int?,
-      foodList: (json['foodList'] as List<dynamic>?)
+      id: json['Id'] as int?,
+      foodList: (json['FoodList'] as List<dynamic>?)
           ?.map((e) =>
               FoodForFoodConsumptionModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      createDate: json['createDate'] == null
+      createDate: json['CreateDate'] == null
           ? null
-          : DateTime.parse(json['createDate'] as String),
+          : DateTime.parse(json['CreateDate'] as String),
+      userId: json['UserId'] as int?,
     );
 
 Map<String, dynamic> _$FoodConsumptionModelToJson(
-        FoodConsumptionModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'foodList': instance.foodList,
-      'createDate': instance.createDate?.toIso8601String(),
-    };
+    FoodConsumptionModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('Id', instance.id);
+  val['FoodList'] = instance.foodList;
+  val['CreateDate'] = instance.createDate?.toIso8601String();
+  val['UserId'] = instance.userId;
+  return val;
+}
