@@ -107,6 +107,15 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
     );
   }
 
+  calculateDropdownValue(RemoteFoodRoot remoteFood, BuildContext context) {
+    if (remoteFood.FoodUnits!.length == 1) {
+      dropDownValue = remoteFood.FoodUnits![0].UnitName;
+      BlocProvider.of<FoodUnitCubit>(context).changeSelectedFoodUnit(dropDownValue!, remoteFood.FoodUnits, quantityController.text);
+    } else {
+      dropDownValue = "";
+    }
+  }
+
   Widget bottomSheetLowerSide(BuildContext context, RemoteFoodRoot remoteFood, StateSetter setter) {
     return Column(
       children: [
@@ -141,10 +150,12 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   );
                 }).toList(),
                 onChanged: (String? value) {
-                  setter(() {
-                    dropDownValue = value!;
-                    BlocProvider.of<FoodUnitCubit>(context).changeSelectedFoodUnit(value, remoteFood.FoodUnits, quantityController.text);
-                  });
+                  setter(
+                    () {
+                      dropDownValue = value!;
+                      BlocProvider.of<FoodUnitCubit>(context).changeSelectedFoodUnit(value, remoteFood.FoodUnits, quantityController.text);
+                    },
+                  );
                 },
                 value: dropDownValue,
               ),
@@ -165,8 +176,11 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                 inputText: "1",
                 textController: quantityController,
                 onChanged: (value) {
+                  if (dropDownValue == null) {
+                    return;
+                  }
                   if (value != "") {
-                    BlocProvider.of<FoodUnitCubit>(context).changeCarbValue(value);
+                    BlocProvider.of<FoodUnitCubit>(context).changeCarbValue(value, null);
                   }
                 },
               ),
@@ -179,7 +193,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   builder: (context, state) {
                     if (state is SelectedUnitChanged) {
                       return Text(
-                        state.newCarbValue.toString() + " Gr.",
+                        state.newCarbValue!.toStringAsFixed(1) + " Gr.",
                         style: const TextStyle(
                           color: Color(0xff0e150e),
                           fontSize: 30,
@@ -192,7 +206,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
                     if (state is SelectedQuantityChanged) {
                       return Text(
-                        state.newCarbValue.toString() + " Gr.",
+                        state.newCarbValue!.toStringAsFixed(1) + " Gr.",
                         style: const TextStyle(
                           color: Color(0xff0e150e),
                           fontSize: 30,
@@ -213,13 +227,33 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
         const SizedBox(height: 100),
         ElevatedButton(
           onPressed: () {
+            if (dropDownValue == null) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Navigator.of(context).pop(true);
+                  });
+                  return const AlertDialog(
+                    title: Text("Uyarı"),
+                    content: Text(
+                      "Lütfen önce birim seçiniz",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  );
+                },
+              );
+
+              return;
+            }
             LocalFood localFood = LocalFood(
               Id: remoteFood.Food!.Id!,
-              CarbTotal: int.parse(quantityController.text) * (context.read<FoodUnitCubit>().selectedUnit.CarbValue!),
+              CarbTotal: int.parse(quantityController.text) * (context.read<FoodUnitCubit>().selectedUnit!.CarbValue!),
               FoodName: remoteFood.Food!.Name!,
               Quantity: int.parse(quantityController.text),
-              UnitType: context.read<FoodUnitCubit>().selectedUnit.UnitName,
+              UnitType: context.read<FoodUnitCubit>().selectedUnit!.UnitName,
               Index: UniqueKey().hashCode,
+              UnitId: context.read<FoodUnitCubit>().selectedUnit!.UnitId,
             );
 
             BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);

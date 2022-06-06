@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:diyabet_app/domain/entities/remote_food.dart';
 import 'package:diyabet_app/domain/entities/remote_food_unit.dart';
 import 'package:json_annotation/json_annotation.dart';

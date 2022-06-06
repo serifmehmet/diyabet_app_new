@@ -1,4 +1,6 @@
+import 'package:diyabet_app/features/meal/cubit/food_consumption_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../core/extensions/context_extensions.dart';
@@ -12,6 +14,7 @@ class CalcReportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<FoodConsumptionCubit>(context).getTodayMealList();
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(

@@ -8,6 +8,8 @@ class LocalFood {
   final double? CarbTotal;
   final int? Index;
 
+  final int? UnitId;
+
   LocalFood({
     this.Id,
     this.FoodName,
@@ -15,6 +17,7 @@ class LocalFood {
     this.Quantity,
     this.CarbTotal,
     this.Index,
+    this.UnitId,
   });
 
   FoodHiveModel toHiveModel() => FoodHiveModel()
@@ -23,5 +26,6 @@ class LocalFood {
     ..carbTotal = CarbTotal!
     ..quantity = Quantity!
     ..unitType = UnitType!
-    ..index = Index!;
+    ..index = Index!
+    ..unitId = UnitId!;
 }

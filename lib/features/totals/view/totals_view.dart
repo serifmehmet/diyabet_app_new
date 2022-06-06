@@ -1,10 +1,11 @@
-import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/theme/app_theme.dart';
 import '../../../core/theme_widgets/list/food_list_widget.dart';
+import '../../home/cubit/bottom_nav_cubit.dart';
+import '../cubit/totals_cubit.dart';
 import 'models/total_items_model.dart';
 
 class TotalsView extends StatelessWidget {
@@ -18,10 +19,19 @@ class TotalsView extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
         padding: context.paddingNormal,
-        child: BlocBuilder<TotalsCubit, TotalsState>(
-          builder: (context, state) {
+        child: BlocConsumer<TotalsCubit, TotalsState>(
+          listener: (context, state) {
+            if (state is FoodConsumptionSavingSuccess) {
+              context.read<BottomNavCubit>().getConsumption();
+            }
+          },
+          builder: (context, TotalsState state) {
             if (state is TotalsInitial) {
               if (state.foodCount == 0) {}
+            }
+
+            if (state is FoodConsumptionSaving) {
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (state is NoFoodState) {
@@ -86,7 +96,35 @@ class TotalsView extends StatelessWidget {
                               padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
                             ),
                             onPressed: () {
-                              BlocProvider.of<TotalsCubit>(context).deleteAllFoods();
+                              showDialog<String>(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Uyarı"),
+                                    content: const Text(
+                                      "Eklediğiniz besinleri silmek üzeresiniz. Onaylıyor musunuz?",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context, "Cancel"),
+                                        child: const Text("İptal", style: TextStyle(color: Colors.red)),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          BlocProvider.of<TotalsCubit>(context).deleteAllFoods();
+                                          Navigator.pop(context, "OK");
+                                        },
+                                        child: const Text(
+                                          "Onaylıyorum",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             child: Text("Hepsini Temizle", style: Theme.of(context).textTheme.overline),
                           )
@@ -100,7 +138,9 @@ class TotalsView extends StatelessWidget {
                       ? SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              BlocProvider.of<TotalsCubit>(context).saveConsumption(state.localSavedFoods);
+                            },
                             child: const Text("Kaydet"),
                             style: ElevatedButton.styleFrom(elevation: 0),
                           ),
@@ -110,7 +150,9 @@ class TotalsView extends StatelessWidget {
               );
             }
 
-            return Container();
+            if (state is FoodConsumptionSavingSuccess) {}
+
+            return Center();
           },
         ),
       ),

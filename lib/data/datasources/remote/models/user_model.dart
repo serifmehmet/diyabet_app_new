@@ -8,8 +8,8 @@ part "user_model.g.dart";
 
 @JsonSerializable()
 class UserModel extends INetworkModel<UserModel> {
-  @JsonKey(name: "Id")
-  double? Id;
+  @JsonKey(name: "userId")
+  int? UserId;
   @JsonKey(name: "fullName")
   String? FullName;
   @JsonKey(name: "email")
@@ -30,7 +30,7 @@ class UserModel extends INetworkModel<UserModel> {
   UserBolusModel? UserBlsModel;
 
   UserModel(
-      {this.Id,
+      {this.UserId,
       this.FullName,
       this.Email,
       this.Password,
@@ -54,7 +54,7 @@ class UserModel extends INetworkModel<UserModel> {
   User toEntity() => User(
       CreatedAt: CreatedAt,
       Email: Email,
-      Id: Id,
+      UserId: UserId,
       FullName: FullName,
       Password: Password,
       IsForgotPassword: IsForgotPassword,

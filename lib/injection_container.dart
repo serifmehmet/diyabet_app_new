@@ -1,11 +1,19 @@
 import 'package:diyabet_app/data/datasources/local/food/food_local_datasource.dart';
+import 'package:diyabet_app/data/datasources/remote/food_consumption/food_consumption_remote_datasource.dart';
+import 'package:diyabet_app/data/repositories/remote/food_consumption_repository.dart';
 import 'package:diyabet_app/domain/usecases/food/delete_all_foods_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/delete_single_food_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/get_food_on_id_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/get_saved_local_foods_usecase.dart';
+import 'package:diyabet_app/domain/usecases/food/get_single_food_from_local_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/save_local_food_usecase.dart';
+import 'package:diyabet_app/domain/usecases/food/update_local_food_usecase.dart';
+import 'package:diyabet_app/domain/usecases/food_consumption/get_meal_by_filter_usecase.dart';
+import 'package:diyabet_app/domain/usecases/food_consumption/save_food_consumption_usecase.dart';
+import 'package:diyabet_app/features/meal/cubit/food_consumption_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
+import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
@@ -30,25 +38,40 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //Bloc
+  sl.registerFactory<BottomNavCubit>(() => BottomNavCubit());
   sl.registerFactory<AuthCubit>(() => AuthCubit(userLoginUseCase: sl.call(), getAllFoodsForCache: sl.call()));
   sl.registerFactory<SearchCubit>(() => SearchCubit(getFoodFromCacheUseCase: sl.call()));
-  sl.registerFactory<FoodCubit>(() => FoodCubit(getFoodOnIdUseCase: sl.call()));
-  sl.registerFactory<FoodUnitCubit>(() => FoodUnitCubit());
+  sl.registerFactory<FoodCubit>(() => FoodCubit(getFoodOnIdUseCase: sl.call(), getSingleFoodFromLocal: sl.call()));
+  sl.registerFactory<FoodUnitCubit>(() => FoodUnitCubit(foodCubit: sl.call()));
   sl.registerFactory<RecieptCubit>(() => RecieptCubit(searchFoodUseCase: sl.call()));
-  sl.registerFactory<TotalsCubit>(() => TotalsCubit(0, 0,
-      saveLocalFoodUseCase: sl.call(), getSavedLocalFoodsUseCase: sl.call(), deleteAllFoodsUseCase: sl.call(), deleteSingleFoodUseCase: sl.call()));
+  sl.registerFactory<TotalsCubit>(() => TotalsCubit(
+        0,
+        0,
+        saveLocalFoodUseCase: sl.call(),
+        getSavedLocalFoodsUseCase: sl.call(),
+        deleteAllFoodsUseCase: sl.call(),
+        deleteSingleFoodUseCase: sl.call(),
+        updateLocalFoodUseCase: sl.call(),
+        foodConsumptionUseCase: sl.call(),
+      ));
+  sl.registerFactory<FoodConsumptionCubit>(() => FoodConsumptionCubit(getMealByFilterUseCase: sl.call()));
 
-  //UserUseCases
+  //RemoteUseCases
   sl.registerLazySingleton<GetAllFoodsForCache>(() => GetAllFoodsForCache(foodCacheRepository: sl()));
   sl.registerLazySingleton<GetFoodOnNameUseCase>(() => GetFoodOnNameUseCase(foodRepositoryImpl: sl()));
   sl.registerLazySingleton<UserLoginUseCase>(() => UserLoginUseCase(userRepositoryImpl: sl()));
   sl.registerLazySingleton<GetFoodOnIdUseCase>(() => GetFoodOnIdUseCase(foodRepository: sl()));
+  sl.registerLazySingleton<SaveFoodConsumptionUseCase>(() => SaveFoodConsumptionUseCase(foodConsumptionRepository: sl()));
+  sl.registerLazySingleton<GetMealByFilterUseCase>(() => GetMealByFilterUseCase(foodConsumptionRepository: sl()));
+
   //LocalUseCases
   sl.registerLazySingleton<GetFoodsFromCacheOnName>(() => GetFoodsFromCacheOnName(localFoodRepository: sl()));
   sl.registerLazySingleton<SaveLocalFoodUseCase>(() => SaveLocalFoodUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<GetSavedLocalFoodsUseCase>(() => GetSavedLocalFoodsUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<DeleteAllFoodsUseCase>(() => DeleteAllFoodsUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<DeleteSingleFoodUseCase>(() => DeleteSingleFoodUseCase(localFoodRepository: sl()));
+  sl.registerLazySingleton<GetSingleFoodFromLocalUseCase>(() => GetSingleFoodFromLocalUseCase(localFoodRepository: sl()));
+  sl.registerLazySingleton<UpdateLocalFoodUseCase>(() => UpdateLocalFoodUseCase(localFoodRepository: sl()));
 
   //local datasources
   sl.registerLazySingleton<CacheFoodLocalDataSource>(() => CacheFoodLocalDataSource());
@@ -57,6 +80,7 @@ Future<void> init() async {
   sl.registerLazySingleton<FoodCacheRemoteDataSource>(() => FoodCacheRemoteDataSource(sl.call()));
   sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSource(sl.call()));
   sl.registerLazySingleton<FoodRemoteDataSource>(() => FoodRemoteDataSource(sl.call()));
+  sl.registerLazySingleton<FoodConsumptionRemoteDataSource>(() => FoodConsumptionRemoteDataSource(sl.call()));
 
   //Repositories
   sl.registerLazySingleton<FoodCacheRepository>(
@@ -64,6 +88,7 @@ Future<void> init() async {
   sl.registerLazySingleton<FoodRepository>(() => FoodRepositoryImpl(foodRemoteDataSource: sl.call()));
 
   sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(userRemoteDataSource: sl.call()));
+  sl.registerLazySingleton<FoodConsumptionRepository>(() => FoodConsumptionRepositoryImpl(consumptionRemoteDataSource: sl.call()));
   //Local Repositoties
   sl.registerLazySingleton<LocalFoodRepository>(() => LocalFoodRepositoryImpl(cacheFoodLocalDataSource: sl.call(), foodLocalDataSource: sl.call()));
 
