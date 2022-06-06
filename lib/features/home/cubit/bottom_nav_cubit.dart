@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 class BottomNavCubit extends Cubit<int> {
   BottomNavCubit() : super(0);

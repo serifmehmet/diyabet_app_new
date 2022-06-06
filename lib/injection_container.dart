@@ -8,8 +8,9 @@ import 'package:diyabet_app/domain/usecases/food/get_saved_local_foods_usecase.d
 import 'package:diyabet_app/domain/usecases/food/get_single_food_from_local_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/save_local_food_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/update_local_food_usecase.dart';
+import 'package:diyabet_app/domain/usecases/food_consumption/get_meal_by_filter_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food_consumption/save_food_consumption_usecase.dart';
-import 'package:diyabet_app/features/calc_report/cubit/food_consumption_cubit.dart';
+import 'package:diyabet_app/features/meal/cubit/food_consumption_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
 import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
@@ -53,6 +54,7 @@ Future<void> init() async {
         updateLocalFoodUseCase: sl.call(),
         foodConsumptionUseCase: sl.call(),
       ));
+  sl.registerFactory<FoodConsumptionCubit>(() => FoodConsumptionCubit(getMealByFilterUseCase: sl.call()));
 
   //RemoteUseCases
   sl.registerLazySingleton<GetAllFoodsForCache>(() => GetAllFoodsForCache(foodCacheRepository: sl()));
@@ -60,6 +62,7 @@ Future<void> init() async {
   sl.registerLazySingleton<UserLoginUseCase>(() => UserLoginUseCase(userRepositoryImpl: sl()));
   sl.registerLazySingleton<GetFoodOnIdUseCase>(() => GetFoodOnIdUseCase(foodRepository: sl()));
   sl.registerLazySingleton<SaveFoodConsumptionUseCase>(() => SaveFoodConsumptionUseCase(foodConsumptionRepository: sl()));
+  sl.registerLazySingleton<GetMealByFilterUseCase>(() => GetMealByFilterUseCase(foodConsumptionRepository: sl()));
 
   //LocalUseCases
   sl.registerLazySingleton<GetFoodsFromCacheOnName>(() => GetFoodsFromCacheOnName(localFoodRepository: sl()));

@@ -1,12 +1,11 @@
-import 'package:diyabet_app/features/calc_report/cubit/food_consumption_cubit.dart';
-import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
-import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/theme/app_theme.dart';
 import '../../../core/theme_widgets/list/food_list_widget.dart';
+import '../../home/cubit/bottom_nav_cubit.dart';
+import '../cubit/totals_cubit.dart';
 import 'models/total_items_model.dart';
 
 class TotalsView extends StatelessWidget {

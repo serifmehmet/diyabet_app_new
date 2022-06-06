@@ -231,10 +231,10 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               showDialog(
                 context: context,
                 builder: (context) {
-                  Future.delayed(Duration(seconds: 2), () {
+                  Future.delayed(const Duration(seconds: 2), () {
                     Navigator.of(context).pop(true);
                   });
-                  return AlertDialog(
+                  return const AlertDialog(
                     title: Text("Uyarı"),
                     content: Text(
                       "Lütfen önce birim seçiniz",
@@ -253,7 +253,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               Quantity: int.parse(quantityController.text),
               UnitType: context.read<FoodUnitCubit>().selectedUnit!.UnitName,
               Index: UniqueKey().hashCode,
-              UnitId: context.read<FoodUnitCubit>().selectedUnit!.Id,
+              UnitId: context.read<FoodUnitCubit>().selectedUnit!.UnitId,
             );
 
             BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);
