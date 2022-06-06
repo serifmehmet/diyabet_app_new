@@ -1,4 +1,4 @@
-import 'package:diyabet_app/features/meal/cubit/food_consumption_cubit.dart';
+import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
           create: (recieptCubit) => di.sl<RecieptCubit>(),
         ),
         BlocProvider(
-          create: (foodConsumptionContext) => di.sl<FoodConsumptionCubit>(),
+          create: (foodConsumptionContext) => di.sl<MealConsumptionCubit>(),
         )
       ],
       child: MaterialApp(

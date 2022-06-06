@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:diyabet_app/features/bolus/view/bolus_view.dart';
-import 'package:diyabet_app/features/meal/view/calc_report_view.dart';
+import 'package:diyabet_app/features/meal/view/meal_consumption_view.dart';
 import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:diyabet_app/features/totals/view/totals_view.dart';
