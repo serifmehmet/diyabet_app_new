@@ -1,3 +1,4 @@
+import 'package:diyabet_app/core/theme_widgets/auth/not_authenticated_widget.dart';
 import 'package:diyabet_app/features/reciept/view/add_reciept_view.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,9 @@ class NavigationRoute {
         return normalNavigate(const ForgotPasswordView(), NavigationConstants.FORGOT_PASSWORD);
       case NavigationConstants.ADD_RECIEPT:
         return normalNavigate(AddRecieptView(), NavigationConstants.ADD_RECIEPT);
+
+      case NavigationConstants.NOT_AUTHENTICATED:
+        return normalNavigate(const NotAuthenticated(), NavigationConstants.NOT_AUTHENTICATED);
       default:
         return MaterialPageRoute(
           builder: (context) => const NotFoundNavigationWidget(),

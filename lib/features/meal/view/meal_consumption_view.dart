@@ -1,17 +1,27 @@
-import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/theme/app_theme.dart';
+import '../cubit/meal_consumption_cubit.dart';
 import '../models/calc_report_model.dart';
 import '../widgets/calc_tile_widget.dart';
 
-class CalcReportView extends StatelessWidget {
-  CalcReportView({Key? key}) : super(key: key);
+class CalcReportView extends StatefulWidget {
+  const CalcReportView({Key? key}) : super(key: key);
+
+  @override
+  State<CalcReportView> createState() => _CalcReportViewState();
+}
+
+class _CalcReportViewState extends State<CalcReportView> {
   var items = CalculatedItemsModel.create();
+
   DateTime currentDate = DateTime.now();
+
   DateTime today = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -20,17 +30,38 @@ class CalcReportView extends StatelessWidget {
       initialDate: currentDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
+      currentDate: currentDate,
+      locale: const Locale("tr"),
+      builder: (context, child) {
+        return Theme(
+          child: child!,
+          data: ThemeData().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Theme.of(context).primaryColor,
+              background: Theme.of(context).backgroundColor,
+            ),
+          ),
+        );
+      },
     );
 
     if (datePicked != null && datePicked != currentDate) {
       context.read<MealConsumptionCubit>().filterDateChanged(datePicked);
-      currentDate = datePicked;
+      setState(() {
+        currentDate = datePicked;
+      });
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     BlocProvider.of<MealConsumptionCubit>(context).getTodayMealList();
+    super.initState();
+    initializeDateFormatting();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
@@ -48,7 +79,9 @@ class CalcReportView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  currentDate.day == DateTime(today.day) ? "Bugün" : currentDate.day.toString() + '/' + currentDate.month.toString(),
+                  DateFormat.MMMMEEEEd().format(currentDate) == DateFormat.MMMMEEEEd().format(DateTime.now())
+                      ? "Bugün"
+                      : DateFormat.yMMMMd("tr").format(currentDate),
                   style: Theme.of(context).textTheme.genericHeaderBig,
                 ),
                 IconButton(

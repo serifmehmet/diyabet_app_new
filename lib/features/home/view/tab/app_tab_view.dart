@@ -1,5 +1,10 @@
 import 'dart:collection';
 
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
+import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
+import 'package:diyabet_app/core/theme_widgets/auth/not_authenticated_widget.dart';
 import 'package:diyabet_app/features/bolus/view/bolus_view.dart';
 import 'package:diyabet_app/features/meal/view/meal_consumption_view.dart';
 import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
@@ -28,11 +33,16 @@ class _AppTabViewState extends State<AppTabView> {
   final ListQueue<int> _navigationQueue = ListQueue();
 
   void onTap(int index) {
+    bool loggedIn = CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN);
     if (index != context.read<BottomNavCubit>().state) {
       _navigationQueue.removeWhere((element) => element == index);
       _navigationQueue.addLast(index);
     }
-    context.read<BottomNavCubit>().updateSelectedIndex(index);
+    if ((index == 2 || index == 3) && !loggedIn) {
+      NavigationService.instance.navigateToPage(path: NavigationConstants.NOT_AUTHENTICATED);
+    } else {
+      context.read<BottomNavCubit>().updateSelectedIndex(index);
+    }
   }
 
   @override
