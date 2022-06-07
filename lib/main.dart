@@ -1,8 +1,8 @@
-import 'package:diyabet_app/features/meal/cubit/food_consumption_cubit.dart';
+import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'core/init/cache/cache_manager.dart';
 import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
           create: (recieptCubit) => di.sl<RecieptCubit>(),
         ),
         BlocProvider(
-          create: (foodConsumptionContext) => di.sl<FoodConsumptionCubit>(),
+          create: (foodConsumptionContext) => di.sl<MealConsumptionCubit>(),
         )
       ],
       child: MaterialApp(
@@ -65,6 +65,8 @@ class MyApp extends StatelessWidget {
         theme: Theme.appTheme,
         navigatorKey: NavigationService.instance.navigatorKey,
         onGenerateRoute: (settings) => NavigationRoute.instance.generateRoute(settings),
+        localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+        supportedLocales: const [Locale("tr")],
         home: const SplashView(),
       ),
     );

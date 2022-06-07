@@ -1,3 +1,4 @@
+import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +24,7 @@ class TotalsView extends StatelessWidget {
           listener: (context, state) {
             if (state is FoodConsumptionSavingSuccess) {
               context.read<BottomNavCubit>().getConsumption();
+              BlocProvider.of<MealConsumptionCubit>(context).getTodayMealList();
             }
           },
           builder: (context, TotalsState state) {

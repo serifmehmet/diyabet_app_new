@@ -1,3 +1,5 @@
+import 'package:diyabet_app/domain/entities/meal.dart';
+import 'package:diyabet_app/domain/entities/meal_root.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
@@ -5,9 +7,9 @@ import '../../../core/init/theme/app_theme.dart';
 import '../models/calc_report_model.dart';
 
 class CalcTileWidget extends StatefulWidget {
-  const CalcTileWidget({Key? key, this.itemsModel}) : super(key: key);
+  const CalcTileWidget({Key? key, this.mealList}) : super(key: key);
 
-  final CalculatedItemsModel? itemsModel;
+  final List<Meal>? mealList;
 
   @override
   State<CalcTileWidget> createState() => _CalcTileWidgetState();
@@ -24,7 +26,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
       child: ListView.builder(
         key: Key('builder ${selected.toString()}'),
         padding: EdgeInsets.zero,
-        itemCount: widget.itemsModel!.calcItems.length,
+        itemCount: widget.mealList!.length,
         itemBuilder: (context, index) {
           return ListTileTheme(
             tileColor: const Color(0xfff5f5f5),
@@ -51,7 +53,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                   }
                 }),
                 title: Text(
-                  widget.itemsModel!.calcItems[index].repast!,
+                  widget.mealList![index].mealDate!.hour.toString() + ":" + widget.mealList![index].mealDate!.minute.toString(),
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 trailing: trailingArea(index, context),
@@ -99,7 +101,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.itemsModel!.calcItems[index].foodsOnRepast![i].itemName!,
+                    widget.mealList![index].consumptions![i].foodName!,
                     style: Theme.of(context).textTheme.addRecipeText,
                   ),
                   Row(
@@ -112,7 +114,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.itemsModel!.calcItems[index].foodsOnRepast![i].itemUnit!,
+                    widget.mealList![index].consumptions![i].unitName!,
                     style: Theme.of(context).textTheme.inputLabel,
                   ),
                   Text(
@@ -125,11 +127,11 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "100gr.",
+                    widget.mealList![index].consumptions![i].quantity.toString(),
                     style: Theme.of(context).textTheme.inputLabel,
                   ),
                   Text(
-                    widget.itemsModel!.calcItems[index].foodsOnRepast![i].totalCarb.toString() + " Gr.",
+                    widget.mealList![index].consumptions![i].totalCarb!.toStringAsFixed(1) + " G.",
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
@@ -147,7 +149,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
           ),
         );
       },
-      itemCount: widget.itemsModel!.calcItems[index].foodsOnRepast!.length,
+      itemCount: widget.mealList![index].consumptions!.length,
     );
   }
 
@@ -159,11 +161,11 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Toplam: " + widget.itemsModel!.calcItems[index].totalCarb.toString() + " Gr.",
+              "Toplam: " + widget.mealList![index].totalCarb.toString() + " G.",
               style: Theme.of(context).textTheme.subtitle2,
             ),
             Text(
-              "Bolus: " + widget.itemsModel!.calcItems[index].totalBolus.toString() + " Ünite",
+              "Bolus: " + widget.mealList![index].bolusValue.toString() + " Ünite",
               style: Theme.of(context).textTheme.subtitle2,
             )
           ],

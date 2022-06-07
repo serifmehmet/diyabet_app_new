@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
-import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
-import 'package:diyabet_app/features/auth/cubit/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/constants/navigation/navigation_constants.dart';
 import '../../../core/extensions/context_extensions.dart';
+import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/init/theme/app_theme.dart';
+import '../cubit/cubit/auth_cubit.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
