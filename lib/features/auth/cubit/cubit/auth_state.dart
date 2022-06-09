@@ -14,6 +14,12 @@ class Authenticated extends AuthState {
   List<Object?> get props => throw UnimplementedError();
 }
 
+class NotAuthenticated extends AuthState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
 class UnAuthenticated extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();

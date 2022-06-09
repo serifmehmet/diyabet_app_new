@@ -60,4 +60,14 @@ class AuthCubit extends Cubit<AuthState> {
     emit(UnAuthenticated());
     CacheManager.instance.setBoolValue(PreferencesKeys.IS_LOGGEDIN, false);
   }
+
+  Future<void> checkAuthentication() async {
+    bool isAuthenticated = CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN);
+
+    if (isAuthenticated) {
+      emit(Authenticated());
+    } else {
+      emit(NotAuthenticated());
+    }
+  }
 }

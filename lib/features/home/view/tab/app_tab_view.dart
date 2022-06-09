@@ -1,25 +1,22 @@
 import 'dart:collection';
+import 'dart:math' as math;
 
-import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
-import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
-import 'package:diyabet_app/core/init/cache/cache_manager.dart';
-import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
-import 'package:diyabet_app/core/theme_widgets/auth/not_authenticated_widget.dart';
-import 'package:diyabet_app/features/bolus/view/bolus_view.dart';
-import 'package:diyabet_app/features/meal/view/meal_consumption_view.dart';
-import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
-import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
-import 'package:diyabet_app/features/totals/view/totals_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
-import 'dart:math' as math;
 
-import '../../../../core/extensions/context_extensions.dart';
+import '../../../../core/constants/enums/preferences_keys.dart';
+import '../../../../core/constants/navigation/navigation_constants.dart';
+import '../../../../core/init/cache/cache_manager.dart';
+import '../../../../core/init/navigation/navigation_service.dart';
 import '../../../../core/init/theme/app_theme.dart';
 import '../../../../features/home/view/home_view.dart';
-
 import '../../../../features/search/view/search_view.dart';
+import '../../../bolus/view/bolus_view.dart';
+import '../../../meal/view/meal_consumption_view.dart';
+import '../../../totals/cubit/totals_cubit.dart';
+import '../../../totals/view/totals_view.dart';
+import '../../cubit/bottom_nav_cubit.dart';
 
 class AppTabView extends StatefulWidget {
   const AppTabView({Key? key}) : super(key: key);
@@ -38,11 +35,17 @@ class _AppTabViewState extends State<AppTabView> {
       _navigationQueue.removeWhere((element) => element == index);
       _navigationQueue.addLast(index);
     }
-    if ((index == 2 || index == 3) && !loggedIn) {
+
+    if (index == 3 && !loggedIn) {
       NavigationService.instance.navigateToPage(path: NavigationConstants.NOT_AUTHENTICATED);
     } else {
       context.read<BottomNavCubit>().updateSelectedIndex(index);
     }
+    // if (index == 2 || index == 3) {
+    //   BlocProvider.of<AuthCubit>(context).checkAuthentication();
+    // }
+
+    // context.read<BottomNavCubit>().updateSelectedIndex(index);
   }
 
   @override
