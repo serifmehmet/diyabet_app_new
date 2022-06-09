@@ -193,7 +193,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   builder: (context, state) {
                     if (state is SelectedUnitChanged) {
                       return Text(
-                        state.newCarbValue!.toStringAsFixed(1) + " Gr.",
+                        state.newCarbValue!.toStringAsFixed(2) + " G.",
                         style: const TextStyle(
                           color: Color(0xff0e150e),
                           fontSize: 30,
@@ -206,7 +206,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
                     if (state is SelectedQuantityChanged) {
                       return Text(
-                        state.newCarbValue!.toStringAsFixed(1) + " Gr.",
+                        state.newCarbValue!.toStringAsFixed(2) + " G.",
                         style: const TextStyle(
                           color: Color(0xff0e150e),
                           fontSize: 30,

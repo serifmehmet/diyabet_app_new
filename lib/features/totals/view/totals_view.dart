@@ -1,3 +1,5 @@
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -136,7 +138,7 @@ class TotalsView extends StatelessWidget {
                       child: FoodListWidget(
                     savedFoods: state.localSavedFoods,
                   )),
-                  state.foodCount > 0
+                  state.foodCount > 0 && CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN)
                       ? SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
