@@ -3,6 +3,7 @@ import 'package:vexana/vexana.dart';
 
 class UserRemoteDataSource {
   static const String loginUrl = "/login";
+  static const String registerUrl = '/register';
 
   final NetworkManager networkManager;
 
@@ -14,6 +15,17 @@ class UserRemoteDataSource {
       parseModel: UserModel(),
       method: RequestType.POST,
       data: {"userId": email, "password": password},
+    );
+
+    return response.data;
+  }
+
+  Future<UserModel?> userRegister(UserModel model) async {
+    final response = await networkManager.send<UserModel, UserModel>(
+      registerUrl,
+      parseModel: UserModel(),
+      method: RequestType.POST,
+      data: model,
     );
 
     return response.data;
