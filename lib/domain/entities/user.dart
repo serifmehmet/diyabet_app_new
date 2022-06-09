@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:diyabet_app/data/datasources/remote/models/user_model.dart';
 import 'package:diyabet_app/domain/entities/user_bolus.dart';
 
 class User {
@@ -30,5 +31,15 @@ class User {
   // public virtual BolusCalcRecord[] BolusCalcRecords { get; set; }
 
   // public virtual UserBolus[] UserBoluses { get; set; }
-
+  UserModel toModel() => UserModel(
+        UserId: UserId,
+        FullName: FullName,
+        Email: Email,
+        Password: Password,
+        IsForgotPassword: IsForgotPassword,
+        ForgotPasswordGenCode: ForgotPasswordGenCode,
+        CreatedAt: CreatedAt,
+        UpdatedAt: UpdatedAt,
+        ErrorCode: ErrorCode,
+      );
 }

@@ -15,6 +15,9 @@ import 'features/food/cubit/food_unit_cubit.dart';
 import 'features/reciept/cubit/reciept_cubit.dart';
 import 'features/search/cubit/search_cubit.dart';
 import 'features/totals/cubit/totals_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'firebase_options.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -22,7 +25,35 @@ void main() async {
   await di.init();
   await LocalDataSource.initialize();
   await CacheManager.preferencesInit();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  String? token = '';
+  await messaging.getToken().then((value) {
+    token = value;
+    print("token: $token");
+  });
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
 
+  print('User granted permission: ${settings.authorizationStatus}');
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
   runApp(const MyApp());
 }
 
@@ -65,7 +96,7 @@ class MyApp extends StatelessWidget {
         theme: Theme.appTheme,
         navigatorKey: NavigationService.instance.navigatorKey,
         onGenerateRoute: (settings) => NavigationRoute.instance.generateRoute(settings),
-        localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+        localizationsDelegates: const [GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
         supportedLocales: const [Locale("tr")],
         home: const SplashView(),
       ),
