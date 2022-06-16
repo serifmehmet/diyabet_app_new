@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:iconly/iconly.dart';
 
 class CarbAppTextInput extends StatefulWidget {
   final String? inputText;
@@ -16,6 +15,7 @@ class CarbAppTextInput extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String?)? validator;
 
   const CarbAppTextInput({
     Key? key,
@@ -31,6 +31,7 @@ class CarbAppTextInput extends StatefulWidget {
     this.onChanged,
     this.keyboardType,
     this.inputFormatters,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -40,7 +41,7 @@ class CarbAppTextInput extends StatefulWidget {
 class _CarbAppTextInputState extends State<CarbAppTextInput> {
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       style: widget.inputTextStyle,
       decoration: InputDecoration(
         labelText: widget.labelText,
@@ -63,6 +64,11 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
           color: widget.iconColor,
           size: widget.iconSize,
         ),
+        errorStyle: const TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.w400,
+          fontSize: 15,
+        ),
         hintText: widget.inputText,
         hintStyle: widget.inputTextStyle,
         contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
@@ -71,6 +77,7 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
       onChanged: widget.onChanged,
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
+      validator: widget.validator,
     );
   }
 }

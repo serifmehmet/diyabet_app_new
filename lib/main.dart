@@ -1,3 +1,4 @@
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
 import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,9 @@ void main() async {
   String? token = '';
   await messaging.getToken().then((value) {
     token = value;
-    print("token: $token");
+    CacheManager.instance.setStringValue(PreferencesKeys.NOTIFICATION_TOKEN, value!);
   });
+
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,

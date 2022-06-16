@@ -28,7 +28,7 @@ class NavigationRoute {
       case NavigationConstants.LOGIN:
         return normalNavigate(LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.REGISTER:
-        return normalNavigate(const RegisterView(), NavigationConstants.REGISTER);
+        return normalNavigate(RegisterView(), NavigationConstants.REGISTER);
       case NavigationConstants.FORGOT_PASSWORD:
         return normalNavigate(const ForgotPasswordView(), NavigationConstants.FORGOT_PASSWORD);
       case NavigationConstants.ADD_RECIEPT:

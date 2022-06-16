@@ -8,7 +8,8 @@ part of 'user_model.dart';
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       UserId: json['userId'] as int?,
-      FullName: json['fullName'] as String?,
+      Name: json['name'] as String?,
+      SureName: json['sureName'] as String?,
       Email: json['email'] as String?,
       Password: json['password'] as String?,
       IsForgotPassword: json['isForgotPassword'] as bool?,
@@ -20,14 +21,17 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
           ? null
           : DateTime.parse(json['updatedAt'] as String),
       ErrorCode: json['errorCode'] as String?,
+      ErrorDescription: json['errorDescription'] as String?,
       UserBlsModel: json['userBolus'] == null
           ? null
           : UserBolusModel.fromJson(json['userBolus'] as Map<String, dynamic>),
+      FcmRegistrationToken: json['fcmRegistrationToken'] as String?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'userId': instance.UserId,
-      'fullName': instance.FullName,
+      'name': instance.Name,
+      'sureName': instance.SureName,
       'email': instance.Email,
       'password': instance.Password,
       'isForgotPassword': instance.IsForgotPassword,
@@ -36,4 +40,6 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'updatedAt': instance.UpdatedAt?.toIso8601String(),
       'errorCode': instance.ErrorCode,
       'userBolus': instance.UserBlsModel,
+      'errorDescription': instance.ErrorDescription,
+      'fcmRegistrationToken': instance.FcmRegistrationToken,
     };

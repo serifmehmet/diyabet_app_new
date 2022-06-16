@@ -5,7 +5,8 @@ import 'package:diyabet_app/domain/entities/user_bolus.dart';
 
 class User {
   final int? UserId;
-  final String? FullName;
+  final String? Name;
+  final String? SureName;
   final String? Email;
   final String? Password;
   final bool? IsForgotPassword;
@@ -13,11 +14,14 @@ class User {
   final DateTime? CreatedAt;
   final DateTime? UpdatedAt;
   final String? ErrorCode;
+  final String? ErrorDescription;
+  final String? FcmRegistrationToken;
   final UserBolus? UserBls;
 
   User({
     this.UserId,
-    this.FullName,
+    this.Name,
+    this.SureName,
     this.Email,
     this.Password,
     this.IsForgotPassword,
@@ -25,6 +29,8 @@ class User {
     this.CreatedAt,
     this.UpdatedAt,
     this.ErrorCode,
+    this.ErrorDescription,
+    this.FcmRegistrationToken,
     this.UserBls,
   });
 
@@ -33,7 +39,8 @@ class User {
   // public virtual UserBolus[] UserBoluses { get; set; }
   UserModel toModel() => UserModel(
         UserId: UserId,
-        FullName: FullName,
+        Name: Name,
+        SureName: SureName,
         Email: Email,
         Password: Password,
         IsForgotPassword: IsForgotPassword,

@@ -45,3 +45,22 @@ class LoginFailure extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
+
+class UserRegistering extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
+class UserRegisterSuccess extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
+class UserRegisterFailure extends AuthState {
+  final String? errorMessage;
+
+  const UserRegisterFailure({this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
