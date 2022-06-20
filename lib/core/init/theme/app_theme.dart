@@ -5,15 +5,13 @@ const String FONT_FAMILY = "WorkSans";
 final ThemeData appTheme = ThemeData(
   fontFamily: FONT_FAMILY,
   primaryColor: const Color(0xff578AD6),
-  primaryColorBrightness: Brightness.light,
   primaryColorDark: const Color(0xff335234),
   primaryColorLight: const Color(0xffCFE7CB),
   backgroundColor: const Color(0xffFFFFFF),
   cardColor: const Color(0xffFFF8EE),
   colorScheme: ColorScheme.fromSwatch().copyWith(
     secondary: const Color(0xffD6578A),
-    secondaryVariant: const Color(0xff999999),
-    primaryVariant: const Color(0xff9E9BC7),
+    tertiary: const Color(0xff1BC47D),
     surface: const Color(0xFFF5F5F5),
   ),
   dividerColor: const Color(0xfff6f6f6),

@@ -1,6 +1,7 @@
 import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
 import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
+import 'package:diyabet_app/features/my_diabet/cubit/my_diabet_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -90,6 +91,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (foodConsumptionContext) => di.sl<MealConsumptionCubit>(),
+        ),
+        BlocProvider(
+          create: (myDiabetContext) => di.sl<MyDiabetCubit>(),
         )
       ],
       child: MaterialApp(

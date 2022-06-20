@@ -17,6 +17,8 @@ class CarbAppTextInput extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
 
+  final EdgeInsetsGeometry? contentPadding;
+
   const CarbAppTextInput({
     Key? key,
     this.inputText,
@@ -32,6 +34,7 @@ class CarbAppTextInput extends StatefulWidget {
     this.keyboardType,
     this.inputFormatters,
     this.validator,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -71,7 +74,7 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
         ),
         hintText: widget.inputText,
         hintStyle: widget.inputTextStyle,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+        contentPadding: widget.contentPadding,
       ),
       controller: widget.textController,
       onChanged: widget.onChanged,
