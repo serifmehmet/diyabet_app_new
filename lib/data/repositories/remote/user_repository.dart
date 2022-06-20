@@ -4,7 +4,7 @@ import 'package:diyabet_app/domain/entities/user.dart';
 
 abstract class UserRepository {
   Future<User?> login(String email, String password);
-  Future<String?> register(UserModel userModel);
+  Future<User?> register(UserModel userModel);
 }
 
 class UserRepositoryImpl extends UserRepository {
@@ -24,13 +24,9 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<String?> register(UserModel model) async {
-    final userModel = await userRemoteDataSource.userRegister(model);
+  Future<User?> register(UserModel? usrModel) async {
+    final userModel = await userRemoteDataSource.userRegister(usrModel!);
 
-    if (userModel!.ErrorCode == "OK") {
-      return "Kullanıcı kayıt oldu";
-    }
-
-    return "";
+    return userModel!.toEntity();
   }
 }

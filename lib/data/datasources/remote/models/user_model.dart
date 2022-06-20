@@ -10,8 +10,10 @@ part "user_model.g.dart";
 class UserModel extends INetworkModel<UserModel> {
   @JsonKey(name: "userId")
   int? UserId;
-  @JsonKey(name: "fullName")
-  String? FullName;
+  @JsonKey(name: "name")
+  String? Name;
+  @JsonKey(name: "sureName")
+  String? SureName;
   @JsonKey(name: "email")
   String? Email;
   @JsonKey(name: "password")
@@ -28,18 +30,26 @@ class UserModel extends INetworkModel<UserModel> {
   String? ErrorCode;
   @JsonKey(name: "userBolus")
   UserBolusModel? UserBlsModel;
+  @JsonKey(name: "errorDescription")
+  String? ErrorDescription;
+  @JsonKey(name: "fcmRegistrationToken")
+  String? FcmRegistrationToken;
 
-  UserModel(
-      {this.UserId,
-      this.FullName,
-      this.Email,
-      this.Password,
-      this.IsForgotPassword,
-      this.ForgotPasswordGenCode,
-      this.CreatedAt,
-      this.UpdatedAt,
-      this.ErrorCode,
-      this.UserBlsModel});
+  UserModel({
+    this.UserId,
+    this.Name,
+    this.SureName,
+    this.Email,
+    this.Password,
+    this.IsForgotPassword,
+    this.ForgotPasswordGenCode,
+    this.CreatedAt,
+    this.UpdatedAt,
+    this.ErrorCode,
+    this.ErrorDescription,
+    this.UserBlsModel,
+    this.FcmRegistrationToken,
+  });
 
   @override
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -52,16 +62,19 @@ class UserModel extends INetworkModel<UserModel> {
   }
 
   User toEntity() => User(
-      CreatedAt: CreatedAt,
-      Email: Email,
-      UserId: UserId,
-      FullName: FullName,
-      Password: Password,
-      IsForgotPassword: IsForgotPassword,
-      UpdatedAt: UpdatedAt,
-      ForgotPasswordGenCode: ForgotPasswordGenCode,
-      ErrorCode: ErrorCode,
-      UserBls: UserBlsModel!.toEntity());
+        CreatedAt: CreatedAt,
+        Email: Email,
+        UserId: UserId,
+        Name: Name,
+        SureName: SureName,
+        Password: Password,
+        IsForgotPassword: IsForgotPassword,
+        UpdatedAt: UpdatedAt,
+        ForgotPasswordGenCode: ForgotPasswordGenCode,
+        ErrorCode: ErrorCode,
+        FcmRegistrationToken: FcmRegistrationToken,
+        UserBls: UserBlsModel!.toEntity(),
+      );
 
   @override
   UserModel fromJson(Map<String, dynamic> json) {

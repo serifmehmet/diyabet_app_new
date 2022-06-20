@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:diyabet_app/domain/usecases/user/params/user_register_param.dart';
+import 'package:diyabet_app/domain/usecases/user/user_register_usecase.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/constants/enums/preferences_keys.dart';
@@ -15,10 +17,12 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final UserLoginUseCase? userLoginUseCase;
+  final UserRegisterUseCase? userRegisterUseCase;
   final GetAllFoodsForCache? getAllFoodsForCache;
   AuthCubit({
     this.userLoginUseCase,
     this.getAllFoodsForCache,
+    this.userRegisterUseCase,
   }) : super(AuthInitial());
 
   Future<void> appStarted() async {
@@ -35,6 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
   late User _user;
   Future<void> logIn(String email, String password) async {
     emit(LoginInfoPosting());
+
     final response = await userLoginUseCase?.call(UserLoginParam(email, password));
 
     if (response != null) {
@@ -45,11 +50,11 @@ class AuthCubit extends Cubit<AuthState> {
 
         CacheManager.instance.setBoolValue(PreferencesKeys.IS_LOGGEDIN, true);
         CacheManager.instance.setIntValue(PreferencesKeys.USERID, _user.UserId!);
-        CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, _user.FullName!);
+        CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, '${_user.Name!} ${_user.SureName!}');
 
         NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
       } else {
-        emit(LoginFailure("Login olamadık"));
+        emit(const LoginFailure("Login olamadık"));
       }
     } else {
       emit(const LoginFailure("Login olamadık"));
@@ -68,6 +73,18 @@ class AuthCubit extends Cubit<AuthState> {
       emit(Authenticated());
     } else {
       emit(NotAuthenticated());
+    }
+  }
+
+  Future<void> userRegister(User? user) async {
+    emit(UserRegistering());
+
+    final response = await userRegisterUseCase?.call(UserRegisterParam(user: user));
+
+    if (response!.ErrorCode == "OK") {
+      emit(UserRegisterSuccess());
+    } else {
+      emit(UserRegisterFailure(errorMessage: response.ErrorDescription));
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:diyabet_app/core/theme_widgets/auth/not_authenticated_widget.dart';
+import 'package:diyabet_app/features/my_diabet/view/my_diabet_view.dart';
 import 'package:diyabet_app/features/reciept/view/add_reciept_view.dart';
 import 'package:flutter/material.dart';
 
@@ -28,12 +29,13 @@ class NavigationRoute {
       case NavigationConstants.LOGIN:
         return normalNavigate(LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.REGISTER:
-        return normalNavigate(const RegisterView(), NavigationConstants.REGISTER);
+        return normalNavigate(RegisterView(), NavigationConstants.REGISTER);
       case NavigationConstants.FORGOT_PASSWORD:
         return normalNavigate(const ForgotPasswordView(), NavigationConstants.FORGOT_PASSWORD);
       case NavigationConstants.ADD_RECIEPT:
         return normalNavigate(AddRecieptView(), NavigationConstants.ADD_RECIEPT);
-
+      case NavigationConstants.MY_DIABET:
+        return normalNavigate(MyDiabetView(), NavigationConstants.MY_DIABET);
       case NavigationConstants.NOT_AUTHENTICATED:
         return normalNavigate(const NotAuthenticated(), NavigationConstants.NOT_AUTHENTICATED);
       default:

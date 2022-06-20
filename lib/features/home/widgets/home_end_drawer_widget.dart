@@ -18,9 +18,9 @@ class HomeEndDrawerWidget extends StatelessWidget {
           children: <Widget>[
             const SizedBox(height: 40),
             goToProfileWidget(context),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             goToMyRecipesWidget(context),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             goToDiabetInfoWidget(context)
           ],
         ),
@@ -29,45 +29,51 @@ class HomeEndDrawerWidget extends StatelessWidget {
   }
 
   Widget goToDiabetInfoWidget(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pop();
+        NavigationService.instance.navigateToPage(path: NavigationConstants.MY_DIABET);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(8),
+                ),
+              ),
+              child: Center(
+                child: Icon(
+                  IconlyBold.heart,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
               ),
             ),
-            child: Center(
-              child: Icon(
-                IconlyBold.heart,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            flex: 5,
+            child: Text(
+              "Diyabet Bilgilerim",
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          flex: 5,
-          child: Text(
-            "Diyabet Bilgilerim",
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Icon(
-            IconlyLight.arrow_right_2,
-            color: Theme.of(context).colorScheme.secondaryVariant,
-            size: 24,
-          ),
-        )
-      ],
+          Expanded(
+            flex: 1,
+            child: Icon(
+              IconlyLight.arrow_right_2,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              size: 24,
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -106,7 +112,7 @@ class HomeEndDrawerWidget extends StatelessWidget {
           flex: 1,
           child: Icon(
             IconlyLight.arrow_right_2,
-            color: Theme.of(context).colorScheme.secondaryVariant,
+            color: Theme.of(context).colorScheme.secondaryContainer,
             size: 24,
           ),
         )
@@ -154,7 +160,7 @@ class HomeEndDrawerWidget extends StatelessWidget {
             flex: 1,
             child: Icon(
               IconlyLight.arrow_right_2,
-              color: Theme.of(context).colorScheme.secondaryVariant,
+              color: Theme.of(context).colorScheme.secondaryContainer,
               size: 24,
             ),
           )

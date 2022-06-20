@@ -1,5 +1,7 @@
 import 'package:diyabet_app/data/datasources/local/food/food_local_datasource.dart';
+import 'package:diyabet_app/data/datasources/local/user_idf/local_user_idf_datasource.dart';
 import 'package:diyabet_app/data/datasources/remote/food_consumption/food_consumption_remote_datasource.dart';
+import 'package:diyabet_app/data/repositories/local/local_user_idf_repository.dart';
 import 'package:diyabet_app/data/repositories/remote/food_consumption_repository.dart';
 import 'package:diyabet_app/domain/usecases/food/delete_all_foods_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/delete_single_food_usecase.dart';
@@ -11,10 +13,13 @@ import 'package:diyabet_app/domain/usecases/food/update_local_food_usecase.dart'
 import 'package:diyabet_app/domain/usecases/food_consumption/get_meal_by_filter_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food_consumption/save_food_consumption_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user/user_register_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/get_all_user_idf_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/save_user_idf_usecase.dart';
 import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
 import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
+import 'package:diyabet_app/features/my_diabet/cubit/my_diabet_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
@@ -40,7 +45,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //Bloc
   sl.registerFactory<BottomNavCubit>(() => BottomNavCubit());
-  sl.registerFactory<AuthCubit>(() => AuthCubit(userLoginUseCase: sl.call(), getAllFoodsForCache: sl.call()));
+  sl.registerFactory<AuthCubit>(() => AuthCubit(userLoginUseCase: sl.call(), getAllFoodsForCache: sl.call(), userRegisterUseCase: sl.call()));
   sl.registerFactory<SearchCubit>(() => SearchCubit(getFoodFromCacheUseCase: sl.call()));
   sl.registerFactory<FoodCubit>(() => FoodCubit(getFoodOnIdUseCase: sl.call(), getSingleFoodFromLocal: sl.call()));
   sl.registerFactory<FoodUnitCubit>(() => FoodUnitCubit(foodCubit: sl.call()));
@@ -56,6 +61,7 @@ Future<void> init() async {
         foodConsumptionUseCase: sl.call(),
       ));
   sl.registerFactory<MealConsumptionCubit>(() => MealConsumptionCubit(getMealByFilterUseCase: sl.call()));
+  sl.registerFactory<MyDiabetCubit>(() => MyDiabetCubit(saveLocalUserIdfUseCase: sl.call(), getAllUserIdfUseCase: sl.call()));
 
   //RemoteUseCases
   sl.registerLazySingleton<GetAllFoodsForCache>(() => GetAllFoodsForCache(foodCacheRepository: sl()));
@@ -74,10 +80,13 @@ Future<void> init() async {
   sl.registerLazySingleton<DeleteSingleFoodUseCase>(() => DeleteSingleFoodUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<GetSingleFoodFromLocalUseCase>(() => GetSingleFoodFromLocalUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<UpdateLocalFoodUseCase>(() => UpdateLocalFoodUseCase(localFoodRepository: sl()));
+  sl.registerLazySingleton<SaveLocalUserIdfUseCase>(() => SaveLocalUserIdfUseCase(localUserIdfRepository: sl()));
+  sl.registerLazySingleton<GetAllUserIdfUseCase>(() => GetAllUserIdfUseCase(localUserIdfRepository: sl()));
 
   //local datasources
   sl.registerLazySingleton<CacheFoodLocalDataSource>(() => CacheFoodLocalDataSource());
   sl.registerLazySingleton<FoodLocalDataSource>(() => FoodLocalDataSource());
+  sl.registerLazySingleton<LocalUserIdfLocalDataSource>(() => LocalUserIdfLocalDataSource());
   //remote datasource
   sl.registerLazySingleton<FoodCacheRemoteDataSource>(() => FoodCacheRemoteDataSource(sl.call()));
   sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSource(sl.call()));
@@ -93,6 +102,7 @@ Future<void> init() async {
   sl.registerLazySingleton<FoodConsumptionRepository>(() => FoodConsumptionRepositoryImpl(consumptionRemoteDataSource: sl.call()));
   //Local Repositoties
   sl.registerLazySingleton<LocalFoodRepository>(() => LocalFoodRepositoryImpl(cacheFoodLocalDataSource: sl.call(), foodLocalDataSource: sl.call()));
+  sl.registerLazySingleton<LocalUserIdfRepository>(() => LocalUserIdfRepositoryImpl(localUserIdfLocalDataSource: sl.call()));
 
   final networkManager = NetworkManager(
     isEnableLogger: true,

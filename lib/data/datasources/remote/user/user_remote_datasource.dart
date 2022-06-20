@@ -20,12 +20,12 @@ class UserRemoteDataSource {
     return response.data;
   }
 
-  Future<UserModel?> userRegister(UserModel model) async {
+  Future<UserModel?> userRegister(UserModel? userModel) async {
     final response = await networkManager.send<UserModel, UserModel>(
       registerUrl,
       parseModel: UserModel(),
       method: RequestType.POST,
-      data: model,
+      data: userModel,
     );
 
     return response.data;
