@@ -1,3 +1,5 @@
+import 'package:diyabet_app/data/datasources/local/models/user_iko_hive_model.dart';
+
 class UserIko {
   final int? id;
   final DateTime? hour;
@@ -10,4 +12,10 @@ class UserIko {
     this.ikoValue,
     this.userId,
   });
+
+  UserIkoHiveModel toHiveModel() => UserIkoHiveModel()
+    ..id = id!
+    ..hour = hour!
+    ..ikoValue = ikoValue!
+    ..userId = userId!;
 }

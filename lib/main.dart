@@ -1,10 +1,10 @@
-import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
-import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
-import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
-import 'package:diyabet_app/features/my_diabet/cubit/my_diabet_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'core/constants/enums/preferences_keys.dart';
 import 'core/init/cache/cache_manager.dart';
 import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
@@ -14,11 +14,13 @@ import 'features/auth/cubit/cubit/auth_cubit.dart';
 import 'features/auth/view/splash_view.dart';
 import 'features/food/cubit/food_cubit.dart';
 import 'features/food/cubit/food_unit_cubit.dart';
+import 'features/home/cubit/bottom_nav_cubit.dart';
+import 'features/meal/cubit/meal_consumption_cubit.dart';
+import 'features/my_diabet/cubit/iko_cubit.dart';
+import 'features/my_diabet/cubit/my_diabet_cubit.dart';
 import 'features/reciept/cubit/reciept_cubit.dart';
 import 'features/search/cubit/search_cubit.dart';
 import 'features/totals/cubit/totals_cubit.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'injection_container.dart' as di;
 
@@ -94,7 +96,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (myDiabetContext) => di.sl<MyDiabetCubit>(),
-        )
+        ),
+        BlocProvider(
+          create: (ikContext) => di.sl<IkoCubit>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

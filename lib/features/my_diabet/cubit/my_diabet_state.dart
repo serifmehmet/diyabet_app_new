@@ -18,12 +18,9 @@ class MyDiabetIdfListGetSuccess extends MyDiabetState {
   List<Object?> get props => [userIdfList];
 }
 
-class MyDiabetIdfAddedSuccess extends MyDiabetState {
-  final UserIdf userIdf;
-
-  const MyDiabetIdfAddedSuccess({required this.userIdf});
+class MyDiabetEmptyIdf extends MyDiabetState {
   @override
-  List<Object> get props => [userIdf];
+  List<Object?> get props => [];
 }
 
 class MyDiabetValueAddedFailure extends MyDiabetState {
