@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/delete_single_user_idf_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/params/delete_user_idf_params.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +17,10 @@ part 'my_diabet_state.dart';
 class MyDiabetCubit extends Cubit<MyDiabetState> {
   final SaveLocalUserIdfUseCase saveLocalUserIdfUseCase;
   final GetAllUserIdfUseCase getAllUserIdfUseCase;
+  final DeleteSingleUserIdfUseCase deleteSingleUserIdfUseCase;
 
-  MyDiabetCubit({required this.saveLocalUserIdfUseCase, required this.getAllUserIdfUseCase}) : super(MyDiabetInitial()) {
+  MyDiabetCubit({required this.saveLocalUserIdfUseCase, required this.getAllUserIdfUseCase, required this.deleteSingleUserIdfUseCase})
+      : super(MyDiabetInitial()) {
     getAllUserIdf();
   }
 
@@ -24,51 +28,49 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
   bool addIdfValueAndTime(TimeOfDay selectedHour, String idfValue) {
     try {
       //check if the hour is between any hour which added by the user
-      final now = DateTime.now();
       if (userIdfList!.isEmpty) {
         var userIdfToAdd = UserIdf(
           id: UniqueKey().hashCode,
           idfValue: double.parse(idfValue),
-          hour: DateTime(now.year, now.month, now.day, selectedHour.hour, selectedHour.minute),
+          hour: DateTime(2022, 01, 01, selectedHour.hour, selectedHour.minute),
           userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
         );
 
         saveLocalUserIdfUseCase.call(SaveLocalUserIdfParams(userIdf: userIdfToAdd));
         userIdfList!.add(userIdfToAdd);
+        userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
         emit(MyDiabetIdfListGetSuccess(userIdfList: userIdfList!));
         return true;
       } else {
-        int hourIsBeforeCount = 0;
         //Look in items saved before
+        int matchedHourCount = 0;
         for (var element in userIdfList!) {
-          var selectedDate = DateTime(now.year, now.month, now.day, selectedHour.hour, selectedHour.minute);
-          var dateSavedBefore = DateTime(now.year, now.month, now.day, element.hour!.hour, element.hour!.minute);
-          if (selectedDate.isBefore(dateSavedBefore)) {
-            hourIsBeforeCount = hourIsBeforeCount + 1;
-          } else if (selectedDate == dateSavedBefore) {
-            emit(const MyDiabetValueAddedFailure(failureMessage: "Seçtiğiniz saat daha önce eklenmiş olmamalı"));
-            emit(MyDiabetInitial());
-            return false;
+          var selectedDate = DateTime(2022, 01, 01, selectedHour.hour, selectedHour.minute);
+          var dateSavedBefore = DateTime(2022, 01, 01, element.hour!.hour, element.hour!.minute);
+          //Is the hour added before control
+          if (selectedDate == dateSavedBefore) {
+            matchedHourCount = matchedHourCount + 1;
           }
         }
 
-        if (hourIsBeforeCount > 0) {
-          emit(const MyDiabetValueAddedFailure(failureMessage: "Daha önce eklenmiş bir saatten küçük saat seçemezsiniz."));
-          emit(MyDiabetInitial());
-          return false;
-        } else {
-          final now = DateTime.now();
+        if (matchedHourCount == 0) {
           var userIdfToAdd = UserIdf(
             id: UniqueKey().hashCode,
             idfValue: double.parse(idfValue),
-            hour: DateTime(now.year, now.month, now.day, selectedHour.hour, selectedHour.minute),
+            hour: DateTime(2022, 01, 01, selectedHour.hour, selectedHour.minute),
             userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
           );
 
           saveLocalUserIdfUseCase.call(SaveLocalUserIdfParams(userIdf: userIdfToAdd));
           userIdfList!.add(userIdfToAdd);
+          userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
           emit(MyDiabetIdfListGetSuccess(userIdfList: userIdfList!));
+
           return true;
+        } else {
+          emit(const MyDiabetValueAddedFailure(failureMessage: "Seçtiğiniz saat daha önce eklenmiş olmamalı"));
+          getAllUserIdf();
+          return false;
         }
       }
     } catch (e) {
@@ -76,7 +78,16 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
       emit(const MyDiabetValueAddedFailure(failureMessage: "Eklenirken bir hata oluştu"));
     }
 
-    return false;
+    return true;
+  }
+
+  Future<void> deleteUserIdfItem(int userIdfId) async {
+    await deleteSingleUserIdfUseCase.call(DeleteUserIdfParams(userIdfId: userIdfId));
+
+    userIdfList!.removeWhere((element) => element.id == userIdfId);
+    userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+
+    getAllUserIdf();
   }
 
   Future<void> getAllUserIdf() async {
@@ -85,7 +96,9 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
         userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
       ),
     );
-
-    emit(MyDiabetIdfListGetSuccess(userIdfList: userIdfList!));
+    userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+    emit(
+      MyDiabetIdfListGetSuccess(userIdfList: userIdfList!),
+    );
   }
 }

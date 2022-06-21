@@ -11,6 +11,7 @@ final ThemeData appTheme = ThemeData(
   cardColor: const Color(0xffFFF8EE),
   colorScheme: ColorScheme.fromSwatch().copyWith(
     secondary: const Color(0xffD6578A),
+    secondaryContainer: const Color(0xFF999999),
     tertiary: const Color(0xff1BC47D),
     surface: const Color(0xFFF5F5F5),
   ),
@@ -73,6 +74,7 @@ final ThemeData appTheme = ThemeData(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.normal,
+        fontFamily: "Signika",
       ),
       subtitle1: TextStyle(
         color: Color(0xffFFFFFF),
