@@ -24,7 +24,7 @@ class _MyDiabetViewState extends State<MyDiabetView> {
         context: context,
         builder: (context) {
           return const AlertDialog(
-            content: SizedBox(height: 250, child: TimeRangeDialogWidget()),
+            content: SizedBox(height: 251, child: TimeRangeDialogWidget()),
           );
         });
   }
@@ -55,92 +55,105 @@ class _MyDiabetViewState extends State<MyDiabetView> {
           children: [
             Padding(
               padding: context.paddingMedium,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "İnsülin Duyarlılık Faktörü Değerleri",
-                    style: Theme.of(context).textTheme.headline3,
-                  ),
-                  const SizedBox(height: 20),
-                  BlocBuilder<MyDiabetCubit, MyDiabetState>(
-                    builder: (context, state) {
-                      if (state is MyDiabetIdfListGetSuccess) {
-                        return LimitedBox(
-                          maxHeight: 550,
-                          child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              String formattedTime = DateFormat.Hm().format(state.userIdfList[index].hour!);
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "$formattedTime'dan itibaren - ",
-                                    style: Theme.of(context).textTheme.headline5,
-                                  ),
-                                  Text(
-                                    state.userIdfList[index].idfValue.toString(),
-                                    style: Theme.of(context).textTheme.headline3,
-                                  )
-                                ],
-                              );
-                            },
-                            itemCount: state.userIdfList.length,
-                            shrinkWrap: true,
-                          ),
-                        );
-                      }
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "İnsülin Duyarlılık Faktörü Değerleri",
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                    const SizedBox(height: 20),
+                    BlocBuilder<MyDiabetCubit, MyDiabetState>(
+                      builder: (context, state) {
+                        if (state is MyDiabetIdfListGetSuccess) {
+                          return LimitedBox(
+                            maxHeight: 550,
+                            child: ListView.separated(
+                              itemBuilder: (context, index) {
+                                String formattedTime = DateFormat.Hm().format(state.userIdfList[index].hour!);
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      "$formattedTime'dan itibaren",
+                                      style: Theme.of(context).textTheme.headline5,
+                                    ),
+                                    Text(
+                                      state.userIdfList[index].idfValue.toString(),
+                                      style: Theme.of(context).textTheme.headline3,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (builder) {
+                                              return AlertDialog(
+                                                title: const Text("Uyarı"),
+                                                content: const Text(
+                                                  "Eklediğiniz değeri silmek üzeresiniz, onaylıyor musunuz?",
+                                                  style: TextStyle(color: Colors.black),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () => Navigator.pop(context, "Cancel"),
+                                                    child: const Text("İptal", style: TextStyle(color: Colors.red)),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      BlocProvider.of<MyDiabetCubit>(context).deleteUserIdfItem(state.userIdfList[index].id!);
+                                                      Navigator.pop(context, "OK");
+                                                    },
+                                                    child: const Text(
+                                                      "Onaylıyorum",
+                                                      style: TextStyle(color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        icon: const Icon(IconlyBold.delete, size: 20))
+                                  ],
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return Divider(height: 10, thickness: 1, color: Theme.of(context).primaryColor);
+                              },
+                              itemCount: state.userIdfList.length,
+                              shrinkWrap: true,
+                            ),
+                          );
+                        }
 
-                      return Container();
-                    },
-                  ),
-                  // TextButton(
-                  //   onPressed: openTimeRangeDialog,
-                  //   child: Text(
-                  //     "+",
-                  //     style: Theme.of(context).textTheme.addRecipeText,
-                  //   ),
-                  // ),
-                  IconButton(
-                    onPressed: () {
-                      final idfCount = context.read<MyDiabetCubit>().userIdfList!.length;
-                      if (idfCount <= 7) {
-                        openTimeRangeDialog();
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const AlertDialog(
-                              title: Text("Uyarı"),
-                              content: Center(
-                                child: Text("8'den fazla değer ekleyemezsiniz."),
+                        return Container();
+                      },
+                    ),
+                    BlocBuilder<MyDiabetCubit, MyDiabetState>(
+                      builder: (context, state) {
+                        if (state is MyDiabetIdfListGetSuccess) {
+                          if (state.userIdfList.length < 8) {
+                            return IconButton(
+                              onPressed: () {
+                                openTimeRangeDialog();
+                              },
+                              icon: Icon(
+                                IconlyBold.plus,
+                                size: 36,
+                                color: Theme.of(context).colorScheme.tertiary,
                               ),
                             );
-                          },
-                        );
-                      }
-                    },
-                    icon: Icon(
-                      IconlyBold.plus,
-                      size: 36,
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ),
-                  ),
-                  // Container(
-                  //   width: 150,
-                  //   padding: const EdgeInsets.all(0),
-                  //   child: ElevatedButton(
-                  //     onPressed: () {},
-                  //     style: ElevatedButton.styleFrom(
-                  //       padding: const EdgeInsets.all(0),
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(10),
-                  //       ),
-                  //     ),
-                  //     child: const Text("Kaydet", style: TextStyle(color: Colors.white)),
-                  //   ),
-                  // ),
-                ],
+                          } else {
+                            return Container();
+                          }
+                        }
+
+                        return Container();
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
             Padding(

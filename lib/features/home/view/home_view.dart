@@ -37,7 +37,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       key: _scaffoldKey,
       endDrawerEnableOpenDragGesture: true,
-      endDrawer: HomeEndDrawerWidget(),
+      endDrawer: const HomeEndDrawerWidget(),
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
@@ -51,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
                     onPressed: () {
                       _openEndDrawer();
                     },
-                    icon: Icon(Icons.menu, size: 40, color: Theme.of(context).colorScheme.secondaryVariant),
+                    icon: Icon(Icons.menu, size: 40, color: Theme.of(context).colorScheme.secondaryContainer),
                   ),
                 );
               }
@@ -73,7 +73,7 @@ class _HomeViewState extends State<HomeView> {
                 builder: (context, state) {
                   if (state is Authenticated) {
                     return Text(
-                      "Merhaba, " + CacheManager.instance.getStringValue(PreferencesKeys.USER_NAME),
+                      "Merhaba, ${CacheManager.instance.getStringValue(PreferencesKeys.USER_NAME)}",
                       style: Theme.of(context).textTheme.welcomeText,
                     );
                   }
@@ -84,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                       style: Theme.of(context).textTheme.welcomeText,
                     );
                   }
-                  return SizedBox();
+                  return const SizedBox();
                 },
               ),
             ),
@@ -191,6 +191,14 @@ class _HomeViewState extends State<HomeView> {
         Container(
           width: context.width * 0.48,
           height: double.infinity,
+          decoration: const BoxDecoration(
+            color: Color(0xffDB6896),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(70),
+              topRight: Radius.circular(15),
+              bottomRight: Radius.circular(15),
+            ),
+          ),
           child: Padding(
             padding: context.paddingNormal,
             child: Row(
@@ -228,14 +236,6 @@ class _HomeViewState extends State<HomeView> {
               ],
             ),
           ),
-          decoration: BoxDecoration(
-            color: Color(0xffDB6896),
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(70),
-              topRight: Radius.circular(15),
-              bottomRight: Radius.circular(15),
-            ),
-          ),
         ),
       ],
     );
@@ -245,8 +245,14 @@ class _HomeViewState extends State<HomeView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
+      decoration: const BoxDecoration(
+        color: Color(0xFFD6578A),
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
+        ),
+      ),
       child: Padding(
-        padding: EdgeInsets.only(top: 15, bottom: 15, left: 19),
+        padding: const EdgeInsets.only(top: 15, bottom: 15, left: 19),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -255,12 +261,6 @@ class _HomeViewState extends State<HomeView> {
               child: Text("Günlük tüketim ve hesaplamalarını kaydetmek için giriş yap.", style: Theme.of(context).textTheme.subtitle1),
             ),
           ],
-        ),
-      ),
-      decoration: BoxDecoration(
-        color: Color(0xFFD6578A),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(15),
         ),
       ),
     );

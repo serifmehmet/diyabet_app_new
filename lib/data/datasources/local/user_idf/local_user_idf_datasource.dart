@@ -23,4 +23,19 @@ class LocalUserIdfLocalDataSource {
 
     return singleUserIdf;
   }
+
+  Future<void> deleteSingleUserIdf(int userIdfId) async {
+    final userIdfBox = Hive.box<UserIdfHiveModel>(UserIdfHiveModel.boxKey);
+
+    final Map<dynamic, UserIdfHiveModel> foodsMap = userIdfBox.toMap();
+    dynamic keyToDelete;
+    foodsMap.forEach(
+      (key, value) {
+        if (value.id == userIdfId) {
+          keyToDelete = key;
+        }
+      },
+    );
+    await userIdfBox.delete(keyToDelete);
+  }
 }

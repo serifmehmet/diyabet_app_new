@@ -6,6 +6,7 @@ abstract class LocalUserIdfRepository {
   Future<void> saveSingleUserIdf(UserIdfHiveModel userIdfToSave);
   Future<List<UserIdf>> getUserIdfList(int userId);
   Future<UserIdf> getSingleUserIdf(int userIdfId);
+  Future<void> deleteSingleUserIdf(int userIdfId);
 }
 
 class LocalUserIdfRepositoryImpl extends LocalUserIdfRepository {
@@ -32,5 +33,10 @@ class LocalUserIdfRepositoryImpl extends LocalUserIdfRepository {
   @override
   Future<void> saveSingleUserIdf(UserIdfHiveModel userIdfToSave) async {
     await localUserIdfLocalDataSource.saveUserIdf(userIdfToSave);
+  }
+
+  @override
+  Future<void> deleteSingleUserIdf(int userIdfId) async {
+    await localUserIdfLocalDataSource.deleteSingleUserIdf(userIdfId);
   }
 }
