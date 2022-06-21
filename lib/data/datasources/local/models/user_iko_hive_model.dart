@@ -1,3 +1,4 @@
+import 'package:diyabet_app/domain/entities/user_iko.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 part 'user_iko_hive_model.g.dart';
 
@@ -13,4 +14,11 @@ class UserIkoHiveModel extends HiveObject {
   late double ikoValue;
   @HiveField(3)
   late int userId;
+
+  UserIko toEntity() => UserIko(
+        id: id,
+        hour: hour,
+        ikoValue: ikoValue,
+        userId: userId,
+      );
 }

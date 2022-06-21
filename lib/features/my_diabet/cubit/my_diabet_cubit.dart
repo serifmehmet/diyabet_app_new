@@ -19,12 +19,16 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
   final GetAllUserIdfUseCase getAllUserIdfUseCase;
   final DeleteSingleUserIdfUseCase deleteSingleUserIdfUseCase;
 
-  MyDiabetCubit({required this.saveLocalUserIdfUseCase, required this.getAllUserIdfUseCase, required this.deleteSingleUserIdfUseCase})
-      : super(MyDiabetInitial()) {
+  MyDiabetCubit({
+    required this.saveLocalUserIdfUseCase,
+    required this.getAllUserIdfUseCase,
+    required this.deleteSingleUserIdfUseCase,
+  }) : super(MyDiabetInitial()) {
     getAllUserIdf();
   }
 
   List<UserIdf>? userIdfList = [];
+  //List<UserIko>? userIkoList = [];
   bool addIdfValueAndTime(TimeOfDay selectedHour, String idfValue) {
     try {
       //check if the hour is between any hour which added by the user
@@ -85,20 +89,28 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
     await deleteSingleUserIdfUseCase.call(DeleteUserIdfParams(userIdfId: userIdfId));
 
     userIdfList!.removeWhere((element) => element.id == userIdfId);
-    userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+    if (userIdfList!.isNotEmpty) {
+      userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+    }
 
     getAllUserIdf();
   }
 
   Future<void> getAllUserIdf() async {
-    userIdfList = await getAllUserIdfUseCase.call(
-      GetAllUserIdfUseCaseParams(
-        userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
-      ),
-    );
-    userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
-    emit(
-      MyDiabetIdfListGetSuccess(userIdfList: userIdfList!),
-    );
+    try {
+      userIdfList = await getAllUserIdfUseCase.call(
+        GetAllUserIdfUseCaseParams(
+          userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
+        ),
+      );
+      if (userIdfList!.isNotEmpty) {
+        userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+        emit(MyDiabetIdfListGetSuccess(userIdfList: userIdfList!));
+      } else {
+        emit(MyDiabetEmptyIdf());
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

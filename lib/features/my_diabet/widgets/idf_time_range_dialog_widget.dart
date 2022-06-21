@@ -6,14 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:time_picker_widget/time_picker_widget.dart';
 
-class TimeRangeDialogWidget extends StatefulWidget {
-  const TimeRangeDialogWidget({Key? key}) : super(key: key);
+class IdfTimeRangeDialogWidget extends StatefulWidget {
+  const IdfTimeRangeDialogWidget({Key? key}) : super(key: key);
 
   @override
-  State<TimeRangeDialogWidget> createState() => _TimeRangeDialogWidgetState();
+  State<IdfTimeRangeDialogWidget> createState() => _IdfTimeRangeDialogWidgetState();
 }
 
-class _TimeRangeDialogWidgetState extends State<TimeRangeDialogWidget> {
+class _IdfTimeRangeDialogWidgetState extends State<IdfTimeRangeDialogWidget> {
   var selectedTime;
   TextEditingController idfValueController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -34,10 +34,6 @@ class _TimeRangeDialogWidgetState extends State<TimeRangeDialogWidget> {
               );
             },
           );
-        }
-
-        if (state is MyDiabetIdfAddedSuccess) {
-          Navigator.pop(context);
         }
       },
       child: Form(
