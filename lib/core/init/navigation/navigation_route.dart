@@ -1,11 +1,14 @@
+import 'package:diyabet_app/core/theme_widgets/auth/not_authenticated_widget.dart';
+import 'package:diyabet_app/features/my_diabet/view/my_diabet_view.dart';
+import 'package:diyabet_app/features/reciept/view/add_reciept_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../ui/auth/view/forgot_password_view.dart';
-import '../../../ui/auth/view/login_view.dart';
-import '../../../ui/auth/view/register_view.dart';
-import '../../../ui/home/view/tab/app_tab_view.dart';
-import '../../../ui/profile/view/profile_view.dart';
-import '../../../ui/auth/view/splash_view.dart';
+import '../../../features/auth/view/forgot_password_view.dart';
+import '../../../features/auth/view/login_view.dart';
+import '../../../features/auth/view/register_view.dart';
+import '../../../features/home/view/tab/app_tab_view.dart';
+import '../../../features/profile/view/profile_view.dart';
+import '../../../features/auth/view/splash_view.dart';
 import '../../constants/navigation/navigation_constants.dart';
 import '../../theme_widgets/card/not_found_navigation_widget.dart';
 
@@ -24,11 +27,17 @@ class NavigationRoute {
       case NavigationConstants.PROFILE:
         return normalNavigate(const ProfileView(), NavigationConstants.PROFILE);
       case NavigationConstants.LOGIN:
-        return normalNavigate(const LoginView(), NavigationConstants.LOGIN);
+        return normalNavigate(LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.REGISTER:
-        return normalNavigate(const RegisterView(), NavigationConstants.REGISTER);
+        return normalNavigate(RegisterView(), NavigationConstants.REGISTER);
       case NavigationConstants.FORGOT_PASSWORD:
         return normalNavigate(const ForgotPasswordView(), NavigationConstants.FORGOT_PASSWORD);
+      case NavigationConstants.ADD_RECIEPT:
+        return normalNavigate(AddRecieptView(), NavigationConstants.ADD_RECIEPT);
+      case NavigationConstants.MY_DIABET:
+        return normalNavigate(MyDiabetView(), NavigationConstants.MY_DIABET);
+      case NavigationConstants.NOT_AUTHENTICATED:
+        return normalNavigate(const NotAuthenticated(), NavigationConstants.NOT_AUTHENTICATED);
       default:
         return MaterialPageRoute(
           builder: (context) => const NotFoundNavigationWidget(),

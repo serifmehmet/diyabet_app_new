@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 
 class CarbAppPasswordTextInput extends StatefulWidget {
@@ -11,6 +12,9 @@ class CarbAppPasswordTextInput extends StatefulWidget {
   final TextStyle? inputTextStyle;
   final TextStyle? labelTextStyle;
   final double inputBorderRadius;
+  final TextEditingController? textController;
+  final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String?)? validator;
 
   const CarbAppPasswordTextInput({
     Key? key,
@@ -22,6 +26,9 @@ class CarbAppPasswordTextInput extends StatefulWidget {
     this.inputTextStyle,
     this.labelTextStyle,
     required this.inputBorderRadius,
+    this.textController,
+    this.inputFormatters,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -33,9 +40,10 @@ class _CarbAppPasswordTextInputState extends State<CarbAppPasswordTextInput> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       style: widget.inputTextStyle,
       obscureText: _isPass!,
+      controller: widget.textController,
       decoration: InputDecoration(
         labelText: widget.labelText,
         labelStyle: widget.labelTextStyle,
@@ -57,6 +65,11 @@ class _CarbAppPasswordTextInputState extends State<CarbAppPasswordTextInput> {
           color: widget.iconColor,
           size: widget.iconSize,
         ),
+        errorStyle: const TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.w400,
+          fontSize: 15,
+        ),
         hintText: widget.inputText,
         hintStyle: widget.inputTextStyle,
         contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
@@ -73,6 +86,8 @@ class _CarbAppPasswordTextInputState extends State<CarbAppPasswordTextInput> {
           },
         ),
       ),
+      validator: widget.validator,
+      inputFormatters: widget.inputFormatters,
     );
   }
 }

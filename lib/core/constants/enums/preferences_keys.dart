@@ -1,1 +1,1 @@
-enum PreferencesKeys { TOKEN, IS_LOGGEDIN }
+enum PreferencesKeys { USERID, IS_LOGGEDIN, USER_NAME, NOTIFICATION_TOKEN }

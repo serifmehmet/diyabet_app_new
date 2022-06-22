@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "336846582654",
+    "project_id": "carbapp-2ab39",
+    "storage_bucket": "carbapp-2ab39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336846582654:android:472ed7562e8b6c9a06392f",
+        "android_client_info": {
+          "package_name": "com.example.diyabet_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336846582654-hm3n5t2kvs6j0vq1o4t65sl2f3kqsk9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv7cEwgyPAaKYQMB6I0Yhb07zT2dHSgpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336846582654-hm3n5t2kvs6j0vq1o4t65sl2f3kqsk9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
