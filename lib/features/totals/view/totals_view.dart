@@ -83,7 +83,7 @@ class TotalsView extends StatelessWidget {
                   Text("Toplam Karbonhidrat", style: Theme.of(context).textTheme.genericHeader),
                   const SizedBox(height: 30),
                   Text(
-                    state.carbValue!.toStringAsFixed(1) + " G.",
+                    "${state.carbValue!.toStringAsFixed(2)} G.",
                     style: const TextStyle(
                       color: Color(0xff000000),
                       fontFamily: "Signika",
@@ -105,7 +105,7 @@ class TotalsView extends StatelessWidget {
                                 barrierDismissible: false,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text("Uyarı"),
+                                    title: const Text("Uyarı"),
                                     content: const Text(
                                       "Eklediğiniz besinleri silmek üzeresiniz. Onaylıyor musunuz?",
                                       style: TextStyle(color: Colors.black),
@@ -132,7 +132,7 @@ class TotalsView extends StatelessWidget {
                             },
                             child: Text("Hepsini Temizle", style: Theme.of(context).textTheme.overline),
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ),
                   Expanded(
                       child: FoodListWidget(
@@ -145,18 +145,18 @@ class TotalsView extends StatelessWidget {
                             onPressed: () {
                               BlocProvider.of<TotalsCubit>(context).saveConsumption(state.localSavedFoods);
                             },
-                            child: const Text("Kaydet"),
                             style: ElevatedButton.styleFrom(elevation: 0),
+                            child: const Text("Kaydet"),
                           ),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ],
               );
             }
 
             if (state is FoodConsumptionSavingSuccess) {}
 
-            return Center();
+            return const Center();
           },
         ),
       ),
