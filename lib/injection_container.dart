@@ -1,3 +1,6 @@
+import 'package:diyabet_app/data/datasources/local/user_blood_target/local_user_blood_target_datasource.dart';
+import 'package:diyabet_app/data/repositories/local/local_user_blood_target_repository.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/save_local_user_bloodtarget_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
 
@@ -102,12 +105,14 @@ Future<void> init() async {
   sl.registerLazySingleton<SaveLocalUserIkoUseCase>(() => SaveLocalUserIkoUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<GetAllUserIkoListUseCase>(() => GetAllUserIkoListUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<DeleteSingleUserIkoUseCase>(() => DeleteSingleUserIkoUseCase(localUserIkoRepository: sl()));
+  sl.registerLazySingleton<SaveLocalUserBloodTargetUseCase>(() => SaveLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
 
   //local datasources
   sl.registerLazySingleton<CacheFoodLocalDataSource>(() => CacheFoodLocalDataSource());
   sl.registerLazySingleton<FoodLocalDataSource>(() => FoodLocalDataSource());
   sl.registerLazySingleton<LocalUserIdfLocalDataSource>(() => LocalUserIdfLocalDataSource());
   sl.registerLazySingleton<LocalUserIkoDataSource>(() => LocalUserIkoDataSource());
+  sl.registerLazySingleton<LocalUserBloodTargetDataSource>(() => LocalUserBloodTargetDataSource());
   //remote datasource
   sl.registerLazySingleton<FoodCacheRemoteDataSource>(() => FoodCacheRemoteDataSource(sl.call()));
   sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSource(sl.call()));
@@ -125,6 +130,7 @@ Future<void> init() async {
   sl.registerLazySingleton<LocalFoodRepository>(() => LocalFoodRepositoryImpl(cacheFoodLocalDataSource: sl.call(), foodLocalDataSource: sl.call()));
   sl.registerLazySingleton<LocalUserIdfRepository>(() => LocalUserIdfRepositoryImpl(localUserIdfLocalDataSource: sl.call()));
   sl.registerLazySingleton<LocalUserIkoRepository>(() => LocalUserIkoRepositoryImpl(localUserIkoDataSource: sl.call()));
+  sl.registerLazySingleton<LocalUserBloodTargetRepository>(() => LocalUserBloodTargetRepositoryImpl(localUserBloodTargetDataSource: sl.call()));
 
   final networkManager = NetworkManager(
     isEnableLogger: true,
