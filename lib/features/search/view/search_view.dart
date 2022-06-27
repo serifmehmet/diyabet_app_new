@@ -22,6 +22,7 @@ class SearchView extends StatelessWidget {
           padding: context.paddingNormal,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               CarbAppSearchInput(
                 inputText: "Besin ara...",

@@ -52,7 +52,7 @@ class FoodListWidget extends StatelessWidget {
         //   style: Theme.of(context).textTheme.inputLabel,
         // ),
         Text(
-          savedFoods![index]!.CarbTotal!.toStringAsFixed(1) + " G.",
+          "${savedFoods![index]!.CarbTotal!.toStringAsFixed(2)} G.",
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ],
@@ -64,7 +64,7 @@ class FoodListWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          savedFoods![index]!.Quantity.toString() + ' ' + savedFoods![index]!.UnitType.toString(),
+          '${savedFoods![index]!.Quantity} ${savedFoods![index]!.UnitType}',
           style: Theme.of(context).textTheme.inputLabel,
         ),
         Text(

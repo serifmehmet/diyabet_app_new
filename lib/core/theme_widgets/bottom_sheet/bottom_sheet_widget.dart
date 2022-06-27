@@ -100,7 +100,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
           icon: Icon(
             IconlyBold.info_circle,
             size: 24,
-            color: Theme.of(context).colorScheme.secondaryVariant,
+            color: Theme.of(context).colorScheme.secondaryContainer,
           ),
         ),
       ],
@@ -193,7 +193,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   builder: (context, state) {
                     if (state is SelectedUnitChanged) {
                       return Text(
-                        state.newCarbValue!.toStringAsFixed(2) + " G.",
+                        "${state.newCarbValue!.toStringAsFixed(2)} G.",
                         style: const TextStyle(
                           color: Color(0xff0e150e),
                           fontSize: 30,
@@ -206,7 +206,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
                     if (state is SelectedQuantityChanged) {
                       return Text(
-                        state.newCarbValue!.toStringAsFixed(2) + " G.",
+                        "${state.newCarbValue!.toStringAsFixed(2)} G.",
                         style: const TextStyle(
                           color: Color(0xff0e150e),
                           fontSize: 30,
@@ -259,10 +259,10 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
             BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);
             Navigator.pop(context);
           },
+          style: ElevatedButton.styleFrom(elevation: 0),
           child: const Center(
             child: Text("Ekle"),
           ),
-          style: ElevatedButton.styleFrom(elevation: 0),
         ),
       ],
     );
