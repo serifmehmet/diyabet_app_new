@@ -8,10 +8,10 @@ class LocalUserBloodTargetDataSource {
     await userBTBox.add(userBloodTargetHiveModel);
   }
 
-  Future<UserBloodTargetHiveModel?> getUserBloodTarget(int userBTId) async {
+  Future<UserBloodTargetHiveModel?> getUserBloodTarget(int userId) async {
     final userBTBox = Hive.box<UserBloodTargetHiveModel>(UserBloodTargetHiveModel.boxKey);
 
-    final singleUserBT = userBTBox.values.singleWhere((element) => element.id == userBTId);
+    final singleUserBT = userBTBox.values.singleWhere((element) => element.userId == userId);
 
     return singleUserBT;
   }

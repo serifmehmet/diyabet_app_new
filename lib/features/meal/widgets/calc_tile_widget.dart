@@ -36,7 +36,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
 
             // data: Theme.of(context).copyWith(dividerColor: Colors.transparent, dividerTheme: DividerThemeData(color: Colors.black)),
             child: Theme(
-              data: Theme.of(context).copyWith(dividerColor: Colors.transparent, dividerTheme: DividerThemeData(color: Colors.black)),
+              data: Theme.of(context).copyWith(dividerColor: Colors.transparent, dividerTheme: const DividerThemeData(color: Colors.black)),
               child: ExpansionTile(
                 key: Key(index.toString()),
                 initiallyExpanded: index == selected,
@@ -53,7 +53,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                   }
                 }),
                 title: Text(
-                  widget.mealList![index].mealDate!.hour.toString() + ":" + widget.mealList![index].mealDate!.minute.toString(),
+                  "${widget.mealList![index].mealDate!.hour}:${widget.mealList![index].mealDate!.minute}",
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 trailing: trailingArea(index, context),
@@ -131,7 +131,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                     style: Theme.of(context).textTheme.inputLabel,
                   ),
                   Text(
-                    widget.mealList![index].consumptions![i].totalCarb!.toStringAsFixed(1) + " G.",
+                    "${widget.mealList![index].consumptions![i].totalCarb!.toStringAsFixed(1)} G.",
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
@@ -161,11 +161,11 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Toplam: " + widget.mealList![index].totalCarb.toString() + " G.",
+              "Toplam: ${widget.mealList![index].totalCarb} G.",
               style: Theme.of(context).textTheme.subtitle2,
             ),
             Text(
-              "Bolus: " + widget.mealList![index].bolusValue.toString() + " Ünite",
+              "Bolus: ${widget.mealList![index].bolusValue} Ünite",
               style: Theme.of(context).textTheme.subtitle2,
             )
           ],

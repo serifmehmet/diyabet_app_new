@@ -4,7 +4,7 @@ import 'package:diyabet_app/domain/entities/user_blood_target.dart';
 
 abstract class LocalUserBloodTargetRepository {
   Future<void> saveUserBloodTarget(UserBloodTargetHiveModel userBloodTargetToSave);
-  Future<UserBloodTarget> getSingleUserBloodTarget(int userBTId);
+  Future<UserBloodTarget> getSingleUserBloodTarget(int userId);
   Future<void> updateSingleUserBloodTarget(UserBloodTargetHiveModel userBloodTargetToUpdate);
 }
 
@@ -14,8 +14,8 @@ class LocalUserBloodTargetRepositoryImpl extends LocalUserBloodTargetRepository 
   LocalUserBloodTargetRepositoryImpl({required this.localUserBloodTargetDataSource});
 
   @override
-  Future<UserBloodTarget> getSingleUserBloodTarget(int userBTId) async {
-    final localUserBT = await localUserBloodTargetDataSource.getUserBloodTarget(userBTId);
+  Future<UserBloodTarget> getSingleUserBloodTarget(int userId) async {
+    final localUserBT = await localUserBloodTargetDataSource.getUserBloodTarget(userId);
 
     return localUserBT!.toEntity();
   }

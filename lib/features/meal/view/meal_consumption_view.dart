@@ -34,13 +34,13 @@ class _CalcReportViewState extends State<CalcReportView> {
       locale: const Locale("tr"),
       builder: (context, child) {
         return Theme(
-          child: child!,
           data: ThemeData().copyWith(
             colorScheme: ColorScheme.light(
               primary: Theme.of(context).primaryColor,
               background: Theme.of(context).backgroundColor,
             ),
           ),
+          child: child!,
         );
       },
     );

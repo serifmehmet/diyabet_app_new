@@ -1,3 +1,5 @@
+import 'package:diyabet_app/features/my_diabet/cubit/user_blood_target_cubit.dart';
+import 'package:diyabet_app/features/my_diabet/widgets/target_blood_sugar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -42,7 +44,7 @@ class _MyDiabetViewState extends State<MyDiabetView> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
@@ -58,6 +60,7 @@ class _MyDiabetViewState extends State<MyDiabetView> {
                 text: "IDF Değerleri",
               ),
               Tab(text: "IKO Değerleri"),
+              Tab(text: "Kan Şekeri Hedefleri")
             ],
             onTap: (tabIndex) {
               switch (tabIndex) {
@@ -66,6 +69,9 @@ class _MyDiabetViewState extends State<MyDiabetView> {
                   break;
                 case 1:
                   BlocProvider.of<IkoCubit>(context).getAllUserIko();
+                  break;
+                case 2:
+                  BlocProvider.of<UserBloodTargetCubit>(context).getUserBT();
                   break;
                 default:
               }
@@ -315,6 +321,10 @@ class _MyDiabetViewState extends State<MyDiabetView> {
                 ),
               ),
             ),
+            Padding(
+              padding: context.paddingNormal,
+              child: const TargetBloodSugarWidget(),
+            )
           ],
         ),
       ),
