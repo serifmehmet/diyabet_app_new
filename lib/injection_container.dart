@@ -3,6 +3,7 @@ import 'package:vexana/vexana.dart';
 
 import 'data/datasources/local/cache_food/cache_food_local_datasource.dart';
 import 'data/datasources/local/food/food_local_datasource.dart';
+import 'data/datasources/local/user_blood_target/local_user_blood_target_datasource.dart';
 import 'data/datasources/local/user_idf/local_user_idf_datasource.dart';
 import 'data/datasources/local/user_iko/local_user_iko_datasource.dart';
 import 'data/datasources/remote/food/food_remote_datasouce.dart';
@@ -10,6 +11,7 @@ import 'data/datasources/remote/food_cache/food_cache_remote_datasource.dart';
 import 'data/datasources/remote/food_consumption/food_consumption_remote_datasource.dart';
 import 'data/datasources/remote/user/user_remote_datasource.dart';
 import 'data/repositories/local/local_food_repository.dart';
+import 'data/repositories/local/local_user_blood_target_repository.dart';
 import 'data/repositories/local/local_user_idf_repository.dart';
 import 'data/repositories/local/local_user_iko_repository.dart';
 import 'data/repositories/remote/food_cache_repository.dart';
@@ -30,6 +32,8 @@ import 'domain/usecases/food_consumption/get_meal_by_filter_usecase.dart';
 import 'domain/usecases/food_consumption/save_food_consumption_usecase.dart';
 import 'domain/usecases/user/user_login_usecase.dart';
 import 'domain/usecases/user/user_register_usecase.dart';
+import 'domain/usecases/user_blood_target/get_local_user_bloodtarget_usecase.dart';
+import 'domain/usecases/user_blood_target/save_local_user_bloodtarget_usecase.dart';
 import 'domain/usecases/user_idf/delete_single_user_idf_usecase.dart';
 import 'domain/usecases/user_idf/get_all_user_idf_usecase.dart';
 import 'domain/usecases/user_idf/save_user_idf_usecase.dart';
@@ -43,6 +47,7 @@ import 'features/home/cubit/bottom_nav_cubit.dart';
 import 'features/meal/cubit/meal_consumption_cubit.dart';
 import 'features/my_diabet/cubit/iko_cubit.dart';
 import 'features/my_diabet/cubit/my_diabet_cubit.dart';
+import 'features/my_diabet/cubit/user_blood_target_cubit.dart';
 import 'features/reciept/cubit/reciept_cubit.dart';
 import 'features/search/cubit/search_cubit.dart';
 import 'features/totals/cubit/totals_cubit.dart';
@@ -78,7 +83,10 @@ Future<void> init() async {
         getAllUserIdfUseCase: sl.call(),
         deleteSingleUserIdfUseCase: sl.call(),
       ));
-
+  sl.registerFactory<UserBloodTargetCubit>(() => UserBloodTargetCubit(
+        saveLocalUserBloodTargetUseCase: sl.call(),
+        getLocalUserBloodTargetUseCase: sl.call(),
+      ));
   //RemoteUseCases
   sl.registerLazySingleton<GetAllFoodsForCache>(() => GetAllFoodsForCache(foodCacheRepository: sl()));
   sl.registerLazySingleton<GetFoodOnNameUseCase>(() => GetFoodOnNameUseCase(foodRepositoryImpl: sl()));
@@ -102,12 +110,15 @@ Future<void> init() async {
   sl.registerLazySingleton<SaveLocalUserIkoUseCase>(() => SaveLocalUserIkoUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<GetAllUserIkoListUseCase>(() => GetAllUserIkoListUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<DeleteSingleUserIkoUseCase>(() => DeleteSingleUserIkoUseCase(localUserIkoRepository: sl()));
+  sl.registerLazySingleton<SaveLocalUserBloodTargetUseCase>(() => SaveLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
+  sl.registerLazySingleton<GetLocalUserBloodTargetUseCase>(() => GetLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
 
   //local datasources
   sl.registerLazySingleton<CacheFoodLocalDataSource>(() => CacheFoodLocalDataSource());
   sl.registerLazySingleton<FoodLocalDataSource>(() => FoodLocalDataSource());
   sl.registerLazySingleton<LocalUserIdfLocalDataSource>(() => LocalUserIdfLocalDataSource());
   sl.registerLazySingleton<LocalUserIkoDataSource>(() => LocalUserIkoDataSource());
+  sl.registerLazySingleton<LocalUserBloodTargetDataSource>(() => LocalUserBloodTargetDataSource());
   //remote datasource
   sl.registerLazySingleton<FoodCacheRemoteDataSource>(() => FoodCacheRemoteDataSource(sl.call()));
   sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSource(sl.call()));
@@ -125,6 +136,7 @@ Future<void> init() async {
   sl.registerLazySingleton<LocalFoodRepository>(() => LocalFoodRepositoryImpl(cacheFoodLocalDataSource: sl.call(), foodLocalDataSource: sl.call()));
   sl.registerLazySingleton<LocalUserIdfRepository>(() => LocalUserIdfRepositoryImpl(localUserIdfLocalDataSource: sl.call()));
   sl.registerLazySingleton<LocalUserIkoRepository>(() => LocalUserIkoRepositoryImpl(localUserIkoDataSource: sl.call()));
+  sl.registerLazySingleton<LocalUserBloodTargetRepository>(() => LocalUserBloodTargetRepositoryImpl(localUserBloodTargetDataSource: sl.call()));
 
   final networkManager = NetworkManager(
     isEnableLogger: true,

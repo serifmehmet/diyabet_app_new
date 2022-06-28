@@ -16,8 +16,10 @@ class CarbAppTextInput extends StatefulWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
-
+  final FocusNode? focuNode;
+  final TextInputAction? inputAction;
   final EdgeInsetsGeometry? contentPadding;
+  final String? Function(String?)? onFieldSubmit;
 
   const CarbAppTextInput({
     Key? key,
@@ -35,6 +37,9 @@ class CarbAppTextInput extends StatefulWidget {
     this.inputFormatters,
     this.validator,
     this.contentPadding,
+    this.focuNode,
+    this.inputAction,
+    this.onFieldSubmit,
   }) : super(key: key);
 
   @override
@@ -81,6 +86,9 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       validator: widget.validator,
+      focusNode: widget.focuNode,
+      textInputAction: widget.inputAction,
+      onFieldSubmitted: widget.onFieldSubmit,
     );
   }
 }
