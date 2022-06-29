@@ -1,15 +1,15 @@
 import 'package:diyabet_app/domain/entities/meal.dart';
-import 'package:diyabet_app/domain/entities/meal_root.dart';
+import 'package:diyabet_app/features/meal/widgets/bolus_calculation_modal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../core/init/theme/app_theme.dart';
-import '../models/calc_report_model.dart';
 
 class CalcTileWidget extends StatefulWidget {
-  const CalcTileWidget({Key? key, this.mealList}) : super(key: key);
+  const CalcTileWidget({Key? key, this.mealList, this.totalCarbValue}) : super(key: key);
 
   final List<Meal>? mealList;
+  final double? totalCarbValue;
 
   @override
   State<CalcTileWidget> createState() => _CalcTileWidgetState();
@@ -18,6 +18,21 @@ class CalcTileWidget extends StatefulWidget {
 class _CalcTileWidgetState extends State<CalcTileWidget> {
   //SelectedITile index
   int selected = 0;
+
+  void showBolusCalculationModal(double? totalCarbValue) {
+    showDialog(
+      context: context,
+      builder: (builder) {
+        return AlertDialog(
+            title: const Text("Bolus Hesaplama"),
+            content: SizedBox(
+                height: 450,
+                child: BolusCalculationModal(
+                  totalCarbValue: totalCarbValue!,
+                )));
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +87,9 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                             ),
                           ),
                         ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showBolusCalculationModal(widget.mealList![index].totalCarb);
+                    },
                     child: Text(
                       "Bolus Hesapla",
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 18),

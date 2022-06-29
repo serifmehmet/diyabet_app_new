@@ -1,3 +1,4 @@
+import 'package:diyabet_app/features/meal/cubit/bolus_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
 
@@ -83,11 +84,16 @@ Future<void> init() async {
         getAllUserIdfUseCase: sl.call(),
         deleteSingleUserIdfUseCase: sl.call(),
       ));
-  sl.registerFactory<UserBloodTargetCubit>(() => UserBloodTargetCubit(
-        saveLocalUserBloodTargetUseCase: sl.call(),
-        getLocalUserBloodTargetUseCase: sl.call(),
-      ));
-  //RemoteUseCases
+  sl.registerFactory<UserBloodTargetCubit>(
+    () => UserBloodTargetCubit(
+      saveLocalUserBloodTargetUseCase: sl.call(),
+      getLocalUserBloodTargetUseCase: sl.call(),
+    ),
+  );
+
+  sl.registerFactory<BolusCubit>(
+      () => BolusCubit(getAllUserIdfUseCase: sl.call(), getAllUserIkoListUseCase: sl.call(), getLocalUserBloodTargetUseCase: sl.call()));
+  //RemoteUseCasess
   sl.registerLazySingleton<GetAllFoodsForCache>(() => GetAllFoodsForCache(foodCacheRepository: sl()));
   sl.registerLazySingleton<GetFoodOnNameUseCase>(() => GetFoodOnNameUseCase(foodRepositoryImpl: sl()));
   sl.registerLazySingleton<UserLoginUseCase>(() => UserLoginUseCase(userRepositoryImpl: sl()));
