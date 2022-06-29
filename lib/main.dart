@@ -1,3 +1,4 @@
+import 'package:diyabet_app/features/meal/cubit/bolus_cubit.dart';
 import 'package:diyabet_app/features/my_diabet/cubit/user_blood_target_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -103,6 +104,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (userBtContext) => di.sl<UserBloodTargetCubit>(),
+        ),
+        BlocProvider(
+          create: (bolusContext) => di.sl<BolusCubit>(),
         ),
       ],
       child: MaterialApp(
