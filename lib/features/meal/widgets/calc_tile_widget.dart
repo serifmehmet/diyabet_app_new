@@ -2,6 +2,7 @@ import 'package:diyabet_app/domain/entities/meal.dart';
 import 'package:diyabet_app/features/meal/widgets/bolus_calculation_modal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/init/theme/app_theme.dart';
 
@@ -24,9 +25,8 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
       context: context,
       builder: (builder) {
         return AlertDialog(
-            title: const Text("Bolus Hesaplama"),
             content: SizedBox(
-                height: 450,
+                height: 440,
                 child: BolusCalculationModal(
                   totalCarbValue: totalCarbValue!,
                 )));
@@ -68,7 +68,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                   }
                 }),
                 title: Text(
-                  "${widget.mealList![index].mealDate!.hour}:${widget.mealList![index].mealDate!.minute}",
+                  DateFormat.Hm().format(widget.mealList![index].mealDate!),
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 trailing: trailingArea(index, context),

@@ -11,6 +11,7 @@ import 'package:diyabet_app/domain/usecases/user_iko/params/get_all_user_iko_par
 import 'package:diyabet_app/features/meal/widgets/bolus_calculation_modal_widget.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bolus_state.dart';
 
@@ -31,6 +32,7 @@ class BolusCubit extends Cubit<BolusState> {
   late double ikoValue = 0;
   late double targetValue = 0;
   late UserBloodTarget userBloodTarget;
+  late int lastMealHour = 5;
 
   Future<void> listBolusInfo() async {
     double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
@@ -71,18 +73,36 @@ class BolusCubit extends Cubit<BolusState> {
       }
     }
 
-    emit(BolusInfoLoaded(ikoValue: ikoValue, idfValue: idfValue, targetType: TargetType.fasting, targetValue: userBloodTarget.fbstValue!));
-
-    //now = 17.10
+    emit(BolusInfoLoaded(ikoValue: ikoValue, idfValue: idfValue, targetValue: userBloodTarget.fbstValue!, lastMealHour: lastMealHour));
   }
 
-  void changeTargetType(TargetType targetType) {
-    if (targetType == TargetType.fasting) {
-      emit(BolusInfoLoaded(targetType: TargetType.fasting, targetValue: userBloodTarget.fbstValue!, idfValue: idfValue, ikoValue: ikoValue));
-    } else if (targetType == TargetType.satiety) {
-      emit(BolusInfoLoaded(targetType: TargetType.satiety, targetValue: userBloodTarget.pbgtValue!, idfValue: idfValue, ikoValue: ikoValue));
-    } else {
-      emit(BolusInfoLoaded(targetType: TargetType.overnight, targetValue: userBloodTarget.ofbgtValue!, idfValue: idfValue, ikoValue: ikoValue));
+  void changeTargetType(int lastMealHour) {
+    // if (targetType == TargetType.fasting) {
+    //   emit(BolusInfoLoaded(
+    //       targetType: TargetType.fasting,
+    //       targetValue: userBloodTarget.fbstValue!,
+    //       idfValue: idfValue,
+    //       ikoValue: ikoValue,
+    //       lastMealHour: lastMealHour));
+    // } else if (targetType == TargetType.satiety) {
+    //   emit(BolusInfoLoaded(
+    //       targetType: TargetType.satiety,
+    //       targetValue: userBloodTarget.pbgtValue!,
+    //       idfValue: idfValue,
+    //       ikoValue: ikoValue,
+    //       lastMealHour: lastMealHour));
+    // } else {
+    //   emit(BolusInfoLoaded(
+    //       targetType: TargetType.overnight,
+    //       targetValue: userBloodTarget.ofbgtValue!,
+    //       idfValue: idfValue,
+    //       ikoValue: ikoValue,
+    //       lastMealHour: lastMealHour));
+    // }
+    if (lastMealHour == 5) {
+      emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: userBloodTarget.fbstValue!, lastMealHour: lastMealHour));
+      return;
     }
+    emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: targetValue, lastMealHour: lastMealHour));
   }
 }

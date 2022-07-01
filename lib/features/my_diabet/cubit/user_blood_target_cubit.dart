@@ -20,14 +20,13 @@ class UserBloodTargetCubit extends Cubit<UserBloodTargetState> {
   final SaveLocalUserBloodTargetUseCase saveLocalUserBloodTargetUseCase;
   final GetLocalUserBloodTargetUseCase getLocalUserBloodTargetUseCase;
 
-  Future<void> saveUBT(String? fbstValue, String? pbgtValue, String? ofbgValue) async {
+  Future<void> saveUBT(String? fbstValue, String? ofbgValue) async {
     try {
       emit(UserBloodTargetSaving());
       UserBloodTarget userBTToSave = UserBloodTarget(
         id: UniqueKey().hashCode,
         userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
         fbstValue: double.parse(fbstValue!),
-        pbgtValue: double.parse(pbgtValue!),
         ofbgtValue: double.parse(ofbgValue!),
       );
 

@@ -21,12 +21,11 @@ class BolusTargetTypeChanged extends BolusState {
 class BolusInfoLoaded extends BolusState {
   final double ikoValue;
   final double idfValue;
-  final TargetType targetType;
   final double targetValue;
+  final int lastMealHour;
 
-  const BolusInfoLoaded({required this.idfValue, required this.ikoValue, required this.targetType, required this.targetValue});
+  const BolusInfoLoaded({required this.idfValue, required this.ikoValue, required this.targetValue, required this.lastMealHour});
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [ikoValue, idfValue, targetValue, targetType];
+  List<Object?> get props => [ikoValue, idfValue, targetValue, lastMealHour];
 }

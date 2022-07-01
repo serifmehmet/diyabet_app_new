@@ -21,22 +21,19 @@ class UserBloodTargetHiveModelAdapter
       ..id = fields[0] as int
       ..userId = fields[1] as int
       ..fbstValue = fields[2] as double
-      ..pbgtValue = fields[3] as double
       ..ofbgtValue = fields[4] as double;
   }
 
   @override
   void write(BinaryWriter writer, UserBloodTargetHiveModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.userId)
       ..writeByte(2)
       ..write(obj.fbstValue)
-      ..writeByte(3)
-      ..write(obj.pbgtValue)
       ..writeByte(4)
       ..write(obj.ofbgtValue);
   }
