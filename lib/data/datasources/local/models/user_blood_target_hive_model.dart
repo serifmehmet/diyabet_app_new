@@ -12,8 +12,7 @@ class UserBloodTargetHiveModel extends HiveObject {
   late int userId;
   @HiveField(2)
   late double fbstValue;
-  @HiveField(3)
-  late double pbgtValue;
+
   @HiveField(4)
   late double ofbgtValue;
 
@@ -21,7 +20,6 @@ class UserBloodTargetHiveModel extends HiveObject {
         id: id,
         userId: userId,
         fbstValue: fbstValue,
-        pbgtValue: pbgtValue,
         ofbgtValue: ofbgtValue,
       );
 }

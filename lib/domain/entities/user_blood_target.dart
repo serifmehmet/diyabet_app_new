@@ -7,9 +7,6 @@ class UserBloodTarget {
   ///Açlık Kan Şekeri
   final double? fbstValue;
 
-  ///Tokluk Kan Şekeri
-  final double? pbgtValue;
-
   ///Gece Açlık Kan Şekeri
   final double? ofbgtValue;
 
@@ -17,7 +14,6 @@ class UserBloodTarget {
     this.id,
     this.userId,
     this.fbstValue,
-    this.pbgtValue,
     this.ofbgtValue,
   });
 
@@ -25,6 +21,5 @@ class UserBloodTarget {
     ..id = id!
     ..userId = userId!
     ..fbstValue = fbstValue!
-    ..pbgtValue = pbgtValue!
     ..ofbgtValue = ofbgtValue!;
 }
