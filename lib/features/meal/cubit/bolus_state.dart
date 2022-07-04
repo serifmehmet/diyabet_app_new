@@ -29,3 +29,12 @@ class BolusInfoLoaded extends BolusState {
   @override
   List<Object?> get props => [ikoValue, idfValue, targetValue, lastMealHour];
 }
+
+class BolusCalculated extends BolusState {
+  final double resultValue;
+
+  const BolusCalculated({required this.resultValue});
+
+  @override
+  List<Object?> get props => [resultValue];
+}

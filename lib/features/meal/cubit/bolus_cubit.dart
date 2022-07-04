@@ -77,32 +77,30 @@ class BolusCubit extends Cubit<BolusState> {
   }
 
   void changeTargetType(int lastMealHour) {
-    // if (targetType == TargetType.fasting) {
-    //   emit(BolusInfoLoaded(
-    //       targetType: TargetType.fasting,
-    //       targetValue: userBloodTarget.fbstValue!,
-    //       idfValue: idfValue,
-    //       ikoValue: ikoValue,
-    //       lastMealHour: lastMealHour));
-    // } else if (targetType == TargetType.satiety) {
-    //   emit(BolusInfoLoaded(
-    //       targetType: TargetType.satiety,
-    //       targetValue: userBloodTarget.pbgtValue!,
-    //       idfValue: idfValue,
-    //       ikoValue: ikoValue,
-    //       lastMealHour: lastMealHour));
-    // } else {
-    //   emit(BolusInfoLoaded(
-    //       targetType: TargetType.overnight,
-    //       targetValue: userBloodTarget.ofbgtValue!,
-    //       idfValue: idfValue,
-    //       ikoValue: ikoValue,
-    //       lastMealHour: lastMealHour));
-    // }
     if (lastMealHour == 5) {
       emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: userBloodTarget.fbstValue!, lastMealHour: lastMealHour));
       return;
     }
     emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: targetValue, lastMealHour: lastMealHour));
+  }
+
+  void calculateBolus(int lastMealHour, double totalCarb, {double? instantBloodSugarValue}) {
+    double result;
+    double correctionDoze;
+    double calculatedInsulinDoze;
+    //3+
+    if (lastMealHour == 5) {
+      correctionDoze = (instantBloodSugarValue! - userBloodTarget.fbstValue!) / idfValue;
+      calculatedInsulinDoze = totalCarb / ikoValue;
+      result = correctionDoze + calculatedInsulinDoze;
+    } else if (lastMealHour == 4 || lastMealHour == 3) {
+      correctionDoze = (instantBloodSugarValue! - 160) / idfValue;
+      calculatedInsulinDoze = totalCarb / ikoValue;
+      result = correctionDoze + calculatedInsulinDoze;
+    } else {
+      result = totalCarb / ikoValue;
+    }
+
+    emit(BolusCalculated(resultValue: result));
   }
 }
