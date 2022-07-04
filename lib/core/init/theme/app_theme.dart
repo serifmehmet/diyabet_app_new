@@ -207,6 +207,35 @@ extension CustomStyles on TextTheme {
     );
   }
 
+  TextStyle get bolusScreenGreen {
+    return const TextStyle(
+      color: Color(0xff1BC47D),
+      fontSize: 13,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+    );
+  }
+
+  TextStyle get bolusScreenUserValues {
+    return const TextStyle(
+      color: Color(0xffD6578A),
+      fontSize: 18,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle get bolusScreenHeaderRed {
+    return const TextStyle(
+      color: Color(0xffFF0000),
+      fontSize: 20,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
   TextStyle get profileHeader {
     return const TextStyle(
       color: Color(0xff272727),

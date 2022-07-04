@@ -25,11 +25,13 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
       context: context,
       builder: (builder) {
         return AlertDialog(
-            content: SizedBox(
-                height: 440,
-                child: BolusCalculationModal(
-                  totalCarbValue: totalCarbValue!,
-                )));
+          content: SizedBox(
+            height: 440,
+            child: BolusCalculationModal(
+              totalCarbValue: totalCarbValue!,
+            ),
+          ),
+        );
       },
     );
   }
