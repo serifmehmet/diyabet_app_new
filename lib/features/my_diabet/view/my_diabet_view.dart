@@ -93,6 +93,9 @@ class _MyDiabetViewState extends State<MyDiabetView> {
                     const SizedBox(height: 20),
                     BlocBuilder<MyDiabetCubit, MyDiabetState>(
                       builder: (context, state) {
+                        if (state is MyDiabetValueAdding) {
+                          return const CircularProgressIndicator();
+                        }
                         if (state is MyDiabetIdfListGetSuccess) {
                           return LimitedBox(
                             maxHeight: 550,

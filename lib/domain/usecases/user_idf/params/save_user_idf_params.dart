@@ -1,7 +1,7 @@
 import 'package:diyabet_app/domain/entities/user_idf.dart';
 
-class SaveLocalUserIdfParams {
+class SaveUserIdfParams {
   final UserIdf? userIdf;
 
-  SaveLocalUserIdfParams({this.userIdf});
+  SaveUserIdfParams({this.userIdf});
 }

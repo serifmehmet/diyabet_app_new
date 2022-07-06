@@ -9,6 +9,11 @@ class MyDiabetInitial extends MyDiabetState {
   List<Object> get props => [];
 }
 
+class MyDiabetValueAdding extends MyDiabetState {
+  @override
+  List<Object?> get props => [];
+}
+
 class MyDiabetIdfListGetSuccess extends MyDiabetState {
   final List<UserIdf> userIdfList;
 

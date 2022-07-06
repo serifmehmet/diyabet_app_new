@@ -1,4 +1,5 @@
 import 'package:diyabet_app/data/datasources/local/models/user_idf_hive_model.dart';
+import 'package:diyabet_app/data/datasources/remote/models/user/user_idf_model.dart';
 
 class UserIdf {
   final int? id;
@@ -18,4 +19,11 @@ class UserIdf {
     ..hour = hour!
     ..idfValue = idfValue!
     ..userId = userId!;
+
+  UserIdfModel toRemoteModel() => UserIdfModel(
+        id: id,
+        hour: hour,
+        idfValue: idfValue,
+        userId: userId,
+      );
 }

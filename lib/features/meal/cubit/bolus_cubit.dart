@@ -4,7 +4,7 @@ import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/domain/entities/user_blood_target.dart';
 import 'package:diyabet_app/domain/usecases/user_blood_target/get_local_user_bloodtarget_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_blood_target/params/get_local_user_bloodtarget_params.dart';
-import 'package:diyabet_app/domain/usecases/user_idf/get_all_user_idf_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/local/get_all_user_idf_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_idf/params/get_all_user_idf_usecase_params.dart';
 import 'package:diyabet_app/domain/usecases/user_iko/get_all_user_iko_list_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_iko/params/get_all_user_iko_params.dart';
