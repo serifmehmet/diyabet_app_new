@@ -7,14 +7,14 @@ part 'meal_model.g.dart';
 
 @JsonSerializable()
 class MealModel extends INetworkModel<MealModel> {
-  int? id;
+  int? mealId;
   DateTime? mealDate;
   double? bolusValue;
   double? totalCarb;
   List<ConsumptionModel>? consumptions;
 
   MealModel({
-    this.id,
+    this.mealId,
     this.mealDate,
     this.bolusValue,
     this.totalCarb,
@@ -37,7 +37,7 @@ class MealModel extends INetworkModel<MealModel> {
   }
 
   Meal toEntity() => Meal(
-        mealId: id,
+        mealId: mealId,
         mealDate: mealDate,
         bolusValue: bolusValue,
         totalCarb: totalCarb,

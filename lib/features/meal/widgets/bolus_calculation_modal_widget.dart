@@ -11,8 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 enum TargetType { fasting, satiety, overnight }
 
 class BolusCalculationModal extends StatefulWidget {
-  const BolusCalculationModal({Key? key, required this.totalCarbValue}) : super(key: key);
+  const BolusCalculationModal({Key? key, required this.totalCarbValue, required this.mealId}) : super(key: key);
   final double totalCarbValue;
+  final int mealId;
   @override
   State<BolusCalculationModal> createState() => _BolusCalculationModalState();
 }
@@ -219,11 +220,12 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (lastMealHour < 3) {
-                          BlocProvider.of<BolusCubit>(context).calculateBolus(lastMealHour, widget.totalCarbValue);
+                          BlocProvider.of<BolusCubit>(context).calculateBolus(lastMealHour, widget.totalCarbValue, widget.mealId);
                         } else {
                           BlocProvider.of<BolusCubit>(context).calculateBolus(
                             lastMealHour,
                             widget.totalCarbValue,
+                            widget.mealId,
                             instantBloodSugarValue: double.parse(instantBloodSugar.text),
                           );
                         }

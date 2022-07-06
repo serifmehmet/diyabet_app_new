@@ -7,7 +7,7 @@ part of 'meal_model.dart';
 // **************************************************************************
 
 MealModel _$MealModelFromJson(Map<String, dynamic> json) => MealModel(
-      id: json['id'] as int?,
+      mealId: json['mealId'] as int?,
       mealDate: json['mealDate'] == null
           ? null
           : DateTime.parse(json['mealDate'] as String),
@@ -19,7 +19,7 @@ MealModel _$MealModelFromJson(Map<String, dynamic> json) => MealModel(
     );
 
 Map<String, dynamic> _$MealModelToJson(MealModel instance) => <String, dynamic>{
-      'id': instance.id,
+      'mealId': instance.mealId,
       'mealDate': instance.mealDate?.toIso8601String(),
       'bolusValue': instance.bolusValue,
       'totalCarb': instance.totalCarb,

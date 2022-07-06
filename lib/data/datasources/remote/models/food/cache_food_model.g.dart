@@ -8,7 +8,7 @@ part of 'cache_food_model.dart';
 
 CacheFoodModel _$CacheFoodModelFromJson(Map<String, dynamic> json) =>
     CacheFoodModel(
-      foodList: (json['foodList'] as List<dynamic>?)
+      items: (json['items'] as List<dynamic>?)
           ?.map(
               (e) => CacheFoodListItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -17,6 +17,6 @@ CacheFoodModel _$CacheFoodModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CacheFoodModelToJson(CacheFoodModel instance) =>
     <String, dynamic>{
-      'foodList': instance.foodList,
+      'items': instance.items,
       'errorCode': instance.errorCode,
     };

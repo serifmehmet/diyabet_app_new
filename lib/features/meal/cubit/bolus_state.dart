@@ -32,9 +32,11 @@ class BolusInfoLoaded extends BolusState {
 
 class BolusCalculated extends BolusState {
   final double resultValue;
+  final bool isCalculated;
+  final int calculatedMealId;
 
-  const BolusCalculated({required this.resultValue});
+  const BolusCalculated({required this.resultValue, required this.isCalculated, required this.calculatedMealId});
 
   @override
-  List<Object?> get props => [resultValue];
+  List<Object?> get props => [resultValue, isCalculated, calculatedMealId];
 }
