@@ -8,6 +8,7 @@ abstract class UserRepository {
   Future<User?> login(String email, String password);
   Future<User?> register(UserModel userModel);
   Future<bool> addUserIdf(UserIdfModel userIdfModel);
+  Future<bool> deleteUserIdf(UserIdfModel userIdfModel);
 }
 
 class UserRepositoryImpl extends UserRepository {
@@ -37,6 +38,13 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<bool> addUserIdf(UserIdfModel userIdfModel) async {
     final response = await userIdfRemoteDataSource.createUserIdf(userIdfModel);
+
+    return response;
+  }
+
+  @override
+  Future<bool> deleteUserIdf(UserIdfModel userIdfModel) async {
+    final response = await userIdfRemoteDataSource.deleteRemoteUserIdf(userIdfModel);
 
     return response;
   }

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:diyabet_app/domain/usecases/user_idf/local/delete_single_user_idf_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_idf/params/delete_user_idf_params.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/remote/delete_remote_useridf_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_idf/remote/save_remote_useridf_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,14 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
   final DeleteSingleUserIdfUseCase deleteSingleUserIdfUseCase;
 
   final SaveRemoteUserIdf saveRemoteUserIdf;
+  final DeleteRemoteUserIdfUseCase deleteRemoteUserIdfUseCase;
 
   MyDiabetCubit({
     required this.saveLocalUserIdfUseCase,
     required this.getAllUserIdfUseCase,
     required this.deleteSingleUserIdfUseCase,
     required this.saveRemoteUserIdf,
+    required this.deleteRemoteUserIdfUseCase,
   }) : super(MyDiabetInitial()) {
     getAllUserIdf();
   }
@@ -99,10 +102,13 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
   Future<void> deleteUserIdfItem(int userIdfId) async {
     await deleteSingleUserIdfUseCase.call(DeleteUserIdfParams(userIdfId: userIdfId));
 
+    var userIdf = userIdfList!.singleWhere((element) => element.id == userIdfId);
     userIdfList!.removeWhere((element) => element.id == userIdfId);
     if (userIdfList!.isNotEmpty) {
       userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
     }
+
+    await deleteRemoteUserIdfUseCase.call(DeleteUserIdfParams(userIdfToDelete: userIdf));
 
     getAllUserIdf();
   }
