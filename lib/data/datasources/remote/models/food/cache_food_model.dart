@@ -11,13 +11,13 @@ part "cache_food_model.g.dart";
 
 @JsonSerializable()
 class CacheFoodModel extends INetworkModel<CacheFoodModel> {
-  @JsonKey(name: "items")
-  List<CacheFoodListItemModel>? items;
+  @JsonKey(name: "foodList")
+  List<CacheFoodListItemModel>? foodList;
   @JsonKey(name: "errorCode")
   String? errorCode;
 
   CacheFoodModel({
-    this.items,
+    this.foodList,
     this.errorCode,
   });
 
@@ -32,7 +32,7 @@ class CacheFoodModel extends INetworkModel<CacheFoodModel> {
   }
 
   CacheFood toEntity() => CacheFood(
-        FoodList: items!.map((e) => e.toEntity()).toList(),
+        FoodList: foodList!.map((e) => e.toEntity()).toList(),
         ErrorCode: errorCode,
       );
 
@@ -42,6 +42,6 @@ class CacheFoodModel extends INetworkModel<CacheFoodModel> {
   }
 
   FoodCacheHiveModel toHiveModel() => FoodCacheHiveModel()
-    ..foodList = items!.map((e) => e.toHiveModel()).toList()
+    ..foodList = foodList!.map((e) => e.toHiveModel()).toList()
     ..errorCode = errorCode!;
 }

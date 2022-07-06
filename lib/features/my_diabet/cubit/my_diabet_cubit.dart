@@ -1,16 +1,17 @@
 import 'package:bloc/bloc.dart';
-import 'package:diyabet_app/domain/usecases/user_idf/delete_single_user_idf_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/local/delete_single_user_idf_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_idf/params/delete_user_idf_params.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/remote/save_remote_useridf_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/enums/preferences_keys.dart';
 import '../../../core/init/cache/cache_manager.dart';
 import '../../../domain/entities/user_idf.dart';
-import '../../../domain/usecases/user_idf/get_all_user_idf_usecase.dart';
+import '../../../domain/usecases/user_idf/local/get_all_user_idf_usecase.dart';
 import '../../../domain/usecases/user_idf/params/get_all_user_idf_usecase_params.dart';
-import '../../../domain/usecases/user_idf/params/save_local_user_idf_params.dart';
-import '../../../domain/usecases/user_idf/save_user_idf_usecase.dart';
+import '../../../domain/usecases/user_idf/params/save_user_idf_params.dart';
+import '../../../domain/usecases/user_idf/local/save_user_idf_usecase.dart';
 
 part 'my_diabet_state.dart';
 
@@ -19,10 +20,13 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
   final GetAllUserIdfUseCase getAllUserIdfUseCase;
   final DeleteSingleUserIdfUseCase deleteSingleUserIdfUseCase;
 
+  final SaveRemoteUserIdf saveRemoteUserIdf;
+
   MyDiabetCubit({
     required this.saveLocalUserIdfUseCase,
     required this.getAllUserIdfUseCase,
     required this.deleteSingleUserIdfUseCase,
+    required this.saveRemoteUserIdf,
   }) : super(MyDiabetInitial()) {
     getAllUserIdf();
   }
@@ -30,6 +34,7 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
   List<UserIdf>? userIdfList = [];
   //List<UserIko>? userIkoList = [];
   bool addIdfValueAndTime(TimeOfDay selectedHour, String idfValue) {
+    emit(MyDiabetValueAdding());
     try {
       //check if the hour is between any hour which added by the user
       if (userIdfList!.isEmpty) {
@@ -40,9 +45,12 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
           userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
         );
 
-        saveLocalUserIdfUseCase.call(SaveLocalUserIdfParams(userIdf: userIdfToAdd));
+        saveLocalUserIdfUseCase.call(SaveUserIdfParams(userIdf: userIdfToAdd));
         userIdfList!.add(userIdfToAdd);
         userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+        //remoteSave
+        saveRemoteUserIdf.call(SaveUserIdfParams(userIdf: userIdfToAdd));
+
         emit(MyDiabetIdfListGetSuccess(userIdfList: userIdfList!));
         return true;
       } else {
@@ -65,9 +73,12 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
             userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
           );
 
-          saveLocalUserIdfUseCase.call(SaveLocalUserIdfParams(userIdf: userIdfToAdd));
+          saveLocalUserIdfUseCase.call(SaveUserIdfParams(userIdf: userIdfToAdd));
           userIdfList!.add(userIdfToAdd);
           userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+
+          //remoteSave
+          saveRemoteUserIdf.call(SaveUserIdfParams(userIdf: userIdfToAdd));
           emit(MyDiabetIdfListGetSuccess(userIdfList: userIdfList!));
 
           return true;

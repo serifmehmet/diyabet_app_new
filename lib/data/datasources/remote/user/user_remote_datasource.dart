@@ -1,4 +1,4 @@
-import 'package:diyabet_app/data/datasources/remote/models/user_model.dart';
+import 'package:diyabet_app/data/datasources/remote/models/user/user_model.dart';
 import 'package:vexana/vexana.dart';
 
 class UserRemoteDataSource {
