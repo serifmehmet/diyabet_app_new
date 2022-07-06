@@ -84,7 +84,7 @@ class BolusCubit extends Cubit<BolusState> {
     emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: targetValue, lastMealHour: lastMealHour));
   }
 
-  void calculateBolus(int lastMealHour, double totalCarb, {double? instantBloodSugarValue}) {
+  void calculateBolus(int lastMealHour, double totalCarb, int mealId, {double? instantBloodSugarValue}) {
     double result;
     double correctionDoze;
     double calculatedInsulinDoze;
@@ -101,6 +101,6 @@ class BolusCubit extends Cubit<BolusState> {
       result = totalCarb / ikoValue;
     }
 
-    emit(BolusCalculated(resultValue: result));
+    emit(BolusCalculated(resultValue: result, isCalculated: true, calculatedMealId: mealId));
   }
 }

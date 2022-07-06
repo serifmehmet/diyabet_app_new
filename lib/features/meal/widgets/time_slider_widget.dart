@@ -60,6 +60,7 @@ class _TimeSliderWidgetState extends State<TimeSliderWidget> {
             });
             BlocProvider.of<BolusCubit>(context).changeTargetType(indexTop);
           },
+          activeColor: Theme.of(context).colorScheme.tertiary,
         )
       ],
     );

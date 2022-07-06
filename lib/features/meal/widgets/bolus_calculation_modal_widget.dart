@@ -11,8 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 enum TargetType { fasting, satiety, overnight }
 
 class BolusCalculationModal extends StatefulWidget {
-  const BolusCalculationModal({Key? key, required this.totalCarbValue}) : super(key: key);
+  const BolusCalculationModal({Key? key, required this.totalCarbValue, required this.mealId}) : super(key: key);
   final double totalCarbValue;
+  final int mealId;
   @override
   State<BolusCalculationModal> createState() => _BolusCalculationModalState();
 }
@@ -73,23 +74,22 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
           child: SizedBox(
             height: 435,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const SizedBox(height: 10),
                 Text("Toplam Karbonhidrat Değeri", style: Theme.of(context).textTheme.headline3),
                 const SizedBox(height: 5),
                 Align(
                   alignment: Alignment.center,
-                  child: Text('${widget.totalCarbValue} G.', style: Theme.of(context).textTheme.bodyMedium),
+                  child: Text('${widget.totalCarbValue} G.', style: Theme.of(context).textTheme.bolusScreenHeaderRed),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Text(
                   "En son yediğim yemek üzerinden geçen süre:",
-                  style: Theme.of(context).textTheme.bolusScreenRed,
+                  style: Theme.of(context).textTheme.bolusScreenGreen,
                 ),
                 const SizedBox(height: 5),
                 const TimeSliderWidget(),
@@ -107,7 +107,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                   "K/I Oranı:",
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
-                                Text(state.ikoValue.toString(), style: Theme.of(context).textTheme.headline5),
+                                Text(state.ikoValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
                               ],
                             ),
                             const Divider(thickness: 1, color: Colors.grey),
@@ -118,7 +118,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                   "IDF:",
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
-                                Text(state.idfValue.toString(), style: Theme.of(context).textTheme.headline5),
+                                Text(state.idfValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
                               ],
                             ),
                             const Divider(thickness: 1, color: Colors.grey),
@@ -129,7 +129,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                   "Açlık Hedef Kan Şekeri Değeri:",
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
-                                Text(state.targetValue.toString(), style: Theme.of(context).textTheme.headline5),
+                                Text(state.targetValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
                               ],
                             ),
                           ],
@@ -144,7 +144,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                   "K/I Oranı:",
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
-                                Text(state.ikoValue.toString(), style: Theme.of(context).textTheme.headline5),
+                                Text(state.ikoValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
                               ],
                             ),
                             const Divider(thickness: 1, color: Colors.grey),
@@ -155,7 +155,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                   "IDF:",
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
-                                Text(state.idfValue.toString(), style: Theme.of(context).textTheme.headline5),
+                                Text(state.idfValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
                               ],
                             ),
                             const Divider(thickness: 1, color: Colors.grey),
@@ -166,7 +166,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                   "Hedef Kan Şekeri Değeri:",
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
-                                Text("160", style: Theme.of(context).textTheme.headline5),
+                                Text("160", style: Theme.of(context).textTheme.bolusScreenUserValues),
                               ],
                             ),
                           ],
@@ -181,7 +181,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                               "K/I Oranı:",
                               style: Theme.of(context).textTheme.headline5,
                             ),
-                            Text(state.ikoValue.toString(), style: Theme.of(context).textTheme.headline5),
+                            Text(state.ikoValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
                           ],
                         ),
                       );
@@ -220,11 +220,12 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (lastMealHour < 3) {
-                          BlocProvider.of<BolusCubit>(context).calculateBolus(lastMealHour, widget.totalCarbValue);
+                          BlocProvider.of<BolusCubit>(context).calculateBolus(lastMealHour, widget.totalCarbValue, widget.mealId);
                         } else {
                           BlocProvider.of<BolusCubit>(context).calculateBolus(
                             lastMealHour,
                             widget.totalCarbValue,
+                            widget.mealId,
                             instantBloodSugarValue: double.parse(instantBloodSugar.text),
                           );
                         }

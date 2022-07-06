@@ -1,6 +1,8 @@
 import 'package:diyabet_app/domain/entities/meal.dart';
+import 'package:diyabet_app/features/meal/cubit/bolus_cubit.dart';
 import 'package:diyabet_app/features/meal/widgets/bolus_calculation_modal_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 
@@ -20,18 +22,26 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
   //SelectedITile index
   int selected = 0;
 
-  void showBolusCalculationModal(double? totalCarbValue) {
+  void showBolusCalculationModal(double? totalCarbValue, int? mealId) {
     showDialog(
       context: context,
       builder: (builder) {
         return AlertDialog(
-            content: SizedBox(
-                height: 440,
-                child: BolusCalculationModal(
-                  totalCarbValue: totalCarbValue!,
-                )));
+          content: SizedBox(
+            height: 440,
+            child: BolusCalculationModal(
+              totalCarbValue: totalCarbValue!,
+              mealId: mealId!,
+            ),
+          ),
+        );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -43,61 +53,130 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
         padding: EdgeInsets.zero,
         itemCount: widget.mealList!.length,
         itemBuilder: (context, index) {
-          return ListTileTheme(
-            tileColor: const Color(0xfff5f5f5),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-
-            // data: Theme.of(context).copyWith(dividerColor: Colors.transparent, dividerTheme: DividerThemeData(color: Colors.black)),
-            child: Theme(
-              data: Theme.of(context).copyWith(dividerColor: Colors.transparent, dividerTheme: const DividerThemeData(color: Colors.black)),
-              child: ExpansionTile(
-                key: Key(index.toString()),
-                initiallyExpanded: index == selected,
-                onExpansionChanged: ((newState) {
-                  if (newState) {
-                    setState(() {
-                      const Duration(seconds: 20000);
-                      selected = index;
-                    });
-                  } else {
-                    setState(() {
-                      selected = -1;
-                    });
-                  }
-                }),
-                title: Text(
-                  DateFormat.Hm().format(widget.mealList![index].mealDate!),
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-                trailing: trailingArea(index, context),
-                children: [
-                  innerListView(index),
-                  ElevatedButton(
-                    style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                            const EdgeInsets.all(5),
-                          ),
-                          shape: MaterialStateProperty.all<OutlinedBorder>(
-                            const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
+          return BlocBuilder<BolusCubit, BolusState>(
+            builder: (context, state) {
+              if (state is BolusCalculated) {
+                if (state.calculatedMealId == widget.mealList![index].mealId) {
+                  return ListTileTheme(
+                    tileColor: Theme.of(context).colorScheme.tertiary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Theme(
+                      data: Theme.of(context).copyWith(dividerColor: Colors.transparent, dividerTheme: const DividerThemeData(color: Colors.black)),
+                      child: ExpansionTile(
+                        key: Key(index.toString()),
+                        initiallyExpanded: index == selected,
+                        onExpansionChanged: ((newState) {
+                          if (newState) {
+                            setState(() {
+                              const Duration(seconds: 20000);
+                              selected = index;
+                            });
+                          } else {
+                            setState(() {
+                              selected = -1;
+                            });
+                          }
+                        }),
+                        title: Text(
+                          DateFormat.Hm().format(widget.mealList![index].mealDate!),
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        trailing: trailingArea(index, context, calculatedBolusValue: state.resultValue),
+                        children: [
+                          innerListView(index),
+                          ElevatedButton(
+                            style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+                                  padding: MaterialStateProperty.all<EdgeInsets>(
+                                    const EdgeInsets.all(5),
+                                  ),
+                                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                                    const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(5),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            onPressed: () {
+                              showBolusCalculationModal(widget.mealList![index].totalCarb, widget.mealList![index].mealId);
+                            },
+                            child: Text(
+                              "Yeniden Bolus Hesapla",
+                              style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 18),
                             ),
                           ),
-                        ),
-                    onPressed: () {
-                      showBolusCalculationModal(widget.mealList![index].totalCarb);
-                    },
-                    child: Text(
-                      "Bolus Hesapla",
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 18),
+                        ],
+                      ),
                     ),
+                  );
+                }
+              }
+              //regular one
+              return ListTileTheme(
+                //If bolus calculated change color
+                tileColor: widget.mealList![index].bolusValue == null ? const Color(0xfff5f5f5) : Theme.of(context).colorScheme.tertiary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+
+                // data: Theme.of(context).copyWith(dividerColor: Colors.transparent, dividerTheme: DividerThemeData(color: Colors.black)),
+                child: Theme(
+                  data: Theme.of(context).copyWith(dividerColor: Colors.transparent, dividerTheme: const DividerThemeData(color: Colors.black)),
+                  child: ExpansionTile(
+                    key: Key(index.toString()),
+                    initiallyExpanded: index == selected,
+                    onExpansionChanged: ((newState) {
+                      if (newState) {
+                        setState(() {
+                          const Duration(seconds: 20000);
+                          selected = index;
+                        });
+                      } else {
+                        setState(() {
+                          selected = -1;
+                        });
+                      }
+                    }),
+                    title: Text(
+                      DateFormat.Hm().format(widget.mealList![index].mealDate!),
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    trailing: trailingArea(index, context, calculatedBolusValue: 0.0),
+                    children: [
+                      innerListView(index),
+                      ElevatedButton(
+                        style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                const EdgeInsets.all(5),
+                              ),
+                              shape: MaterialStateProperty.all<OutlinedBorder>(
+                                const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        onPressed: () {
+                          showBolusCalculationModal(widget.mealList![index].totalCarb, widget.mealList![index].mealId);
+                        },
+                        child: widget.mealList![index].bolusValue == null
+                            ? Text(
+                                "Bolus Hesapla",
+                                style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 18),
+                              )
+                            : Text(
+                                "Yeniden Bolus Hesapla",
+                                style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 18),
+                              ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           );
         },
       ),
@@ -170,7 +249,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
     );
   }
 
-  Widget trailingArea(int index, BuildContext context) {
+  Widget trailingArea(int index, BuildContext context, {double? calculatedBolusValue}) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -182,7 +261,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
               style: Theme.of(context).textTheme.subtitle2,
             ),
             Text(
-              "Bolus: ${widget.mealList![index].bolusValue} Ünite",
+              "Bolus: ${calculatedBolusValue!} Ünite",
               style: Theme.of(context).textTheme.subtitle2,
             )
           ],
