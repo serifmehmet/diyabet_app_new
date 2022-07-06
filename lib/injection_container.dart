@@ -1,4 +1,5 @@
 import 'package:diyabet_app/data/datasources/remote/user/user_idf_remote_datasource.dart';
+import 'package:diyabet_app/domain/usecases/user_idf/remote/delete_remote_useridf_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_idf/remote/save_remote_useridf_usecase.dart';
 import 'package:diyabet_app/features/meal/cubit/bolus_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -95,6 +96,7 @@ Future<void> init() async {
         getAllUserIdfUseCase: sl.call(),
         deleteSingleUserIdfUseCase: sl.call(),
         saveRemoteUserIdf: sl.call(),
+        deleteRemoteUserIdfUseCase: sl.call(),
       ));
   sl.registerFactory<UserBloodTargetCubit>(
     () => UserBloodTargetCubit(
@@ -114,6 +116,7 @@ Future<void> init() async {
   sl.registerLazySingleton<SaveFoodConsumptionUseCase>(() => SaveFoodConsumptionUseCase(foodConsumptionRepository: sl()));
   sl.registerLazySingleton<GetMealByFilterUseCase>(() => GetMealByFilterUseCase(foodConsumptionRepository: sl()));
   sl.registerLazySingleton<SaveRemoteUserIdf>(() => SaveRemoteUserIdf(userRepository: sl()));
+  sl.registerLazySingleton<DeleteRemoteUserIdfUseCase>(() => DeleteRemoteUserIdfUseCase(userRepository: sl()));
 
   //LocalUseCases
   sl.registerLazySingleton<GetFoodsFromCacheOnName>(() => GetFoodsFromCacheOnName(localFoodRepository: sl()));
