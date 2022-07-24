@@ -1,11 +1,9 @@
-import 'package:diyabet_app/domain/entities/remote_food.dart';
 import 'package:diyabet_app/domain/entities/remote_food_root.dart';
 
-import '../../../domain/entities/food.dart';
 import '../../datasources/remote/food/food_remote_datasouce.dart';
 
 abstract class FoodRepository {
-  Future<Food?> getFoodByName(String foodName);
+  // Future<Food?> getFoodByName(String foodName);
   Future<RemoteFoodRoot?> getFoodById(int foodId);
 }
 
@@ -14,16 +12,16 @@ class FoodRepositoryImpl extends FoodRepository {
 
   FoodRepositoryImpl({required this.foodRemoteDataSource});
 
-  @override
-  Future<Food?> getFoodByName(String foodName) async {
-    final foodModel = await foodRemoteDataSource.getFoodByName(foodName);
+  // @override
+  // Future<Food?> getFoodByName(String foodName) async {
+  //   final foodModel = await foodRemoteDataSource.getFoodByName(foodName);
 
-    if (foodModel == null) return null;
+  //   if (foodModel == null) return null;
 
-    final food = foodModel.toEntity();
+  //   final food = foodModel.toEntity();
 
-    return food;
-  }
+  //   return food;
+  // }
 
   @override
   Future<RemoteFoodRoot?> getFoodById(int foodId) async {

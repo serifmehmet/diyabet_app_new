@@ -2,12 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:diyabet_app/domain/entities/user_blood_target.dart';
 import 'package:diyabet_app/domain/usecases/user/params/user_register_param.dart';
 import 'package:diyabet_app/domain/usecases/user/user_register_usecase.dart';
-import 'package:diyabet_app/domain/usecases/user_blood_target/params/save_local_user_bloodtarget_params.dart';
-import 'package:diyabet_app/domain/usecases/user_blood_target/save_local_user_bloodtarget_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/params/save_user_bloodtarget_params.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/local/save_local_user_bloodtarget_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_idf/local/save_user_idf_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_idf/params/save_user_idf_params.dart';
-import 'package:diyabet_app/domain/usecases/user_iko/params/save_local_use_iko_params.dart';
-import 'package:diyabet_app/domain/usecases/user_iko/save_local_user_iko_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_iko/params/save_user_iko_params.dart';
+import 'package:diyabet_app/domain/usecases/user_iko/local/save_local_user_iko_usecase.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/constants/enums/preferences_keys.dart';
@@ -93,14 +93,14 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> saveRemoteUserIkoToLocal(List<UserIko>? userIkoList) async {
     if (userIkoList!.isNotEmpty) {
       for (var userIko in userIkoList) {
-        await saveLocalUserIkoUseCase.call(SaveLocalUserIkoParams(userIko: userIko));
+        await saveLocalUserIkoUseCase.call(SaveUserIkoParams(userIko: userIko));
       }
     }
   }
 
   Future<void> saveRemoteBloodTargetToLocal(UserBloodTarget? userBloodTarget) async {
     if (userBloodTarget != null) {
-      await saveLocalUserBloodTargetUseCase.call(SaveLocalUserBloodTargetParams(userBloodTarget: userBloodTarget));
+      await saveLocalUserBloodTargetUseCase.call(SaveUserBloodTargetParams(userBloodTarget: userBloodTarget));
     }
   }
 

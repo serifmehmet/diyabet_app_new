@@ -8,7 +8,7 @@ class DeleteRemoteUserIdfUseCase extends UseCase<bool, DeleteUserIdfParams> {
   DeleteRemoteUserIdfUseCase({required this.userRepository});
   @override
   Future<bool> call(DeleteUserIdfParams params) async {
-    final response = await userRepository.deleteUserIdf(params.userIdfToDelete!.toRemoteModel());
+    final response = await userRepository.deleteUserIdf(params.userIdfId!);
 
     return response;
   }

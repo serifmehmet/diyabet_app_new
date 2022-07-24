@@ -48,12 +48,12 @@ class AddRecieptView extends StatelessWidget {
                       inputTextStyle: Theme.of(context).textTheme.headline4,
                       inputIcon: IconlyLight.search,
                       iconSize: 16,
-                      iconColor: Theme.of(context).colorScheme.secondaryVariant,
+                      iconColor: Theme.of(context).colorScheme.secondaryContainer,
                       inputBorderRadius: 24,
                       onChanged: (value) {
                         if (value.isNotEmpty && lastSearchedFood != value) {
                           lastSearchedFood = value;
-                          BlocProvider.of<RecieptCubit>(context).searchFoodItemForReciept(value);
+                          // BlocProvider.of<RecieptCubit>(context).searchFoodItemForReciept(value);
                         } else if (value.isEmpty) {
                           FocusManager.instance.primaryFocus!.unfocus();
                           BlocProvider.of<RecieptCubit>(context).clearFoodSeach();

@@ -1,16 +1,18 @@
 import 'package:bloc/bloc.dart';
+import 'package:diyabet_app/domain/usecases/user_iko/remote/delete_remote_useriko_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_iko/remote/save_remote_useriko_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/enums/preferences_keys.dart';
 import '../../../core/init/cache/cache_manager.dart';
 import '../../../domain/entities/user_iko.dart';
-import '../../../domain/usecases/user_iko/delete_single_user_iko_usecase.dart';
-import '../../../domain/usecases/user_iko/get_all_user_iko_list_usecase.dart';
+import '../../../domain/usecases/user_iko/local/delete_single_user_iko_usecase.dart';
+import '../../../domain/usecases/user_iko/local/get_all_user_iko_list_usecase.dart';
 import '../../../domain/usecases/user_iko/params/delete_user_iko_params.dart';
 import '../../../domain/usecases/user_iko/params/get_all_user_iko_params.dart';
-import '../../../domain/usecases/user_iko/params/save_local_use_iko_params.dart';
-import '../../../domain/usecases/user_iko/save_local_user_iko_usecase.dart';
+import '../../../domain/usecases/user_iko/params/save_user_iko_params.dart';
+import '../../../domain/usecases/user_iko/local/save_local_user_iko_usecase.dart';
 
 part 'iko_state.dart';
 
@@ -19,10 +21,15 @@ class IkoCubit extends Cubit<IkoState> {
   final SaveLocalUserIkoUseCase saveLocalUserIkoUseCase;
   final DeleteSingleUserIkoUseCase deleteSingleUserIkoUseCase;
 
+  final SaveRemoteUserIkoUseCase saveRemoteUserIkoUseCase;
+  final DeleteRemoteUserIkoUseCase deleteRemoteUserIkoUseCase;
+
   IkoCubit({
     required this.getAllUserIkoListUseCase,
     required this.saveLocalUserIkoUseCase,
     required this.deleteSingleUserIkoUseCase,
+    required this.saveRemoteUserIkoUseCase,
+    required this.deleteRemoteUserIkoUseCase,
   }) : super(IkoCubitInitial());
 
   List<UserIko>? userIkoList = [];
@@ -38,9 +45,12 @@ class IkoCubit extends Cubit<IkoState> {
           userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
         );
 
-        saveLocalUserIkoUseCase.call(SaveLocalUserIkoParams(userIko: userIkoToAdd));
+        saveLocalUserIkoUseCase.call(SaveUserIkoParams(userIko: userIkoToAdd));
         userIkoList!.add(userIkoToAdd);
         userIkoList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+        //remoteSave
+        saveRemoteUserIkoUseCase.call(SaveUserIkoParams(userIko: userIkoToAdd));
+
         emit(IkoListGetSuccess(userIkoList: userIkoList!));
         return true;
       } else {
@@ -63,9 +73,13 @@ class IkoCubit extends Cubit<IkoState> {
             userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
           );
 
-          saveLocalUserIkoUseCase.call(SaveLocalUserIkoParams(userIko: userIkoToAdd));
+          saveLocalUserIkoUseCase.call(SaveUserIkoParams(userIko: userIkoToAdd));
           userIkoList!.add(userIkoToAdd);
           userIkoList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+
+          //remoteSave
+          saveRemoteUserIkoUseCase.call(SaveUserIkoParams(userIko: userIkoToAdd));
+
           emit(IkoListGetSuccess(userIkoList: userIkoList!));
 
           return true;
@@ -90,6 +104,9 @@ class IkoCubit extends Cubit<IkoState> {
     if (userIkoList!.isNotEmpty) {
       userIkoList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
     }
+
+    await deleteRemoteUserIkoUseCase.call(DeleteUserIkoParams(userIkoId: userIkoId));
+
     getAllUserIko();
   }
 

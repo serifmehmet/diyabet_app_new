@@ -1,7 +1,7 @@
 import 'package:diyabet_app/domain/entities/user_blood_target.dart';
 
-class SaveLocalUserBloodTargetParams {
+class UpdateBloodTargetParams {
   final UserBloodTarget userBloodTarget;
 
-  SaveLocalUserBloodTargetParams({required this.userBloodTarget});
+  UpdateBloodTargetParams({required this.userBloodTarget});
 }

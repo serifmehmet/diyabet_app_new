@@ -2,10 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/domain/entities/user_blood_target.dart';
-import 'package:diyabet_app/domain/usecases/user_blood_target/get_local_user_bloodtarget_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/local/get_local_user_bloodtarget_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_blood_target/params/get_local_user_bloodtarget_params.dart';
-import 'package:diyabet_app/domain/usecases/user_blood_target/params/save_local_user_bloodtarget_params.dart';
-import 'package:diyabet_app/domain/usecases/user_blood_target/save_local_user_bloodtarget_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/params/save_user_bloodtarget_params.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/local/save_local_user_bloodtarget_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/remote/save_remote_bloodtarget_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/remote/update_remote_bloodtarget_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +17,14 @@ class UserBloodTargetCubit extends Cubit<UserBloodTargetState> {
   UserBloodTargetCubit({
     required this.saveLocalUserBloodTargetUseCase,
     required this.getLocalUserBloodTargetUseCase,
+    required this.saveRemoteBloodTargetUseCase,
+    required this.updateRemoteBloodTargetUseCase,
   }) : super(UserBloodTargetInitial());
 
   final SaveLocalUserBloodTargetUseCase saveLocalUserBloodTargetUseCase;
   final GetLocalUserBloodTargetUseCase getLocalUserBloodTargetUseCase;
+  final SaveRemoteBloodTargetUseCase saveRemoteBloodTargetUseCase;
+  final UpdateRemoteBloodTargetUseCase updateRemoteBloodTargetUseCase;
 
   Future<void> saveUBT(String? fbstValue, String? ofbgValue) async {
     try {
@@ -31,8 +37,10 @@ class UserBloodTargetCubit extends Cubit<UserBloodTargetState> {
       );
 
       await saveLocalUserBloodTargetUseCase.call(
-        SaveLocalUserBloodTargetParams(userBloodTarget: userBTToSave),
+        SaveUserBloodTargetParams(userBloodTarget: userBTToSave),
       );
+
+      await saveRemoteBloodTargetUseCase.call(SaveUserBloodTargetParams(userBloodTarget: userBTToSave));
 
       emit(UserBloodTargetSaved());
     } catch (e) {

@@ -1,7 +1,7 @@
 import 'package:diyabet_app/domain/entities/user_iko.dart';
 
-class SaveLocalUserIkoParams {
+class SaveUserIkoParams {
   final UserIko? userIko;
 
-  SaveLocalUserIkoParams({required this.userIko});
+  SaveUserIkoParams({required this.userIko});
 }

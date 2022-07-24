@@ -102,13 +102,12 @@ class MyDiabetCubit extends Cubit<MyDiabetState> {
   Future<void> deleteUserIdfItem(int userIdfId) async {
     await deleteSingleUserIdfUseCase.call(DeleteUserIdfParams(userIdfId: userIdfId));
 
-    var userIdf = userIdfList!.singleWhere((element) => element.id == userIdfId);
     userIdfList!.removeWhere((element) => element.id == userIdfId);
     if (userIdfList!.isNotEmpty) {
       userIdfList!.sort(((a, b) => a.hour!.compareTo(b.hour!)));
     }
 
-    await deleteRemoteUserIdfUseCase.call(DeleteUserIdfParams(userIdfToDelete: userIdf));
+    await deleteRemoteUserIdfUseCase.call(DeleteUserIdfParams(userIdfId: userIdfId));
 
     getAllUserIdf();
   }

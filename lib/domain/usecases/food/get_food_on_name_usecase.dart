@@ -9,7 +9,8 @@ class GetFoodOnNameUseCase extends UseCase<Food?, GetFoodParam> {
   const GetFoodOnNameUseCase({required this.foodRepositoryImpl});
 
   @override
-  Future<Food?> call(GetFoodParam params) {
-    return foodRepositoryImpl.getFoodByName(params.foodName!);
+  Future<Food?> call(GetFoodParam params) async {
+    // return foodRepositoryImpl.getFoodByName(params.foodName!);
+    return Food(items: List.empty());
   }
 }
