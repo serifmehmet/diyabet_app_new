@@ -6,14 +6,18 @@ part 'user_bolus_model.g.dart';
 
 @JsonSerializable()
 class UserBolusModel extends INetworkModel<UserBolusModel> {
-  double? Id;
-  double? IdfValue;
-  double? IkoValue;
+  int? id;
+  int? userId;
+  double? calculatedBolusValue;
+  double? totalCarbValue;
+  DateTime? calculatedTime;
 
   UserBolusModel({
-    this.Id,
-    this.IdfValue,
-    this.IkoValue,
+    this.id,
+    this.userId,
+    this.calculatedBolusValue,
+    this.totalCarbValue,
+    this.calculatedTime,
   });
 
   @override
@@ -27,9 +31,11 @@ class UserBolusModel extends INetworkModel<UserBolusModel> {
   }
 
   UserBolus toEntity() => UserBolus(
-        Id: Id,
-        IdfValue: IdfValue,
-        IkoValue: IkoValue,
+        id: id,
+        userId: userId,
+        calculatedBolusValue: calculatedBolusValue,
+        totalCarbValue: totalCarbValue,
+        calculatedTime: calculatedTime,
       );
 
   @override

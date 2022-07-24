@@ -40,3 +40,27 @@ class BolusCalculated extends BolusState {
   @override
   List<Object?> get props => [resultValue, isCalculated, calculatedMealId];
 }
+
+class CalculatedBolusSaving extends BolusState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CalculatedBolusSaved extends BolusState {
+  final String successMessage;
+  final double calculatedBolusValue;
+
+  const CalculatedBolusSaved({required this.successMessage, required this.calculatedBolusValue});
+
+  @override
+  List<Object?> get props => [successMessage, calculatedBolusValue];
+}
+
+class CalculatedBolusSaveError extends BolusState {
+  final String failureMessage;
+
+  const CalculatedBolusSaveError({required this.failureMessage});
+
+  @override
+  List<Object?> get props => [failureMessage];
+}

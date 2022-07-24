@@ -8,14 +8,20 @@ part of 'user_bolus_model.dart';
 
 UserBolusModel _$UserBolusModelFromJson(Map<String, dynamic> json) =>
     UserBolusModel(
-      Id: (json['Id'] as num?)?.toDouble(),
-      IdfValue: (json['IdfValue'] as num?)?.toDouble(),
-      IkoValue: (json['IkoValue'] as num?)?.toDouble(),
+      id: json['id'] as int?,
+      userId: json['userId'] as int?,
+      calculatedBolusValue: (json['calculatedBolusValue'] as num?)?.toDouble(),
+      totalCarbValue: (json['totalCarbValue'] as num?)?.toDouble(),
+      calculatedTime: json['calculatedTime'] == null
+          ? null
+          : DateTime.parse(json['calculatedTime'] as String),
     );
 
 Map<String, dynamic> _$UserBolusModelToJson(UserBolusModel instance) =>
     <String, dynamic>{
-      'Id': instance.Id,
-      'IdfValue': instance.IdfValue,
-      'IkoValue': instance.IkoValue,
+      'id': instance.id,
+      'userId': instance.userId,
+      'calculatedBolusValue': instance.calculatedBolusValue,
+      'totalCarbValue': instance.totalCarbValue,
+      'calculatedTime': instance.calculatedTime?.toIso8601String(),
     };

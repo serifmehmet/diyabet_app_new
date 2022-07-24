@@ -49,7 +49,7 @@ class User {
   UserModel toModel() => UserModel(
         userId: UserId,
         name: Name,
-        sureName: SureName,
+        surName: SureName,
         email: Email,
         password: Password,
         isPasswordForgot: IsForgotPassword,

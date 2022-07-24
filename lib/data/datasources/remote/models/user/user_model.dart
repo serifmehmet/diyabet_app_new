@@ -16,7 +16,7 @@ class UserModel extends INetworkModel<UserModel> {
 
   String? name;
 
-  String? sureName;
+  String? surName;
 
   String? email;
 
@@ -47,7 +47,7 @@ class UserModel extends INetworkModel<UserModel> {
   UserModel({
     this.userId,
     this.name,
-    this.sureName,
+    this.surName,
     this.email,
     this.password,
     this.isPasswordForgot,
@@ -83,7 +83,7 @@ class UserModel extends INetworkModel<UserModel> {
         Email: email,
         UserId: userId,
         Name: name,
-        SureName: sureName,
+        SureName: surName,
         Password: password,
         IsForgotPassword: isPasswordForgot,
         UpdatedAt: updatedAt,

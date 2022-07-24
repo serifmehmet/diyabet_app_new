@@ -1,4 +1,5 @@
 import 'package:diyabet_app/data/datasources/local/models/user_blood_target_hive_model.dart';
+import 'package:diyabet_app/data/datasources/remote/models/user/user_blood_target_model.dart';
 
 class UserBloodTarget {
   final int? id;
@@ -22,4 +23,6 @@ class UserBloodTarget {
     ..userId = userId!
     ..fbstValue = fbstValue!
     ..ofbgtValue = ofbgtValue!;
+
+  UserBloodTargetModel toRemoteModel() => UserBloodTargetModel(id: id, userId: userId, fbstValue: fbstValue, ofbgtValue: ofbgtValue);
 }

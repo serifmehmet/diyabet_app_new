@@ -1,7 +1,6 @@
-import 'package:diyabet_app/data/datasources/remote/models/food.dart';
+// import 'package:diyabet_app/data/datasources/remote/models/food.dart';
 import 'package:diyabet_app/data/datasources/remote/models/food/remote_food_root_model.dart';
 
-import 'package:diyabet_app/domain/entities/remote_food.dart';
 import 'package:diyabet_app/product/model/query/food_queries.dart';
 import 'package:vexana/vexana.dart';
 
@@ -12,16 +11,16 @@ class FoodRemoteDataSource {
 
   final NetworkManager networkManager;
 
-  Future<FoodModel?> getFoodByName(String foodName) async {
-    final response = await networkManager.send<FoodModel, FoodModel>(
-      url,
-      parseModel: FoodModel(),
-      method: RequestType.GET,
-      queryParameters: Map.fromEntries([FoodQueries.query.toMapEntry(foodName)]),
-    );
+  // Future<FoodModel?> getFoodByName(String foodName) async {
+  //   final response = await networkManager.send<FoodModel, FoodModel>(
+  //     url,
+  //     parseModel: FoodModel(),
+  //     method: RequestType.GET,
+  //     queryParameters: Map.fromEntries([FoodQueries.query.toMapEntry(foodName)]),
+  //   );
 
-    return response.data;
-  }
+  //   return response.data;
+  // }
 
   Future<RemoteFoodRootModel?> getFoodById(int id) async {
     final response = await networkManager.send<RemoteFoodRootModel, RemoteFoodRootModel>(
