@@ -49,11 +49,12 @@ class CalculatedBolusSaving extends BolusState {
 class CalculatedBolusSaved extends BolusState {
   final String successMessage;
   final double calculatedBolusValue;
+  final int calculatedMealId;
 
-  const CalculatedBolusSaved({required this.successMessage, required this.calculatedBolusValue});
+  const CalculatedBolusSaved({required this.successMessage, required this.calculatedBolusValue, required this.calculatedMealId});
 
   @override
-  List<Object?> get props => [successMessage, calculatedBolusValue];
+  List<Object?> get props => [successMessage, calculatedBolusValue, calculatedMealId];
 }
 
 class CalculatedBolusSaveError extends BolusState {

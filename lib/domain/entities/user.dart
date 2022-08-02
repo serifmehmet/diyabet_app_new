@@ -9,7 +9,7 @@ import 'package:diyabet_app/domain/entities/user_iko.dart';
 class User {
   final int? UserId;
   final String? Name;
-  final String? SureName;
+  final String? SurName;
   final String? Email;
   final String? Password;
   final bool? IsForgotPassword;
@@ -27,7 +27,7 @@ class User {
   User({
     this.UserId,
     this.Name,
-    this.SureName,
+    this.SurName,
     this.Email,
     this.Password,
     this.IsForgotPassword,
@@ -49,7 +49,7 @@ class User {
   UserModel toModel() => UserModel(
         userId: UserId,
         name: Name,
-        surName: SureName,
+        surName: SurName,
         email: Email,
         password: Password,
         isPasswordForgot: IsForgotPassword,

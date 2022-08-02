@@ -17,6 +17,7 @@ import 'package:diyabet_app/domain/usecases/food_consumption/params/save_food_co
 import 'package:diyabet_app/domain/usecases/food_consumption/save_food_consumption_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 part 'totals_state.dart';
 
@@ -121,11 +122,13 @@ class TotalsCubit extends Cubit<TotalsState> {
 
       foodList.add(foodForFoodConsumption);
     }
+    DateFormat formattedDate = DateFormat("yyyy-MM-dd HH:mm");
+    DateTime consumptionDate = formattedDate.parse(DateTime.now().toString());
 
     FoodConsumption consumption = FoodConsumption(
       FoodList: foodList,
       UserId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
-      CreateDate: DateTime.now(),
+      CreateDate: consumptionDate,
     );
 
     await foodConsumptionUseCase.call(SaveFoodConsumptionParams(consumption));

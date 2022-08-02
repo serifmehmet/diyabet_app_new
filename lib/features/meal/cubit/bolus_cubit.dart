@@ -116,6 +116,7 @@ class BolusCubit extends Cubit<BolusState> {
     emit(CalculatedBolusSaving());
     try {
       UserBolus userBolus = UserBolus(
+        id: 0,
         userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
         totalCarbValue: totalCarbValue,
         calculatedBolusValue: calculatedBolusValue,
@@ -124,7 +125,8 @@ class BolusCubit extends Cubit<BolusState> {
       final response = await _saveCalculatedUserBolusUsecase.call(SaveCalculatedUserBolusParams(userBolus: userBolus, mealId: mealId));
 
       if (response.errorCode == "OK") {
-        emit(CalculatedBolusSaved(successMessage: "Hesaplamanız başarıyla kaydedilmiştir.", calculatedBolusValue: calculatedBolusValue));
+        emit(CalculatedBolusSaved(
+            successMessage: "Hesaplamanız başarıyla kaydedilmiştir.", calculatedBolusValue: calculatedBolusValue, calculatedMealId: mealId));
       } else {
         emit(const CalculatedBolusSaveError(failureMessage: "Hesaplama kaydedilirken bir problem oluştu."));
       }

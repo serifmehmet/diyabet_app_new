@@ -83,7 +83,7 @@ class UserModel extends INetworkModel<UserModel> {
         Email: email,
         UserId: userId,
         Name: name,
-        SureName: surName,
+        SurName: surName,
         Password: password,
         IsForgotPassword: isPasswordForgot,
         UpdatedAt: updatedAt,
