@@ -6,7 +6,9 @@ part 'user_bolus_model.g.dart';
 
 @JsonSerializable()
 class UserBolusModel extends INetworkModel<UserBolusModel> {
+  @JsonKey(defaultValue: 0)
   int? id;
+
   int? userId;
   double? calculatedBolusValue;
   double? totalCarbValue;

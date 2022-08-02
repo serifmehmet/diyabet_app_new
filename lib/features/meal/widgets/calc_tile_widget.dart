@@ -55,7 +55,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
         itemBuilder: (context, index) {
           return BlocBuilder<BolusCubit, BolusState>(
             builder: (context, state) {
-              if (state is BolusCalculated) {
+              if (state is CalculatedBolusSaved) {
                 if (state.calculatedMealId == widget.mealList![index].mealId) {
                   return ListTileTheme(
                     tileColor: Theme.of(context).colorScheme.tertiary,
@@ -83,7 +83,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                           DateFormat.Hm().format(widget.mealList![index].mealDate!),
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
-                        trailing: trailingArea(index, context, calculatedBolusValue: state.resultValue),
+                        trailing: trailingArea(index, context, calculatedBolusValue: state.calculatedBolusValue),
                         children: [
                           innerListView(index),
                           ElevatedButton(
@@ -116,7 +116,9 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
               //regular one
               return ListTileTheme(
                 //If bolus calculated change color
-                tileColor: widget.mealList![index].bolusValue == null ? const Color(0xfff5f5f5) : Theme.of(context).colorScheme.tertiary,
+                tileColor: (widget.mealList![index].bolusValue == null || widget.mealList![index].bolusValue == 0)
+                    ? const Color(0xfff5f5f5)
+                    : Theme.of(context).colorScheme.tertiary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -143,7 +145,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                       DateFormat.Hm().format(widget.mealList![index].mealDate!),
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
-                    trailing: trailingArea(index, context, calculatedBolusValue: 0.0),
+                    trailing: trailingArea(index, context, calculatedBolusValue: widget.mealList![index].bolusValue),
                     children: [
                       innerListView(index),
                       ElevatedButton(
@@ -162,7 +164,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                         onPressed: () {
                           showBolusCalculationModal(widget.mealList![index].totalCarb, widget.mealList![index].mealId);
                         },
-                        child: widget.mealList![index].bolusValue == null
+                        child: (widget.mealList![index].bolusValue == null || widget.mealList![index].bolusValue == 0)
                             ? Text(
                                 "Bolus Hesapla",
                                 style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 18),
@@ -196,9 +198,15 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.mealList![index].consumptions![i].foodName!,
-                    style: Theme.of(context).textTheme.addRecipeText,
+                  Flexible(
+                    child: Container(
+                      padding: const EdgeInsets.only(right: 13.0),
+                      child: Text(
+                        widget.mealList![index].consumptions![i].foodName!,
+                        style: Theme.of(context).textTheme.addRecipeText,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -261,7 +269,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
               style: Theme.of(context).textTheme.subtitle2,
             ),
             Text(
-              "Bolus: ${calculatedBolusValue!} Ünite",
+              "Bolus: ${calculatedBolusValue!.toStringAsFixed(2)} Ünite",
               style: Theme.of(context).textTheme.subtitle2,
             )
           ],

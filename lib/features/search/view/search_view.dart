@@ -73,7 +73,7 @@ class SearchView extends StatelessWidget {
                     return const SizedBox();
                   },
                 ),
-                const SizedBox(height: 60),
+                const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -156,7 +156,7 @@ class SearchView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Arama Sonuçları",
+            "Arama Sonuçları - (${state.cacheFoodListItem.length} adet)",
             style: Theme.of(context).textTheme.headline3,
           ),
           const SizedBox(height: 32),

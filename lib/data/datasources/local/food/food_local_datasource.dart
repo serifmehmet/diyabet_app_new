@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:diyabet_app/data/datasources/local/models/food_hive_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -45,7 +43,7 @@ class FoodLocalDataSource {
     dynamic keyToDelete;
     foodsMap.forEach(
       (key, value) {
-        if (value.id == foodId) {
+        if (value.index == foodId) {
           keyToDelete = key;
         }
       },

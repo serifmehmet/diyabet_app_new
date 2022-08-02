@@ -1,3 +1,5 @@
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/data/datasources/remote/user/user_bolus_remote_datasource.dart';
 import 'package:diyabet_app/domain/usecases/user_bolus/save_calculated_userbolus_usecase.dart';
 import 'package:get_it/get_it.dart';
@@ -198,6 +200,10 @@ Future<void> init() async {
   final networkManager = NetworkManager(
     isEnableLogger: true,
     options: BaseOptions(
+      headers: {
+        "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+        "X-User-Id": CacheManager.instance.getStringValue(PreferencesKeys.USERID),
+      },
       baseUrl: "http://95.216.175.106",
       contentType: 'application/json',
     ),

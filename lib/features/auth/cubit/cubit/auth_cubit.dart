@@ -71,7 +71,9 @@ class AuthCubit extends Cubit<AuthState> {
 
         CacheManager.instance.setBoolValue(PreferencesKeys.IS_LOGGEDIN, true);
         CacheManager.instance.setIntValue(PreferencesKeys.USERID, _user.UserId!);
-        CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, '${_user.Name!} ${_user.SureName!}');
+
+        CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, _user.Name!);
+        //CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, '${_user.Name!} ${_user.SurName!}');
 
         NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
       } else {

@@ -4,8 +4,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 class LocalUserBloodTargetDataSource {
   Future<void> saveUserBloodTarget(UserBloodTargetHiveModel userBloodTargetHiveModel) async {
     final userBTBox = Hive.box<UserBloodTargetHiveModel>(UserBloodTargetHiveModel.boxKey);
-
-    await userBTBox.add(userBloodTargetHiveModel);
+    if (userBTBox.values.isEmpty) {
+      await userBTBox.add(userBloodTargetHiveModel);
+    }
   }
 
   Future<UserBloodTargetHiveModel?> getUserBloodTarget(int userId) async {

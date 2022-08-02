@@ -1,6 +1,9 @@
-import 'package:diyabet_app/core/base/model/generic_response_model.dart';
-import 'package:diyabet_app/data/datasources/remote/models/user/user_bolus_model.dart';
 import 'package:vexana/vexana.dart';
+
+import '../../../../core/base/model/generic_response_model.dart';
+import '../../../../core/constants/enums/preferences_keys.dart';
+import '../../../../core/init/cache/cache_manager.dart';
+import '../models/user/user_bolus_model.dart';
 
 class UserBolusRemoteDataSource {
   static const String endpoint = "/UserBolus";
@@ -15,6 +18,12 @@ class UserBolusRemoteDataSource {
       parseModel: GenericResponseModel(),
       method: RequestType.POST,
       data: {"mealId": mealId, "userBolus": userBolusModel},
+      options: Options(
+        headers: {
+          "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+          "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
+        },
+      ),
     );
 
     return response.data!;

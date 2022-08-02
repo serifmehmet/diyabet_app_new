@@ -38,7 +38,9 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                     return BottomSheetWidget(
                       foodId: widget.foodEntity[index]!.Id!,
                     );
-                  }).whenComplete(() => BlocProvider.of<FoodUnitCubit>(context).clearUnits());
+                  }).whenComplete(
+                () => BlocProvider.of<FoodUnitCubit>(context).clearUnits(),
+              );
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),

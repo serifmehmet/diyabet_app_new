@@ -11,7 +11,7 @@ part 'meal_consumption_state.dart';
 
 class MealConsumptionCubit extends Cubit<MealConsumptionState> {
   MealConsumptionCubit({required this.getMealByFilterUseCase}) : super(MealConsumptionInitial()) {
-    getTodayMealList();
+    // getTodayMealList();
   }
 
   final GetMealByFilterUseCase getMealByFilterUseCase;

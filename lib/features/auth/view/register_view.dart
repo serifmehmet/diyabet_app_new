@@ -176,7 +176,7 @@ class RegisterView extends StatelessWidget {
                             Email: emailController.text,
                             Password: secondPasswordController.text,
                             Name: nameController.text,
-                            SureName: sureNameController.text,
+                            SurName: sureNameController.text,
                             FcmRegistrationToken: CacheManager.instance.getStringValue(PreferencesKeys.NOTIFICATION_TOKEN),
                           );
 
