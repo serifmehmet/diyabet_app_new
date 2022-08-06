@@ -37,7 +37,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: BlocListener<BolusCubit, BolusState>(
         listener: (context, state) {
-          if (state is CalculatedBolusSaved) {
+          if (state is BolusCalculated) {
             bolusDialogContext = context;
 
             showGeneralDialog(
@@ -53,8 +53,8 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                     height: 100,
                     child: Column(
                       children: [
-                        Text(state.successMessage, style: Theme.of(context).textTheme.bodyLarge),
-                        Text("${state.calculatedBolusValue} Ünite", style: Theme.of(bolusDialogContext!).textTheme.bodyLarge),
+                        Text("Hesaplamanız başaıryla kaydedilmiştir.", style: Theme.of(context).textTheme.bodyLarge),
+                        Text("${state.resultValue.toStringAsFixed(2)} Ünite", style: Theme.of(bolusDialogContext!).textTheme.bodyLarge),
                       ],
                     ),
                   ),

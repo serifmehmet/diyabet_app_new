@@ -109,6 +109,8 @@ class BolusCubit extends Cubit<BolusState> {
       calculatedBolusValue = totalCarb / ikoValue;
     }
 
+    emit(BolusCalculated(resultValue: calculatedBolusValue));
+
     saveCalculatedBolus(totalCarb, mealId);
   }
 
