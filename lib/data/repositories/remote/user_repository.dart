@@ -9,11 +9,12 @@ import 'package:diyabet_app/data/datasources/remote/user/user_bolus_remote_datas
 import 'package:diyabet_app/data/datasources/remote/user/user_idf_remote_datasource.dart';
 import 'package:diyabet_app/data/datasources/remote/user/user_iko_remote_datasource.dart';
 import 'package:diyabet_app/data/datasources/remote/user/user_remote_datasource.dart';
+import 'package:diyabet_app/domain/entities/generic_response.dart';
 import 'package:diyabet_app/domain/entities/user.dart';
 
 abstract class UserRepository {
   Future<User?> login(String email, String password);
-  Future<User?> register(UserModel userModel);
+  Future<GenericResponse> register(UserModel userModel);
   Future<bool> addUserIdf(UserIdfModel userIdfModel);
   Future<bool> deleteUserIdf(int userIdfId);
   Future<bool> addUserIko(UserIkoModel userIkoModel);
@@ -52,10 +53,10 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<User?> register(UserModel? usrModel) async {
-    final userModel = await userRemoteDataSource.userRegister(usrModel!);
+  Future<GenericResponse> register(UserModel? usrModel) async {
+    final response = await userRemoteDataSource.userRegister(usrModel!);
 
-    return userModel!.toEntity();
+    return response!.toEntity();
   }
 
   @override

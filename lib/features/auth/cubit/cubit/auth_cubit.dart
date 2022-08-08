@@ -126,10 +126,10 @@ class AuthCubit extends Cubit<AuthState> {
 
     final response = await userRegisterUseCase?.call(UserRegisterParam(user: user));
 
-    if (response!.ErrorCode == "OK") {
+    if (response!.errorCode == "OK") {
       emit(UserRegisterSuccess());
     } else {
-      emit(UserRegisterFailure(errorMessage: response.ErrorDescription));
+      emit(UserRegisterFailure(errorMessage: response.errorDescription));
     }
   }
 }

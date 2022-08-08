@@ -15,6 +15,9 @@ class CarbAppPasswordTextInput extends StatefulWidget {
   final TextEditingController? textController;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
+  final FocusNode? focuNode;
+  final String? Function(String?)? onFieldSubmit;
+  final TextInputAction? inputAction;
 
   const CarbAppPasswordTextInput({
     Key? key,
@@ -29,6 +32,9 @@ class CarbAppPasswordTextInput extends StatefulWidget {
     this.textController,
     this.inputFormatters,
     this.validator,
+    this.focuNode,
+    this.onFieldSubmit,
+    this.inputAction,
   }) : super(key: key);
 
   @override
@@ -88,6 +94,9 @@ class _CarbAppPasswordTextInputState extends State<CarbAppPasswordTextInput> {
       ),
       validator: widget.validator,
       inputFormatters: widget.inputFormatters,
+      focusNode: widget.focuNode,
+      onFieldSubmitted: widget.onFieldSubmit,
+      textInputAction: widget.inputAction,
     );
   }
 }
