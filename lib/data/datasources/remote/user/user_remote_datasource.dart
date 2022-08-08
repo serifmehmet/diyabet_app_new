@@ -1,3 +1,4 @@
+import 'package:diyabet_app/core/base/model/generic_response_model.dart';
 import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/data/datasources/remote/models/user/user_model.dart';
@@ -34,10 +35,10 @@ class UserRemoteDataSource {
     return userModel;
   }
 
-  Future<UserModel?> userRegister(UserModel? userModel) async {
-    final response = await networkManager.send<UserModel, UserModel>(
+  Future<GenericResponseModel?> userRegister(UserModel? userModel) async {
+    final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(
       registerUrl,
-      parseModel: UserModel(),
+      parseModel: GenericResponseModel(),
       method: RequestType.POST,
       data: userModel,
     );

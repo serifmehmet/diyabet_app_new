@@ -57,7 +57,6 @@ class User {
         createdAt: CreatedAt,
         updatedAt: UpdatedAt,
         errorCode: ErrorCode,
-        userIdfs: userIdfList!.map((e) => e.toRemoteModel()).toList(),
-        userIkos: userIkoList!.map((e) => e.toRemoteModel()).toList(),
+        fcmRegistrationToken: FcmRegistrationToken,
       );
 }

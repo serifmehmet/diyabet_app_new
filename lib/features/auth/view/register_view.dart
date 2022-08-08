@@ -22,9 +22,16 @@ class RegisterView extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController sureNameController = TextEditingController();
 
+  FocusNode nameFocus = FocusNode();
+  FocusNode surNameFocus = FocusNode();
+  FocusNode emailFocus = FocusNode();
+  FocusNode firstPasswordFocus = FocusNode();
+  FocusNode secondPasswordFocus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     String? firstPassword;
+    final focus = FocusScope.of(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -57,7 +64,7 @@ class RegisterView extends StatelessWidget {
               },
               builder: (context, state) {
                 if (state is UserRegistering) {
-                  return const CircularProgressIndicator();
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 return Form(
@@ -87,6 +94,13 @@ class RegisterView extends StatelessWidget {
                         inputTextStyle: Theme.of(context).textTheme.headline4,
                         inputBorderRadius: 15,
                         textController: nameController,
+                        focuNode: nameFocus,
+                        onFieldSubmit: (val) {
+                          nameFocus.unfocus();
+                          focus.requestFocus(surNameFocus);
+                          return null;
+                        },
+                        inputAction: TextInputAction.next,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return "Ad-Soyad alanı boş bırakılamaz";
@@ -103,6 +117,13 @@ class RegisterView extends StatelessWidget {
                         inputTextStyle: Theme.of(context).textTheme.headline4,
                         inputBorderRadius: 15,
                         textController: sureNameController,
+                        focuNode: surNameFocus,
+                        onFieldSubmit: (val) {
+                          surNameFocus.unfocus();
+                          focus.requestFocus(emailFocus);
+                          return null;
+                        },
+                        inputAction: TextInputAction.next,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return "Ad-Soyad alanı boş bırakılamaz";
@@ -120,6 +141,13 @@ class RegisterView extends StatelessWidget {
                         inputTextStyle: Theme.of(context).textTheme.headline4,
                         inputBorderRadius: 15,
                         textController: emailController,
+                        focuNode: emailFocus,
+                        onFieldSubmit: (val) {
+                          emailFocus.unfocus();
+                          focus.requestFocus(firstPasswordFocus);
+                          return null;
+                        },
+                        inputAction: TextInputAction.next,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return "E-Posta adresi alanı boş bırakılamaz.";
@@ -140,6 +168,13 @@ class RegisterView extends StatelessWidget {
                         inputTextStyle: Theme.of(context).textTheme.headline4,
                         inputBorderRadius: 15,
                         textController: firstPasswordController,
+                        focuNode: firstPasswordFocus,
+                        onFieldSubmit: (val) {
+                          firstPasswordFocus.unfocus();
+                          focus.requestFocus(secondPasswordFocus);
+                          return null;
+                        },
+                        inputAction: TextInputAction.next,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return "Şifre alanı boş bırakılamaz";
@@ -163,6 +198,13 @@ class RegisterView extends StatelessWidget {
                           inputTextStyle: Theme.of(context).textTheme.headline4,
                           inputBorderRadius: 15,
                           textController: secondPasswordController,
+                          focuNode: secondPasswordFocus,
+                          onFieldSubmit: (val) {
+                            secondPasswordFocus.unfocus();
+
+                            return null;
+                          },
+                          inputAction: TextInputAction.next,
                           validator: (val) {
                             if (val != firstPassword) {
                               return "İlk girdiğiniz şifre ile eşleşmiyor";

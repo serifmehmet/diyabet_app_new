@@ -39,6 +39,7 @@ void main() async {
   await messaging.getToken().then((value) {
     token = value;
     CacheManager.instance.setStringValue(PreferencesKeys.NOTIFICATION_TOKEN, value!);
+    print(token);
   });
 
   NotificationSettings settings = await messaging.requestPermission(

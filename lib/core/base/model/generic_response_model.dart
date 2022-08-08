@@ -1,3 +1,4 @@
+import 'package:diyabet_app/domain/entities/generic_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
@@ -24,4 +25,9 @@ class GenericResponseModel extends INetworkModel<GenericResponseModel> {
   GenericResponseModel fromJson(Map<String, dynamic> json) {
     return GenericResponseModel.fromJson(json);
   }
+
+  GenericResponse toEntity() => GenericResponse(
+        errorCode: errorCode,
+        errorDescription: errorDescription,
+      );
 }
