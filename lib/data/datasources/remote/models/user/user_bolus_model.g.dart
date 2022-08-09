@@ -8,7 +8,7 @@ part of 'user_bolus_model.dart';
 
 UserBolusModel _$UserBolusModelFromJson(Map<String, dynamic> json) =>
     UserBolusModel(
-      id: json['id'] as int?,
+      id: json['id'] as int? ?? 0,
       userId: json['userId'] as int?,
       calculatedBolusValue: (json['calculatedBolusValue'] as num?)?.toDouble(),
       totalCarbValue: (json['totalCarbValue'] as num?)?.toDouble(),

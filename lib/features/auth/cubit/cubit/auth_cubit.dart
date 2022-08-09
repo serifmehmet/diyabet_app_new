@@ -64,7 +64,9 @@ class AuthCubit extends Cubit<AuthState> {
 
         saveRemoteUserIdfToLocal(_user.userIdfList!);
         saveRemoteUserIkoToLocal(_user.userIkoList!);
-        saveRemoteBloodTargetToLocal(_user.userBloodTarget!);
+        if (_user.userBloodTarget != null) {
+          saveRemoteBloodTargetToLocal(_user.userBloodTarget!);
+        }
 
         emit(LoginCompleted(_user));
         emit(Authenticated());
@@ -72,8 +74,10 @@ class AuthCubit extends Cubit<AuthState> {
         CacheManager.instance.setBoolValue(PreferencesKeys.IS_LOGGEDIN, true);
         CacheManager.instance.setIntValue(PreferencesKeys.USERID, _user.UserId!);
 
-        CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, _user.Name!);
-        //CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, '${_user.Name!} ${_user.SurName!}');
+        // CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, _user.Name!);
+
+        CacheManager.instance.setStringValue(PreferencesKeys.X_SESSION_ID, _user.xSessionId!);
+        CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, '${_user.Name!} ${_user.SurName!}');
 
         NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
       } else {
@@ -127,7 +131,7 @@ class AuthCubit extends Cubit<AuthState> {
     final response = await userRegisterUseCase?.call(UserRegisterParam(user: user));
 
     if (response!.errorCode == "OK") {
-      emit(UserRegisterSuccess());
+      NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
     } else {
       emit(UserRegisterFailure(errorMessage: response.errorDescription));
     }

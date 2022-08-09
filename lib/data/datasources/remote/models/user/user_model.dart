@@ -14,22 +14,29 @@ part "user_model.g.dart";
 class UserModel extends INetworkModel<UserModel> {
   int? userId;
 
+  @JsonKey(defaultValue: "")
   String? name;
 
-  String? surName;
+  @JsonKey(defaultValue: "")
+  String? surname;
 
+  @JsonKey(defaultValue: "")
   String? email;
 
+  @JsonKey(defaultValue: "")
   String? password;
 
+  @JsonKey(defaultValue: false)
   bool? isPasswordForgot;
 
+  @JsonKey(defaultValue: "")
   String? forgotPasswordGenCode;
 
   DateTime? createdAt;
 
   DateTime? updatedAt;
 
+  @JsonKey(defaultValue: "")
   String? errorCode;
 
   List<UserBolusModel>? userBolusList;
@@ -42,12 +49,15 @@ class UserModel extends INetworkModel<UserModel> {
 
   String? errorDescription;
 
+  @JsonKey(defaultValue: "")
   String? fcmRegistrationToken;
+
+  String? xSessionId;
 
   UserModel({
     this.userId,
     this.name,
-    this.surName,
+    this.surname,
     this.email,
     this.password,
     this.isPasswordForgot,
@@ -61,6 +71,7 @@ class UserModel extends INetworkModel<UserModel> {
     this.userIkos,
     this.bloodTarget,
     this.fcmRegistrationToken,
+    this.xSessionId,
   });
 
   @override
@@ -83,7 +94,7 @@ class UserModel extends INetworkModel<UserModel> {
         Email: email,
         UserId: userId,
         Name: name,
-        SurName: surName,
+        SurName: surname,
         Password: password,
         IsForgotPassword: isPasswordForgot,
         UpdatedAt: updatedAt,
@@ -93,6 +104,7 @@ class UserModel extends INetworkModel<UserModel> {
         UserBls: userBolusList!.map((e) => e.toEntity()).toList(),
         userIdfList: userIdfs!.map((e) => e.toEntity()).toList(),
         userIkoList: userIkos!.map((e) => e.toEntity()).toList(),
-        userBloodTarget: bloodTarget!.toEntity(),
+        userBloodTarget: bloodTarget != null ? bloodTarget!.toEntity() : null,
+        xSessionId: xSessionId,
       );
 }

@@ -1,6 +1,4 @@
 import 'package:diyabet_app/core/base/model/generic_response_model.dart';
-import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
-import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/data/datasources/remote/models/user/user_model.dart';
 import 'package:vexana/vexana.dart';
 
@@ -20,9 +18,9 @@ class UserRemoteDataSource {
     UserModel? userModel;
     if (response.statusCode == 200) {
       userModel = UserModel.fromJson(response.data);
-      String? sessionId = response.headers["X-Session-Id"]!.first.toString();
 
-      CacheManager.instance.setStringValue(PreferencesKeys.X_SESSION_ID, sessionId);
+      String? sessionId = response.headers["X-Session-Id"]!.first.toString();
+      userModel.xSessionId = sessionId;
     }
 
     // final response = await networkManager.send<UserModel, UserModel>(

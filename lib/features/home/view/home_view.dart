@@ -1,3 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -8,6 +10,7 @@ import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/cache/cache_manager.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/init/theme/app_theme.dart';
+import '../../../core/utils/notification_service.dart';
 import '../../auth/cubit/cubit/auth_cubit.dart';
 import '../widgets/home_end_drawer_widget.dart';
 import 'tab/model/food_model.dart';
@@ -30,6 +33,34 @@ class _HomeViewState extends State<HomeView> {
 
   void _closeEndDrawer() {
     Navigator.of(context).pop();
+  }
+
+  late final NotificationService service;
+  @override
+  void initState() {
+    super.initState();
+    service = NotificationService();
+    service.initalize();
+    listenToNotification();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+
+      if (notification != null && android != null && !kIsWeb) {
+        await service.showNotificaction(
+            id: notification.hashCode, title: notification.title!, body: notification.body!, payload: message.data["messageType"]);
+      }
+    });
+  }
+
+  void listenToNotification() => service.onNotificationClick.stream.listen(onNotificationListener);
+
+  void onNotificationListener(String? payload) {
+    if (payload != null && payload.isNotEmpty) {
+      if (payload == "activation") {
+        NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
+      }
+    }
   }
 
   @override

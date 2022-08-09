@@ -50,13 +50,16 @@ class RegisterView extends StatelessWidget {
             padding: context.paddingMedium,
             child: BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
-                if (state is UserRegisterSuccess) {
+                if (state is UserRegisterFailure) {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return const AlertDialog(
-                        title: Text("Success"),
-                        content: Text("Kullanıcı başaıryla oluşturuldu."),
+                      return AlertDialog(
+                        title: const Text("Hata"),
+                        content: Text(
+                          state.errorMessage!,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       );
                     },
                   );
