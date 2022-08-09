@@ -24,6 +24,8 @@ class User {
   final List<UserIko>? userIkoList;
   final UserBloodTarget? userBloodTarget;
 
+  final String? xSessionId;
+
   User({
     this.UserId,
     this.Name,
@@ -41,6 +43,7 @@ class User {
     this.userIdfList,
     this.userIkoList,
     this.userBloodTarget,
+    this.xSessionId,
   });
 
   // public virtual BolusCalcRecord[] BolusCalcRecords { get; set; }
@@ -49,7 +52,7 @@ class User {
   UserModel toModel() => UserModel(
         userId: UserId,
         name: Name,
-        surName: SurName,
+        surname: SurName,
         email: Email,
         password: Password,
         isPasswordForgot: IsForgotPassword,

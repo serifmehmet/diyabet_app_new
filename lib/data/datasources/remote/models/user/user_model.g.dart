@@ -8,19 +8,19 @@ part of 'user_model.dart';
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       userId: json['userId'] as int?,
-      name: json['name'] as String?,
-      surName: json['surName'] as String?,
-      email: json['email'] as String?,
-      password: json['password'] as String?,
-      isPasswordForgot: json['isPasswordForgot'] as bool?,
-      forgotPasswordGenCode: json['forgotPasswordGenCode'] as String?,
+      name: json['name'] as String? ?? '',
+      surname: json['surname'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      password: json['password'] as String? ?? '',
+      isPasswordForgot: json['isPasswordForgot'] as bool? ?? false,
+      forgotPasswordGenCode: json['forgotPasswordGenCode'] as String? ?? '',
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      errorCode: json['errorCode'] as String?,
+      errorCode: json['errorCode'] as String? ?? '',
       errorDescription: json['errorDescription'] as String?,
       userBolusList: (json['userBolusList'] as List<dynamic>?)
           ?.map((e) => UserBolusModel.fromJson(e as Map<String, dynamic>))
@@ -35,13 +35,14 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
           ? null
           : UserBloodTargetModel.fromJson(
               json['bloodTarget'] as Map<String, dynamic>),
-      fcmRegistrationToken: json['fcmRegistrationToken'] as String?,
+      fcmRegistrationToken: json['fcmRegistrationToken'] as String? ?? '',
+      xSessionId: json['xSessionId'] as String?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'userId': instance.userId,
       'name': instance.name,
-      'surName': instance.surName,
+      'surname': instance.surname,
       'email': instance.email,
       'password': instance.password,
       'isPasswordForgot': instance.isPasswordForgot,
@@ -55,4 +56,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'bloodTarget': instance.bloodTarget,
       'errorDescription': instance.errorDescription,
       'fcmRegistrationToken': instance.fcmRegistrationToken,
+      'xSessionId': instance.xSessionId,
     };
