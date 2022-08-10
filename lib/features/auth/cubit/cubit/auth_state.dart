@@ -25,6 +25,11 @@ class UnAuthenticated extends AuthState {
   List<Object?> get props => throw UnimplementedError();
 }
 
+class Registered extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
 class LoginInfoPosting extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();

@@ -115,6 +115,13 @@ class _HomeViewState extends State<HomeView> {
                       style: Theme.of(context).textTheme.welcomeText,
                     );
                   }
+
+                  if (state is Registered) {
+                    return Text(
+                      "Kayıt işleminiz başarılı bir şekilde sonuçlandı. Aktivasyon için lütfen e-posta kutunuzu kontrol ediniz.",
+                      style: Theme.of(context).textTheme.headline4,
+                    );
+                  }
                   return const SizedBox();
                 },
               ),
