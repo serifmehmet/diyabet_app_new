@@ -131,7 +131,9 @@ class AuthCubit extends Cubit<AuthState> {
     final response = await userRegisterUseCase?.call(UserRegisterParam(user: user));
 
     if (response!.errorCode == "OK") {
+      CacheManager.instance.setBoolValue(PreferencesKeys.IS_FROM_REGISTER, true);
       NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+      emit(Registered());
     } else {
       emit(UserRegisterFailure(errorMessage: response.errorDescription));
     }

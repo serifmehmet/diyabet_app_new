@@ -13,9 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
+part 'components/register_components.dart';
+
 class RegisterView extends StatelessWidget {
   RegisterView({Key? key}) : super(key: key);
-  final formKey = GlobalKey<FormState>();
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController firstPasswordController = TextEditingController();
   final TextEditingController secondPasswordController = TextEditingController();
@@ -32,6 +34,7 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     String? firstPassword;
     final focus = FocusScope.of(context);
+    final formKey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -217,15 +220,17 @@ class RegisterView extends StatelessWidget {
                       const SizedBox(height: 15),
                       ElevatedButton(
                         onPressed: () {
-                          User user = User(
-                            Email: emailController.text,
-                            Password: secondPasswordController.text,
-                            Name: nameController.text,
-                            SurName: sureNameController.text,
-                            FcmRegistrationToken: CacheManager.instance.getStringValue(PreferencesKeys.NOTIFICATION_TOKEN),
-                          );
+                          if (formKey.currentState!.validate()) {
+                            User user = User(
+                              Email: emailController.text,
+                              Password: secondPasswordController.text,
+                              Name: nameController.text,
+                              SurName: sureNameController.text,
+                              FcmRegistrationToken: CacheManager.instance.getStringValue(PreferencesKeys.NOTIFICATION_TOKEN),
+                            );
 
-                          BlocProvider.of<AuthCubit>(context).userRegister(user);
+                            BlocProvider.of<AuthCubit>(context).userRegister(user);
+                          }
                         },
                         style: ElevatedButton.styleFrom(elevation: 0),
                         child: const Center(

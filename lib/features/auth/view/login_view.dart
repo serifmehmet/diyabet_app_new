@@ -17,6 +17,9 @@ class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  FocusNode emailFocus = FocusNode();
+  FocusNode passwordFocus = FocusNode();
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -44,6 +47,7 @@ class LoginView extends StatelessWidget {
   }
 
   Widget buildForm(BuildContext context, GlobalKey<FormState>? key) {
+    final focus = FocusScope.of(context);
     return SingleChildScrollView(
       child: Padding(
         padding: context.paddingMedium,
@@ -75,6 +79,12 @@ class LoginView extends StatelessWidget {
                 inputTextStyle: Theme.of(context).textTheme.headline4,
                 inputBorderRadius: 15,
                 textController: emailController,
+                focuNode: emailFocus,
+                onFieldSubmit: (val) {
+                  emailFocus.unfocus();
+                  focus.requestFocus(passwordFocus);
+                  return null;
+                },
                 validator: (val) {
                   if (val!.isEmpty) {
                     return 'E-Posta adresi boş bırakılamaz';
@@ -97,6 +107,18 @@ class LoginView extends StatelessWidget {
                 inputTextStyle: Theme.of(context).textTheme.headline4,
                 inputBorderRadius: 15,
                 textController: passwordController,
+                focuNode: passwordFocus,
+                onFieldSubmit: (val) {
+                  passwordFocus.unfocus();
+
+                  return null;
+                },
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return "Şifre alanı boş bırakılmaz";
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 12,

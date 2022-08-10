@@ -1,3 +1,5 @@
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -55,7 +57,10 @@ class _CalcReportViewState extends State<CalcReportView> {
 
   @override
   void initState() {
-    BlocProvider.of<MealConsumptionCubit>(context).getTodayMealList();
+    bool isLoggedIn = CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN);
+    if (isLoggedIn) {
+      BlocProvider.of<MealConsumptionCubit>(context).getTodayMealList();
+    }
     super.initState();
     initializeDateFormatting();
   }
