@@ -1,7 +1,7 @@
-import 'package:diyabet_app/core/init/usecase/usecase.dart';
-import 'package:diyabet_app/data/repositories/food_repository.dart';
-import 'package:diyabet_app/domain/entities/food.dart';
-import 'package:diyabet_app/domain/usecases/food/params/get_food_param.dart';
+import '../../../core/init/usecase/usecase.dart';
+import '../../../data/repositories/remote/food_repository.dart';
+import '../../entities/food.dart';
+import 'params/get_food_param.dart';
 
 class GetFoodOnNameUseCase extends UseCase<Food?, GetFoodParam> {
   final FoodRepository foodRepositoryImpl;
@@ -9,7 +9,8 @@ class GetFoodOnNameUseCase extends UseCase<Food?, GetFoodParam> {
   const GetFoodOnNameUseCase({required this.foodRepositoryImpl});
 
   @override
-  Future<Food?> call(GetFoodParam params) {
-    return foodRepositoryImpl.getFoodByName(params.foodName);
+  Future<Food?> call(GetFoodParam params) async {
+    // return foodRepositoryImpl.getFoodByName(params.foodName!);
+    return Food(items: List.empty());
   }
 }

@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.16.0 <3.0.1"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -27,53 +27,43 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  async: any
+  cupertino_icons: ^1.0.2
+  equatable: ^2.0.3
+  firebase_core: ^1.17.1
+  firebase_messaging: ^11.4.1
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-
-  # State management
   flutter_bloc: ^8.0.1
-
-  #Json
-  
-  json_annotation: ^4.4.0
-
-  #Core
-  equatable: ^2.0.3
-  async: any
+  flutter_local_notifications: ^9.7.0
+  flutter_localizations:
+    sdk: flutter
   get_it: ^7.2.0
-
-  #Network Manager
+  hive_flutter: ^1.1.0
+  iconly: ^1.0.1
+  intl: ^0.17.0
+  json_annotation: ^4.4.0
+  rxdart: ^0.27.5
+  shared_preferences: ^2.0.13
+  time_picker_widget: ^1.0.0+10
   vexana: ^2.6.0
 
-  #Icons
-  iconly: ^1.0.1
-
-  #Cache
-  shared_preferences: ^2.0.13
-  hive_flutter: ^1.1.0
-
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  build_runner: ^2.1.7
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-  build_runner: ^2.1.7
-  json_serializable: ^6.1.4
+  flutter_lints: ^2.0.1
+  flutter_test:
+    sdk: flutter
   hive_generator: ^1.1.2
+  json_serializable: ^6.1.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
 
@@ -86,13 +76,10 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -110,6 +97,5 @@ flutter:
         - asset: assets/fonts/Signika-Bold.ttf
         - asset: assets/fonts/Signika-SemiBold.ttf
           weight: 700
-  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
