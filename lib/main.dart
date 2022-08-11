@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
           create: (foodUnitContext) => di.sl<FoodUnitCubit>(),
         ),
         BlocProvider(
-          create: (recieptCubit) => di.sl<RecieptCubit>(),
+          create: (recipeContext) => di.sl<RecipeCubit>(),
         ),
         BlocProvider(
           create: (foodConsumptionContext) => di.sl<MealConsumptionCubit>(),
