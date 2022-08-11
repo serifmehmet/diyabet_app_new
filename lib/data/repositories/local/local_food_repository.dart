@@ -9,7 +9,7 @@ import '../../datasources/local/models/food_cache_hive_model.dart';
 
 abstract class LocalFoodRepository {
   Future<FoodCacheHiveModel?> getFoodCache();
-  Future<List<CacheFoodListItem?>> getFoodByName(String name);
+  Future<List<CacheFoodListItem>?> getFoodByName(String name);
 
   Future<void> saveSelectedFood(FoodHiveModel foodToSave);
   Future<List<LocalFood?>> getSavedFoodsFromLocal();
@@ -36,7 +36,7 @@ class LocalFoodRepositoryImpl extends LocalFoodRepository {
   }
 
   @override
-  Future<List<CacheFoodListItem?>> getFoodByName(String name) async {
+  Future<List<CacheFoodListItem>?> getFoodByName(String name) async {
     final foodsFromCache = await cacheFoodLocalDataSource.searchFoodByName(name);
 
     final cacheFoodItems = foodsFromCache.map((e) => e!.toEntity()).toList();

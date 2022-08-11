@@ -37,6 +37,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                   builder: (context) {
                     return BottomSheetWidget(
                       foodId: widget.foodEntity[index]!.Id!,
+                      type: BottomSheetType.search,
                     );
                   }).whenComplete(
                 () => BlocProvider.of<FoodUnitCubit>(context).clearUnits(),

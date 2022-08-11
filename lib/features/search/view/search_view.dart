@@ -7,6 +7,7 @@ import 'package:iconly/iconly.dart';
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/theme/app_theme.dart';
 import '../../../core/theme_widgets/input/carbapp_search_input.dart';
+import '../../../domain/entities/cache_food_list_item.dart';
 import '../cubit/search_cubit.dart';
 import '../widgets/search_result_widget.dart';
 
@@ -51,26 +52,20 @@ class SearchView extends StatelessWidget {
                 const SizedBox(
                   height: 46,
                 ),
-                BlocConsumer<SearchCubit, SearchState>(
-                  listener: (context, state) {},
+                BlocBuilder<SearchCubit, SearchState>(
                   builder: (context, state) {
-                    if (state is SearchInitial) {
-                      return searchInitial(context);
+                    switch (state.status) {
+                      case SearchStatus.initial:
+                        return searchInitial(context);
+                      case SearchStatus.loading:
+                        return searching();
+                      case SearchStatus.failure:
+                        return searchFailure(context);
+                      case SearchStatus.success:
+                        return searchSuccess(context, state.foodList);
+                      default:
+                        return const SizedBox();
                     }
-
-                    if (state is Searching) {
-                      return searching();
-                    }
-
-                    if (state is SearchSuccess) {
-                      return searchSuccess(context, state);
-                    }
-
-                    if (state is SearchFailure) {
-                      return searchFailure(context);
-                    }
-
-                    return const SizedBox();
                   },
                 ),
                 const SizedBox(height: 20),
@@ -150,19 +145,19 @@ class SearchView extends StatelessWidget {
     return const Expanded(child: Center(child: CircularProgressIndicator()));
   }
 
-  Widget searchSuccess(BuildContext context, SearchSuccess state) {
+  Widget searchSuccess(BuildContext context, List<CacheFoodListItem> foodList) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Arama Sonuçları - (${state.cacheFoodListItem.length} adet)",
+            "Arama Sonuçları - (${foodList.length} adet)",
             style: Theme.of(context).textTheme.headline3,
           ),
           const SizedBox(height: 32),
           Expanded(
             child: SearchResultWidget(
-              foodEntity: state.cacheFoodListItem,
+              foodEntity: foodList,
             ),
           ),
         ],

@@ -10,21 +10,19 @@ part 'search_state.dart';
 class SearchCubit extends Cubit<SearchState> {
   final GetFoodsFromCacheOnName? getFoodFromCacheUseCase;
 
-  SearchCubit({this.getFoodFromCacheUseCase}) : super(SearchInitial());
+  SearchCubit({this.getFoodFromCacheUseCase}) : super(const SearchState());
 
-  late List<CacheFoodListItem?> _cacheFoodListItem;
+  late List<CacheFoodListItem>? _cacheFoodListItem;
   Future<void> getSearchItem(String foodName) async {
-    emit(Searching());
+    emit(state.copyWith(status: SearchStatus.loading));
     final response = await getFoodFromCacheUseCase!.call(SearchCacheFoodParams(foodName));
 
-    if (response.isNotEmpty) {
+    if (response!.isNotEmpty) {
       //TO-DO: response modeli entity'e dönmeli
       _cacheFoodListItem = response;
-      emit(SearchSuccess(_cacheFoodListItem));
+      emit(state.copyWith(status: SearchStatus.success, foodList: _cacheFoodListItem));
     } else {
-      emit(
-        const SearchFailure("Aradığınız besin bulunamadı."),
-      );
+      emit(state.copyWith(status: SearchStatus.failure, exception: Exception("Aradığınız besin bulunamadı!")));
     }
     // if (response != null) {
     //   if (response.items!.isNotEmpty) {
@@ -39,6 +37,6 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   clearSearch() {
-    emit(SearchInitial());
+    emit(state.copyWith(status: SearchStatus.initial));
   }
 }

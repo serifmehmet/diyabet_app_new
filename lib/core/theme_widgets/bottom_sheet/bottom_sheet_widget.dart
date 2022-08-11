@@ -4,15 +4,19 @@ import 'package:diyabet_app/domain/entities/local_food.dart';
 import 'package:diyabet_app/domain/entities/remote_food_root.dart';
 import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
+import 'package:diyabet_app/features/reciept/cubit/reciept_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
+enum BottomSheetType { search, totals, receipt }
+
 class BottomSheetWidget extends StatefulWidget {
   final int foodId;
-  const BottomSheetWidget({Key? key, required this.foodId}) : super(key: key);
+  final BottomSheetType type;
+  const BottomSheetWidget({Key? key, required this.type, required this.foodId}) : super(key: key);
 
   @override
   State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
@@ -255,8 +259,12 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               Index: UniqueKey().hashCode,
               UnitId: context.read<FoodUnitCubit>().selectedUnit!.UnitId,
             );
+            if (widget.type == BottomSheetType.search) {
+              BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);
+            } else if (widget.type == BottomSheetType.receipt) {
+              BlocProvider.of<RecipeCubit>(context).saveLocalFoodToReceipt(localFood);
+            }
 
-            BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);
             Navigator.pop(context);
           },
           style: ElevatedButton.styleFrom(elevation: 0),
