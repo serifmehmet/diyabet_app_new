@@ -20,6 +20,16 @@ class RecipeCubit extends Cubit<RecipeState> {
   void closeSearchResultBox() {
     emit(state.copyWith(status: RecipeStatus.initial));
   }
+
+  void deleteSingleFood(int foodIndex) {
+    _foodsAddedToReceipt.removeWhere((food) => food.Index == foodIndex);
+
+    if (_foodsAddedToReceipt.isEmpty) {
+      emit(state.copyWith(status: RecipeStatus.initial));
+    } else {
+      emit(state.copyWith(status: RecipeStatus.foodDeletedSuccess, foodsAdded: _foodsAddedToReceipt));
+    }
+  }
 }
 
 class FoodSearchCubit extends Cubit<FoodSearchState> {

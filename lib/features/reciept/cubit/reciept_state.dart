@@ -2,7 +2,7 @@ part of 'reciept_cubit.dart';
 
 enum FoodSearchStatus { initial, success, failure, loading }
 
-enum RecipeStatus { initial, success, failure, loading, addFoodSuccess }
+enum RecipeStatus { initial, success, failure, loading, addFoodSuccess, foodDeletedSuccess }
 
 // abstract class RecieptState extends Equatable {
 //   const RecieptState();

@@ -43,13 +43,23 @@ class AddRecieptView extends StatelessWidget {
                     builder: (context, state) {
                       switch (state.status) {
                         case RecipeStatus.addFoodSuccess:
+                        case RecipeStatus.foodDeletedSuccess:
                           return Expanded(
                             child: FoodListWidget(
                               savedFoods: state.foodsAdded,
+                              foodListType: FoodListType.recipe,
                             ),
                           );
+
                         default:
-                          return Container();
+                          return Center(
+                            child: Container(
+                              child: Text(
+                                "Tarif oluşturmak için besin eklemelisiniz.",
+                                style: Theme.of(context).textTheme.genericHeader,
+                              ),
+                            ),
+                          );
                       }
                     },
                   )
@@ -71,15 +81,26 @@ class AddRecieptView extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: context.paddingNormal,
-              child: ElevatedButton(
-                onPressed: () {
-                  //Save recipe to local and remote
-                },
-                child: const Text("Kaydet"),
-              ),
+            child: BlocBuilder<RecipeCubit, RecipeState>(
+              builder: (context, state) {
+                switch (state.status) {
+                  case RecipeStatus.addFoodSuccess:
+                  case RecipeStatus.foodDeletedSuccess:
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: context.paddingNormal,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          //Save recipe to local and remote
+                        },
+                        child: const Text("Kaydet"),
+                      ),
+                    );
+
+                  default:
+                    return Container();
+                }
+              },
             ),
           ),
         ],

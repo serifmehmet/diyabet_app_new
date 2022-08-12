@@ -137,6 +137,7 @@ class TotalsView extends StatelessWidget {
                   Expanded(
                       child: FoodListWidget(
                     savedFoods: state.localSavedFoods,
+                    foodListType: FoodListType.totals,
                   )),
                   state.foodCount > 0 && CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN)
                       ? SizedBox(

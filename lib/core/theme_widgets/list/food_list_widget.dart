@@ -2,15 +2,18 @@ import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/bottom_sheet/totals_bottom_sheet_widget.dart';
 import 'package:diyabet_app/domain/entities/local_food.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
+import 'package:diyabet_app/features/reciept/cubit/reciept_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:diyabet_app/features/totals/view/models/total_items_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
-class FoodListWidget extends StatelessWidget {
-  FoodListWidget({Key? key, this.savedFoods}) : super(key: key);
+enum FoodListType { totals, recipe }
 
+class FoodListWidget extends StatelessWidget {
+  FoodListWidget({Key? key, this.savedFoods, required this.foodListType}) : super(key: key);
+  final FoodListType foodListType;
   final List<LocalFood?>? savedFoods;
   var items = TotalsModel.create();
   @override
@@ -95,69 +98,14 @@ class FoodListWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        IconButton(
-          icon: Icon(
-            IconlyLight.edit,
-            color: Theme.of(context).primaryColor,
-            size: 24,
-          ),
-          onPressed: () {
-            showModalBottomSheet(
-                context: context,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(32),
-                  ),
-                ),
-                isScrollControlled: true,
-                builder: (context) {
-                  return TotalsBottomSheetWidget(
-                    foodIndex: foodIndex,
-                    foodId: foodId,
-                  );
-                }).whenComplete(() => BlocProvider.of<FoodUnitCubit>(context).clearUnits());
-          },
-          constraints: const BoxConstraints(
-            maxWidth: 26,
-            maxHeight: 26,
-          ),
-          padding: EdgeInsets.zero,
-        ),
-        const SizedBox(
-          width: 5,
-        ),
+        checkEditButton(context, foodIndex, foodId),
         IconButton(
           onPressed: () {
-            // showDialog<String>(
-            //   context: context,
-            //   barrierDismissible: false,
-            //   builder: (context) {
-            //     return AlertDialog(
-            //       title: const Text("Uyarı"),
-            //       content: Text(
-            //         "Silmek istediğiniz besin: " + foodName! + ". Onaylıyor musunuz?",
-            //         style: Theme.of(context).textTheme.welcomeText,
-            //       ),
-            //       actions: [
-            //         TextButton(
-            //           onPressed: () => Navigator.pop(context, "Cancel"),
-            //           child: const Text("İptal", style: TextStyle(color: Colors.red)),
-            //         ),
-            //         TextButton(
-            //           onPressed: () {
-            //             BlocProvider.of<TotalsCubit>(context).deleteSingleFood(foodIndex);
-            //             Navigator.pop(context, "OK");
-            //           },
-            //           child: const Text(
-            //             "Onaylıyorum",
-            //             style: TextStyle(color: Colors.black),
-            //           ),
-            //         ),
-            //       ],
-            //     );
-            //   },
-            // );
-            BlocProvider.of<TotalsCubit>(context).deleteSingleFood(foodIndex);
+            if (foodListType == FoodListType.totals) {
+              BlocProvider.of<TotalsCubit>(context).deleteSingleFood(foodIndex);
+            } else if (foodListType == FoodListType.recipe) {
+              BlocProvider.of<RecipeCubit>(context).deleteSingleFood(foodIndex);
+            }
           },
           icon: const Icon(
             IconlyLight.delete,
@@ -172,5 +120,43 @@ class FoodListWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget checkEditButton(BuildContext context, int foodIndex, int foodId) {
+    if (foodListType == FoodListType.recipe) {
+      return const SizedBox(
+        height: 0,
+        width: 0,
+      );
+    } else {
+      return IconButton(
+        icon: Icon(
+          IconlyLight.edit,
+          color: Theme.of(context).primaryColor,
+          size: 24,
+        ),
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(32),
+                ),
+              ),
+              isScrollControlled: true,
+              builder: (context) {
+                return TotalsBottomSheetWidget(
+                  foodIndex: foodIndex,
+                  foodId: foodId,
+                );
+              }).whenComplete(() => BlocProvider.of<FoodUnitCubit>(context).clearUnits());
+        },
+        constraints: const BoxConstraints(
+          maxWidth: 26,
+          maxHeight: 26,
+        ),
+        padding: EdgeInsets.zero,
+      );
+    }
   }
 }
