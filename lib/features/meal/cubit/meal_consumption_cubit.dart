@@ -1,42 +1,82 @@
 import 'package:bloc/bloc.dart';
-import 'package:diyabet_app/domain/entities/meal_root.dart';
-import 'package:equatable/equatable.dart';
+import 'package:diyabet_app/core/base/error/error_object.dart';
+import 'package:diyabet_app/domain/usecases/food_consumption/get_meal_by_filter_usecase.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/constants/enums/preferences_keys.dart';
 import '../../../core/init/cache/cache_manager.dart';
-import '../../../domain/usecases/food_consumption/get_meal_by_filter_usecase.dart';
+import '../../../domain/entities/meal_root.dart';
 import '../../../domain/usecases/food_consumption/params/get_meal_by_filter_params.dart';
 
 part 'meal_consumption_state.dart';
+part 'meal_consumption_cubit.freezed.dart';
 
 class MealConsumptionCubit extends Cubit<MealConsumptionState> {
-  MealConsumptionCubit({required this.getMealByFilterUseCase}) : super(MealConsumptionInitial()) {
-    // getTodayMealList();
-  }
+  MealConsumptionCubit({
+    required this.getMealByFilterUseCase,
+  }) : super(
+          const MealConsumptionState.initial(),
+        );
 
   final GetMealByFilterUseCase getMealByFilterUseCase;
 
   Future<void> getTodayMealList() async {
-    emit(TodayMealConsumptionListLoading());
+    emit(const ConsumptionListLoading());
     final mealList =
         await getMealByFilterUseCase.call(GetMealByFilterParams(CacheManager.instance.getIntValue(PreferencesKeys.USERID), DateTime.now()));
 
-    if (mealList!.meals!.isNotEmpty) {
-      emit(TodayMealConsumptionListLoadSuccess(meal: mealList));
-    } else {
-      emit(const TodayMealConsumptionListLoadFailure(errorMessage: "Bugüne ait hesaplanmış besin tüketiminiz bulunmuyor."));
-    }
+    mealList.fold<void>(
+      (failure) {
+        emit(
+          ConsumptionListLoadFailure(
+            errorObject: ErrorObject.mapFailureToErrorObject(failure: failure),
+          ),
+        );
+      },
+      (mealList) {
+        if (mealList.meals!.isNotEmpty) {
+          emit(ConsumptionListLoaded(meal: mealList));
+        } else {
+          emit(
+            const ConsumptionListLoadFailure(
+              errorObject: ErrorObject(
+                errorType: ErrorType.returnedNothing,
+                errorMessage: "Bugüne ait hesaplanmış besin tüketiminiz bulunmuyor",
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 
   Future<void> filterDateChanged(DateTime selectedDate) async {
-    emit(TodayMealConsumptionListLoading());
+    emit(const ConsumptionListLoading());
     final mealList =
         await getMealByFilterUseCase.call(GetMealByFilterParams(CacheManager.instance.getIntValue(PreferencesKeys.USERID), selectedDate));
 
-    if (mealList!.meals!.isNotEmpty) {
-      emit(MealConsumptionFilterSuccess(meal: mealList));
-    } else {
-      emit(const MealConsumptionFilterFailure(errorMessage: "Bugüne ait hesaplanmış besin tüketiminiz bulunmuyor."));
-    }
+    mealList.fold<void>(
+      (failure) {
+        emit(
+          FilterFailure(
+            errorObject: ErrorObject.mapFailureToErrorObject(failure: failure),
+          ),
+        );
+      },
+      (mealList) {
+        if (mealList.meals!.isNotEmpty) {
+          emit(ConsumptionListLoaded(meal: mealList));
+        } else {
+          emit(
+            const ConsumptionListLoadFailure(
+              errorObject: ErrorObject(
+                errorType: ErrorType.returnedNothing,
+                errorMessage: "Bugüne ait hesaplanmış besin tüketiminiz bulunmuyor",
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 }

@@ -67,11 +67,13 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(widget.inputBorderRadius),
         ),
-        prefixIcon: Icon(
-          widget.inputIcon,
-          color: widget.iconColor,
-          size: widget.iconSize,
-        ),
+        prefixIcon: widget.inputIcon != null
+            ? Icon(
+                widget.inputIcon,
+                color: widget.iconColor,
+                size: widget.iconSize,
+              )
+            : null,
         errorStyle: const TextStyle(
           color: Colors.red,
           fontWeight: FontWeight.w400,

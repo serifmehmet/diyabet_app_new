@@ -1,7 +1,10 @@
+import 'package:diyabet_app/core/constants/app_sizes.dart';
 import 'package:diyabet_app/core/extensions/context_extensions.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
+import 'package:diyabet_app/core/theme_widgets/dialog/alert_dialogs.dart';
 import 'package:diyabet_app/core/theme_widgets/list/food_list_widget.dart';
 import 'package:diyabet_app/features/reciept/cubit/reciept_cubit.dart';
+import 'package:diyabet_app/features/reciept/widgets/save_recipe_dialog_content_widget.dart';
 import 'package:diyabet_app/features/reciept/widgets/search_result_box_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,11 +47,20 @@ class AddRecieptView extends StatelessWidget {
                       switch (state.status) {
                         case RecipeStatus.addFoodSuccess:
                         case RecipeStatus.foodDeletedSuccess:
-                          return Expanded(
-                            child: FoodListWidget(
-                              savedFoods: state.foodsAdded,
-                              foodListType: FoodListType.recipe,
-                            ),
+                          return Column(
+                            children: [
+                              gapH12,
+                              Text("Toplam karbonhidrat:", style: Theme.of(context).textTheme.headline5),
+                              gapH8,
+                              Text("${state.carbValue.toStringAsFixed(2)} G.", style: Theme.of(context).textTheme.carbValueText),
+                              gapH12,
+                              Expanded(
+                                child: FoodListWidget(
+                                  savedFoods: state.foodsAdded,
+                                  foodListType: FoodListType.recipe,
+                                ),
+                              ),
+                            ],
                           );
 
                         default:
@@ -92,6 +104,11 @@ class AddRecieptView extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           //Save recipe to local and remote
+                          showAlertDialogDefault(
+                            context: context,
+                            title: "Tarifi Kaydet",
+                            content: const SaveRecipeDialogContent(),
+                          );
                         },
                         child: const Text("Kaydet"),
                       ),

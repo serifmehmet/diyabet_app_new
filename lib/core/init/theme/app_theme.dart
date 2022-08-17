@@ -295,4 +295,22 @@ extension CustomStyles on TextTheme {
       fontWeight: FontWeight.w600,
     );
   }
+
+  TextStyle get carbValueText {
+    return const TextStyle(
+      color: Color(0xff000000),
+      fontFamily: "Signika",
+      fontWeight: FontWeight.w600,
+      fontSize: 25,
+    );
+  }
+
+  TextStyle get unAuthorizedMessage {
+    return const TextStyle(
+      color: Color(0xff000000),
+      fontFamily: "Signika",
+      fontWeight: FontWeight.w600,
+      fontSize: 15,
+    );
+  }
 }

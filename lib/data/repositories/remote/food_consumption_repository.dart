@@ -1,12 +1,14 @@
+import 'package:dartz/dartz.dart';
+import 'package:diyabet_app/core/base/error/app_exception.dart';
 import 'package:diyabet_app/data/datasources/remote/food_consumption/food_consumption_remote_datasource.dart';
 import 'package:diyabet_app/data/datasources/remote/models/food_consumption/food_consumption_model.dart';
-import 'package:diyabet_app/domain/entities/food_consumption.dart';
-import 'package:diyabet_app/domain/entities/food_for_food_consumption.dart';
 import 'package:diyabet_app/domain/entities/meal_root.dart';
+
+import '../../../core/base/error/failure.dart';
 
 abstract class FoodConsumptionRepository {
   Future<void> addFoodConsumption(FoodConsumptionModel foodConsumptionModel);
-  Future<MealRoot?> getMealByDate(int userId, DateTime dateToFilter);
+  Future<Either<Failure, MealRoot>> getMealByDate(int userId, DateTime dateToFilter);
 }
 
 class FoodConsumptionRepositoryImpl extends FoodConsumptionRepository {
@@ -19,13 +21,18 @@ class FoodConsumptionRepositoryImpl extends FoodConsumptionRepository {
   }
 
   @override
-  Future<MealRoot?> getMealByDate(int userId, DateTime dateToFilter) async {
-    final mealRootModelResponse = await consumptionRemoteDataSource.getFoodConsumptionByDate(userId, dateToFilter);
+  Future<Either<Failure, MealRoot>> getMealByDate(int userId, DateTime dateToFilter) async {
+    try {
+      final mealRootModelResponse = await consumptionRemoteDataSource.getFoodConsumptionByDate(userId, dateToFilter);
 
-    if (mealRootModelResponse == null) return null;
-
-    final mealRoot = mealRootModelResponse.toEntity();
-
-    return mealRoot;
+      final mealRoot = mealRootModelResponse!.toEntity();
+      return Right(mealRoot);
+    } on UnAuthorized {
+      return const Left(
+        UnAuthorizedError(),
+      );
+    } on EmptyResponseError {
+      return const Left(EmptyResponseError());
+    }
   }
 }
