@@ -73,6 +73,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //Bloc
+
   sl.registerFactory<BottomNavCubit>(() => BottomNavCubit());
   sl.registerFactory<AuthCubit>(
     () => AuthCubit(

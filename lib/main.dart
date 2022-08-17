@@ -1,4 +1,5 @@
 import 'package:diyabet_app/core/utils/notification_service.dart';
+import 'package:diyabet_app/features/app/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -14,7 +15,6 @@ import 'core/init/navigation/navigation_service.dart';
 import 'core/init/theme/app_theme.dart' as Theme;
 import 'data/datasources/local/local_datasource.dart';
 import 'features/auth/cubit/cubit/auth_cubit.dart';
-import 'features/auth/view/splash_view.dart';
 import 'features/food/cubit/food_cubit.dart';
 import 'features/food/cubit/food_unit_cubit.dart';
 import 'features/home/cubit/bottom_nav_cubit.dart';
@@ -142,7 +142,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (settings) => NavigationRoute.instance.generateRoute(settings),
         localizationsDelegates: const [GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
         supportedLocales: const [Locale("tr")],
-        home: const SplashView(),
+        home: const KarbApp(),
       ),
     );
   }

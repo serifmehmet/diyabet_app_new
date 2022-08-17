@@ -14,11 +14,25 @@ class RecipeCubit extends Cubit<RecipeState> {
 
   void saveLocalFoodToReceipt(LocalFood foodToAdd) {
     _foodsAddedToReceipt.add(foodToAdd);
-    emit(state.copyWith(status: RecipeStatus.addFoodSuccess, foodsAdded: _foodsAddedToReceipt));
+    emit(state.copyWith(status: RecipeStatus.addFoodSuccess, foodsAdded: _foodsAddedToReceipt, carbValue: foodToAdd.CarbTotal));
   }
 
   void closeSearchResultBox() {
     emit(state.copyWith(status: RecipeStatus.initial));
+  }
+
+  void deleteSingleFood(int foodIndex) {
+    double carbValue = 0;
+    _foodsAddedToReceipt.removeWhere((food) => food.Index == foodIndex);
+
+    if (_foodsAddedToReceipt.isEmpty) {
+      emit(state.copyWith(status: RecipeStatus.initial));
+    } else {
+      for (var foodItem in _foodsAddedToReceipt) {
+        carbValue += foodItem.CarbTotal!;
+      }
+      emit(state.copyWith(status: RecipeStatus.foodDeletedSuccess, foodsAdded: _foodsAddedToReceipt, carbValue: carbValue));
+    }
   }
 }
 

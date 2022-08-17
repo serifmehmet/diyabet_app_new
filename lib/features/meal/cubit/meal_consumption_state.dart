@@ -1,51 +1,12 @@
 part of 'meal_consumption_cubit.dart';
 
-abstract class MealConsumptionState extends Equatable {
-  const MealConsumptionState();
-}
+@freezed
+class MealConsumptionState with _$MealConsumptionState {
+  const factory MealConsumptionState.initial() = _Initial;
+  const factory MealConsumptionState.consumptionListLoading() = ConsumptionListLoading;
+  const factory MealConsumptionState.consumptionListLoaded({required MealRoot meal}) = ConsumptionListLoaded;
+  const factory MealConsumptionState.consumptionListLoadFailure({required ErrorObject errorObject}) = ConsumptionListLoadFailure;
 
-class MealConsumptionInitial extends MealConsumptionState {
-  @override
-  List<Object> get props => [];
-}
-
-class TodayMealConsumptionListLoading extends MealConsumptionState {
-  @override
-  List<Object?> get props => [];
-}
-
-class TodayMealConsumptionListLoadSuccess extends MealConsumptionState {
-  final MealRoot? meal;
-
-  const TodayMealConsumptionListLoadSuccess({this.meal});
-
-  @override
-  List<Object?> get props => [meal];
-}
-
-class TodayMealConsumptionListLoadFailure extends MealConsumptionState {
-  final String? errorMessage;
-
-  const TodayMealConsumptionListLoadFailure({this.errorMessage});
-
-  @override
-  List<Object?> get props => [];
-}
-
-class MealConsumptionFilterSuccess extends MealConsumptionState {
-  final MealRoot? meal;
-
-  const MealConsumptionFilterSuccess({this.meal});
-
-  @override
-  List<Object?> get props => [meal];
-}
-
-class MealConsumptionFilterFailure extends MealConsumptionState {
-  final String? errorMessage;
-
-  const MealConsumptionFilterFailure({this.errorMessage});
-
-  @override
-  List<Object?> get props => [errorMessage];
+  const factory MealConsumptionState.filterSuccess({required MealRoot meal}) = FilterSuccess;
+  const factory MealConsumptionState.filterFailure({required ErrorObject errorObject}) = FilterFailure;
 }

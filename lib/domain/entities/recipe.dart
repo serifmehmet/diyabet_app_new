@@ -2,7 +2,7 @@ import 'package:diyabet_app/data/datasources/local/models/local_receipt_hive_mod
 
 import 'local_food.dart';
 
-class LocalReceipt {
+class Recipe {
   final int? id;
   final List<LocalFood>? foodList;
   final String? recieptName;
@@ -10,7 +10,7 @@ class LocalReceipt {
   final int? portionQuantity;
   final DateTime? createdDate;
 
-  LocalReceipt({
+  Recipe({
     this.id,
     this.foodList,
     this.recieptName,

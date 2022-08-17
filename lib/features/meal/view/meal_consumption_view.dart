@@ -1,5 +1,10 @@
+import 'package:diyabet_app/core/base/error/error_object.dart';
+import 'package:diyabet_app/core/constants/app_sizes.dart';
 import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
+import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
+import 'package:diyabet_app/core/theme_widgets/dialog/alert_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -67,117 +72,131 @@ class _CalcReportViewState extends State<CalcReportView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Padding(
-        padding: context.paddingNormal,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 60),
-            Text(
-              "Besin Tüketim Kayıtlarım",
-              style: Theme.of(context).textTheme.genericHeader,
-            ),
-            const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  DateFormat.MMMMEEEEd().format(currentDate) == DateFormat.MMMMEEEEd().format(DateTime.now())
-                      ? "Bugün"
-                      : DateFormat.yMMMMd("tr").format(currentDate),
-                  style: Theme.of(context).textTheme.genericHeaderBig,
-                ),
-                IconButton(
-                  icon: const Icon(IconlyLight.calendar),
-                  onPressed: () {
-                    _selectDate(context);
-                  },
-                  iconSize: 32,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            BlocBuilder<MealConsumptionCubit, MealConsumptionState>(
-              builder: (context, state) {
-                if (state is TodayMealConsumptionListLoading) {
-                  return const CircularProgressIndicator();
-                }
-
-                if (state is TodayMealConsumptionListLoadFailure) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 60,
-                      ),
-                      Text(state.errorMessage!, style: Theme.of(context).textTheme.genericHeader),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: double.infinity,
-                        child: Padding(
-                          padding: context.paddingNormal,
-                          child: const Text(
-                            "Besin tüketimi hesaplamak için arama ekranına gidebilirsiniz.",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                }
-
-                if (state is TodayMealConsumptionListLoadSuccess) {
-                  return Expanded(
-                    child: CalcTileWidget(
-                      mealList: state.meal!.meals,
+    return BlocListener<MealConsumptionCubit, MealConsumptionState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          orElse: () {},
+          consumptionListLoadFailure: (errorObject) {
+            if (errorObject.errorType == ErrorType.notLoggedIn) {
+              showAlertDialogDefault(
+                context: context,
+                title: "Oturum hatası",
+                isDissmisableInTime: true,
+                dissmissSeconds: 4,
+                content: SizedBox(
+                  height: 100,
+                  child: Center(
+                    child: Text(
+                      errorObject.errorMessage,
+                      style: Theme.of(context).textTheme.unAuthorizedMessage,
                     ),
-                  );
-                }
-
-                if (state is MealConsumptionFilterFailure) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 60,
+                  ),
+                ),
+              ).then(
+                (value) => NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN),
+              );
+            }
+          },
+        );
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: Padding(
+          padding: context.paddingNormal,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 60),
+              Text(
+                "Besin Tüketim Kayıtlarım",
+                style: Theme.of(context).textTheme.genericHeader,
+              ),
+              const SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    DateFormat.MMMMEEEEd().format(currentDate) == DateFormat.MMMMEEEEd().format(DateTime.now())
+                        ? "Bugün"
+                        : DateFormat.yMMMMd("tr").format(currentDate),
+                    style: Theme.of(context).textTheme.genericHeaderBig,
+                  ),
+                  IconButton(
+                    icon: const Icon(IconlyLight.calendar),
+                    onPressed: () {
+                      _selectDate(context);
+                    },
+                    iconSize: 32,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              BlocBuilder<MealConsumptionCubit, MealConsumptionState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    consumptionListLoading: () => const CircularProgressIndicator(),
+                    consumptionListLoaded: (mealList) => Expanded(
+                      child: CalcTileWidget(
+                        mealList: mealList.meals,
                       ),
-                      Text(state.errorMessage!, style: Theme.of(context).textTheme.genericHeader),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: double.infinity,
-                        child: Padding(
-                          padding: context.paddingNormal,
-                          child: const Text(
-                            "Besin tüketimi hesaplamak için arama ekranına gidebilirsiniz.",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                }
-
-                if (state is MealConsumptionFilterSuccess) {
-                  return Expanded(
-                    child: CalcTileWidget(
-                      mealList: state.meal!.meals,
                     ),
+                    filterSuccess: (mealList) => Expanded(
+                      child: CalcTileWidget(
+                        mealList: mealList.meals,
+                      ),
+                    ),
+                    filterFailure: (errorObject) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        Text(errorObject.errorMessage, style: Theme.of(context).textTheme.genericHeader),
+                        const SizedBox(height: 30),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: context.paddingNormal,
+                            child: const Text(
+                              "Besin tüketimi hesaplamak için arama ekranına gidebilirsiniz.",
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    consumptionListLoadFailure: (errorObject) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        Text(errorObject.errorMessage, style: Theme.of(context).textTheme.genericHeader),
+                        const SizedBox(height: 30),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: context.paddingNormal,
+                            child: const Text(
+                              "Besin tüketimi hesaplamak için arama ekranına gidebilirsiniz.",
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    orElse: () {
+                      return gapH4;
+                    },
                   );
-                }
-
-                return const SizedBox(
-                  height: 0,
-                  width: 0,
-                );
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -19,27 +19,30 @@ class LocalRecieptHiveModelAdapter extends TypeAdapter<LocalRecieptHiveModel> {
     return LocalRecieptHiveModel()
       ..id = fields[0] as int
       ..foodList = (fields[1] as List).cast<FoodHiveModel>()
-      ..receiptName = fields[2] as String
-      ..isApproved = fields[3] as bool
-      ..portionQunatity = fields[4] as int
-      ..createdDate = fields[5] as DateTime;
+      ..totalCarb = fields[2] as double
+      ..receiptName = fields[3] as String
+      ..isApproved = fields[4] as bool
+      ..portionQunatity = fields[5] as int
+      ..createdDate = fields[6] as DateTime;
   }
 
   @override
   void write(BinaryWriter writer, LocalRecieptHiveModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.foodList)
       ..writeByte(2)
-      ..write(obj.receiptName)
+      ..write(obj.totalCarb)
       ..writeByte(3)
-      ..write(obj.isApproved)
+      ..write(obj.receiptName)
       ..writeByte(4)
-      ..write(obj.portionQunatity)
+      ..write(obj.isApproved)
       ..writeByte(5)
+      ..write(obj.portionQunatity)
+      ..writeByte(6)
       ..write(obj.createdDate);
   }
 
