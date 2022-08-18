@@ -38,7 +38,7 @@ import 'domain/usecases/food/save_local_food_usecase.dart';
 import 'domain/usecases/food/update_local_food_usecase.dart';
 import 'domain/usecases/food_consumption/get_meal_by_filter_usecase.dart';
 import 'domain/usecases/food_consumption/save_food_consumption_usecase.dart';
-import 'domain/usecases/receipt/local/save_local_receipt_usecase.dart';
+import 'domain/usecases/recipe/local/save_local_receipt_usecase.dart';
 import 'domain/usecases/user/user_login_usecase.dart';
 import 'domain/usecases/user/user_register_usecase.dart';
 import 'domain/usecases/user_blood_target/local/get_local_user_bloodtarget_usecase.dart';
@@ -164,7 +164,7 @@ Future<void> init() async {
   sl.registerLazySingleton<DeleteSingleUserIkoUseCase>(() => DeleteSingleUserIkoUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<SaveLocalUserBloodTargetUseCase>(() => SaveLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
   sl.registerLazySingleton<GetLocalUserBloodTargetUseCase>(() => GetLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
-  sl.registerLazySingleton<SaveLocalReceiptUseCase>(() => SaveLocalReceiptUseCase(localReceiptRepository: sl()));
+  sl.registerLazySingleton<SaveLocalRecipeUseCase>(() => SaveLocalRecipeUseCase(localReceiptRepository: sl()));
 
   //local datasources
   sl.registerLazySingleton<CacheFoodLocalDataSource>(() => CacheFoodLocalDataSource());
