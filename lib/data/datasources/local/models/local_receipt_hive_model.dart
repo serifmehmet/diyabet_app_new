@@ -25,6 +25,7 @@ class LocalRecieptHiveModel extends HiveObject {
   Recipe toEntity() => Recipe(
         id: id,
         foodList: foodList.map((e) => e.toEntity()).toList(),
+        totalCarb: totalCarb,
         isApproved: isApproved,
         recieptName: receiptName,
         portionQuantity: portionQunatity,

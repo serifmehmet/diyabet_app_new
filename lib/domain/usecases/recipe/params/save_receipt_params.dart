@@ -1,7 +1,7 @@
 import 'package:diyabet_app/domain/entities/recipe.dart';
 
-class SaveReceiptParams {
+class SaveRecipeParams {
   final Recipe? localReceipt;
 
-  SaveReceiptParams({this.localReceipt});
+  SaveRecipeParams({this.localReceipt});
 }
