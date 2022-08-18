@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
 
@@ -212,7 +213,7 @@ Future<void> init() async {
         "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
         "X-User-Id": CacheManager.instance.getStringValue(PreferencesKeys.USERID),
       },
-      baseUrl: "http://95.216.175.106",
+      baseUrl: dotenv.env["APIURL"].toString(),
       contentType: 'application/json',
     ),
   );
