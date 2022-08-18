@@ -34,7 +34,7 @@ class AddRecieptView extends StatelessWidget {
             top: 100,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 300,
+              height: 500,
               padding: context.paddingNormal,
               child: Column(
                 children: [
@@ -47,20 +47,23 @@ class AddRecieptView extends StatelessWidget {
                       switch (state.status) {
                         case RecipeStatus.addFoodSuccess:
                         case RecipeStatus.foodDeletedSuccess:
-                          return Column(
-                            children: [
-                              gapH12,
-                              Text("Toplam karbonhidrat:", style: Theme.of(context).textTheme.headline5),
-                              gapH8,
-                              Text("${state.carbValue.toStringAsFixed(2)} G.", style: Theme.of(context).textTheme.carbValueText),
-                              gapH12,
-                              Expanded(
-                                child: FoodListWidget(
-                                  savedFoods: state.foodsAdded,
-                                  foodListType: FoodListType.recipe,
+                          return Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                gapH12,
+                                Text("Toplam karbonhidrat:", style: Theme.of(context).textTheme.headline5),
+                                gapH8,
+                                Text("${state.carbValue.toStringAsFixed(2)} G.", style: Theme.of(context).textTheme.carbValueText),
+                                gapH12,
+                                Expanded(
+                                  child: FoodListWidget(
+                                    savedFoods: state.foodsAdded,
+                                    foodListType: FoodListType.recipe,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           );
 
                         default:
