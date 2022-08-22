@@ -1,0 +1,46 @@
+import 'package:diyabet_app/core/base/model/generic_response_model.dart';
+import 'package:diyabet_app/data/datasources/remote/models/user/user_model.dart';
+import 'package:vexana/vexana.dart';
+
+class UserRemoteDataSource {
+  static const String loginUrl = "/login";
+  static const String registerUrl = '/register';
+
+  final NetworkManager networkManager;
+
+  UserRemoteDataSource(this.networkManager);
+
+  Future<UserModel?> userLogin(String email, String password) async {
+    final response = await networkManager.post(
+      loginUrl,
+      data: {"userId": email, "password": password},
+    );
+    UserModel? userModel;
+    if (response.statusCode == 200) {
+      userModel = UserModel.fromJson(response.data);
+
+      String? sessionId = response.headers["X-Session-Id"]!.first.toString();
+      userModel.xSessionId = sessionId;
+    }
+
+    // final response = await networkManager.send<UserModel, UserModel>(
+    //   loginUrl,
+    //   parseModel: UserModel(),
+    //   method: RequestType.POST,
+    //   data: {"userId": email, "password": password},
+    // );
+
+    return userModel;
+  }
+
+  Future<GenericResponseModel?> userRegister(UserModel? userModel) async {
+    final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(
+      registerUrl,
+      parseModel: GenericResponseModel(),
+      method: RequestType.POST,
+      data: userModel,
+    );
+
+    return response.data;
+  }
+}
