@@ -24,7 +24,7 @@ import 'features/meal/cubit/meal_consumption_cubit.dart';
 import 'features/my_diabet/cubit/iko_cubit.dart';
 import 'features/my_diabet/cubit/my_diabet_cubit.dart';
 import 'features/my_diabet/cubit/user_blood_target_cubit.dart';
-import 'features/reciept/cubit/reciept_cubit.dart';
+import 'features/reciept/cubit/recipe_cubit.dart';
 import 'features/search/cubit/search_cubit.dart';
 import 'features/totals/cubit/totals_cubit.dart';
 import 'firebase_options.dart';

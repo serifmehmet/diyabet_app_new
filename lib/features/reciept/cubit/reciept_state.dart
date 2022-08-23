@@ -31,31 +31,7 @@ class FoodSearchState extends Equatable {
   List<Object?> get props => [status, foodList, exception];
 }
 
-class RecipeState extends Equatable {
-  final List<LocalFood> foodsAdded;
-  final double carbValue;
-  final RecipeStatus status;
-  final Exception? exception;
 
-  const RecipeState({
-    this.status = RecipeStatus.initial,
-    this.carbValue = 0,
-    this.foodsAdded = const [],
-    this.exception,
-  });
-
-  RecipeState copyWith({RecipeStatus? status, List<LocalFood>? foodsAdded, double? carbValue, Exception? exception}) {
-    return RecipeState(
-      status: status ?? this.status,
-      foodsAdded: foodsAdded ?? this.foodsAdded,
-      carbValue: carbValue ?? this.carbValue,
-      exception: exception ?? this.exception,
-    );
-  }
-
-  @override
-  List<Object?> get props => [status, foodsAdded, exception];
-}
 
 // class RecieptInitial extends RecieptState {
 //   @override

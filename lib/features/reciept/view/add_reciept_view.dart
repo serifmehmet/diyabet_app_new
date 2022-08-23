@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:diyabet_app/injection_container.dart' as di;
 
+import '../cubit/recipe_cubit.dart';
+
 class AddRecieptView extends StatelessWidget {
   const AddRecieptView({Key? key}) : super(key: key);
 
@@ -44,9 +46,8 @@ class AddRecieptView extends StatelessWidget {
                   ),
                   BlocBuilder<RecipeCubit, RecipeState>(
                     builder: (context, state) {
-                      switch (state.status) {
-                        case RecipeStatus.addFoodSuccess:
-                        case RecipeStatus.foodDeletedSuccess:
+                      return state.maybeWhen(
+                        foodAddSuccess: (foodsAdded, totalCarb) {
                           return Expanded(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -54,19 +55,39 @@ class AddRecieptView extends StatelessWidget {
                                 gapH12,
                                 Text("Toplam karbonhidrat:", style: Theme.of(context).textTheme.headline5),
                                 gapH8,
-                                Text("${state.carbValue.toStringAsFixed(2)} G.", style: Theme.of(context).textTheme.carbValueText),
+                                Text("${totalCarb.toStringAsFixed(2)} G.", style: Theme.of(context).textTheme.carbValueText),
                                 gapH12,
                                 Expanded(
                                   child: FoodListWidget(
-                                    savedFoods: state.foodsAdded,
+                                    savedFoods: foodsAdded,
                                     foodListType: FoodListType.recipe,
                                   ),
                                 ),
                               ],
                             ),
                           );
-
-                        default:
+                        },
+                        foodDeleteSuccess: (foodsAdded, totalCarb) {
+                          return Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                gapH12,
+                                Text("Toplam karbonhidrat:", style: Theme.of(context).textTheme.headline5),
+                                gapH8,
+                                Text("${totalCarb.toStringAsFixed(2)} G.", style: Theme.of(context).textTheme.carbValueText),
+                                gapH12,
+                                Expanded(
+                                  child: FoodListWidget(
+                                    savedFoods: foodsAdded,
+                                    foodListType: FoodListType.recipe,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        initial: () {
                           return Center(
                             child: Container(
                               child: Text(
@@ -75,7 +96,11 @@ class AddRecieptView extends StatelessWidget {
                               ),
                             ),
                           );
-                      }
+                        },
+                        orElse: () {
+                          return gapH4;
+                        },
+                      );
                     },
                   )
                 ],
@@ -98,9 +123,9 @@ class AddRecieptView extends StatelessWidget {
             bottom: 0,
             child: BlocBuilder<RecipeCubit, RecipeState>(
               builder: (context, state) {
-                switch (state.status) {
-                  case RecipeStatus.addFoodSuccess:
-                  case RecipeStatus.foodDeletedSuccess:
+                return state.maybeMap(
+                  orElse: () => gapH4,
+                  foodDeleteSuccess: (foodsAdded) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       padding: context.paddingNormal,
@@ -116,10 +141,25 @@ class AddRecieptView extends StatelessWidget {
                         child: const Text("Kaydet"),
                       ),
                     );
-
-                  default:
-                    return Container();
-                }
+                  },
+                  foodAddSuccess: (foodsAdded) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: context.paddingNormal,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          //Save recipe to local and remote
+                          showAlertDialogDefault(
+                            context: context,
+                            title: "Tarifi Kaydet",
+                            content: const SaveRecipeDialogContent(),
+                          );
+                        },
+                        child: const Text("Kaydet"),
+                      ),
+                    );
+                  },
+                );
               },
             ),
           ),
