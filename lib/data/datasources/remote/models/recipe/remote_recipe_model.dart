@@ -1,4 +1,5 @@
 import 'package:diyabet_app/data/datasources/remote/models/recipe/remote_recipe_food_model.dart';
+import 'package:diyabet_app/domain/entities/recipe.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
@@ -11,6 +12,7 @@ class RemoteRecipeModel extends INetworkModel<RemoteRecipeModel> {
   bool? isApproved;
   int? portionQuantity;
   int? userId;
+  double? totalCarb;
   DateTime? createdAt;
   DateTime? updatedAt;
   List<RemoteRecipeFoodModel>? recipeFoods;
@@ -21,6 +23,7 @@ class RemoteRecipeModel extends INetworkModel<RemoteRecipeModel> {
     this.isApproved,
     this.portionQuantity,
     this.userId,
+    this.totalCarb,
     this.createdAt,
     this.updatedAt,
     this.recipeFoods,
@@ -40,4 +43,16 @@ class RemoteRecipeModel extends INetworkModel<RemoteRecipeModel> {
   RemoteRecipeModel fromJson(Map<String, dynamic> json) {
     return RemoteRecipeModel.fromJson(json);
   }
+
+  Recipe toEntity() => Recipe(
+        id: id,
+        createdDate: createdAt,
+        isApproved: isApproved,
+        name: name,
+        portionQuantity: portionQuantity,
+        recipeFoods: recipeFoods!.map((e) => e.toEntity()).toList(),
+        totalCarb: totalCarb,
+        updatedDate: updatedAt,
+        userId: userId,
+      );
 }

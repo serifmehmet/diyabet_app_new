@@ -20,18 +20,21 @@ mixin _$Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() unAuthorized,
     required TResult Function() emptyResponse,
+    required TResult Function() itemNotFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
+    TResult Function()? itemNotFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
+    TResult Function()? itemNotFound,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$Failure {
   TResult map<TResult extends Object?>({
     required TResult Function(UnAuthorizedError value) unAuthorized,
     required TResult Function(EmptyResponseError value) emptyResponse,
+    required TResult Function(ItemNotFoundError value) itemNotFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(UnAuthorizedError value)? unAuthorized,
     TResult Function(EmptyResponseError value)? emptyResponse,
+    TResult Function(ItemNotFoundError value)? itemNotFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UnAuthorizedError value)? unAuthorized,
     TResult Function(EmptyResponseError value)? emptyResponse,
+    TResult Function(ItemNotFoundError value)? itemNotFound,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult when<TResult extends Object?>({
     required TResult Function() unAuthorized,
     required TResult Function() emptyResponse,
+    required TResult Function() itemNotFound,
   }) {
     return unAuthorized();
   }
@@ -123,6 +130,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
+    TResult Function()? itemNotFound,
   }) {
     return unAuthorized?.call();
   }
@@ -132,6 +140,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
+    TResult Function()? itemNotFound,
     required TResult orElse(),
   }) {
     if (unAuthorized != null) {
@@ -145,6 +154,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult map<TResult extends Object?>({
     required TResult Function(UnAuthorizedError value) unAuthorized,
     required TResult Function(EmptyResponseError value) emptyResponse,
+    required TResult Function(ItemNotFoundError value) itemNotFound,
   }) {
     return unAuthorized(this);
   }
@@ -154,6 +164,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(UnAuthorizedError value)? unAuthorized,
     TResult Function(EmptyResponseError value)? emptyResponse,
+    TResult Function(ItemNotFoundError value)? itemNotFound,
   }) {
     return unAuthorized?.call(this);
   }
@@ -163,6 +174,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UnAuthorizedError value)? unAuthorized,
     TResult Function(EmptyResponseError value)? emptyResponse,
+    TResult Function(ItemNotFoundError value)? itemNotFound,
     required TResult orElse(),
   }) {
     if (unAuthorized != null) {
@@ -220,6 +232,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult when<TResult extends Object?>({
     required TResult Function() unAuthorized,
     required TResult Function() emptyResponse,
+    required TResult Function() itemNotFound,
   }) {
     return emptyResponse();
   }
@@ -229,6 +242,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
+    TResult Function()? itemNotFound,
   }) {
     return emptyResponse?.call();
   }
@@ -238,6 +252,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
+    TResult Function()? itemNotFound,
     required TResult orElse(),
   }) {
     if (emptyResponse != null) {
@@ -251,6 +266,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult map<TResult extends Object?>({
     required TResult Function(UnAuthorizedError value) unAuthorized,
     required TResult Function(EmptyResponseError value) emptyResponse,
+    required TResult Function(ItemNotFoundError value) itemNotFound,
   }) {
     return emptyResponse(this);
   }
@@ -260,6 +276,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(UnAuthorizedError value)? unAuthorized,
     TResult Function(EmptyResponseError value)? emptyResponse,
+    TResult Function(ItemNotFoundError value)? itemNotFound,
   }) {
     return emptyResponse?.call(this);
   }
@@ -269,6 +286,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UnAuthorizedError value)? unAuthorized,
     TResult Function(EmptyResponseError value)? emptyResponse,
+    TResult Function(ItemNotFoundError value)? itemNotFound,
     required TResult orElse(),
   }) {
     if (emptyResponse != null) {
@@ -281,4 +299,116 @@ class _$EmptyResponseError extends EmptyResponseError {
 abstract class EmptyResponseError extends Failure {
   const factory EmptyResponseError() = _$EmptyResponseError;
   const EmptyResponseError._() : super._();
+}
+
+/// @nodoc
+abstract class _$$ItemNotFoundErrorCopyWith<$Res> {
+  factory _$$ItemNotFoundErrorCopyWith(
+          _$ItemNotFoundError value, $Res Function(_$ItemNotFoundError) then) =
+      __$$ItemNotFoundErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ItemNotFoundErrorCopyWithImpl<$Res>
+    extends _$FailureCopyWithImpl<$Res>
+    implements _$$ItemNotFoundErrorCopyWith<$Res> {
+  __$$ItemNotFoundErrorCopyWithImpl(
+      _$ItemNotFoundError _value, $Res Function(_$ItemNotFoundError) _then)
+      : super(_value, (v) => _then(v as _$ItemNotFoundError));
+
+  @override
+  _$ItemNotFoundError get _value => super._value as _$ItemNotFoundError;
+}
+
+/// @nodoc
+
+class _$ItemNotFoundError extends ItemNotFoundError {
+  const _$ItemNotFoundError() : super._();
+
+  @override
+  String toString() {
+    return 'Failure.itemNotFound()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ItemNotFoundError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unAuthorized,
+    required TResult Function() emptyResponse,
+    required TResult Function() itemNotFound,
+  }) {
+    return itemNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unAuthorized,
+    TResult Function()? emptyResponse,
+    TResult Function()? itemNotFound,
+  }) {
+    return itemNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unAuthorized,
+    TResult Function()? emptyResponse,
+    TResult Function()? itemNotFound,
+    required TResult orElse(),
+  }) {
+    if (itemNotFound != null) {
+      return itemNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UnAuthorizedError value) unAuthorized,
+    required TResult Function(EmptyResponseError value) emptyResponse,
+    required TResult Function(ItemNotFoundError value) itemNotFound,
+  }) {
+    return itemNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(UnAuthorizedError value)? unAuthorized,
+    TResult Function(EmptyResponseError value)? emptyResponse,
+    TResult Function(ItemNotFoundError value)? itemNotFound,
+  }) {
+    return itemNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UnAuthorizedError value)? unAuthorized,
+    TResult Function(EmptyResponseError value)? emptyResponse,
+    TResult Function(ItemNotFoundError value)? itemNotFound,
+    required TResult orElse(),
+  }) {
+    if (itemNotFound != null) {
+      return itemNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ItemNotFoundError extends Failure {
+  const factory ItemNotFoundError() = _$ItemNotFoundError;
+  const ItemNotFoundError._() : super._();
 }

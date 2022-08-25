@@ -24,10 +24,11 @@ import 'features/meal/cubit/meal_consumption_cubit.dart';
 import 'features/my_diabet/cubit/iko_cubit.dart';
 import 'features/my_diabet/cubit/my_diabet_cubit.dart';
 import 'features/my_diabet/cubit/user_blood_target_cubit.dart';
-import 'features/reciept/cubit/reciept_cubit.dart';
+import 'features/reciept/cubit/recipe_cubit.dart';
 import 'features/search/cubit/search_cubit.dart';
 import 'features/totals/cubit/totals_cubit.dart';
 import 'firebase_options.dart';
+import 'features/reciept/cubit/recipe_food_search_cubit.dart';
 import 'injection_container.dart' as di;
 
 late final NotificationService service;
@@ -119,6 +120,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (recipeContext) => di.sl<RecipeCubit>(),
+        ),
+        BlocProvider(
+          create: (recipeFoodSearchContext) => di.sl<RecipeFoodSearchCubit>(),
         ),
         BlocProvider(
           create: (foodConsumptionContext) => di.sl<MealConsumptionCubit>(),

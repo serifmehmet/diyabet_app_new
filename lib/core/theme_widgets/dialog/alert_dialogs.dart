@@ -14,9 +14,12 @@ Future<bool?> showAlertDialogDefault({
     context: context,
     barrierDismissible: false,
     builder: (context) {
-      Future.delayed(Duration(seconds: dissmissSeconds!), () {
-        Navigator.of(context).pop(true);
-      });
+      if (isDissmisableInTime!) {
+        Future.delayed(Duration(seconds: dissmissSeconds!), () {
+          Navigator.of(context).pop(true);
+        });
+      }
+
       return AlertDialog(
         title: Text(title),
         content: content,

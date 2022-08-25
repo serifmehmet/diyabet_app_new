@@ -2,6 +2,8 @@ import 'package:diyabet_app/data/datasources/remote/models/recipe/remote_recipe_
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
+import '../../../../../domain/entities/recipe_root.dart';
+
 part 'remote_recipe_root_model.g.dart';
 
 @JsonSerializable()
@@ -30,4 +32,10 @@ class RemoteRecipeRootModel extends INetworkModel<RemoteRecipeRootModel> {
   RemoteRecipeRootModel fromJson(Map<String, dynamic> json) {
     return RemoteRecipeRootModel.fromJson(json);
   }
+
+  RecipeRoot toEntity() => RecipeRoot(
+        recipes: recipes!.map((e) => e.toEntity()).toList(),
+        errorCode: errorCode,
+        errorDescription: errorDescription,
+      );
 }
