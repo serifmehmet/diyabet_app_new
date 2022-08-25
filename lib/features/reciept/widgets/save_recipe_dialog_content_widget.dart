@@ -2,8 +2,10 @@ import 'package:diyabet_app/core/constants/app_sizes.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/button/app_button.dart';
 import 'package:diyabet_app/core/theme_widgets/input/carbapp_text_input.dart';
+import 'package:diyabet_app/features/reciept/cubit/recipe_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SaveRecipeDialogContent extends StatefulWidget {
   const SaveRecipeDialogContent({Key? key}) : super(key: key);
@@ -57,7 +59,6 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
                   inputBorderRadius: 15,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                  inputText: "1",
                   inputAction: TextInputAction.next,
                   validator: (val) {
                     if (val == "0") {
@@ -92,7 +93,7 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
                     ),
                     const Text(
                       "Tarifimi onaylama sistemine gönder?",
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: TextStyle(color: Colors.black, fontSize: 11),
                     ),
                   ],
                 ),
@@ -102,7 +103,10 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
                     textOfButton: "Tarifi Kaydet",
                     textColorOfButton: Colors.white,
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        BlocProvider.of<RecipeCubit>(context).saveRemoteRecipe(recipeName: recipeName, portionQuantity: int.parse(quantity));
+                        Navigator.of(context).pop(false);
+                      }
                     },
                   ),
                 ),

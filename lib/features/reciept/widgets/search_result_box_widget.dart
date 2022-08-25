@@ -1,10 +1,11 @@
+import 'package:diyabet_app/core/constants/app_sizes.dart';
+import 'package:diyabet_app/features/reciept/cubit/recipe_food_search_cubit.dart';
 import 'package:diyabet_app/features/reciept/widgets/recipe_search_results_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../core/theme_widgets/input/carbapp_search_input.dart';
-import '../cubit/reciept_cubit.dart';
 
 class SearchResultBoxWidget extends StatelessWidget {
   SearchResultBoxWidget({Key? key}) : super(key: key);
@@ -13,21 +14,24 @@ class SearchResultBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BlocBuilder<FoodSearchCubit, FoodSearchState>(
+        BlocBuilder<RecipeFoodSearchCubit, RecipeFoodSearchState>(
           builder: (context, state) {
-            switch (state.status) {
-              case FoodSearchStatus.success:
-                return RecipeSearchResultsWidget(foodList: state.foodList);
-              case FoodSearchStatus.initial:
+            return state.maybeWhen(
+              orElse: () {
+                return gapH4;
+              },
+              success: (foodList) {
+                return RecipeSearchResultsWidget(foodList: foodList);
+              },
+              loading: () => const CircularProgressIndicator(),
+              initial: () {
                 return Container();
-              case FoodSearchStatus.loading:
-                return const Center(child: CircularProgressIndicator());
-              case FoodSearchStatus.failure:
-                return Container();
-            }
+              },
+            );
           },
         ),
         CarbAppSearchInput(
+          key: const Key("initial"),
           inputText: "Besin ara...",
           inputTextStyle: Theme.of(context).textTheme.headline4,
           inputIcon: IconlyLight.search,
@@ -37,10 +41,10 @@ class SearchResultBoxWidget extends StatelessWidget {
           onChanged: (value) {
             if (value.isNotEmpty && lastSearchedFood != value) {
               lastSearchedFood = value;
-              BlocProvider.of<FoodSearchCubit>(context).searchFoodItemForReciept(value);
+              BlocProvider.of<RecipeFoodSearchCubit>(context).searchFoodItemForRecipe(value);
             } else if (value.isEmpty) {
               FocusManager.instance.primaryFocus!.unfocus();
-              BlocProvider.of<FoodSearchCubit>(context).clearFoodSeach();
+              BlocProvider.of<RecipeFoodSearchCubit>(context).clearFoodSearch();
             }
           },
         ),

@@ -1,7 +1,3 @@
-import 'package:diyabet_app/data/datasources/remote/recipe/recipe_remote_datasource.dart';
-import 'package:diyabet_app/data/repositories/remote/recipe_repository.dart';
-import 'package:diyabet_app/domain/usecases/recipe/remote/get_user_remote_recipe_usecase.dart';
-import 'package:diyabet_app/domain/usecases/recipe/remote/save_remote_recipe_usecase.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
@@ -17,6 +13,7 @@ import 'data/datasources/local/user_iko/local_user_iko_datasource.dart';
 import 'data/datasources/remote/food/food_remote_datasouce.dart';
 import 'data/datasources/remote/food_cache/food_cache_remote_datasource.dart';
 import 'data/datasources/remote/food_consumption/food_consumption_remote_datasource.dart';
+import 'data/datasources/remote/recipe/recipe_remote_datasource.dart';
 import 'data/datasources/remote/user/user_bloodtarget_remote_datasource.dart';
 import 'data/datasources/remote/user/user_bolus_remote_datasource.dart';
 import 'data/datasources/remote/user/user_idf_remote_datasource.dart';
@@ -30,6 +27,7 @@ import 'data/repositories/local/local_user_iko_repository.dart';
 import 'data/repositories/remote/food_cache_repository.dart';
 import 'data/repositories/remote/food_consumption_repository.dart';
 import 'data/repositories/remote/food_repository.dart';
+import 'data/repositories/remote/recipe_repository.dart';
 import 'data/repositories/remote/user_repository.dart';
 import 'domain/usecases/cache_food/get_all_foods_for_cache.dart';
 import 'domain/usecases/cache_food/get_foods_from_cache_on_name.dart';
@@ -43,6 +41,8 @@ import 'domain/usecases/food/save_local_food_usecase.dart';
 import 'domain/usecases/food/update_local_food_usecase.dart';
 import 'domain/usecases/food_consumption/get_meal_by_filter_usecase.dart';
 import 'domain/usecases/food_consumption/save_food_consumption_usecase.dart';
+import 'domain/usecases/recipe/remote/get_user_remote_recipe_usecase.dart';
+import 'domain/usecases/recipe/remote/save_remote_recipe_usecase.dart';
 import 'domain/usecases/user/user_login_usecase.dart';
 import 'domain/usecases/user/user_register_usecase.dart';
 import 'domain/usecases/user_blood_target/local/get_local_user_bloodtarget_usecase.dart';
@@ -69,8 +69,9 @@ import 'features/meal/cubit/meal_consumption_cubit.dart';
 import 'features/my_diabet/cubit/iko_cubit.dart';
 import 'features/my_diabet/cubit/my_diabet_cubit.dart';
 import 'features/my_diabet/cubit/user_blood_target_cubit.dart';
-import 'features/reciept/cubit/reciept_cubit.dart';
+
 import 'features/reciept/cubit/recipe_cubit.dart';
+import 'features/reciept/cubit/recipe_food_search_cubit.dart';
 import 'features/search/cubit/search_cubit.dart';
 import 'features/totals/cubit/totals_cubit.dart';
 
@@ -93,9 +94,9 @@ Future<void> init() async {
   sl.registerFactory<SearchCubit>(() => SearchCubit(getFoodFromCacheUseCase: sl.call()));
   sl.registerFactory<FoodCubit>(() => FoodCubit(getFoodOnIdUseCase: sl.call(), getSingleFoodFromLocal: sl.call()));
   sl.registerFactory<FoodUnitCubit>(() => FoodUnitCubit(foodCubit: sl.call()));
-  sl.registerFactory<RecipeCubit>(() => RecipeCubit(saveRemoteRecipeUseCase: sl.call()));
+  sl.registerFactory<RecipeCubit>(() => RecipeCubit(saveRemoteRecipeUseCase: sl.call(), getUserRemoteRecipeUseCase: sl.call()));
 
-  sl.registerFactory<FoodSearchCubit>(() => FoodSearchCubit(searchFoodUseCase: sl.call()));
+  sl.registerFactory<RecipeFoodSearchCubit>(() => RecipeFoodSearchCubit(getFoodsFromCacheOnName: sl.call()));
   sl.registerFactory<TotalsCubit>(() => TotalsCubit(
         0,
         0,

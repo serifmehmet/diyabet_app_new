@@ -20,7 +20,8 @@ mixin _$RecipeState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loadSuccess,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
     required TResult Function(
             List<LocalFood> foodsAddedToRecipe, double carbValue)
         foodAddSuccess,
@@ -29,32 +30,37 @@ mixin _$RecipeState {
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
     required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,10 +69,12 @@ mixin _$RecipeState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
     required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,10 +82,12 @@ mixin _$RecipeState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -85,10 +95,12 @@ mixin _$RecipeState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -151,7 +163,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loadSuccess,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
     required TResult Function(
             List<LocalFood> foodsAddedToRecipe, double carbValue)
         foodAddSuccess,
@@ -160,6 +173,7 @@ class _$_Initial implements _Initial {
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
     required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
   }) {
     return initial();
   }
@@ -169,13 +183,15 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
   }) {
     return initial?.call();
   }
@@ -185,13 +201,15 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -206,10 +224,12 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
     required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
   }) {
     return initial(this);
   }
@@ -220,10 +240,12 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
   }) {
     return initial?.call(this);
   }
@@ -234,10 +256,12 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -292,7 +316,8 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loadSuccess,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
     required TResult Function(
             List<LocalFood> foodsAddedToRecipe, double carbValue)
         foodAddSuccess,
@@ -301,6 +326,7 @@ class _$_Loading implements _Loading {
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
     required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
   }) {
     return loading();
   }
@@ -310,13 +336,15 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
   }) {
     return loading?.call();
   }
@@ -326,13 +354,15 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -347,10 +377,12 @@ class _$_Loading implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
     required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
   }) {
     return loading(this);
   }
@@ -361,10 +393,12 @@ class _$_Loading implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
   }) {
     return loading?.call(this);
   }
@@ -375,10 +409,12 @@ class _$_Loading implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -397,6 +433,7 @@ abstract class _$$_LoadSuccessCopyWith<$Res> {
   factory _$$_LoadSuccessCopyWith(
           _$_LoadSuccess value, $Res Function(_$_LoadSuccess) then) =
       __$$_LoadSuccessCopyWithImpl<$Res>;
+  $Res call({RecipeRoot recipeRootEntity});
 }
 
 /// @nodoc
@@ -408,33 +445,58 @@ class __$$_LoadSuccessCopyWithImpl<$Res> extends _$RecipeStateCopyWithImpl<$Res>
 
   @override
   _$_LoadSuccess get _value => super._value as _$_LoadSuccess;
+
+  @override
+  $Res call({
+    Object? recipeRootEntity = freezed,
+  }) {
+    return _then(_$_LoadSuccess(
+      recipeRootEntity: recipeRootEntity == freezed
+          ? _value.recipeRootEntity
+          : recipeRootEntity // ignore: cast_nullable_to_non_nullable
+              as RecipeRoot,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_LoadSuccess implements _LoadSuccess {
-  const _$_LoadSuccess();
+  const _$_LoadSuccess({required this.recipeRootEntity});
+
+  @override
+  final RecipeRoot recipeRootEntity;
 
   @override
   String toString() {
-    return 'RecipeState.loadSuccess()';
+    return 'RecipeState.loadSuccess(recipeRootEntity: $recipeRootEntity)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LoadSuccess);
+        (other.runtimeType == runtimeType &&
+            other is _$_LoadSuccess &&
+            const DeepCollectionEquality()
+                .equals(other.recipeRootEntity, recipeRootEntity));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(recipeRootEntity));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_LoadSuccessCopyWith<_$_LoadSuccess> get copyWith =>
+      __$$_LoadSuccessCopyWithImpl<_$_LoadSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loadSuccess,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
     required TResult Function(
             List<LocalFood> foodsAddedToRecipe, double carbValue)
         foodAddSuccess,
@@ -443,8 +505,9 @@ class _$_LoadSuccess implements _LoadSuccess {
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
     required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
   }) {
-    return loadSuccess();
+    return loadSuccess(recipeRootEntity);
   }
 
   @override
@@ -452,15 +515,17 @@ class _$_LoadSuccess implements _LoadSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
   }) {
-    return loadSuccess?.call();
+    return loadSuccess?.call(recipeRootEntity);
   }
 
   @override
@@ -468,17 +533,19 @@ class _$_LoadSuccess implements _LoadSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
-      return loadSuccess();
+      return loadSuccess(recipeRootEntity);
     }
     return orElse();
   }
@@ -489,10 +556,12 @@ class _$_LoadSuccess implements _LoadSuccess {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
     required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
   }) {
     return loadSuccess(this);
   }
@@ -503,10 +572,12 @@ class _$_LoadSuccess implements _LoadSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
   }) {
     return loadSuccess?.call(this);
   }
@@ -517,10 +588,12 @@ class _$_LoadSuccess implements _LoadSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
@@ -531,7 +604,168 @@ class _$_LoadSuccess implements _LoadSuccess {
 }
 
 abstract class _LoadSuccess implements RecipeState {
-  const factory _LoadSuccess() = _$_LoadSuccess;
+  const factory _LoadSuccess({required final RecipeRoot recipeRootEntity}) =
+      _$_LoadSuccess;
+
+  RecipeRoot get recipeRootEntity;
+  @JsonKey(ignore: true)
+  _$$_LoadSuccessCopyWith<_$_LoadSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RecipeListInitialCopyWith<$Res> {
+  factory _$$_RecipeListInitialCopyWith(_$_RecipeListInitial value,
+          $Res Function(_$_RecipeListInitial) then) =
+      __$$_RecipeListInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_RecipeListInitialCopyWithImpl<$Res>
+    extends _$RecipeStateCopyWithImpl<$Res>
+    implements _$$_RecipeListInitialCopyWith<$Res> {
+  __$$_RecipeListInitialCopyWithImpl(
+      _$_RecipeListInitial _value, $Res Function(_$_RecipeListInitial) _then)
+      : super(_value, (v) => _then(v as _$_RecipeListInitial));
+
+  @override
+  _$_RecipeListInitial get _value => super._value as _$_RecipeListInitial;
+}
+
+/// @nodoc
+
+class _$_RecipeListInitial implements _RecipeListInitial {
+  const _$_RecipeListInitial();
+
+  @override
+  String toString() {
+    return 'RecipeState.recipeListInitial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_RecipeListInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
+    required TResult Function(
+            List<LocalFood> foodsAddedToRecipe, double carbValue)
+        foodAddSuccess,
+    required TResult Function(
+            List<LocalFood> foodsAddedToRecipe, double carbValue)
+        foodDeleteSuccess,
+    required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
+  }) {
+    return recipeListInitial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
+    TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
+        foodAddSuccess,
+    TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
+        foodDeleteSuccess,
+    TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
+  }) {
+    return recipeListInitial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
+    TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
+        foodAddSuccess,
+    TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
+        foodDeleteSuccess,
+    TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
+    required TResult orElse(),
+  }) {
+    if (recipeListInitial != null) {
+      return recipeListInitial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
+    required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
+    required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
+    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
+  }) {
+    return recipeListInitial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
+    TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
+    TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
+    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
+  }) {
+    return recipeListInitial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
+    TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
+    TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
+    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
+    required TResult orElse(),
+  }) {
+    if (recipeListInitial != null) {
+      return recipeListInitial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RecipeListInitial implements RecipeState {
+  const factory _RecipeListInitial() = _$_RecipeListInitial;
 }
 
 /// @nodoc
@@ -620,7 +854,8 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loadSuccess,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
     required TResult Function(
             List<LocalFood> foodsAddedToRecipe, double carbValue)
         foodAddSuccess,
@@ -629,6 +864,7 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
     required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
   }) {
     return foodAddSuccess(foodsAddedToRecipe, carbValue);
   }
@@ -638,13 +874,15 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
   }) {
     return foodAddSuccess?.call(foodsAddedToRecipe, carbValue);
   }
@@ -654,13 +892,15 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (foodAddSuccess != null) {
@@ -675,10 +915,12 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
     required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
   }) {
     return foodAddSuccess(this);
   }
@@ -689,10 +931,12 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
   }) {
     return foodAddSuccess?.call(this);
   }
@@ -703,10 +947,12 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (foodAddSuccess != null) {
@@ -815,7 +1061,8 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loadSuccess,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
     required TResult Function(
             List<LocalFood> foodsAddedToRecipe, double carbValue)
         foodAddSuccess,
@@ -824,6 +1071,7 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
     required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
   }) {
     return foodDeleteSuccess(foodsAddedToRecipe, carbValue);
   }
@@ -833,13 +1081,15 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
   }) {
     return foodDeleteSuccess?.call(foodsAddedToRecipe, carbValue);
   }
@@ -849,13 +1099,15 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (foodDeleteSuccess != null) {
@@ -870,10 +1122,12 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
     required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
   }) {
     return foodDeleteSuccess(this);
   }
@@ -884,10 +1138,12 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
   }) {
     return foodDeleteSuccess?.call(this);
   }
@@ -898,10 +1154,12 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (foodDeleteSuccess != null) {
@@ -992,7 +1250,8 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loadSuccess,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
     required TResult Function(
             List<LocalFood> foodsAddedToRecipe, double carbValue)
         foodAddSuccess,
@@ -1001,6 +1260,7 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
     required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
   }) {
     return recipeSaveSuccess(successMessage);
   }
@@ -1010,13 +1270,15 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
   }) {
     return recipeSaveSuccess?.call(successMessage);
   }
@@ -1026,13 +1288,15 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (recipeSaveSuccess != null) {
@@ -1047,10 +1311,12 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
     required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
   }) {
     return recipeSaveSuccess(this);
   }
@@ -1061,10 +1327,12 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
   }) {
     return recipeSaveSuccess?.call(this);
   }
@@ -1075,10 +1343,12 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (recipeSaveSuccess != null) {
@@ -1164,7 +1434,8 @@ class _$_Failure implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loadSuccess,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
     required TResult Function(
             List<LocalFood> foodsAddedToRecipe, double carbValue)
         foodAddSuccess,
@@ -1173,6 +1444,7 @@ class _$_Failure implements _Failure {
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
     required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
   }) {
     return failure(errorObject);
   }
@@ -1182,13 +1454,15 @@ class _$_Failure implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
   }) {
     return failure?.call(errorObject);
   }
@@ -1198,13 +1472,15 @@ class _$_Failure implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loadSuccess,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodAddSuccess,
     TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
     TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -1219,10 +1495,12 @@ class _$_Failure implements _Failure {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
     required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
   }) {
     return failure(this);
   }
@@ -1233,10 +1511,12 @@ class _$_Failure implements _Failure {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
   }) {
     return failure?.call(this);
   }
@@ -1247,10 +1527,12 @@ class _$_Failure implements _Failure {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
     TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
     TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -1266,5 +1548,191 @@ abstract class _Failure implements RecipeState {
   ErrorObject get errorObject;
   @JsonKey(ignore: true)
   _$$_FailureCopyWith<_$_Failure> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetRecipeErrorCopyWith<$Res> {
+  factory _$$_GetRecipeErrorCopyWith(
+          _$_GetRecipeError value, $Res Function(_$_GetRecipeError) then) =
+      __$$_GetRecipeErrorCopyWithImpl<$Res>;
+  $Res call({ErrorObject errorObject});
+}
+
+/// @nodoc
+class __$$_GetRecipeErrorCopyWithImpl<$Res>
+    extends _$RecipeStateCopyWithImpl<$Res>
+    implements _$$_GetRecipeErrorCopyWith<$Res> {
+  __$$_GetRecipeErrorCopyWithImpl(
+      _$_GetRecipeError _value, $Res Function(_$_GetRecipeError) _then)
+      : super(_value, (v) => _then(v as _$_GetRecipeError));
+
+  @override
+  _$_GetRecipeError get _value => super._value as _$_GetRecipeError;
+
+  @override
+  $Res call({
+    Object? errorObject = freezed,
+  }) {
+    return _then(_$_GetRecipeError(
+      errorObject: errorObject == freezed
+          ? _value.errorObject
+          : errorObject // ignore: cast_nullable_to_non_nullable
+              as ErrorObject,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetRecipeError implements _GetRecipeError {
+  const _$_GetRecipeError({required this.errorObject});
+
+  @override
+  final ErrorObject errorObject;
+
+  @override
+  String toString() {
+    return 'RecipeState.getRecipeFailure(errorObject: $errorObject)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetRecipeError &&
+            const DeepCollectionEquality()
+                .equals(other.errorObject, errorObject));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(errorObject));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_GetRecipeErrorCopyWith<_$_GetRecipeError> get copyWith =>
+      __$$_GetRecipeErrorCopyWithImpl<_$_GetRecipeError>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
+    required TResult Function(
+            List<LocalFood> foodsAddedToRecipe, double carbValue)
+        foodAddSuccess,
+    required TResult Function(
+            List<LocalFood> foodsAddedToRecipe, double carbValue)
+        foodDeleteSuccess,
+    required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
+  }) {
+    return getRecipeFailure(errorObject);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
+    TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
+        foodAddSuccess,
+    TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
+        foodDeleteSuccess,
+    TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
+  }) {
+    return getRecipeFailure?.call(errorObject);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
+    TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
+        foodAddSuccess,
+    TResult Function(List<LocalFood> foodsAddedToRecipe, double carbValue)?
+        foodDeleteSuccess,
+    TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
+    required TResult orElse(),
+  }) {
+    if (getRecipeFailure != null) {
+      return getRecipeFailure(errorObject);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
+    required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
+    required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
+    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
+  }) {
+    return getRecipeFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
+    TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
+    TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
+    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
+  }) {
+    return getRecipeFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
+    TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
+    TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
+    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
+    required TResult orElse(),
+  }) {
+    if (getRecipeFailure != null) {
+      return getRecipeFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetRecipeError implements RecipeState {
+  const factory _GetRecipeError({required final ErrorObject errorObject}) =
+      _$_GetRecipeError;
+
+  ErrorObject get errorObject;
+  @JsonKey(ignore: true)
+  _$$_GetRecipeErrorCopyWith<_$_GetRecipeError> get copyWith =>
       throw _privateConstructorUsedError;
 }
