@@ -4,12 +4,14 @@ import 'package:diyabet_app/domain/entities/local_food.dart';
 import 'package:diyabet_app/domain/entities/remote_food_root.dart';
 import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
-import 'package:diyabet_app/features/reciept/cubit/reciept_cubit.dart';
+import 'package:diyabet_app/features/reciept/cubit/recipe_food_search_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+
+import '../../../features/reciept/cubit/recipe_cubit.dart';
 
 enum BottomSheetType { search, totals, receipt }
 
@@ -262,7 +264,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
             if (widget.type == BottomSheetType.search) {
               BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);
             } else if (widget.type == BottomSheetType.receipt) {
-              BlocProvider.of<RecipeCubit>(context).saveLocalFoodToReceipt(localFood);
+              BlocProvider.of<RecipeFoodSearchCubit>(context).clearFoodSearch();
+              BlocProvider.of<RecipeCubit>(context).saveLocalFoodToRecipe(localFood);
             }
 
             Navigator.pop(context);

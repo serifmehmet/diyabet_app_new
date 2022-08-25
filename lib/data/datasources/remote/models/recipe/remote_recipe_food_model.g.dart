@@ -10,6 +10,8 @@ RemoteRecipeFoodModel _$RemoteRecipeFoodModelFromJson(
         Map<String, dynamic> json) =>
     RemoteRecipeFoodModel(
       id: json['id'] as int?,
+      foodName: json['foodName'] as String?,
+      unitName: json['unitName'] as String?,
       foodId: json['foodId'] as int?,
       unitId: json['unitId'] as int?,
       quantity: json['quantity'] as int?,
@@ -28,6 +30,8 @@ Map<String, dynamic> _$RemoteRecipeFoodModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'recipeId': instance.recipeId,
+      'foodName': instance.foodName,
+      'unitName': instance.unitName,
       'foodId': instance.foodId,
       'unitId': instance.unitId,
       'quantity': instance.quantity,

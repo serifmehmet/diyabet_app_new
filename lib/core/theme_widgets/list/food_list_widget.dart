@@ -2,12 +2,13 @@ import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/bottom_sheet/totals_bottom_sheet_widget.dart';
 import 'package:diyabet_app/domain/entities/local_food.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
-import 'package:diyabet_app/features/reciept/cubit/reciept_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:diyabet_app/features/totals/view/models/total_items_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+
+import '../../../features/reciept/cubit/recipe_cubit.dart';
 
 enum FoodListType { totals, recipe }
 

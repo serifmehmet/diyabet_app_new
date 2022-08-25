@@ -1,5 +1,4 @@
 import 'package:diyabet_app/data/datasources/local/models/food_hive_model.dart';
-import 'package:diyabet_app/domain/entities/recipe.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 part 'local_receipt_hive_model.g.dart';
 
@@ -22,13 +21,13 @@ class LocalRecieptHiveModel extends HiveObject {
   @HiveField(6)
   late DateTime createdDate;
 
-  Recipe toEntity() => Recipe(
-        id: id,
-        foodList: foodList.map((e) => e.toEntity()).toList(),
-        totalCarb: totalCarb,
-        isApproved: isApproved,
-        recieptName: receiptName,
-        portionQuantity: portionQunatity,
-        createdDate: createdDate,
-      );
+  // Recipe toEntity() => Recipe(
+  //       id: id,
+  //       recipeFoods: foodList.map((e) => e.toEntity()).toList(),
+  //       totalCarb: totalCarb,
+  //       isApproved: isApproved,
+  //       recieptName: receiptName,
+  //       portionQuantity: portionQunatity,
+  //       createdDate: createdDate,
+  //     );
 }

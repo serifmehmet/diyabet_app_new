@@ -276,6 +276,26 @@ extension CustomStyles on TextTheme {
     );
   }
 
+  TextStyle get defaultEmptyWarning {
+    return const TextStyle(
+      color: Color(0xff000000),
+      fontSize: 15,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle get recipeSaveSuccessMessageHeader {
+    return const TextStyle(
+      color: Color(0xff000000),
+      fontSize: 20,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
   TextStyle get genericHeader {
     return const TextStyle(
       color: Color(0xff000000),
