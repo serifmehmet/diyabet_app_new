@@ -1,4 +1,5 @@
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
+import 'package:diyabet_app/core/theme_widgets/bottom_sheet/recipe_detail_bottomsheet_widget.dart';
 import 'package:diyabet_app/features/reciept/cubit/recipe_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,37 +43,90 @@ class _RecipeListViewState extends State<RecipeListView> {
                   return gapH4;
                 },
                 loadSuccess: (recipeRoot) {
-                  return Column(
-                    children: [
-                      gapH20,
-                      Expanded(
-                        child: ListView.builder(
-                          itemBuilder: (context, index) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(recipeRoot.recipes![index].name!),
-                                    Text("${recipeRoot.recipes![index].portionQuantity} Porsiyon"),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    const Text("Toplam Karbonhidrat"),
-                                    Text("${recipeRoot.recipes![index].totalCarb!.toStringAsFixed(2)} G.")
-                                  ],
-                                )
-                              ],
-                            );
-                          },
-                          itemCount: recipeRoot.recipes!.length,
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: Sizes.p12),
+                    child: Column(
+                      children: [
+                        gapH20,
+                        Expanded(
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) {
+                              return Divider(height: 10, color: Colors.grey.shade400);
+                            },
+                            itemBuilder: (context, index) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        recipeRoot.recipes![index].name!,
+                                        style: Theme.of(context).textTheme.recipeListName,
+                                      ),
+                                      Text(
+                                        "${recipeRoot.recipes![index].portionQuantity} Porsiyon",
+                                        style: Theme.of(context).textTheme.recipeListPortionName,
+                                      ),
+                                      recipeRoot.recipes![index].isApproved!
+                                          ? Text("Onaylandı", style: Theme.of(context).textTheme.recipeListApproved)
+                                          : Text("Onaylanmadı", style: Theme.of(context).textTheme.recipeListNotApproved),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      const Text("Toplam Karbonhidrat"),
+                                      Text(
+                                        "${recipeRoot.recipes![index].totalCarb!.toStringAsFixed(2)} G.",
+                                        style: Theme.of(context).textTheme.recipeCarbValue,
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: const Color(0xffD6578A),
+                                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                            context: context,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(32),
+                                              ),
+                                            ),
+                                            isScrollControlled: true,
+                                            builder: (context) {
+                                              return SizedBox(
+                                                height: 350,
+                                                child: RecipeDetailBottomSheetWidget(
+                                                  recipeFoods: recipeRoot.recipes![index].recipeFoods!,
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Text("Tarif Detayı", style: Theme.of(context).textTheme.recipeListButtonText),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              );
+                            },
+                            itemCount: recipeRoot.recipes!.length,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
+                },
+                getRecipeFailure: (failure) {
+                  return const Center(child: Text("Henüz bir tarif oluşturmadınız!"));
                 },
                 loading: () => const CircularProgressIndicator.adaptive(),
               );
