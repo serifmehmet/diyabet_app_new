@@ -333,4 +333,64 @@ extension CustomStyles on TextTheme {
       fontSize: 15,
     );
   }
+
+  TextStyle get recipeListName {
+    return const TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 16,
+      fontFamily: "Signika",
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  TextStyle get recipeCarbValue {
+    return const TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 18,
+      fontFamily: "Signika",
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  TextStyle get recipeListPortionName {
+    return const TextStyle(
+      color: Color(0xFFaab5b6),
+      fontSize: 14,
+      fontFamily: "Signika",
+      fontWeight: FontWeight.w200,
+    );
+  }
+
+  TextStyle get recipeListButtonText {
+    return const TextStyle(
+      color: Color(0xFFFFFFFF),
+      fontSize: 14,
+      fontWeight: FontWeight.w200,
+    );
+  }
+
+  TextStyle get recipeListApproved {
+    return const TextStyle(
+      color: Color(0xff1BC47D),
+      fontSize: 14,
+      fontWeight: FontWeight.w200,
+    );
+  }
+
+  TextStyle get recipeListNotApproved {
+    return const TextStyle(
+      color: Color(0xffdf2022),
+      fontSize: 14,
+      fontWeight: FontWeight.w200,
+    );
+  }
+
+  TextStyle get recipeDetailHeader {
+    return const TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 20,
+      fontFamily: "Signika",
+      fontWeight: FontWeight.w500,
+    );
+  }
 }

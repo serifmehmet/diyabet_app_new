@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:diyabet_app/core/base/error/failure.dart';
 import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/domain/entities/recipe_food.dart';
@@ -88,7 +89,12 @@ class RecipeCubit extends Cubit<RecipeState> {
 
     recipeResponse.fold(
       (failure) => emit(_GetRecipeError(errorObject: ErrorObject.mapFailureToErrorObject(failure: failure))),
-      (recipeRootEntity) => emit(_LoadSuccess(recipeRootEntity: recipeRootEntity)),
+      (recipeRootEntity) {
+        if (recipeRootEntity.recipes!.isEmpty) {
+          emit(_GetRecipeError(errorObject: ErrorObject.mapFailureToErrorObject(failure: const Failure.itemNotFound())));
+        }
+        emit(_LoadSuccess(recipeRootEntity: recipeRootEntity));
+      },
     );
   }
 
