@@ -51,7 +51,7 @@ class HomeEndDrawerWidget extends StatelessWidget {
               child: Center(
                 child: Icon(
                   IconlyBold.heart,
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ),
@@ -100,7 +100,7 @@ class HomeEndDrawerWidget extends StatelessWidget {
               child: Center(
                 child: Icon(
                   IconlyBold.document,
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.tertiary,
                 ),
               ),
             ),

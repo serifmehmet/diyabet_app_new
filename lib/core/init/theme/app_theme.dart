@@ -15,6 +15,7 @@ final ThemeData appTheme = ThemeData(
     tertiary: const Color(0xff1BC47D),
     surface: const Color(0xFFF5F5F5),
   ),
+  errorColor: const Color(0xffD6578A),
   dividerColor: const Color(0xfff6f6f6),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(

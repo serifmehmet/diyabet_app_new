@@ -27,14 +27,12 @@ import 'features/my_diabet/cubit/user_blood_target_cubit.dart';
 import 'features/reciept/cubit/recipe_cubit.dart';
 import 'features/search/cubit/search_cubit.dart';
 import 'features/totals/cubit/totals_cubit.dart';
-import 'firebase_options.dart';
 import 'features/reciept/cubit/recipe_food_search_cubit.dart';
 import 'injection_container.dart' as di;
 
 late final NotificationService service;
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   service = NotificationService();
   service.initalize();
   listenToNotification();
@@ -63,23 +61,22 @@ Future main() async {
   await CacheManager.preferencesInit();
 
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-  await messaging.getToken().then((value) {
-    CacheManager.instance.setStringValue(PreferencesKeys.NOTIFICATION_TOKEN, value!);
-  });
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
-    announcement: false,
     badge: true,
-    carPlay: false,
-    criticalAlert: false,
     provisional: false,
     sound: true,
   );
+
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    await messaging.getToken().then((value) {
+      CacheManager.instance.setStringValue(PreferencesKeys.NOTIFICATION_TOKEN, value!);
+    });
+  }
 
   if (!kIsWeb) {
     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
@@ -142,7 +139,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Pedider App',
+        title: 'KarbApp',
         theme: Theme.appTheme,
         navigatorKey: NavigationService.instance.navigatorKey,
         onGenerateRoute: (settings) => NavigationRoute.instance.generateRoute(settings),

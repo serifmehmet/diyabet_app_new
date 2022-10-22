@@ -42,6 +42,17 @@ class BolusCubit extends Cubit<BolusState> {
   late int lastMealHour = 5;
   late double calculatedBolusValue = 0;
 
+  Future<void> checkIdfValue() async {
+    final userIdfList =
+        await _getAllUserIdfUseCase.call(GetAllUserIdfUseCaseParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
+
+    if (userIdfList.isEmpty) {
+      emit(
+        const UserIdfListEmpty(emptyIdfMessage: "IDF Bilgileri bulunamadı."),
+      );
+    }
+  }
+
   Future<void> listBolusInfo() async {
     double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
     TimeOfDay now = TimeOfDay.now();
@@ -49,6 +60,12 @@ class BolusCubit extends Cubit<BolusState> {
     //IdfList
     final userIdfList =
         await _getAllUserIdfUseCase.call(GetAllUserIdfUseCaseParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
+
+    if (userIdfList.isEmpty) {
+      emit(const UserIdfListEmpty(emptyIdfMessage: "IDF Bilgileri bulunamadı."));
+      return;
+    }
+
     final userIkoList =
         await _getAllUserIkoListUseCase.call(GetAllUserIkoListParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
     userBloodTarget =

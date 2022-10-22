@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -36,6 +35,18 @@ class _HomeViewState extends State<HomeView> {
   }
 
   late final NotificationService service;
+  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    service = NotificationService();
+    service.initalize();
+    listenToNotification();
+    await service.showNotificaction(
+      id: message.hashCode,
+      title: "Karbapp Aktivasyon",
+      body: message.data["messageText"],
+      payload: message.data["messageType"],
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -43,14 +54,20 @@ class _HomeViewState extends State<HomeView> {
     service.initalize();
     listenToNotification();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
+      // RemoteNotification? notification = message.notification;
+      // AndroidNotification? android = message.notification?.android;
 
-      if (notification != null && android != null && !kIsWeb) {
+      if (message.data.isNotEmpty) {
         await service.showNotificaction(
-            id: notification.hashCode, title: notification.title!, body: notification.body!, payload: message.data["messageType"]);
+            id: message.hashCode, title: "Aktivasyon", body: message.data["messageText"], payload: message.data["messageType"]);
       }
+
+      // if (notification != null && android != null && !kIsWeb) {
+      //   await service.showNotificaction(
+      //       id: notification.hashCode, title: notification.title!, body: notification.body!, payload: message.data["messageType"]);
+      // }
     });
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   void listenToNotification() => service.onNotificationClick.stream.listen(onNotificationListener);
