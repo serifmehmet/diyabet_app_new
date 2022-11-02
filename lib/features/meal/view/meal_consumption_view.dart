@@ -175,7 +175,11 @@ class _CalcReportViewState extends State<CalcReportView> {
                         const SizedBox(
                           height: 60,
                         ),
-                        Text(errorObject.errorMessage, style: Theme.of(context).textTheme.genericHeader),
+                        Text(
+                          errorObject.errorMessage,
+                          style: Theme.of(context).textTheme.genericHeader,
+                          textAlign: TextAlign.center,
+                        ),
                         const SizedBox(height: 30),
                         SizedBox(
                           width: double.infinity,

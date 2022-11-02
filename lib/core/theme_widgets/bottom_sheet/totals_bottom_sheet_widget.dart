@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
 class TotalsBottomSheetWidget extends StatefulWidget {
   final int? foodIndex;
@@ -22,7 +23,16 @@ class TotalsBottomSheetWidget extends StatefulWidget {
 
 class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
   TextEditingController quantityController = TextEditingController();
+  final FocusNode _quantityFocusNode = FocusNode();
   String? dropDownValue;
+
+  KeyboardActionsConfig _buildConfig(BuildContext context) {
+    return KeyboardActionsConfig(
+      keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
+      keyboardBarColor: Colors.grey[200],
+      actions: [KeyboardActionsItem(focusNode: _quantityFocusNode)],
+    );
+  }
 
   @override
   void initState() {
@@ -49,17 +59,20 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
             if (state is EditFoodLoadSuccess) {
               return Padding(
                 padding: context.paddingLow,
-                child: Column(
-                  children: [
-                    bottomSheetHeader(context),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding: context.paddingNormal,
-                      child: bottomSheetLowerSide(context, state.localFood!, state.remoteFood!, state.remoteFoodUnit, setState),
-                    )
-                  ],
+                child: KeyboardActions(
+                  config: _buildConfig(context),
+                  child: Column(
+                    children: [
+                      bottomSheetHeader(context),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Padding(
+                        padding: context.paddingNormal,
+                        child: bottomSheetLowerSide(context, state.localFood!, state.remoteFood!, state.remoteFoodUnit, setState),
+                      )
+                    ],
+                  ),
                 ),
               );
             }
@@ -92,9 +105,9 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
         IconButton(
           onPressed: () {},
           icon: Icon(
-            IconlyBold.info_circle,
+            IconlyBold.info_square,
             size: 24,
-            color: Theme.of(context).colorScheme.secondaryVariant,
+            color: Theme.of(context).colorScheme.secondaryContainer,
           ),
         ),
       ],
@@ -153,6 +166,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
             SizedBox(
               width: 150,
               child: CarbAppTextInput(
+                focuNode: _quantityFocusNode,
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                 inputTextStyle: Theme.of(context).textTheme.headline4,
@@ -172,7 +186,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
                 builder: (context, state) {
                   if (state is SelectedUnitChanged) {
                     return Text(
-                      state.newCarbValue!.toStringAsFixed(1) + " G.",
+                      "${state.newCarbValue!.toStringAsFixed(1)} G.",
                       style: const TextStyle(
                         color: Color(0xff0e150e),
                         fontSize: 30,
@@ -185,7 +199,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
 
                   if (state is SelectedQuantityChanged) {
                     return Text(
-                      state.newCarbValue!.toStringAsFixed(1) + " G.",
+                      "${state.newCarbValue!.toStringAsFixed(1)} G.",
                       style: const TextStyle(
                         color: Color(0xff0e150e),
                         fontSize: 30,
@@ -197,7 +211,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
                   }
 
                   return Text(
-                    localFood.CarbTotal!.toStringAsFixed(1) + " G.",
+                    "${localFood.CarbTotal!.toStringAsFixed(1)} G.",
                     style: const TextStyle(
                       color: Color(0xff0e150e),
                       fontSize: 30,
@@ -226,10 +240,10 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
             BlocProvider.of<TotalsCubit>(context).updateLocalFood(localFoodToUpdate);
             Navigator.pop(context);
           },
+          style: ElevatedButton.styleFrom(elevation: 0),
           child: const Center(
             child: Text("Güncelle"),
           ),
-          style: ElevatedButton.styleFrom(elevation: 0),
         ),
       ],
     );

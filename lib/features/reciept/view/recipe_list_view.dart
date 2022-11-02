@@ -1,3 +1,5 @@
+import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
+import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/bottom_sheet/recipe_detail_bottomsheet_widget.dart';
 import 'package:diyabet_app/features/reciept/cubit/recipe_cubit.dart';
@@ -41,6 +43,28 @@ class _RecipeListViewState extends State<RecipeListView> {
               return state.maybeWhen(
                 orElse: () {
                   return gapH4;
+                },
+                recipeListInitial: () {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Center(
+                        child: Text("Henüz bir tarif eklemediniz."),
+                      ),
+                      const SizedBox(height: 5),
+                      TextButton(
+                        onPressed: () {
+                          NavigationService.instance.navigateToPage(
+                            path: NavigationConstants.ADD_RECIEPT,
+                          );
+                        },
+                        child: Text(
+                          "Tarif Ekle +",
+                          style: Theme.of(context).textTheme.addRecipeText,
+                        ),
+                      )
+                    ],
+                  );
                 },
                 loadSuccess: (recipeRoot) {
                   return Padding(
@@ -126,9 +150,9 @@ class _RecipeListViewState extends State<RecipeListView> {
                   );
                 },
                 getRecipeFailure: (failure) {
-                  return const Center(child: Text("Henüz bir tarif oluşturmadınız!"));
+                  return Center(child: Text(failure.errorMessage));
                 },
-                loading: () => const CircularProgressIndicator.adaptive(),
+                loading: () => const Center(child: CircularProgressIndicator.adaptive()),
               );
             },
           ),

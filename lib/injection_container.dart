@@ -1,3 +1,8 @@
+import 'package:diyabet_app/domain/usecases/food/get_favorite_foods_usecase.dart';
+import 'package:diyabet_app/domain/usecases/food/save_favorite_food_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user/user_update_info_usecase.dart';
+import 'package:diyabet_app/features/home/cubit/favorite_foods_cubit.dart';
+import 'package:diyabet_app/features/profile/cubit/profile_cubit.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vexana/vexana.dart';
@@ -91,7 +96,9 @@ Future<void> init() async {
       saveLocalUserBloodTargetUseCase: sl.call(),
     ),
   );
+  sl.registerFactory<ProfileCubit>(() => ProfileCubit(userUpdateInfoUseCase: sl.call()));
   sl.registerFactory<SearchCubit>(() => SearchCubit(getFoodFromCacheUseCase: sl.call()));
+  sl.registerFactory<FavoriteFoodsCubit>(() => FavoriteFoodsCubit(getFavoriteFoodsUsecase: sl.call()));
   sl.registerFactory<FoodCubit>(() => FoodCubit(getFoodOnIdUseCase: sl.call(), getSingleFoodFromLocal: sl.call()));
   sl.registerFactory<FoodUnitCubit>(() => FoodUnitCubit(foodCubit: sl.call()));
   sl.registerFactory<RecipeCubit>(() => RecipeCubit(saveRemoteRecipeUseCase: sl.call(), getUserRemoteRecipeUseCase: sl.call()));
@@ -106,6 +113,7 @@ Future<void> init() async {
         deleteSingleFoodUseCase: sl.call(),
         updateLocalFoodUseCase: sl.call(),
         foodConsumptionUseCase: sl.call(),
+        saveFavoriteFoodUsecase: sl.call(),
       ));
   sl.registerFactory<MealConsumptionCubit>(() => MealConsumptionCubit(getMealByFilterUseCase: sl.call()));
   sl.registerFactory<IkoCubit>(() => IkoCubit(
@@ -156,6 +164,7 @@ Future<void> init() async {
   sl.registerLazySingleton<SaveCalculatedUserBolusUsecase>(() => SaveCalculatedUserBolusUsecase(userRepository: sl()));
   sl.registerLazySingleton<SaveRemoteRecipeUseCase>(() => SaveRemoteRecipeUseCase(recipeRepository: sl()));
   sl.registerLazySingleton<GetUserRemoteRecipeUseCase>(() => GetUserRemoteRecipeUseCase(recipeRepository: sl()));
+  sl.registerLazySingleton<UserUpdateInfoUseCase>(() => UserUpdateInfoUseCase(userRepository: sl()));
 
   //LocalUseCases
   sl.registerLazySingleton<GetFoodsFromCacheOnName>(() => GetFoodsFromCacheOnName(localFoodRepository: sl()));
@@ -173,6 +182,8 @@ Future<void> init() async {
   sl.registerLazySingleton<DeleteSingleUserIkoUseCase>(() => DeleteSingleUserIkoUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<SaveLocalUserBloodTargetUseCase>(() => SaveLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
   sl.registerLazySingleton<GetLocalUserBloodTargetUseCase>(() => GetLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
+  sl.registerLazySingleton<GetFavoriteFoodsUsecase>(() => GetFavoriteFoodsUsecase(foodRepository: sl()));
+  sl.registerLazySingleton<SaveFavoriteFoodUsecase>(() => SaveFavoriteFoodUsecase(foodRepository: sl()));
   // sl.registerLazySingleton<SaveLocalRecipeUseCase>(() => SaveLocalRecipeUseCase(localReceiptRepository: sl()));
 
   //local datasources

@@ -24,9 +24,9 @@ class ErrorObject extends Equatable {
         errorType: ErrorType.returnedNothing,
         errorMessage: "Sunucudan geri dönüş olmadı!",
       ),
-      itemNotFound: () => const ErrorObject(
+      itemNotFound: (itemType) => ErrorObject(
         errorType: ErrorType.itemNotFound,
-        errorMessage: "Aradığınız besin bulunamadı!",
+        errorMessage: "Aradığınız $itemType bulunamadı!",
       ),
     );
   }

@@ -1,4 +1,6 @@
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
 import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,19 +71,21 @@ class SearchView extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    child: Text(
-                      "Tarif Ekle   +",
-                      style: Theme.of(context).textTheme.addRecipeText,
+                if (CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN)) ...[
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      child: Text(
+                        "Tarif Ekle   +",
+                        style: Theme.of(context).textTheme.addRecipeText,
+                      ),
+                      onPressed: () {
+                        NavigationService.instance.navigateToPage(path: NavigationConstants.ADD_RECIEPT);
+                      },
                     ),
-                    onPressed: () {
-                      NavigationService.instance.navigateToPage(path: NavigationConstants.ADD_RECIEPT);
-                    },
                   ),
-                ),
-                const SizedBox(height: 15),
+                  const SizedBox(height: 15),
+                ],
                 const Divider(
                   height: 1,
                   color: Color(0xffF5F5F5),

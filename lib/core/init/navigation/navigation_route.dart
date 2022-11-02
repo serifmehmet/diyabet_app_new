@@ -1,5 +1,6 @@
 import 'package:diyabet_app/core/theme_widgets/auth/not_authenticated_widget.dart';
 import 'package:diyabet_app/features/my_diabet/view/my_diabet_view.dart';
+import 'package:diyabet_app/features/profile/view/edit_profile_view.dart';
 import 'package:diyabet_app/features/reciept/view/add_reciept_view.dart';
 import 'package:diyabet_app/features/reciept/view/recipe_list_view.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,8 @@ class NavigationRoute {
         return normalNavigate(const AppTabView(), NavigationConstants.HOME_PAGE);
       case NavigationConstants.PROFILE:
         return normalNavigate(const ProfileView(), NavigationConstants.PROFILE);
+      case NavigationConstants.EDIT_PROFILE:
+        return normalNavigate(const EditProfileView(), NavigationConstants.EDIT_PROFILE);
       case NavigationConstants.LOGIN:
         return normalNavigate(LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.REGISTER:

@@ -18,6 +18,14 @@ class BolusTargetTypeChanged extends BolusState {
   List<Object> get props => [targetType, targetValue];
 }
 
+class UserIdfListEmpty extends BolusState {
+  final String emptyIdfMessage;
+
+  const UserIdfListEmpty({required this.emptyIdfMessage});
+  @override
+  List<Object?> get props => [emptyIdfMessage];
+}
+
 class BolusInfoLoaded extends BolusState {
   final double ikoValue;
   final double idfValue;

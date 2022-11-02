@@ -36,5 +36,6 @@ class CacheFoodListItemModel extends INetworkModel<CacheFoodListItemModel> {
 
   FoodToCacheHiveModel toHiveModel() => FoodToCacheHiveModel()
     ..id = id!
-    ..name = name!;
+    ..name = name!
+    ..isRecipe = false;
 }
