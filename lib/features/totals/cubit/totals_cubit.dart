@@ -9,8 +9,10 @@ import 'package:diyabet_app/domain/usecases/food/delete_all_foods_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/delete_single_food_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/get_saved_local_foods_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/params/delete_food_param.dart';
+import 'package:diyabet_app/domain/usecases/food/params/save_favorite_food_params.dart';
 import 'package:diyabet_app/domain/usecases/food/params/save_local_food_param.dart';
 import 'package:diyabet_app/domain/usecases/food/params/update_local_food_usecase.dart';
+import 'package:diyabet_app/domain/usecases/food/save_favorite_food_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/save_local_food_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/update_local_food_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food_consumption/params/save_food_consumption_params.dart';
@@ -23,6 +25,7 @@ part 'totals_state.dart';
 
 class TotalsCubit extends Cubit<TotalsState> {
   final SaveLocalFoodUseCase saveLocalFoodUseCase;
+  final SaveFavoriteFoodUsecase saveFavoriteFoodUsecase;
   final GetSavedLocalFoodsUseCase getSavedLocalFoodsUseCase;
   final DeleteAllFoodsUseCase deleteAllFoodsUseCase;
   final DeleteSingleFoodUseCase deleteSingleFoodUseCase;
@@ -38,6 +41,7 @@ class TotalsCubit extends Cubit<TotalsState> {
     this.foodsLocal,
     required this.deleteAllFoodsUseCase,
     required this.saveLocalFoodUseCase,
+    required this.saveFavoriteFoodUsecase,
     required this.getSavedLocalFoodsUseCase,
     required this.deleteSingleFoodUseCase,
     required this.updateLocalFoodUseCase,
@@ -48,6 +52,7 @@ class TotalsCubit extends Cubit<TotalsState> {
 
   Future<void> saveLocalFood(LocalFood localFood) async {
     await saveLocalFoodUseCase.call(SaveLocalFoodParam(localFood));
+    await saveFavoriteFoodUsecase.call(SaveFavoriteFoodParams(foodId: localFood.Id!));
     carbValue = carbValue! + localFood.CarbTotal!;
 
     foodsLocal!.add(localFood);

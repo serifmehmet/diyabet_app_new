@@ -1,5 +1,5 @@
+import 'package:diyabet_app/features/home/cubit/favorite_foods_cubit.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -10,8 +10,11 @@ import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/cache/cache_manager.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/init/theme/app_theme.dart';
+import '../../../core/theme_widgets/bottom_sheet/bottom_sheet_widget.dart';
 import '../../../core/utils/notification_service.dart';
+import '../../../domain/entities/favorite_food.dart';
 import '../../auth/cubit/cubit/auth_cubit.dart';
+import '../../food/cubit/food_unit_cubit.dart';
 import '../widgets/home_end_drawer_widget.dart';
 import 'tab/model/food_model.dart';
 
@@ -36,6 +39,18 @@ class _HomeViewState extends State<HomeView> {
   }
 
   late final NotificationService service;
+  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    service = NotificationService();
+    service.initalize();
+    listenToNotification();
+    await service.showNotificaction(
+      id: message.hashCode,
+      title: "Karbapp Aktivasyon",
+      body: message.data["messageText"],
+      payload: message.data["messageType"],
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -43,14 +58,20 @@ class _HomeViewState extends State<HomeView> {
     service.initalize();
     listenToNotification();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
+      // RemoteNotification? notification = message.notification;
+      // AndroidNotification? android = message.notification?.android;
 
-      if (notification != null && android != null && !kIsWeb) {
+      if (message.data.isNotEmpty) {
         await service.showNotificaction(
-            id: notification.hashCode, title: notification.title!, body: notification.body!, payload: message.data["messageType"]);
+            id: message.hashCode, title: "Aktivasyon", body: message.data["messageText"], payload: message.data["messageType"]);
       }
+
+      // if (notification != null && android != null && !kIsWeb) {
+      //   await service.showNotificaction(
+      //       id: notification.hashCode, title: notification.title!, body: notification.body!, payload: message.data["messageType"]);
+      // }
     });
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   void listenToNotification() => service.onNotificationClick.stream.listen(onNotificationListener);
@@ -155,48 +176,90 @@ class _HomeViewState extends State<HomeView> {
             const SizedBox(
               height: 30,
             ),
-            Text(
-              "En Çok Eklenen Besinler",
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            favoriteFoodList()
+            if (CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN) == true) ...[
+              Text(
+                "En Çok Eklenen Besinler",
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              BlocBuilder<FavoriteFoodsCubit, FavoriteFoodsState>(
+                builder: (context, state) {
+                  return state.map(
+                      loading: (loading) => const CircularProgressIndicator(),
+                      emptyFavoriteFoods: (emptyFavoriteFoods) => Center(
+                            child: Text(
+                              emptyFavoriteFoods.emptyListMessage,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                      favoriteFoodsLoaded: (favoriteFoodsLoaded) {
+                        return favoriteFoodList(favoriteFoodsLoaded.favoriteFood.favoriteFoods!);
+                      });
+                },
+              ),
+            ] else ...[
+              Center(
+                child: Image.asset(
+                  "assets/logo.png",
+                  width: 250,
+                  height: 250,
+                ),
+              ),
+            ]
           ],
         ),
       ),
     );
   }
 
-  Expanded favoriteFoodList() {
+  Widget favoriteFoodList(List<FavoriteFood> favoriteFoods) {
     return Expanded(
       child: ListView.separated(
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(items.foodItems[index].name, style: Theme.of(context).textTheme.orangeText),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
+            child: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(32),
+                      ),
+                    ),
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return BottomSheetWidget(
+                        foodId: favoriteFoods[index].foodId!,
+                        type: BottomSheetType.search,
+                      );
+                    }).whenComplete(
+                  () => BlocProvider.of<FoodUnitCubit>(context).clearUnits(),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(favoriteFoods[index].foodName!, style: Theme.of(context).textTheme.orangeText),
+                    Icon(
                       Icons.add,
                       color: Theme.of(context).colorScheme.secondary,
-                    ))
-              ],
+                    )
+                  ],
+                ),
+              ),
             ),
           );
         },
-        itemCount: items.foodItems.length,
+        itemCount: favoriteFoods.length,
         separatorBuilder: (BuildContext context, int index) {
-          return Container(
-            width: double.infinity,
-            height: 1,
-            decoration: const BoxDecoration(
-              color: Color(0xffF5F5F5),
-            ),
+          return const Divider(
+            color: Color(0xffF5F5F5),
+            height: 5,
           );
         },
       ),
@@ -248,7 +311,7 @@ class _HomeViewState extends State<HomeView> {
                     NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xffffffff),
+                    backgroundColor: const Color(0xffffffff),
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 22),
                   ),

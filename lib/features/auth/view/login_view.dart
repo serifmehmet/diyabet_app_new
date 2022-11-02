@@ -20,9 +20,9 @@ class LoginView extends StatelessWidget {
 
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -79,6 +79,8 @@ class LoginView extends StatelessWidget {
                 inputTextStyle: Theme.of(context).textTheme.headline4,
                 inputBorderRadius: 15,
                 textController: emailController,
+                keyboardType: TextInputType.emailAddress,
+                inputAction: TextInputAction.next,
                 focuNode: emailFocus,
                 onFieldSubmit: (val) {
                   emailFocus.unfocus();

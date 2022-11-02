@@ -39,10 +39,13 @@ class UserModel extends INetworkModel<UserModel> {
   @JsonKey(defaultValue: "")
   String? errorCode;
 
+  @JsonKey(defaultValue: [])
   List<UserBolusModel>? userBolusList;
 
+  @JsonKey(defaultValue: [])
   List<UserIdfModel>? userIdfs;
 
+  @JsonKey(defaultValue: [])
   List<UserIkoModel>? userIkos;
 
   UserBloodTargetModel? bloodTarget;
@@ -101,9 +104,9 @@ class UserModel extends INetworkModel<UserModel> {
         ForgotPasswordGenCode: forgotPasswordGenCode,
         ErrorCode: errorCode,
         FcmRegistrationToken: fcmRegistrationToken,
-        UserBls: userBolusList!.map((e) => e.toEntity()).toList(),
-        userIdfList: userIdfs!.map((e) => e.toEntity()).toList(),
-        userIkoList: userIkos!.map((e) => e.toEntity()).toList(),
+        UserBls: userBolusList != null ? userBolusList!.map((e) => e.toEntity()).toList() : null,
+        userIdfList: userIdfs != null ? userIdfs!.map((e) => e.toEntity()).toList() : null,
+        userIkoList: userIkos != null ? userIkos!.map((e) => e.toEntity()).toList() : null,
         userBloodTarget: bloodTarget != null ? bloodTarget!.toEntity() : null,
         xSessionId: xSessionId,
       );

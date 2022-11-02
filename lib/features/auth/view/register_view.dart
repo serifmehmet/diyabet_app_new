@@ -30,11 +30,12 @@ class RegisterView extends StatelessWidget {
   FocusNode firstPasswordFocus = FocusNode();
   FocusNode secondPasswordFocus = FocusNode();
 
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     String? firstPassword;
     final focus = FocusScope.of(context);
-    final formKey = GlobalKey<FormState>();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,

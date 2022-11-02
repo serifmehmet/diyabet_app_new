@@ -8,6 +8,7 @@ class CarbAppTextInput extends StatefulWidget {
 
   final double? iconSize;
   final Color? iconColor;
+  final bool? autoCorrect;
   final TextStyle? inputTextStyle;
   final TextStyle? labelTextStyle;
   final double inputBorderRadius;
@@ -23,6 +24,7 @@ class CarbAppTextInput extends StatefulWidget {
 
   const CarbAppTextInput({
     Key? key,
+    this.autoCorrect = false,
     this.inputText,
     this.inputIcon,
     this.iconSize,
@@ -51,6 +53,7 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
   Widget build(BuildContext context) {
     return TextFormField(
       style: widget.inputTextStyle,
+      autocorrect: widget.autoCorrect!,
       decoration: InputDecoration(
         labelText: widget.labelText,
         labelStyle: widget.labelTextStyle,

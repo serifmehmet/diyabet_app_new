@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vexana/vexana.dart';
 
 import '../../../../core/base/model/generic_response_model.dart';
+import '../../../../core/constants/enums/preferences_keys.dart';
+import '../../../../core/init/cache/cache_manager.dart';
 import '../models/user/user_blood_target_model.dart';
 
 class UserBloodTargetRemoteDataSource {
@@ -13,12 +15,14 @@ class UserBloodTargetRemoteDataSource {
 
   Future<bool> createUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
     try {
-      final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(
-        endPointUrl,
-        parseModel: GenericResponseModel(),
-        method: RequestType.POST,
-        data: {"bloodTarget": userBloodTargetModel},
-      );
+      final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(endPointUrl,
+          parseModel: GenericResponseModel(),
+          method: RequestType.POST,
+          data: {"bloodTarget": userBloodTargetModel},
+          options: Options(headers: {
+            "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+            "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
+          }));
 
       if (response.data!.errorCode == "OK") {
         return true;
@@ -34,12 +38,14 @@ class UserBloodTargetRemoteDataSource {
 
   Future<bool> deleteRemoteUserBloodTarget(int userBTId) async {
     try {
-      final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(
-        endPointUrl,
-        parseModel: GenericResponseModel(),
-        method: RequestType.DELETE,
-        data: [userBTId],
-      );
+      final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(endPointUrl,
+          parseModel: GenericResponseModel(),
+          method: RequestType.DELETE,
+          data: [userBTId],
+          options: Options(headers: {
+            "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+            "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
+          }));
 
       if (response.data!.errorCode == "OK") {
         return true;
@@ -60,6 +66,12 @@ class UserBloodTargetRemoteDataSource {
         parseModel: GenericResponseModel(),
         method: RequestType.PUT,
         data: {"bloodTarget": userBloodTargetModel},
+        options: Options(
+          headers: {
+            "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+            "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
+          },
+        ),
       );
 
       if (response.data!.errorCode == "OK") {

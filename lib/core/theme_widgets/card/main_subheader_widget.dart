@@ -1,4 +1,3 @@
-import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../extensions/context_extensions.dart';
@@ -12,7 +11,7 @@ class MainSubHeaderWidget extends StatelessWidget {
       height: 88,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryVariant,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: const BorderRadius.all(
           Radius.circular(15),
         ),
@@ -33,6 +32,14 @@ class MainSubHeaderWidget extends StatelessWidget {
         Container(
           width: context.width * 0.48,
           height: double.infinity,
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(70),
+              topRight: Radius.circular(15),
+              bottomRight: Radius.circular(15),
+            ),
+          ),
           child: Padding(
             padding: context.paddingLow,
             child: Column(
@@ -45,14 +52,6 @@ class MainSubHeaderWidget extends StatelessWidget {
               ],
             ),
           ),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(70),
-              topRight: Radius.circular(15),
-              bottomRight: Radius.circular(15),
-            ),
-          ),
         ),
       ],
     );
@@ -62,6 +61,12 @@ class MainSubHeaderWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(15),
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 10, left: 37),
         child: Row(
@@ -71,16 +76,10 @@ class MainSubHeaderWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text("Karbonhidrat", style: Theme.of(context).textTheme.subtitle1),
-                Text("25 Gr.", style: Theme.of(context).textTheme.caption),
+                Text("25 G.", style: Theme.of(context).textTheme.caption),
               ],
             )
           ],
-        ),
-      ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(15),
         ),
       ),
     );

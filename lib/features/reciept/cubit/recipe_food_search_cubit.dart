@@ -28,7 +28,7 @@ class RecipeFoodSearchCubit extends Cubit<RecipeFoodSearchState> {
         _cacheFoodListItem = response;
         emit(_Success(foodList: _cacheFoodListItem));
       } else {
-        emit(_Failure(errorObject: ErrorObject.mapFailureToErrorObject(failure: const ItemNotFoundError())));
+        emit(_Failure(errorObject: ErrorObject.mapFailureToErrorObject(failure: const ItemNotFoundError("besin"))));
       }
     } catch (e) {}
   }

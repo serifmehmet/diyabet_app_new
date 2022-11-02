@@ -21,6 +21,7 @@ abstract class UserRepository {
   Future<bool> deleteUserIko(int userIkoId);
   Future<bool> addUserBloodTarget(UserBloodTargetModel userBloodTargetModel);
   Future<bool> updateUserBloodTarget(UserBloodTargetModel userBloodTargetModel);
+  Future<GenericResponseModel> updateUserInfo(int userId, String name, String surName, String password);
 
   //UserBolus
   Future<GenericResponseModel> saveCalculatedUserBolus(int mealId, UserBolusModel userBolusModel);
@@ -104,6 +105,13 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<GenericResponseModel> saveCalculatedUserBolus(int mealId, UserBolusModel userBolusModel) async {
     final response = await userBolusRemoteDataSource.saveCalculatedBolusValue(userBolusModel, mealId);
+
+    return response;
+  }
+
+  @override
+  Future<GenericResponseModel> updateUserInfo(int userId, String name, String surName, String password) async {
+    final response = await userRemoteDataSource.updateUserInfo(userId, name, surName, password);
 
     return response;
   }

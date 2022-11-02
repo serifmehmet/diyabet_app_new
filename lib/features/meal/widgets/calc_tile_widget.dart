@@ -28,7 +28,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
       builder: (builder) {
         return AlertDialog(
           content: SizedBox(
-            height: 440,
+            height: 470,
             child: BolusCalculationModal(
               totalCarbValue: totalCarbValue!,
               mealId: mealId!,

@@ -84,6 +84,7 @@ class RecipeCubit extends Cubit<RecipeState> {
   }
 
   Future<void> getRemoteRecipeByUser() async {
+    emit(const _Loading());
     final recipeResponse =
         await _getUserRemoteRecipeUseCase.call(GetRecipeByUserIdParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
 
@@ -91,7 +92,9 @@ class RecipeCubit extends Cubit<RecipeState> {
       (failure) => emit(_GetRecipeError(errorObject: ErrorObject.mapFailureToErrorObject(failure: failure))),
       (recipeRootEntity) {
         if (recipeRootEntity.recipes!.isEmpty) {
-          emit(_GetRecipeError(errorObject: ErrorObject.mapFailureToErrorObject(failure: const Failure.itemNotFound())));
+          // emit(_GetRecipeError(errorObject: ErrorObject.mapFailureToErrorObject(failure: const Failure.itemNotFound("tarif"))));
+          emit(const _RecipeListInitial());
+          return;
         }
         emit(_LoadSuccess(recipeRootEntity: recipeRootEntity));
       },

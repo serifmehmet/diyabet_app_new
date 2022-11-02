@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     var authCubit = BlocProvider.of<AuthCubit>(context);
     Timer(
-      const Duration(seconds: 1),
+      const Duration(seconds: 2),
       () {
         if (authCubit.state is Authenticated) {
           NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
@@ -47,7 +47,7 @@ class _SplashViewState extends State<SplashView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "CARBAPP",
+                "KARBAPP",
                 style: Theme.of(context).textTheme.logo,
               ),
               SizedBox(height: context.mediaQuery.size.height / 2.5),

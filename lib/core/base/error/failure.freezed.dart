@@ -20,21 +20,21 @@ mixin _$Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() unAuthorized,
     required TResult Function() emptyResponse,
-    required TResult Function() itemNotFound,
+    required TResult Function(String? itemName) itemNotFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
-    TResult Function()? itemNotFound,
+    TResult Function(String? itemName)? itemNotFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
-    TResult Function()? itemNotFound,
+    TResult Function(String? itemName)? itemNotFound,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,7 +120,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult when<TResult extends Object?>({
     required TResult Function() unAuthorized,
     required TResult Function() emptyResponse,
-    required TResult Function() itemNotFound,
+    required TResult Function(String? itemName) itemNotFound,
   }) {
     return unAuthorized();
   }
@@ -130,7 +130,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
-    TResult Function()? itemNotFound,
+    TResult Function(String? itemName)? itemNotFound,
   }) {
     return unAuthorized?.call();
   }
@@ -140,7 +140,7 @@ class _$UnAuthorizedError extends UnAuthorizedError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
-    TResult Function()? itemNotFound,
+    TResult Function(String? itemName)? itemNotFound,
     required TResult orElse(),
   }) {
     if (unAuthorized != null) {
@@ -232,7 +232,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult when<TResult extends Object?>({
     required TResult Function() unAuthorized,
     required TResult Function() emptyResponse,
-    required TResult Function() itemNotFound,
+    required TResult Function(String? itemName) itemNotFound,
   }) {
     return emptyResponse();
   }
@@ -242,7 +242,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
-    TResult Function()? itemNotFound,
+    TResult Function(String? itemName)? itemNotFound,
   }) {
     return emptyResponse?.call();
   }
@@ -252,7 +252,7 @@ class _$EmptyResponseError extends EmptyResponseError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
-    TResult Function()? itemNotFound,
+    TResult Function(String? itemName)? itemNotFound,
     required TResult orElse(),
   }) {
     if (emptyResponse != null) {
@@ -306,6 +306,7 @@ abstract class _$$ItemNotFoundErrorCopyWith<$Res> {
   factory _$$ItemNotFoundErrorCopyWith(
           _$ItemNotFoundError value, $Res Function(_$ItemNotFoundError) then) =
       __$$ItemNotFoundErrorCopyWithImpl<$Res>;
+  $Res call({String? itemName});
 }
 
 /// @nodoc
@@ -318,35 +319,58 @@ class __$$ItemNotFoundErrorCopyWithImpl<$Res>
 
   @override
   _$ItemNotFoundError get _value => super._value as _$ItemNotFoundError;
+
+  @override
+  $Res call({
+    Object? itemName = freezed,
+  }) {
+    return _then(_$ItemNotFoundError(
+      itemName == freezed
+          ? _value.itemName
+          : itemName // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ItemNotFoundError extends ItemNotFoundError {
-  const _$ItemNotFoundError() : super._();
+  const _$ItemNotFoundError(this.itemName) : super._();
+
+  @override
+  final String? itemName;
 
   @override
   String toString() {
-    return 'Failure.itemNotFound()';
+    return 'Failure.itemNotFound(itemName: $itemName)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ItemNotFoundError);
+        (other.runtimeType == runtimeType &&
+            other is _$ItemNotFoundError &&
+            const DeepCollectionEquality().equals(other.itemName, itemName));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(itemName));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$ItemNotFoundErrorCopyWith<_$ItemNotFoundError> get copyWith =>
+      __$$ItemNotFoundErrorCopyWithImpl<_$ItemNotFoundError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unAuthorized,
     required TResult Function() emptyResponse,
-    required TResult Function() itemNotFound,
+    required TResult Function(String? itemName) itemNotFound,
   }) {
-    return itemNotFound();
+    return itemNotFound(itemName);
   }
 
   @override
@@ -354,9 +378,9 @@ class _$ItemNotFoundError extends ItemNotFoundError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
-    TResult Function()? itemNotFound,
+    TResult Function(String? itemName)? itemNotFound,
   }) {
-    return itemNotFound?.call();
+    return itemNotFound?.call(itemName);
   }
 
   @override
@@ -364,11 +388,11 @@ class _$ItemNotFoundError extends ItemNotFoundError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unAuthorized,
     TResult Function()? emptyResponse,
-    TResult Function()? itemNotFound,
+    TResult Function(String? itemName)? itemNotFound,
     required TResult orElse(),
   }) {
     if (itemNotFound != null) {
-      return itemNotFound();
+      return itemNotFound(itemName);
     }
     return orElse();
   }
@@ -409,6 +433,11 @@ class _$ItemNotFoundError extends ItemNotFoundError {
 }
 
 abstract class ItemNotFoundError extends Failure {
-  const factory ItemNotFoundError() = _$ItemNotFoundError;
+  const factory ItemNotFoundError(final String? itemName) = _$ItemNotFoundError;
   const ItemNotFoundError._() : super._();
+
+  String? get itemName;
+  @JsonKey(ignore: true)
+  _$$ItemNotFoundErrorCopyWith<_$ItemNotFoundError> get copyWith =>
+      throw _privateConstructorUsedError;
 }

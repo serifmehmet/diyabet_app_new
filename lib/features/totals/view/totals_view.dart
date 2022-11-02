@@ -1,5 +1,7 @@
 import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
+import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
 import 'package:diyabet_app/features/meal/cubit/meal_consumption_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +51,7 @@ class TotalsView extends StatelessWidget {
                   Text("Toplam Karbonhidrat", style: Theme.of(context).textTheme.genericHeader),
                   const SizedBox(height: 30),
                   const Text(
-                    "0.0 Gr.",
+                    "0.0 G.",
                     style: TextStyle(
                       color: Colors.red,
                       fontFamily: "Signika",
@@ -67,7 +69,49 @@ class TotalsView extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  if (!CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN)) ...[
+                    Text(
+                      "Üye değilseniz günlük besin tüketimlerinizi saklama özelliğini kullanamazsınız. ",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.recipeListNotApproved,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
+                          },
+                          child: const Text(
+                            "Giriş Yap",
+                            style: TextStyle(
+                              color: Color(0xFFD6578A),
+                              fontSize: 17,
+                              fontFamily: "Signika",
+                            ),
+                          ),
+                        ),
+                        const Text("veya"),
+                        TextButton(
+                          onPressed: () {
+                            NavigationService.instance.navigateToPage(path: NavigationConstants.REGISTER);
+                          },
+                          child: const Text(
+                            "Kayıt Ol",
+                            style: TextStyle(
+                              color: Color(0xFFD6578A),
+                              fontSize: 17,
+                              fontFamily: "Signika",
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ],
               );
             }
@@ -150,7 +194,47 @@ class TotalsView extends StatelessWidget {
                             child: const Text("Kaydet"),
                           ),
                         )
-                      : const SizedBox(),
+                      : Column(
+                          children: [
+                            Text(
+                              "Üye değilseniz günlük besin tüketimlerinizi saklama özelliğini kullanamazsınız. ",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.recipeListNotApproved,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
+                                  },
+                                  child: const Text(
+                                    "Giriş Yap",
+                                    style: TextStyle(
+                                      color: Color(0xFFD6578A),
+                                      fontSize: 17,
+                                      fontFamily: "Signika",
+                                    ),
+                                  ),
+                                ),
+                                const Text("veya"),
+                                TextButton(
+                                  onPressed: () {
+                                    NavigationService.instance.navigateToPage(path: NavigationConstants.REGISTER);
+                                  },
+                                  child: const Text(
+                                    "Kayıt Ol",
+                                    style: TextStyle(
+                                      color: Color(0xFFD6578A),
+                                      fontSize: 17,
+                                      fontFamily: "Signika",
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                 ],
               );
             }
