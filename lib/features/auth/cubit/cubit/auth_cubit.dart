@@ -78,10 +78,11 @@ class AuthCubit extends Cubit<AuthState> {
 
         CacheManager.instance.setStringValue(PreferencesKeys.X_SESSION_ID, _user.xSessionId!);
         CacheManager.instance.setStringValue(PreferencesKeys.USER_NAME, '${_user.Name!} ${_user.SurName!}');
+        CacheManager.instance.setStringValue(PreferencesKeys.PASSWORD, password);
 
         NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
-      } else {
-        emit(const LoginFailure("Login olamadık"));
+      } else if (response.ErrorCode == "E0010") {
+        emit(const LoginFailure("Geçersiz kullanıcı adı veya şifre. Lütfen tekrar deneyiniz."));
       }
     } else {
       emit(const LoginFailure("Login olamadık"));

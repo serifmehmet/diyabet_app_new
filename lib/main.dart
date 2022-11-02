@@ -1,5 +1,7 @@
 import 'package:diyabet_app/core/utils/notification_service.dart';
 import 'package:diyabet_app/features/app/app.dart';
+import 'package:diyabet_app/features/home/cubit/favorite_foods_cubit.dart';
+import 'package:diyabet_app/features/profile/cubit/profile_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -104,6 +106,9 @@ class MyApp extends StatelessWidget {
           create: (authContext) => di.sl<AuthCubit>()..appStarted(),
         ),
         BlocProvider(
+          create: (profileContext) => di.sl<ProfileCubit>(),
+        ),
+        BlocProvider(
           create: (totalsContext) => di.sl<TotalsCubit>(),
         ),
         BlocProvider(
@@ -111,6 +116,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (foodContext) => di.sl<FoodCubit>(),
+        ),
+        BlocProvider(
+          create: (favoriteFoodsContext) => di.sl<FavoriteFoodsCubit>(),
         ),
         BlocProvider(
           create: (foodUnitContext) => di.sl<FoodUnitCubit>(),

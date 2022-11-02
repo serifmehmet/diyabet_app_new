@@ -34,7 +34,27 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
     return KeyboardActionsConfig(
       keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
       keyboardBarColor: Colors.grey[200],
-      actions: [KeyboardActionsItem(focusNode: _quantityFocusNode)],
+      actions: [
+        KeyboardActionsItem(focusNode: _quantityFocusNode, toolbarButtons: [
+          (node) {
+            return GestureDetector(
+              onTap: () => node.unfocus(),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 10.0),
+                child: Text(
+                  "Tamam",
+                  style: TextStyle(
+                    color: Color(0xff1BC47D),
+                    fontSize: 16,
+                    fontFamily: "Signika",
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            );
+          }
+        ])
+      ],
     );
   }
 

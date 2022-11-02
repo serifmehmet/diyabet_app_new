@@ -1,6 +1,8 @@
 import 'package:vexana/vexana.dart';
 
 import '../../../../core/base/model/generic_response_model.dart';
+import '../../../../core/constants/enums/preferences_keys.dart';
+import '../../../../core/init/cache/cache_manager.dart';
 import '../models/user/user_idf_model.dart';
 
 class UserIdfRemoteDataSource {
@@ -19,6 +21,12 @@ class UserIdfRemoteDataSource {
         data: {
           "UserIdfs": [userIdfModel]
         },
+        options: Options(
+          headers: {
+            "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+            "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
+          },
+        ),
       );
       if (response.data!.errorCode == "OK") {
         return true;
@@ -38,6 +46,12 @@ class UserIdfRemoteDataSource {
         parseModel: GenericResponseModel(),
         method: RequestType.DELETE,
         data: [userIdfId],
+        options: Options(
+          headers: {
+            "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+            "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
+          },
+        ),
       );
 
       if (response.data!.errorCode == "OK") {

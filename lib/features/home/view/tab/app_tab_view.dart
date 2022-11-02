@@ -17,6 +17,7 @@ import '../../../meal/view/meal_consumption_view.dart';
 import '../../../totals/cubit/totals_cubit.dart';
 import '../../../totals/view/totals_view.dart';
 import '../../cubit/bottom_nav_cubit.dart';
+import '../../cubit/favorite_foods_cubit.dart';
 
 class AppTabView extends StatefulWidget {
   const AppTabView({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class AppTabView extends StatefulWidget {
 }
 
 class _AppTabViewState extends State<AppTabView> {
-  final _items = [const HomeView(), SearchView(), TotalsView(), CalcReportView(), BolusView()];
+  final _items = [const HomeView(), SearchView(), TotalsView(), const CalcReportView(), const BolusView()];
   final ListQueue<int> _navigationQueue = ListQueue();
 
   void onTap(int index) {
@@ -35,7 +36,7 @@ class _AppTabViewState extends State<AppTabView> {
       _navigationQueue.removeWhere((element) => element == index);
       _navigationQueue.addLast(index);
     }
-
+    if (index == 0) BlocProvider.of<FavoriteFoodsCubit>(context).getFavoriteFoods();
     if (index == 3 && !loggedIn) {
       NavigationService.instance.navigateToPage(path: NavigationConstants.NOT_AUTHENTICATED);
     } else {
@@ -112,7 +113,7 @@ class _AppTabViewState extends State<AppTabView> {
                             );
                           }
 
-                          return SizedBox(width: 0, height: 0);
+                          return const SizedBox(width: 0, height: 0);
                         },
                       )
                     ],
@@ -142,7 +143,7 @@ class _AppTabViewState extends State<AppTabView> {
                             );
                           }
 
-                          return SizedBox(width: 0, height: 0);
+                          return const SizedBox(width: 0, height: 0);
                         },
                       )
                     ],
@@ -157,7 +158,7 @@ class _AppTabViewState extends State<AppTabView> {
                 BottomNavigationBarItem(
                   icon: Transform.rotate(
                     angle: 225 * math.pi / 180,
-                    child: Icon(IconlyLight.voice_2),
+                    child: const Icon(IconlyLight.voice_2),
                   ),
                   activeIcon: Transform.rotate(
                     angle: 225 * math.pi / 180,

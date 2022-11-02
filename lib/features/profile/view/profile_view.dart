@@ -231,46 +231,51 @@ class ProfileView extends StatelessWidget {
     );
   }
 
-  Row editRow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8),
+  Widget editRow(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        NavigationService.instance.navigateToPage(path: NavigationConstants.EDIT_PROFILE);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(8),
+                ),
+              ),
+              child: Center(
+                child: Icon(
+                  IconlyBold.profile,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
               ),
             ),
-            child: Center(
-              child: Icon(
-                IconlyBold.profile,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            flex: 5,
+            child: Text(
+              "Profili Düzenle",
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          flex: 5,
-          child: Text(
-            "Profili Düzenle",
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Icon(
-            IconlyLight.arrow_right_2,
-            color: Theme.of(context).colorScheme.secondaryContainer,
-            size: 24,
-          ),
-        )
-      ],
+          Expanded(
+            flex: 1,
+            child: Icon(
+              IconlyLight.arrow_right_2,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              size: 24,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

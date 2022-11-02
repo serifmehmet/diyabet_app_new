@@ -80,6 +80,7 @@ class LoginView extends StatelessWidget {
                 inputBorderRadius: 15,
                 textController: emailController,
                 keyboardType: TextInputType.emailAddress,
+                inputAction: TextInputAction.next,
                 focuNode: emailFocus,
                 onFieldSubmit: (val) {
                   emailFocus.unfocus();

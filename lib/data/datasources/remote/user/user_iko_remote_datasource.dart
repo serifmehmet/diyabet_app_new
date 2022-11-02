@@ -1,6 +1,8 @@
 import 'package:diyabet_app/core/base/model/generic_response_model.dart';
 import 'package:vexana/vexana.dart';
 
+import '../../../../core/constants/enums/preferences_keys.dart';
+import '../../../../core/init/cache/cache_manager.dart';
 import '../models/user/user_iko_model.dart';
 
 class UserIkoRemoteDataSource {
@@ -19,6 +21,12 @@ class UserIkoRemoteDataSource {
         data: {
           "UserIkos": [userIkoModel]
         },
+        options: Options(
+          headers: {
+            "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+            "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
+          },
+        ),
       );
       if (response.data!.errorCode == "OK") {
         return true;
@@ -38,6 +46,12 @@ class UserIkoRemoteDataSource {
         parseModel: GenericResponseModel(),
         method: RequestType.DELETE,
         data: [userIkoId],
+        options: Options(
+          headers: {
+            "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+            "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
+          },
+        ),
       );
 
       if (response.data!.errorCode == "OK") {
