@@ -56,7 +56,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                     height: 100,
                     child: Column(
                       children: [
-                        Text("Hesaplamanız başaıryla kaydedilmiştir.", style: Theme.of(context).textTheme.bodyLarge),
+                        Text("Hesaplamanız başarıyla kaydedilmiştir.", style: Theme.of(context).textTheme.bodyLarge),
                         Text("${state.resultValue.toStringAsFixed(2)} Ünite", style: Theme.of(bolusDialogContext!).textTheme.bodyLarge),
                       ],
                     ),

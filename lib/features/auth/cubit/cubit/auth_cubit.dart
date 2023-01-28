@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:diyabet_app/domain/entities/user_blood_target.dart';
+import 'package:diyabet_app/domain/usecases/user/params/reset_user_password_params.dart';
 import 'package:diyabet_app/domain/usecases/user/params/user_register_param.dart';
+import 'package:diyabet_app/domain/usecases/user/reset_user_password_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user/user_register_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user_blood_target/params/save_user_bloodtarget_params.dart';
 import 'package:diyabet_app/domain/usecases/user_blood_target/local/save_local_user_bloodtarget_usecase.dart';
@@ -32,6 +34,8 @@ class AuthCubit extends Cubit<AuthState> {
   final SaveLocalUserIdfUseCase saveLocalUserIdfUseCase;
   final SaveLocalUserIkoUseCase saveLocalUserIkoUseCase;
   final SaveLocalUserBloodTargetUseCase saveLocalUserBloodTargetUseCase;
+
+  final ResetUserPasswordUseCase resetUserPasswordUseCase;
   AuthCubit({
     this.userLoginUseCase,
     this.getAllFoodsForCache,
@@ -39,6 +43,7 @@ class AuthCubit extends Cubit<AuthState> {
     required this.saveLocalUserIdfUseCase,
     required this.saveLocalUserIkoUseCase,
     required this.saveLocalUserBloodTargetUseCase,
+    required this.resetUserPasswordUseCase,
   }) : super(AuthInitial());
 
   Future<void> appStarted() async {
@@ -137,6 +142,20 @@ class AuthCubit extends Cubit<AuthState> {
       emit(Registered());
     } else {
       emit(UserRegisterFailure(errorMessage: response.errorDescription));
+    }
+  }
+
+  Future<void> userPasswordReset(String email, String password) async {
+    emit(ResetPasswordLoading());
+
+    final response = await resetUserPasswordUseCase.call(ResetUserPasswordParams(email: email, password: password));
+
+    if (response.errorCode == "OK") {
+      emit(const ResetPasswordSuccess("Şifre yenileme talebiniz alınmıştır. E-Posta kutunuzu kontrol edin lütfen."));
+    }
+
+    if (response.errorCode == "E9998") {
+      emit(const ResetPasswordError("Girdiğiniz E-Posta adresi sistemimizde kayıtlı değildir."));
     }
   }
 }

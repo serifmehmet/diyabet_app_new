@@ -5,7 +5,7 @@ extension extString on String {
   }
 
   bool get isValidPassword {
-    final passwordRegExp = RegExp(r'.{8,20}');
+    final passwordRegExp = RegExp(r'.{6,20}');
     return passwordRegExp.hasMatch(this);
   }
 

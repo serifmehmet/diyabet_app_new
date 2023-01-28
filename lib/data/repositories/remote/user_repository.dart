@@ -22,6 +22,7 @@ abstract class UserRepository {
   Future<bool> addUserBloodTarget(UserBloodTargetModel userBloodTargetModel);
   Future<bool> updateUserBloodTarget(UserBloodTargetModel userBloodTargetModel);
   Future<GenericResponseModel> updateUserInfo(int userId, String name, String surName, String password);
+  Future<GenericResponse> resetPassword(String email, String password);
 
   //UserBolus
   Future<GenericResponseModel> saveCalculatedUserBolus(int mealId, UserBolusModel userBolusModel);
@@ -114,5 +115,12 @@ class UserRepositoryImpl extends UserRepository {
     final response = await userRemoteDataSource.updateUserInfo(userId, name, surName, password);
 
     return response;
+  }
+
+  @override
+  Future<GenericResponse> resetPassword(String email, String password) async {
+    final response = await userRemoteDataSource.resetPassword(email, password);
+
+    return response.toEntity();
   }
 }

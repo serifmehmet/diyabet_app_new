@@ -9,6 +9,7 @@ class UserRemoteDataSource {
   static const String loginUrl = "/login";
   static const String registerUrl = '/register';
   static const String updateUrl = '/UpdateUser';
+  static const String resetUrl = '/ResetPassword';
 
   final NetworkManager networkManager;
 
@@ -59,6 +60,17 @@ class UserRemoteDataSource {
           "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
         },
       ),
+    );
+
+    return response.data!;
+  }
+
+  Future<GenericResponseModel> resetPassword(String email, String password) async {
+    final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(
+      resetUrl,
+      parseModel: GenericResponseModel(),
+      method: RequestType.POST,
+      queryParameters: Map.fromEntries([MapEntry("email", email), MapEntry("newPassword", password)]),
     );
 
     return response.data!;

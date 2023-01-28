@@ -1,5 +1,6 @@
 import 'package:diyabet_app/domain/usecases/food/get_favorite_foods_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/save_favorite_food_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user/reset_user_password_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user/user_update_info_usecase.dart';
 import 'package:diyabet_app/features/home/cubit/favorite_foods_cubit.dart';
 import 'package:diyabet_app/features/profile/cubit/profile_cubit.dart';
@@ -94,6 +95,7 @@ Future<void> init() async {
       saveLocalUserIdfUseCase: sl.call(),
       saveLocalUserIkoUseCase: sl.call(),
       saveLocalUserBloodTargetUseCase: sl.call(),
+      resetUserPasswordUseCase: sl.call(),
     ),
   );
   sl.registerFactory<ProfileCubit>(() => ProfileCubit(userUpdateInfoUseCase: sl.call()));
@@ -165,6 +167,7 @@ Future<void> init() async {
   sl.registerLazySingleton<SaveRemoteRecipeUseCase>(() => SaveRemoteRecipeUseCase(recipeRepository: sl()));
   sl.registerLazySingleton<GetUserRemoteRecipeUseCase>(() => GetUserRemoteRecipeUseCase(recipeRepository: sl()));
   sl.registerLazySingleton<UserUpdateInfoUseCase>(() => UserUpdateInfoUseCase(userRepository: sl()));
+  sl.registerLazySingleton<ResetUserPasswordUseCase>(() => ResetUserPasswordUseCase(userRepository: sl()));
 
   //LocalUseCases
   sl.registerLazySingleton<GetFoodsFromCacheOnName>(() => GetFoodsFromCacheOnName(localFoodRepository: sl()));
