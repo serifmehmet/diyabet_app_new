@@ -11,6 +11,7 @@ RemoteFoodModel _$RemoteFoodModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
       name: json['name'] as String?,
       showInSearch: json['showInSearch'] as bool?,
+      info: json['info'] as String?,
     );
 
 Map<String, dynamic> _$RemoteFoodModelToJson(RemoteFoodModel instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$RemoteFoodModelToJson(RemoteFoodModel instance) =>
       'id': instance.id,
       'name': instance.name,
       'showInSearch': instance.showInSearch,
+      'info': instance.info,
     };

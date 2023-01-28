@@ -23,14 +23,17 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       errorCode: json['errorCode'] as String? ?? '',
       errorDescription: json['errorDescription'] as String?,
       userBolusList: (json['userBolusList'] as List<dynamic>?)
-          ?.map((e) => UserBolusModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+              ?.map((e) => UserBolusModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       userIdfs: (json['userIdfs'] as List<dynamic>?)
-          ?.map((e) => UserIdfModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+              ?.map((e) => UserIdfModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       userIkos: (json['userIkos'] as List<dynamic>?)
-          ?.map((e) => UserIkoModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+              ?.map((e) => UserIkoModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       bloodTarget: json['bloodTarget'] == null
           ? null
           : UserBloodTargetModel.fromJson(

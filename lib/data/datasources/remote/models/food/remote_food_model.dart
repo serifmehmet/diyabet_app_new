@@ -9,11 +9,13 @@ class RemoteFoodModel extends INetworkModel<RemoteFoodModel> {
   int? id;
   String? name;
   bool? showInSearch;
+  String? info;
 
   RemoteFoodModel({
     this.id,
     this.name,
     this.showInSearch,
+    this.info,
   });
 
   @override
@@ -35,5 +37,6 @@ class RemoteFoodModel extends INetworkModel<RemoteFoodModel> {
         Id: id,
         Name: name,
         ShowInSearch: showInSearch,
+        foodInfo: info,
       );
 }
