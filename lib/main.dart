@@ -23,9 +23,9 @@ import 'features/food/cubit/food_unit_cubit.dart';
 import 'features/home/cubit/bottom_nav_cubit.dart';
 import 'features/meal/cubit/bolus_cubit.dart';
 import 'features/meal/cubit/meal_consumption_cubit.dart';
+import 'features/my_diabet/cubit/blood_target_cubit.dart';
 import 'features/my_diabet/cubit/iko_cubit.dart';
 import 'features/my_diabet/cubit/my_diabet_cubit.dart';
-import 'features/my_diabet/cubit/user_blood_target_cubit.dart';
 import 'features/reciept/cubit/recipe_cubit.dart';
 import 'features/search/cubit/search_cubit.dart';
 import 'features/totals/cubit/totals_cubit.dart';
@@ -139,7 +139,7 @@ class MyApp extends StatelessWidget {
           create: (ikContext) => di.sl<IkoCubit>(),
         ),
         BlocProvider(
-          create: (userBtContext) => di.sl<UserBloodTargetCubit>(),
+          create: (btContext) => di.sl<BloodTargetCubit>(),
         ),
         BlocProvider(
           create: (bolusContext) => di.sl<BolusCubit>(),

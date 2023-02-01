@@ -1,3 +1,4 @@
+import 'package:diyabet_app/core/base/error/app_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:vexana/vexana.dart';
 
@@ -13,7 +14,7 @@ class UserBloodTargetRemoteDataSource {
 
   static const String endPointUrl = "/BloodTarget";
 
-  Future<bool> createUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
+  Future<GenericResponseModel?> createUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
     try {
       final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(endPointUrl,
           parseModel: GenericResponseModel(),
@@ -24,16 +25,14 @@ class UserBloodTargetRemoteDataSource {
             "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID).toString(),
           }));
 
-      if (response.data!.errorCode == "OK") {
-        return true;
+      if (response.error != null) {
+        if (response.error!.statusCode == 401) throw const UnAuthorized();
       }
 
-      return false;
-    } catch (e) {
-      debugPrint(e.toString());
+      return response.data!;
+    } on DioError {
+      return null;
     }
-
-    return false;
   }
 
   Future<bool> deleteRemoteUserBloodTarget(int userBTId) async {
@@ -59,7 +58,7 @@ class UserBloodTargetRemoteDataSource {
     return false;
   }
 
-  Future<bool> updateRemoteUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
+  Future<GenericResponseModel?> updateRemoteUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
     try {
       final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(
         endPointUrl,
@@ -74,15 +73,15 @@ class UserBloodTargetRemoteDataSource {
         ),
       );
 
-      if (response.data!.errorCode == "OK") {
-        return true;
+      if (response.error != null) {
+        if (response.error!.statusCode == 401) {
+          throw const UnAuthorized();
+        }
       }
 
-      return false;
-    } catch (e) {
-      debugPrint(e.toString());
+      return response.data!;
+    } on DioError {
+      return null;
     }
-
-    return false;
   }
 }

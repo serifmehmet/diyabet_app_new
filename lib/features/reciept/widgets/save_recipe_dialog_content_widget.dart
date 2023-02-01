@@ -61,6 +61,9 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
                   inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                   inputAction: TextInputAction.next,
                   validator: (val) {
+                    if (val!.isEmpty) {
+                      return "Tarif porsiyonu boş bırakılamaz.";
+                    }
                     if (val == "0") {
                       return "Porsiyon miktarı 0'dan büyük olmalıdır.";
                     }

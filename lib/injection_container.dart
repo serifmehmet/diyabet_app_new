@@ -2,7 +2,9 @@ import 'package:diyabet_app/domain/usecases/food/get_favorite_foods_usecase.dart
 import 'package:diyabet_app/domain/usecases/food/save_favorite_food_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user/reset_user_password_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user/user_update_info_usecase.dart';
+import 'package:diyabet_app/domain/usecases/user_blood_target/local/update_local_bloodtarget_usecase.dart';
 import 'package:diyabet_app/features/home/cubit/favorite_foods_cubit.dart';
+import 'package:diyabet_app/features/my_diabet/cubit/blood_target_cubit.dart';
 import 'package:diyabet_app/features/profile/cubit/profile_cubit.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
@@ -74,7 +76,6 @@ import 'features/meal/cubit/bolus_cubit.dart';
 import 'features/meal/cubit/meal_consumption_cubit.dart';
 import 'features/my_diabet/cubit/iko_cubit.dart';
 import 'features/my_diabet/cubit/my_diabet_cubit.dart';
-import 'features/my_diabet/cubit/user_blood_target_cubit.dart';
 
 import 'features/reciept/cubit/recipe_cubit.dart';
 import 'features/reciept/cubit/recipe_food_search_cubit.dart';
@@ -132,12 +133,13 @@ Future<void> init() async {
         saveRemoteUserIdf: sl.call(),
         deleteRemoteUserIdfUseCase: sl.call(),
       ));
-  sl.registerFactory<UserBloodTargetCubit>(
-    () => UserBloodTargetCubit(
+  sl.registerFactory<BloodTargetCubit>(
+    () => BloodTargetCubit(
       saveLocalUserBloodTargetUseCase: sl.call(),
       getLocalUserBloodTargetUseCase: sl.call(),
       saveRemoteBloodTargetUseCase: sl.call(),
       updateRemoteBloodTargetUseCase: sl.call(),
+      updateLocalBloodTargetUseCase: sl.call(),
     ),
   );
 
@@ -185,6 +187,7 @@ Future<void> init() async {
   sl.registerLazySingleton<DeleteSingleUserIkoUseCase>(() => DeleteSingleUserIkoUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<SaveLocalUserBloodTargetUseCase>(() => SaveLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
   sl.registerLazySingleton<GetLocalUserBloodTargetUseCase>(() => GetLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
+  sl.registerLazySingleton<UpdateLocalBloodTargetUseCase>(() => UpdateLocalBloodTargetUseCase(localUserBloodTargetRepository: sl()));
   sl.registerLazySingleton<GetFavoriteFoodsUsecase>(() => GetFavoriteFoodsUsecase(foodRepository: sl()));
   sl.registerLazySingleton<SaveFavoriteFoodUsecase>(() => SaveFavoriteFoodUsecase(foodRepository: sl()));
   // sl.registerLazySingleton<SaveLocalRecipeUseCase>(() => SaveLocalRecipeUseCase(localReceiptRepository: sl()));

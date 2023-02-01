@@ -1,4 +1,4 @@
-import 'package:diyabet_app/features/my_diabet/cubit/user_blood_target_cubit.dart';
+import 'package:diyabet_app/features/my_diabet/cubit/blood_target_cubit.dart';
 import 'package:diyabet_app/features/my_diabet/widgets/target_blood_sugar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,7 +71,7 @@ class _MyDiabetViewState extends State<MyDiabetView> {
                   BlocProvider.of<IkoCubit>(context).getAllUserIko();
                   break;
                 case 2:
-                  BlocProvider.of<UserBloodTargetCubit>(context).getUserBT();
+                  BlocProvider.of<BloodTargetCubit>(context).getBloodTargetsOnUser();
                   break;
                 default:
               }

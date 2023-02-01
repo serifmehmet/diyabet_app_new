@@ -60,7 +60,7 @@ class LoginView extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "CARBAPP",
+                  "KARBAPP",
                   style: Theme.of(context).textTheme.textLogo,
                 ),
               ),
