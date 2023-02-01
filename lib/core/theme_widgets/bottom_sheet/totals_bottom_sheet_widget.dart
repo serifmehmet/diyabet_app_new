@@ -1,6 +1,9 @@
+import 'package:diyabet_app/core/constants/app_sizes.dart';
 import 'package:diyabet_app/core/extensions/context_extensions.dart';
+import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/input/carbapp_text_input.dart';
 import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/domain/entities/remote_food.dart';
 import 'package:diyabet_app/domain/entities/remote_food_root.dart';
 import 'package:diyabet_app/domain/entities/remote_food_unit.dart';
 import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
@@ -11,6 +14,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+
+import '../dialog/alert_dialogs.dart';
 
 class TotalsBottomSheetWidget extends StatefulWidget {
   final int? foodIndex;
@@ -63,7 +68,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
                   config: _buildConfig(context),
                   child: Column(
                     children: [
-                      bottomSheetHeader(context),
+                      bottomSheetHeader(context, state.remoteFood!.Food!),
                       const SizedBox(
                         height: 30,
                       ),
@@ -84,7 +89,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
     });
   }
 
-  Widget bottomSheetHeader(BuildContext context) {
+  Widget bottomSheetHeader(BuildContext context, RemoteFood remoteFood) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -102,14 +107,31 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
             color: Color(0xff000000),
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            IconlyBold.info_square,
-            size: 24,
-            color: Theme.of(context).colorScheme.secondaryContainer,
-          ),
-        ),
+        remoteFood.foodInfo != null
+            ? IconButton(
+                onPressed: () {
+                  showAlertDialogDefault(
+                    context: context,
+                    title: "Bilgi",
+                    cancelActionText: "Kapat",
+                    content: SizedBox(
+                      height: 200,
+                      child: SingleChildScrollView(
+                        child: Text(
+                          remoteFood.foodInfo!,
+                          style: Theme.of(context).textTheme.inputLabel,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  IconlyBold.info_square,
+                  size: 36,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+              )
+            : gapH4,
       ],
     );
   }

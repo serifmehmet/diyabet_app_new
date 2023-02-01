@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:diyabet_app/core/base/error/failure.dart';
 import 'package:diyabet_app/core/base/model/generic_response_model.dart';
 import 'package:diyabet_app/data/datasources/remote/models/user/user_blood_target_model.dart';
 import 'package:diyabet_app/data/datasources/remote/models/user/user_bolus_model.dart';
@@ -12,6 +14,8 @@ import 'package:diyabet_app/data/datasources/remote/user/user_remote_datasource.
 import 'package:diyabet_app/domain/entities/generic_response.dart';
 import 'package:diyabet_app/domain/entities/user.dart';
 
+import '../../../core/base/error/app_exception.dart';
+
 abstract class UserRepository {
   Future<User?> login(String email, String password);
   Future<GenericResponse> register(UserModel userModel);
@@ -19,8 +23,8 @@ abstract class UserRepository {
   Future<bool> deleteUserIdf(int userIdfId);
   Future<bool> addUserIko(UserIkoModel userIkoModel);
   Future<bool> deleteUserIko(int userIkoId);
-  Future<bool> addUserBloodTarget(UserBloodTargetModel userBloodTargetModel);
-  Future<bool> updateUserBloodTarget(UserBloodTargetModel userBloodTargetModel);
+  Future<Either<Failure, GenericResponse>> addUserBloodTarget(UserBloodTargetModel userBloodTargetModel);
+  Future<Either<Failure, GenericResponse>> updateUserBloodTarget(UserBloodTargetModel userBloodTargetModel);
   Future<GenericResponseModel> updateUserInfo(int userId, String name, String surName, String password);
   Future<GenericResponse> resetPassword(String email, String password);
 
@@ -90,17 +94,25 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<bool> addUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
-    final response = await userBloodTargetRemoteDataSource.createUserBloodTarget(userBloodTargetModel);
+  Future<Either<Failure, GenericResponse>> addUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
+    try {
+      final response = await userBloodTargetRemoteDataSource.createUserBloodTarget(userBloodTargetModel);
 
-    return response;
+      return Right(response!.toEntity());
+    } on UnAuthorized {
+      return const Left(UnAuthorizedError());
+    }
   }
 
   @override
-  Future<bool> updateUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
-    final response = await userBloodTargetRemoteDataSource.updateRemoteUserBloodTarget(userBloodTargetModel);
+  Future<Either<Failure, GenericResponse>> updateUserBloodTarget(UserBloodTargetModel userBloodTargetModel) async {
+    try {
+      final response = await userBloodTargetRemoteDataSource.updateRemoteUserBloodTarget(userBloodTargetModel);
 
-    return response;
+      return Right(response!.toEntity());
+    } on UnAuthorized {
+      return const Left(UnAuthorizedError());
+    }
   }
 
   @override

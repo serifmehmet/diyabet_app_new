@@ -52,7 +52,7 @@ class _SplashViewState extends State<SplashView> {
               ),
               SizedBox(height: context.mediaQuery.size.height / 2.5),
               Text(
-                "PediDER",
+                "PediDer",
                 style: Theme.of(context).textTheme.headline2,
               )
             ],

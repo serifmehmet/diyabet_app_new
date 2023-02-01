@@ -51,7 +51,7 @@ class TotalsView extends StatelessWidget {
                   Text("Toplam Karbonhidrat", style: Theme.of(context).textTheme.genericHeader),
                   const SizedBox(height: 30),
                   const Text(
-                    "0.0 G.",
+                    "0.0 Gram",
                     style: TextStyle(
                       color: Colors.red,
                       fontFamily: "Signika",
@@ -127,7 +127,7 @@ class TotalsView extends StatelessWidget {
                   Text("Toplam Karbonhidrat", style: Theme.of(context).textTheme.genericHeader),
                   const SizedBox(height: 30),
                   Text(
-                    "${state.carbValue!.toStringAsFixed(2)} G.",
+                    "${state.carbValue!.toStringAsFixed(2)} Gram",
                     style: const TextStyle(
                       color: Color(0xff000000),
                       fontFamily: "Signika",

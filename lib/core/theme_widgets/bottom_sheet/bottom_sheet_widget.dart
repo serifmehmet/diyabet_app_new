@@ -146,16 +146,21 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     context: context,
                     title: "Bilgi",
                     cancelActionText: "Kapat",
-                    content: Text(
-                      remoteFood.foodInfo!,
-                      style: Theme.of(context).textTheme.inputLabel,
+                    content: SizedBox(
+                      height: 200,
+                      child: SingleChildScrollView(
+                        child: Text(
+                          remoteFood.foodInfo!,
+                          style: Theme.of(context).textTheme.inputLabel,
+                        ),
+                      ),
                     ),
                   );
                 },
                 icon: Icon(
                   IconlyBold.info_square,
-                  size: 24,
-                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  size: 36,
+                  color: Theme.of(context).colorScheme.tertiary,
                 ),
               )
             : const SizedBox(),

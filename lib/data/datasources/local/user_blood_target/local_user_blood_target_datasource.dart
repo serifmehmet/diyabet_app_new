@@ -20,7 +20,7 @@ class LocalUserBloodTargetDataSource {
   Future<void> updateSingleUserBT(UserBloodTargetHiveModel userBTToUpdate) async {
     final userBTBox = Hive.box<UserBloodTargetHiveModel>(UserBloodTargetHiveModel.boxKey);
 
-    final key = userBTBox.values.singleWhere((element) => element.id == userBTToUpdate.id).key;
+    final key = userBTBox.values.singleWhere((element) => element.userId == userBTToUpdate.userId).key;
     await userBTBox.putAt(key, userBTToUpdate);
   }
 }

@@ -15,7 +15,6 @@ import '../../../core/utils/notification_service.dart';
 import '../../../domain/entities/favorite_food.dart';
 import '../../auth/cubit/cubit/auth_cubit.dart';
 import '../../food/cubit/food_unit_cubit.dart';
-import '../widgets/home_end_drawer_widget.dart';
 import 'tab/model/food_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -88,31 +87,6 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      endDrawerEnableOpenDragGesture: true,
-      endDrawer: const HomeEndDrawerWidget(),
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
-        elevation: 0,
-        actions: [
-          BlocBuilder<AuthCubit, AuthState>(
-            builder: (context, state) {
-              if (state is Authenticated) {
-                return Padding(
-                  padding: EdgeInsets.only(right: context.paddingNormal.right),
-                  child: IconButton(
-                    onPressed: () {
-                      _openEndDrawer();
-                    },
-                    icon: Icon(Icons.menu, size: 40, color: Theme.of(context).colorScheme.secondaryContainer),
-                  ),
-                );
-              }
-
-              return const SizedBox();
-            },
-          )
-        ],
-      ),
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
         padding: context.paddingNormal,
@@ -120,6 +94,9 @@ class _HomeViewState extends State<HomeView> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(
+              height: 30,
+            ),
             Center(
               child: BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
@@ -132,7 +109,7 @@ class _HomeViewState extends State<HomeView> {
 
                   if (state is UnAuthenticated) {
                     return Text(
-                      "Merhaba, Konuk",
+                      "Merhaba",
                       style: Theme.of(context).textTheme.welcomeText,
                     );
                   }
@@ -141,6 +118,7 @@ class _HomeViewState extends State<HomeView> {
                     return Text(
                       "Kayıt işleminiz başarılı bir şekilde sonuçlandı. Aktivasyon için lütfen e-posta kutunuzu kontrol ediniz.",
                       style: Theme.of(context).textTheme.headline4,
+                      textAlign: TextAlign.center,
                     );
                   }
                   return const SizedBox();
@@ -158,7 +136,6 @@ class _HomeViewState extends State<HomeView> {
               height: 30,
             ),
             //MainSubHeaderWidget(),
-            // CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN) ? const SizedBox() : subHeaderArea(context),
             BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {
                 if (state is UnAuthenticated) {
