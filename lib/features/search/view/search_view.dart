@@ -1,7 +1,5 @@
-import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
-import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
-import 'package:diyabet_app/core/init/cache/cache_manager.dart';
-import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
+import 'package:diyabet_app/features/reciept/cubit/recipe_cubit.dart';
+import 'package:diyabet_app/features/search/widgets/recipe_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -25,73 +23,106 @@ class SearchView extends StatelessWidget {
           currentFocus.unfocus();
         }
       },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-          child: Padding(
-            padding: context.paddingNormal,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CarbAppSearchInput(
-                  inputText: "Besin ara...",
-                  inputIcon: IconlyLight.search,
-                  iconSize: 16,
-                  iconColor: Theme.of(context).colorScheme.secondaryContainer,
-                  inputTextStyle: Theme.of(context).textTheme.headline4,
-                  inputBorderRadius: 24,
-                  onChanged: (value) {
-                    if (value.isNotEmpty && lastSearchFood != value) {
-                      lastSearchFood = value;
-                      context.read<SearchCubit>().getSearchItem(value);
-                    } else if (value.isEmpty) {
-                      FocusManager.instance.primaryFocus!.unfocus();
-                      context.read<SearchCubit>().clearSearch();
-                    }
-                  },
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Theme.of(context).backgroundColor,
+            actionsIconTheme: const IconThemeData(color: Colors.black),
+            iconTheme: const IconThemeData(color: Color(0xff000000)),
+            bottom: TabBar(
+              labelStyle: Theme.of(context).textTheme.headline5,
+              labelColor: Colors.black,
+              tabs: const [
+                Tab(
+                  text: "Genel Arama",
                 ),
-                const SizedBox(
-                  height: 46,
-                ),
-                BlocBuilder<SearchCubit, SearchState>(
-                  builder: (context, state) {
-                    switch (state.status) {
-                      case SearchStatus.initial:
-                        return searchInitial(context);
-                      case SearchStatus.loading:
-                        return searching();
-                      case SearchStatus.failure:
-                        return searchFailure(context);
-                      case SearchStatus.success:
-                        return searchSuccess(context, state.foodList);
-                      default:
-                        return const SizedBox();
-                    }
-                  },
-                ),
-                const SizedBox(height: 20),
-                if (CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN)) ...[
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      child: Text(
-                        "Tarif Ekle   +",
-                        style: Theme.of(context).textTheme.addRecipeText,
-                      ),
-                      onPressed: () {
-                        NavigationService.instance.navigateToPage(path: NavigationConstants.ADD_RECIEPT);
+                Tab(text: "Tariflerim"),
+              ],
+              onTap: (tabIndex) {
+                switch (tabIndex) {
+                  case 1:
+                    BlocProvider.of<RecipeCubit>(context).getRemoteRecipeByUser();
+                    break;
+                  default:
+                }
+              },
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              Padding(
+                padding: context.paddingNormal,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CarbAppSearchInput(
+                      inputText: "Besin ara...",
+                      inputIcon: IconlyLight.search,
+                      iconSize: 16,
+                      iconColor: Theme.of(context).colorScheme.secondaryContainer,
+                      inputTextStyle: Theme.of(context).textTheme.headline4,
+                      inputBorderRadius: 24,
+                      onChanged: (value) {
+                        if (value.isNotEmpty && lastSearchFood != value) {
+                          lastSearchFood = value;
+                          context.read<SearchCubit>().getSearchItem(value);
+                        } else if (value.isEmpty) {
+                          FocusManager.instance.primaryFocus!.unfocus();
+                          context.read<SearchCubit>().clearSearch();
+                        }
                       },
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                ],
-                const Divider(
-                  height: 1,
-                  color: Color(0xffF5F5F5),
+                    const SizedBox(
+                      height: 46,
+                    ),
+                    BlocBuilder<SearchCubit, SearchState>(
+                      builder: (context, state) {
+                        switch (state.status) {
+                          case SearchStatus.initial:
+                            return searchInitial(context);
+                          case SearchStatus.loading:
+                            return searching();
+                          case SearchStatus.failure:
+                            return searchFailure(context);
+                          case SearchStatus.success:
+                            return searchSuccess(context, state.foodList);
+                          default:
+                            return const SizedBox();
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    // if (CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN)) ...[
+                    //   Align(
+                    //     alignment: Alignment.centerRight,
+                    //     child: TextButton(
+                    //       child: Text(
+                    //         "Tarif Ekle   +",
+                    //         style: Theme.of(context).textTheme.addRecipeText,
+                    //       ),
+                    //       onPressed: () {
+                    //         NavigationService.instance.navigateToPage(path: NavigationConstants.ADD_RECIEPT);
+                    //       },
+                    //     ),
+                    //   ),
+                    //   const SizedBox(height: 15),
+                    // ],
+                    const Divider(
+                      height: 1,
+                      color: Color(0xffF5F5F5),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: context.paddingNormal,
+                child: const RecipeListWidget(),
+              ),
+            ],
           ),
         ),
       ),

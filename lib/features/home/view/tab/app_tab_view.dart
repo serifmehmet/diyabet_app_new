@@ -1,6 +1,6 @@
 import 'dart:collection';
-import 'dart:math' as math;
 
+import 'package:diyabet_app/features/home/widgets/home_end_drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -12,7 +12,6 @@ import '../../../../core/init/navigation/navigation_service.dart';
 import '../../../../core/init/theme/app_theme.dart';
 import '../../../../features/home/view/home_view.dart';
 import '../../../../features/search/view/search_view.dart';
-import '../../../bolus/view/bolus_view.dart';
 import '../../../meal/view/meal_consumption_view.dart';
 import '../../../totals/cubit/totals_cubit.dart';
 import '../../../totals/view/totals_view.dart';
@@ -27,7 +26,7 @@ class AppTabView extends StatefulWidget {
 }
 
 class _AppTabViewState extends State<AppTabView> {
-  final _items = [const HomeView(), SearchView(), TotalsView(), const CalcReportView(), const BolusView()];
+  final _items = [const HomeView(), SearchView(), TotalsView(), const CalcReportView(), const HomeEndDrawerWidget()];
   final ListQueue<int> _navigationQueue = ListQueue();
 
   void onTap(int index) {
@@ -155,15 +154,9 @@ class _AppTabViewState extends State<AppTabView> {
                   activeIcon: Icon(IconlyBold.editSquare),
                   label: "Calc",
                 ),
-                BottomNavigationBarItem(
-                  icon: Transform.rotate(
-                    angle: 225 * math.pi / 180,
-                    child: const Icon(IconlyLight.voice_2),
-                  ),
-                  activeIcon: Transform.rotate(
-                    angle: 225 * math.pi / 180,
-                    child: const Icon(IconlyBold.voice_2),
-                  ),
+                const BottomNavigationBarItem(
+                  icon: Icon(IconlyLight.profile),
+                  activeIcon: Icon(IconlyBold.profile),
                   label: "Bolus",
                 ),
               ],

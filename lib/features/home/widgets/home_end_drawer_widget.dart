@@ -9,21 +9,18 @@ class HomeEndDrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      elevation: 0,
-      child: Padding(
-        padding: context.paddingNormal,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(height: 40),
-            goToProfileWidget(context),
-            const SizedBox(height: 10),
-            goToMyRecipesWidget(context),
-            const SizedBox(height: 10),
-            goToDiabetInfoWidget(context)
-          ],
-        ),
+    return Padding(
+      padding: context.paddingNormal,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          const SizedBox(height: 40),
+          goToProfileWidget(context),
+          const SizedBox(height: 10),
+          goToMyRecipesWidget(context),
+          const SizedBox(height: 10),
+          goToDiabetInfoWidget(context)
+        ],
       ),
     );
   }
@@ -31,7 +28,6 @@ class HomeEndDrawerWidget extends StatelessWidget {
   Widget goToDiabetInfoWidget(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pop();
         NavigationService.instance.navigateToPage(path: NavigationConstants.MY_DIABET);
       },
       child: Row(
@@ -80,7 +76,6 @@ class HomeEndDrawerWidget extends StatelessWidget {
   Widget goToMyRecipesWidget(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pop();
         NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_LIST);
       },
       child: Row(
@@ -129,7 +124,6 @@ class HomeEndDrawerWidget extends StatelessWidget {
   Widget goToProfileWidget(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pop();
         NavigationService.instance.navigateToPage(path: NavigationConstants.PROFILE);
       },
       child: Row(
