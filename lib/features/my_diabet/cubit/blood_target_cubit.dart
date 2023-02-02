@@ -46,11 +46,21 @@ class BloodTargetCubit extends Cubit<BloodTargetState> {
       ),
     );
 
-    emit(
-      _Success(
-        successMessage: "",
-        userBloodTarget: userBloodTarget,
-      ),
+    userBloodTarget.fold(
+      (fail) {
+        // emit(
+        //   const _Failure(
+        //     errorObject: ErrorObject(errorType: ErrorType.returnedNothing, errorMessage: "Kayıtlı kan şekeri hedefi bulunamadı"),
+        //   ),
+        // );
+        emit(const _Initial());
+      },
+      (success) {
+        _Success(
+          successMessage: "",
+          userBloodTarget: success!,
+        );
+      },
     );
   }
 

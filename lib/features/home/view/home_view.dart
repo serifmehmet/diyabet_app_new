@@ -164,7 +164,7 @@ class _HomeViewState extends State<HomeView> {
               BlocBuilder<FavoriteFoodsCubit, FavoriteFoodsState>(
                 builder: (context, state) {
                   return state.map(
-                      loading: (loading) => const CircularProgressIndicator(),
+                      loading: (loading) => Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor)),
                       emptyFavoriteFoods: (emptyFavoriteFoods) => Center(
                             child: Text(
                               emptyFavoriteFoods.emptyListMessage,

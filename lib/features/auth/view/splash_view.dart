@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:diyabet_app/core/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,22 +40,44 @@ class _SplashViewState extends State<SplashView> {
       body: Container(
         width: double.infinity,
         height: context.height,
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).backgroundColor,
         child: Padding(
           padding: context.paddingNormal,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(
-                "KARBAPP",
-                style: Theme.of(context).textTheme.logo,
+              Expanded(
+                child: Center(
+                  child: Text(
+                    "KARBAPP",
+                    style: Theme.of(context).textTheme.logo,
+                  ),
+                ),
               ),
-              SizedBox(height: context.mediaQuery.size.height / 2.5),
-              Text(
-                "PediDer",
-                style: Theme.of(context).textTheme.headline2,
-              )
+              Image.asset(
+                "assets/pedider-logo.png",
+                width: 150,
+                height: 88,
+              ),
+              gapH20,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/iu-logo.png",
+                    width: 75,
+                    height: 75,
+                  ),
+                  gapW16,
+                  Image.asset(
+                    "assets/ege-uni-logo.png",
+                    width: 75,
+                    height: 75,
+                  ),
+                ],
+              ),
+              gapH64,
             ],
           ),
         ),

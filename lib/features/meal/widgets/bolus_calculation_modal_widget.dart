@@ -132,7 +132,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                   const SizedBox(height: 5),
                   Align(
                     alignment: Alignment.center,
-                    child: Text('${widget.totalCarbValue} G.', style: Theme.of(context).textTheme.bolusScreenHeaderRed),
+                    child: Text('${widget.totalCarbValue} g', style: Theme.of(context).textTheme.bolusScreenHeaderRed),
                   ),
                   const SizedBox(
                     height: 10,

@@ -48,7 +48,7 @@ class RecipeDetailBottomSheetWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text("Karbonhidrat"),
-                        Text("${recipeFoods[index].carbValue} G.", style: Theme.of(context).textTheme.recipeCarbValue),
+                        Text("${recipeFoods[index].carbValue} g", style: Theme.of(context).textTheme.recipeCarbValue),
                       ],
                     )
                   ],

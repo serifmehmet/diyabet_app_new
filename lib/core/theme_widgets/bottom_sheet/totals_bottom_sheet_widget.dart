@@ -208,7 +208,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
                 builder: (context, state) {
                   if (state is SelectedUnitChanged) {
                     return Text(
-                      "${state.newCarbValue!.toStringAsFixed(1)} G.",
+                      "${state.newCarbValue!.toStringAsFixed(1)} g",
                       style: const TextStyle(
                         color: Color(0xff0e150e),
                         fontSize: 30,
@@ -221,7 +221,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
 
                   if (state is SelectedQuantityChanged) {
                     return Text(
-                      "${state.newCarbValue!.toStringAsFixed(1)} G.",
+                      "${state.newCarbValue!.toStringAsFixed(1)} g",
                       style: const TextStyle(
                         color: Color(0xff0e150e),
                         fontSize: 30,
@@ -233,7 +233,7 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
                   }
 
                   return Text(
-                    "${localFood.CarbTotal!.toStringAsFixed(1)} G.",
+                    "${localFood.CarbTotal!.toStringAsFixed(1)} g",
                     style: const TextStyle(
                       color: Color(0xff0e150e),
                       fontSize: 30,

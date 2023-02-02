@@ -235,7 +235,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                     style: Theme.of(context).textTheme.inputLabel,
                   ),
                   Text(
-                    "${widget.mealList![index].consumptions![i].totalCarb!.toStringAsFixed(1)} G.",
+                    "${widget.mealList![index].consumptions![i].totalCarb!.toStringAsFixed(1)} g",
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
@@ -265,7 +265,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Toplam: ${widget.mealList![index].totalCarb} G.",
+              "Toplam: ${widget.mealList![index].totalCarb} g",
               style: Theme.of(context).textTheme.subtitle2,
             ),
             Text(

@@ -38,7 +38,7 @@ class BolusCubit extends Cubit<BolusState> {
   late double idfValue = 0;
   late double ikoValue = 0;
   late double targetValue = 0;
-  late UserBloodTarget userBloodTarget;
+  late UserBloodTarget? userBloodTarget;
   late int lastMealHour = 5;
   late double calculatedBolusValue = 0;
 
@@ -68,9 +68,11 @@ class BolusCubit extends Cubit<BolusState> {
 
     final userIkoList =
         await _getAllUserIkoListUseCase.call(GetAllUserIkoListParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
-    userBloodTarget =
+    final userBloodTargetFromLocal =
         await _getLocalUserBloodTargetUseCase.call(GetLocalUserBloodTargetParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
-
+    userBloodTargetFromLocal.fold((l) => null, (r) {
+      userBloodTarget = r;
+    });
     //Sort by hour
     userIdfList.sort((a, b) => a.hour!.compareTo(b.hour!));
     //Idf içinde dön
@@ -98,12 +100,12 @@ class BolusCubit extends Cubit<BolusState> {
       }
     }
 
-    emit(BolusInfoLoaded(ikoValue: ikoValue, idfValue: idfValue, targetValue: userBloodTarget.fbstValue!, lastMealHour: lastMealHour));
+    emit(BolusInfoLoaded(ikoValue: ikoValue, idfValue: idfValue, targetValue: userBloodTarget!.fbstValue!, lastMealHour: lastMealHour));
   }
 
   void changeTargetType(int lastMealHour) {
     if (lastMealHour == 5) {
-      emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: userBloodTarget.fbstValue!, lastMealHour: lastMealHour));
+      emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: userBloodTarget!.fbstValue!, lastMealHour: lastMealHour));
       return;
     }
     emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: targetValue, lastMealHour: lastMealHour));
@@ -115,7 +117,7 @@ class BolusCubit extends Cubit<BolusState> {
     double calculatedInsulinDoze;
     //3+
     if (lastMealHour == 5) {
-      correctionDoze = (instantBloodSugarValue! - userBloodTarget.fbstValue!) / idfValue;
+      correctionDoze = (instantBloodSugarValue! - userBloodTarget!.fbstValue!) / idfValue;
       calculatedInsulinDoze = totalCarb / ikoValue;
       calculatedBolusValue = correctionDoze + calculatedInsulinDoze;
     } else if (lastMealHour == 4 || lastMealHour == 3) {

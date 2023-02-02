@@ -56,7 +56,7 @@ class FoodListWidget extends StatelessWidget {
         //   style: Theme.of(context).textTheme.inputLabel,
         // ),
         Text(
-          "${savedFoods![index]!.CarbTotal!.toStringAsFixed(2)} g.",
+          "${savedFoods![index]!.CarbTotal!.toStringAsFixed(2)} g",
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ],

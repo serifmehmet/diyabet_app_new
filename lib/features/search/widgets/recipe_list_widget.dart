@@ -78,7 +78,7 @@ class RecipeListWidget extends StatelessWidget {
                               children: [
                                 const Text("Toplam Karbonhidrat"),
                                 Text(
-                                  "${recipeRoot.recipes![index].totalCarb!.toStringAsFixed(2)} G.",
+                                  "${recipeRoot.recipes![index].totalCarb!.toStringAsFixed(2)} g",
                                   style: Theme.of(context).textTheme.recipeCarbValue,
                                 ),
                                 ElevatedButton(

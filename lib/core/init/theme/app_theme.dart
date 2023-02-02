@@ -19,7 +19,7 @@ final ThemeData appTheme = ThemeData(
   dividerColor: const Color(0xfff6f6f6),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      primary: const Color(0xff578AD6),
+      backgroundColor: const Color(0xff578AD6),
       padding: const EdgeInsets.symmetric(
         vertical: 21,
       ),
@@ -126,7 +126,7 @@ extension CustomStyles on TextTheme {
 
   TextStyle get logo {
     return const TextStyle(
-      color: Color(0xffffffff),
+      color: Color(0xff578AD6),
       fontSize: 48,
       fontStyle: FontStyle.normal,
       fontFamily: "Nunito",

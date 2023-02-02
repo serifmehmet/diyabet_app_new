@@ -105,12 +105,12 @@ class _RecipeListViewState extends State<RecipeListView> {
                                     children: [
                                       const Text("Toplam Karbonhidrat"),
                                       Text(
-                                        "${recipeRoot.recipes![index].totalCarb!.toStringAsFixed(2)} G.",
+                                        "${recipeRoot.recipes![index].totalCarb!.toStringAsFixed(2)} g",
                                         style: Theme.of(context).textTheme.recipeCarbValue,
                                       ),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: const Color(0xffD6578A),
+                                          backgroundColor: const Color(0xffD6578A),
                                           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(10),
