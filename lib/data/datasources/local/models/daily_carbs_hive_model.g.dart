@@ -17,7 +17,7 @@ class DailyCarbsHiveModelAdapter extends TypeAdapter<DailyCarbsHiveModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return DailyCarbsHiveModel()
-      ..foodsAdded = (fields[1] as List).cast<FoodHiveModel>()
+      ..foodsAdded = (fields[1] as List).cast<ConsumptionHiveModel>()
       ..totalCarbs = fields[2] as double;
   }
 

@@ -31,7 +31,7 @@ class FoodSaveFailure extends TotalsState {
 }
 
 class GetFoodsSuccess extends TotalsState {
-  final List<LocalFood?> localSavedFoods;
+  final List<LocalConsumptionItem?> localSavedFoods;
   final int foodCount;
   final double? carbValue;
 

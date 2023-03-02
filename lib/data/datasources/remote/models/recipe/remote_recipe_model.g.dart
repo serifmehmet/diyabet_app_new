@@ -13,6 +13,7 @@ RemoteRecipeModel _$RemoteRecipeModelFromJson(Map<String, dynamic> json) =>
       isApproved: json['isApproved'] as bool?,
       portionQuantity: json['portionQuantity'] as int?,
       userId: json['userId'] as int?,
+      recipeUnit: json['recipeUnit'] as String?,
       totalCarb: (json['totalCarb'] as num?)?.toDouble(),
       createdAt: json['createdAt'] == null
           ? null
@@ -33,6 +34,7 @@ Map<String, dynamic> _$RemoteRecipeModelToJson(RemoteRecipeModel instance) =>
       'isApproved': instance.isApproved,
       'portionQuantity': instance.portionQuantity,
       'userId': instance.userId,
+      'recipeUnit': instance.recipeUnit,
       'totalCarb': instance.totalCarb,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),

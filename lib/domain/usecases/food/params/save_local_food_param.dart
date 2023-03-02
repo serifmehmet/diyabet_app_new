@@ -1,7 +1,7 @@
-import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/domain/entities/local_consumption_item.dart';
 
 class SaveLocalFoodParam {
-  final LocalFood? localFoodEntity;
+  final LocalConsumptionItem? localFoodEntity;
 
   SaveLocalFoodParam(this.localFoodEntity);
 }

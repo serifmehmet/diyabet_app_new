@@ -19,7 +19,7 @@ final ThemeData appTheme = ThemeData(
   dividerColor: const Color(0xfff6f6f6),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xff578AD6),
+      primary: const Color(0xff578AD6),
       padding: const EdgeInsets.symmetric(
         vertical: 21,
       ),

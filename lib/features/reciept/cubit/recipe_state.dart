@@ -7,9 +7,12 @@ class RecipeState with _$RecipeState {
   const factory RecipeState.loadSuccess({required RecipeRoot recipeRootEntity}) = _LoadSuccess;
   const factory RecipeState.recipeListInitial() = _RecipeListInitial;
   //Food operations for recipe
-  const factory RecipeState.foodAddSuccess({required List<LocalFood> foodsAddedToRecipe, required double carbValue}) = _FoodAddedSuccess;
-  const factory RecipeState.foodDeleteSuccess({required List<LocalFood> foodsAddedToRecipe, required double carbValue}) = _FoodDeleteSuccess;
+  const factory RecipeState.foodAddSuccess({required List<LocalConsumptionItem> foodsAddedToRecipe, required double carbValue}) = _FoodAddedSuccess;
+  const factory RecipeState.foodDeleteSuccess({required List<LocalConsumptionItem> foodsAddedToRecipe, required double carbValue}) =
+      _FoodDeleteSuccess;
   const factory RecipeState.recipeSaveSuccess({required String successMessage}) = _RecipeSaveSuccess;
+
+  const factory RecipeState.recipeUnitListLoaded({required List<RecipeUnit> recipeUnitList}) = _RecipeUnitListLoaded;
 
   const factory RecipeState.failure({required ErrorObject errorObject}) = _Failure;
   const factory RecipeState.getRecipeFailure({required ErrorObject errorObject}) = _GetRecipeError;

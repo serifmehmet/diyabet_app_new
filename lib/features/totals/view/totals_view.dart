@@ -14,9 +14,7 @@ import '../cubit/totals_cubit.dart';
 import 'models/total_items_model.dart';
 
 class TotalsView extends StatelessWidget {
-  TotalsView({Key? key}) : super(key: key);
-
-  var items = TotalsModel.create();
+  const TotalsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

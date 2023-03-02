@@ -202,7 +202,7 @@ class _CalcTileWidgetState extends State<CalcTileWidget> {
                     child: Container(
                       padding: const EdgeInsets.only(right: 13.0),
                       child: Text(
-                        widget.mealList![index].consumptions![i].foodName!,
+                        widget.mealList![index].consumptions![i].name!,
                         style: Theme.of(context).textTheme.addRecipeText,
                         overflow: TextOverflow.ellipsis,
                       ),

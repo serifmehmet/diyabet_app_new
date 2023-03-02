@@ -14,6 +14,10 @@ FoodConsumptionModel _$FoodConsumptionModelFromJson(
           ?.map((e) =>
               FoodForFoodConsumptionModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      recipeList: (json['RecipeList'] as List<dynamic>?)
+          ?.map((e) =>
+              RecipeForFoodConsumptionModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       createDate: json['CreateDate'] == null
           ? null
           : DateTime.parse(json['CreateDate'] as String),
@@ -32,6 +36,7 @@ Map<String, dynamic> _$FoodConsumptionModelToJson(
 
   writeNotNull('Id', instance.id);
   val['FoodList'] = instance.foodList;
+  val['RecipeList'] = instance.recipeList;
   val['CreateDate'] = instance.createDate?.toIso8601String();
   val['UserId'] = instance.userId;
   return val;

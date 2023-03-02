@@ -12,6 +12,7 @@ class RemoteRecipeModel extends INetworkModel<RemoteRecipeModel> {
   bool? isApproved;
   int? portionQuantity;
   int? userId;
+  String? recipeUnit;
   double? totalCarb;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -23,6 +24,7 @@ class RemoteRecipeModel extends INetworkModel<RemoteRecipeModel> {
     this.isApproved,
     this.portionQuantity,
     this.userId,
+    this.recipeUnit,
     this.totalCarb,
     this.createdAt,
     this.updatedAt,
@@ -51,6 +53,7 @@ class RemoteRecipeModel extends INetworkModel<RemoteRecipeModel> {
         name: name,
         portionQuantity: portionQuantity,
         recipeFoods: recipeFoods!.map((e) => e.toEntity()).toList(),
+        recipeUnit: recipeUnit,
         totalCarb: totalCarb,
         updatedDate: updatedAt,
         userId: userId,

@@ -2,7 +2,7 @@ import 'package:diyabet_app/core/constants/app_sizes.dart';
 import 'package:diyabet_app/core/extensions/context_extensions.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/input/carbapp_text_input.dart';
-import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/domain/entities/local_consumption_item.dart';
 import 'package:diyabet_app/domain/entities/remote_food.dart';
 import 'package:diyabet_app/domain/entities/remote_food_root.dart';
 import 'package:diyabet_app/domain/entities/remote_food_unit.dart';
@@ -137,11 +137,11 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
   }
 
   Widget bottomSheetLowerSide(
-      BuildContext context, LocalFood localFood, RemoteFoodRoot remoteFoodRoot, RemoteFoodUnit? foodUnit, StateSetter setter) {
+      BuildContext context, LocalConsumptionItem localFood, RemoteFoodRoot remoteFoodRoot, RemoteFoodUnit? foodUnit, StateSetter setter) {
     return Column(
       children: [
         Text(
-          localFood.FoodName!,
+          localFood.Name!,
           style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(height: 50),
@@ -250,13 +250,14 @@ class _TotalsBottomSheetWidgetState extends State<TotalsBottomSheetWidget> {
         const SizedBox(height: 100),
         ElevatedButton(
           onPressed: () {
-            LocalFood localFoodToUpdate = LocalFood(
+            LocalConsumptionItem localFoodToUpdate = LocalConsumptionItem(
               Id: localFood.Id,
               CarbTotal: int.parse(quantityController.text) * (context.read<FoodUnitCubit>().selectedUnit!.CarbValue!),
-              FoodName: localFood.FoodName,
+              Name: localFood.Name,
               Quantity: int.parse(quantityController.text),
               UnitType: context.read<FoodUnitCubit>().selectedUnit!.UnitName,
               Index: localFood.Index,
+              ConsumptionType: 1,
             );
 
             BlocProvider.of<TotalsCubit>(context).updateLocalFood(localFoodToUpdate);

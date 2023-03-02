@@ -158,9 +158,6 @@ class _HomeViewState extends State<HomeView> {
                 "En Çok Eklenen Besinler",
                 style: Theme.of(context).textTheme.headline3,
               ),
-              const SizedBox(
-                height: 30,
-              ),
               BlocBuilder<FavoriteFoodsCubit, FavoriteFoodsState>(
                 builder: (context, state) {
                   return state.map(
@@ -288,7 +285,7 @@ class _HomeViewState extends State<HomeView> {
                     NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffffffff),
+                    primary: const Color(0xffffffff),
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 22),
                   ),
