@@ -56,10 +56,10 @@ class BloodTargetCubit extends Cubit<BloodTargetState> {
         emit(const _Initial());
       },
       (success) {
-        _Success(
+        emit(_Success(
           successMessage: "",
           userBloodTarget: success!,
-        );
+        ));
       },
     );
   }

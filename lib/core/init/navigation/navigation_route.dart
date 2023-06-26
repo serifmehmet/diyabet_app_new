@@ -1,4 +1,5 @@
 import 'package:diyabet_app/core/theme_widgets/auth/not_authenticated_widget.dart';
+import 'package:diyabet_app/features/auth/view/kvkk_view.dart';
 import 'package:diyabet_app/features/my_diabet/view/my_diabet_view.dart';
 import 'package:diyabet_app/features/profile/view/edit_profile_view.dart';
 import 'package:diyabet_app/features/reciept/view/add_reciept_view.dart';
@@ -33,7 +34,9 @@ class NavigationRoute {
       case NavigationConstants.LOGIN:
         return normalNavigate(LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.REGISTER:
-        return normalNavigate(RegisterView(), NavigationConstants.REGISTER);
+        return normalNavigate(const RegisterView(), NavigationConstants.REGISTER);
+      case NavigationConstants.KVKK:
+        return normalNavigate(const KvKKView(), NavigationConstants.KVKK);
       case NavigationConstants.FORGOT_PASSWORD:
         return normalNavigate(const ForgotPasswordView(), NavigationConstants.FORGOT_PASSWORD);
       case NavigationConstants.ADD_RECIEPT:
