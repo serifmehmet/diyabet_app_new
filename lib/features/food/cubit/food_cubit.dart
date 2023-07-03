@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/domain/entities/local_consumption_item.dart';
 import 'package:diyabet_app/domain/entities/remote_food_unit.dart';
 import 'package:diyabet_app/domain/usecases/food/get_single_food_from_local_usecase.dart';
 import 'package:equatable/equatable.dart';
@@ -29,7 +29,7 @@ class FoodCubit extends Cubit<FoodState> {
     }
   }
 
-  LocalFood? localFood;
+  LocalConsumptionItem? localFood;
   RemoteFoodUnit? selectedUnit;
   Future<void> getSingleFoodOnIndex(int foodIndex, int foodId) async {
     emit(SingleFoodLoading());

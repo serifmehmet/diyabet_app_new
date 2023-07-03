@@ -33,7 +33,7 @@ class SingleFoodLoadFailure extends FoodState {
 }
 
 class EditFoodLoadSuccess extends FoodState {
-  final LocalFood? localFood;
+  final LocalConsumptionItem? localFood;
   final RemoteFoodRoot? remoteFood;
   final RemoteFoodUnit? remoteFoodUnit;
 

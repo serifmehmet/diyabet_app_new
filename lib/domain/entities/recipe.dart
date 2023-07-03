@@ -9,6 +9,7 @@ class Recipe {
   final bool? isApproved;
   final int? portionQuantity;
   final int? userId;
+  final String? recipeUnit;
   final DateTime? createdDate;
   final DateTime? updatedDate;
 
@@ -20,6 +21,7 @@ class Recipe {
     this.isApproved,
     this.portionQuantity,
     this.userId,
+    this.recipeUnit,
     this.createdDate,
     this.updatedDate,
   });
@@ -33,6 +35,7 @@ class Recipe {
         recipeFoods: recipeFoods!.map((e) => e.toModel()).toList(),
         totalCarb: totalCarb,
         updatedAt: updatedDate,
+        recipeUnit: recipeUnit,
         userId: userId,
       );
   // LocalRecieptHiveModel toHiveModel() => LocalRecieptHiveModel()

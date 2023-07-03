@@ -4,6 +4,7 @@ class NavigationConstants {
   static const EDIT_PROFILE = '/editProfile';
   static const LOGIN = '/login';
   static const REGISTER = '/register';
+  static const KVKK = '/kvkk';
   static const FORGOT_PASSWORD = '/forgotpassword';
   static const HOME_PAGE = '/homepage';
   static const ADD_RECIEPT = 'addReciept';

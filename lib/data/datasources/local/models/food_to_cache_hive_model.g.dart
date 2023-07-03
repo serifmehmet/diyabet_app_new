@@ -19,19 +19,22 @@ class FoodToCacheHiveModelAdapter extends TypeAdapter<FoodToCacheHiveModel> {
     return FoodToCacheHiveModel()
       ..id = fields[0] as int
       ..name = fields[1] as String
-      ..isRecipe = fields[2] == null ? false : fields[2] as bool;
+      ..isRecipe = fields[2] == null ? false : fields[2] as bool
+      ..priority = fields[3] as int;
   }
 
   @override
   void write(BinaryWriter writer, FoodToCacheHiveModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.isRecipe);
+      ..write(obj.isRecipe)
+      ..writeByte(3)
+      ..write(obj.priority);
   }
 
   @override

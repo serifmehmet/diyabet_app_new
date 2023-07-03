@@ -31,7 +31,7 @@ class RecipeDetailBottomSheetWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 180,
+                          width: 100,
                           child: Text(
                             recipeFoods[index].foodName!,
                             style: Theme.of(context).textTheme.recipeListName,
@@ -41,14 +41,17 @@ class RecipeDetailBottomSheetWidget extends StatelessWidget {
                         Text(
                           "${recipeFoods[index].quantity} ${recipeFoods[index].unitName!}",
                           style: Theme.of(context).textTheme.recipeListPortionName,
-                        ),
+                        )
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text("Karbonhidrat"),
-                        Text("${recipeFoods[index].carbValue} G.", style: Theme.of(context).textTheme.recipeCarbValue),
+                        Text(
+                          "${recipeFoods[index].carbValue} G.",
+                          style: Theme.of(context).textTheme.recipeCarbValue,
+                        ),
                       ],
                     )
                   ],

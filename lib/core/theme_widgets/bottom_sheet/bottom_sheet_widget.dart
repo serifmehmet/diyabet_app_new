@@ -2,7 +2,7 @@ import 'package:diyabet_app/core/extensions/context_extensions.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/dialog/alert_dialogs.dart';
 import 'package:diyabet_app/core/theme_widgets/input/carbapp_text_input.dart';
-import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/domain/entities/local_consumption_item.dart';
 import 'package:diyabet_app/domain/entities/remote_food.dart';
 import 'package:diyabet_app/domain/entities/remote_food_root.dart';
 import 'package:diyabet_app/features/food/cubit/food_cubit.dart';
@@ -257,7 +257,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     builder: (context, state) {
                       if (state is SelectedUnitChanged) {
                         return Text(
-                          "${state.newCarbValue!.toStringAsFixed(2)} G.",
+                          "${state.newCarbValue!.toStringAsFixed(2)} g",
                           style: const TextStyle(
                             color: Color(0xff0e150e),
                             fontSize: 30,
@@ -270,7 +270,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
                       if (state is SelectedQuantityChanged) {
                         return Text(
-                          "${state.newCarbValue!.toStringAsFixed(2)} G.",
+                          "${state.newCarbValue!.toStringAsFixed(2)} g",
                           style: const TextStyle(
                             color: Color(0xff0e150e),
                             fontSize: 30,
@@ -310,14 +310,15 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
                 return;
               }
-              LocalFood localFood = LocalFood(
+              LocalConsumptionItem localFood = LocalConsumptionItem(
                 Id: remoteFood.Food!.Id!,
                 CarbTotal: int.parse(quantityController.text) * (context.read<FoodUnitCubit>().selectedUnit!.CarbValue!),
-                FoodName: remoteFood.Food!.Name!,
+                Name: remoteFood.Food!.Name!,
                 Quantity: int.parse(quantityController.text),
                 UnitType: context.read<FoodUnitCubit>().selectedUnit!.UnitName,
                 Index: UniqueKey().hashCode,
                 UnitId: context.read<FoodUnitCubit>().selectedUnit!.UnitId,
+                ConsumptionType: 1,
               );
               if (widget.type == BottomSheetType.search) {
                 BlocProvider.of<TotalsCubit>(context).saveLocalFood(localFood);

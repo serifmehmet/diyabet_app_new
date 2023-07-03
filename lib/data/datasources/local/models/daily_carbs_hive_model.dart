@@ -1,4 +1,4 @@
-import 'package:diyabet_app/data/datasources/local/models/food_hive_model.dart';
+import 'package:diyabet_app/data/datasources/local/models/consumption_hive_model.dart';
 import 'package:hive/hive.dart';
 part 'daily_carbs_hive_model.g.dart';
 
@@ -7,7 +7,7 @@ class DailyCarbsHiveModel extends HiveObject {
   static const boxKey = "dailyCarbs";
 
   @HiveField(1)
-  late List<FoodHiveModel> foodsAdded;
+  late List<ConsumptionHiveModel> foodsAdded;
 
   @HiveField(2)
   late double totalCarbs;

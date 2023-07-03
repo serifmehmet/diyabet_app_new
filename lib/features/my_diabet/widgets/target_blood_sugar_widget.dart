@@ -192,7 +192,63 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
                 );
               },
               orElse: () {
-                return const SizedBox();
+                return Column(
+                  children: [
+                    const Text("Hedef Kan Şekeri Değerleri"),
+                    const SizedBox(height: 30),
+                    Form(
+                      key: TargetBloodSugarWidget.formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Açlık Kan Şekeri Hedefi", style: Theme.of(context).textTheme.inputLabel),
+                          const SizedBox(height: 9),
+                          CarbAppTextInput(
+                            inputText: "Açlık kan şekeri değerini giriniz...",
+                            inputTextStyle: Theme.of(context).textTheme.headline4,
+                            inputBorderRadius: 15,
+                            textController: fbstController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                            inputAction: TextInputAction.next,
+                            focuNode: fbstFocus,
+                            onFieldSubmit: (val) {
+                              fbstFocus!.unfocus();
+                              focus.requestFocus(ofbgFocus);
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 30),
+                          Text("Gece Açlık Kan Şekeri Hedefi", style: Theme.of(context).textTheme.inputLabel),
+                          const SizedBox(height: 9),
+                          CarbAppTextInput(
+                            inputText: "Gece açlık kan şekeri değerini giriniz...",
+                            inputTextStyle: Theme.of(context).textTheme.headline4,
+                            inputBorderRadius: 15,
+                            textController: ofbgController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                            inputAction: TextInputAction.done,
+                            focuNode: ofbgFocus,
+                            onFieldSubmit: (val) {
+                              ofbgFocus!.unfocus();
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              BlocProvider.of<BloodTargetCubit>(context).saveUserBloodTarget(fbstController.text, ofbgController.text);
+                            },
+                            child: const Center(
+                              child: Text("Kaydet"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                );
               },
             );
           },

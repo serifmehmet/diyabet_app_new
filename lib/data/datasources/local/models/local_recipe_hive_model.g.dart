@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'local_receipt_hive_model.dart';
+part of 'local_recipe_hive_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class LocalRecieptHiveModelAdapter extends TypeAdapter<LocalRecieptHiveModel> {
+class LocalRecipeHiveModelAdapter extends TypeAdapter<LocalRecipeHiveModel> {
   @override
   final int typeId = 10;
 
   @override
-  LocalRecieptHiveModel read(BinaryReader reader) {
+  LocalRecipeHiveModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return LocalRecieptHiveModel()
+    return LocalRecipeHiveModel()
       ..id = fields[0] as int
-      ..foodList = (fields[1] as List).cast<FoodHiveModel>()
+      ..foodList = (fields[1] as List).cast<ConsumptionHiveModel>()
       ..totalCarb = fields[2] as double
       ..receiptName = fields[3] as String
       ..isApproved = fields[4] as bool
@@ -27,7 +27,7 @@ class LocalRecieptHiveModelAdapter extends TypeAdapter<LocalRecieptHiveModel> {
   }
 
   @override
-  void write(BinaryWriter writer, LocalRecieptHiveModel obj) {
+  void write(BinaryWriter writer, LocalRecipeHiveModel obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
@@ -52,7 +52,7 @@ class LocalRecieptHiveModelAdapter extends TypeAdapter<LocalRecieptHiveModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is LocalRecieptHiveModelAdapter &&
+      other is LocalRecipeHiveModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

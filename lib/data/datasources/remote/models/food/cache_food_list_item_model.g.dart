@@ -11,6 +11,7 @@ CacheFoodListItemModel _$CacheFoodListItemModelFromJson(
     CacheFoodListItemModel(
       id: json['id'] as int?,
       name: json['name'] as String?,
+      priority: json['priority'] as int?,
     );
 
 Map<String, dynamic> _$CacheFoodListItemModelToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$CacheFoodListItemModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'priority': instance.priority,
     };

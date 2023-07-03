@@ -8,9 +8,7 @@ part of 'consumption_model.dart';
 
 ConsumptionModel _$ConsumptionModelFromJson(Map<String, dynamic> json) =>
     ConsumptionModel(
-      foodId: json['foodId'] as int?,
-      foodName: json['foodName'] as String?,
-      unitId: json['unitId'] as int?,
+      name: json['name'] as String?,
       unitName: json['unitName'] as String?,
       quantity: json['quantity'] as int?,
       totalCarb: (json['totalCarb'] as num?)?.toDouble(),
@@ -18,9 +16,7 @@ ConsumptionModel _$ConsumptionModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ConsumptionModelToJson(ConsumptionModel instance) =>
     <String, dynamic>{
-      'foodId': instance.foodId,
-      'foodName': instance.foodName,
-      'unitId': instance.unitId,
+      'name': instance.name,
       'unitName': instance.unitName,
       'quantity': instance.quantity,
       'totalCarb': instance.totalCarb,

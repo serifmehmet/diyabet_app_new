@@ -14,6 +14,8 @@ class FoodToCacheHiveModel extends HiveObject {
   late String name;
   @HiveField(2, defaultValue: false)
   late bool isRecipe;
+  @HiveField(3)
+  late int priority;
 
-  CacheFoodListItem toEntity() => CacheFoodListItem(Id: id, Name: name, isRecipe: isRecipe);
+  CacheFoodListItem toEntity() => CacheFoodListItem(Id: id, Name: name, isRecipe: isRecipe, priority: priority);
 }

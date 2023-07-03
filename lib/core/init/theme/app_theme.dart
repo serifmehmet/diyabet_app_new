@@ -126,7 +126,7 @@ extension CustomStyles on TextTheme {
 
   TextStyle get logo {
     return const TextStyle(
-      color: Color(0xffffffff),
+      color: Color(0xff578AD6),
       fontSize: 48,
       fontStyle: FontStyle.normal,
       fontFamily: "Nunito",

@@ -19,6 +19,8 @@ class CacheFoodLocalDataSource {
         )
         .toList();
 
+    foods.sort(((a, b) => b.priority.compareTo(a.priority)));
+
     return foods;
   }
 }

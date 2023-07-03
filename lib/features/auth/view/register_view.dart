@@ -15,22 +15,38 @@ import 'package:iconly/iconly.dart';
 
 part 'components/register_components.dart';
 
-class RegisterView extends StatelessWidget {
-  RegisterView({Key? key}) : super(key: key);
+class RegisterView extends StatefulWidget {
+  const RegisterView({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController firstPasswordController = TextEditingController();
+
   final TextEditingController secondPasswordController = TextEditingController();
+
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController sureNameController = TextEditingController();
 
   FocusNode nameFocus = FocusNode();
+
   FocusNode surNameFocus = FocusNode();
+
   FocusNode emailFocus = FocusNode();
+
   FocusNode firstPasswordFocus = FocusNode();
+
   FocusNode secondPasswordFocus = FocusNode();
 
+  bool isChecked = false;
+
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     String? firstPassword;
@@ -219,9 +235,51 @@ class RegisterView extends StatelessWidget {
                             return null;
                           }),
                       const SizedBox(height: 15),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: isChecked,
+                            onChanged: (value) => setState(() {
+                              isChecked = value!;
+                            }),
+                          ),
+                          TextButton(
+                            child: const Text(
+                              "KVKK metnini onaylıyorum?",
+                              style: TextStyle(color: Colors.black, fontSize: 14),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 9),
+                      InkWell(
+                        onTap: () => NavigationService.instance.navigateToPage(path: NavigationConstants.KVKK),
+                        child: RichText(
+                          text: const TextSpan(
+                            text: "Kişisel verilerinize dair Aydınlatma Metni için ",
+                            style: TextStyle(
+                              color: Color(0xFF000000),
+                              fontFamily: "Signika",
+                              fontSize: 16,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: "tıklayınız.",
+                                style: TextStyle(
+                                  color: Color(
+                                    0xff91C788,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
                       ElevatedButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
+                          if (formKey.currentState!.validate() && isChecked) {
                             User user = User(
                               Email: emailController.text,
                               Password: secondPasswordController.text,
