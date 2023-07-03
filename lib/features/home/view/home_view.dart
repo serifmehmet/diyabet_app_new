@@ -71,6 +71,8 @@ class _HomeViewState extends State<HomeView> {
       // }
     });
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    //Get the favorite foods
+    BlocProvider.of<FavoriteFoodsCubit>(context).getFavoriteFoods();
   }
 
   void listenToNotification() => service.onNotificationClick.stream.listen(onNotificationListener);
