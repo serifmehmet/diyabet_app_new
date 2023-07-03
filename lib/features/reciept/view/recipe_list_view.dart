@@ -1,6 +1,7 @@
 import 'package:diyabet_app/core/constants/navigation/navigation_constants.dart';
 import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
+import 'package:diyabet_app/core/theme_widgets/bottom_sheet/add_recipe_to_consumption_bottomsheet_widget.dart';
 import 'package:diyabet_app/core/theme_widgets/bottom_sheet/recipe_detail_bottomsheet_widget.dart';
 import 'package:diyabet_app/features/reciept/cubit/recipe_cubit.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,7 @@ class _RecipeListViewState extends State<RecipeListView> {
                                         style: Theme.of(context).textTheme.recipeListName,
                                       ),
                                       Text(
-                                        "${recipeRoot.recipes![index].portionQuantity} Porsiyon",
+                                        "${recipeRoot.recipes![index].portionQuantity} ${recipeRoot.recipes![index].recipeUnit}",
                                         style: Theme.of(context).textTheme.recipeListPortionName,
                                       ),
                                       recipeRoot.recipes![index].isApproved!
@@ -105,38 +106,72 @@ class _RecipeListViewState extends State<RecipeListView> {
                                     children: [
                                       const Text("Toplam Karbonhidrat"),
                                       Text(
-                                        "${recipeRoot.recipes![index].totalCarb!.toStringAsFixed(2)} G.",
+                                        "${recipeRoot.recipes![index].totalCarb!.toStringAsFixed(2)} g",
                                         style: Theme.of(context).textTheme.recipeCarbValue,
                                       ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: const Color(0xffD6578A),
-                                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          showModalBottomSheet(
-                                            context: context,
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(32),
+                                      Row(
+                                        children: [
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: const Color(0xffD6578A),
+                                              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10),
                                               ),
                                             ),
-                                            isScrollControlled: true,
-                                            builder: (context) {
-                                              return SizedBox(
-                                                height: 350,
-                                                child: RecipeDetailBottomSheetWidget(
-                                                  recipeFoods: recipeRoot.recipes![index].recipeFoods!,
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                                                context: context,
+                                                shape: const RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.vertical(
+                                                    top: Radius.circular(32),
+                                                  ),
                                                 ),
+                                                isScrollControlled: true,
+                                                builder: (context) {
+                                                  return SizedBox(
+                                                    height: 350,
+                                                    child: RecipeDetailBottomSheetWidget(
+                                                      recipeFoods: recipeRoot.recipes![index].recipeFoods!,
+                                                    ),
+                                                  );
+                                                },
                                               );
                                             },
-                                          );
-                                        },
-                                        child: Text("Tarif Detayı", style: Theme.of(context).textTheme.recipeListButtonText),
-                                      )
+                                            child: Text("Tarif İçeriği", style: Theme.of(context).textTheme.recipeListButtonText),
+                                          ),
+                                          gapW4,
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Theme.of(context).colorScheme.tertiary,
+                                              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                                                context: context,
+                                                shape: const RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.vertical(
+                                                    top: Radius.circular(32),
+                                                  ),
+                                                ),
+                                                isScrollControlled: true,
+                                                builder: (context) {
+                                                  return SizedBox(
+                                                    height: 350,
+                                                    child: AddRecipeToConsumptionBottomSheetWidget(
+                                                      recipe: recipeRoot.recipes![index],
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Text("Ekle", style: Theme.of(context).textTheme.recipeListButtonText),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   )
                                 ],

@@ -1,17 +1,18 @@
-import 'package:diyabet_app/domain/entities/local_food.dart';
 import 'package:hive/hive.dart';
 
-part 'food_hive_model.g.dart';
+import '../../../../domain/entities/local_consumption_item.dart';
+
+part 'consumption_hive_model.g.dart';
 
 @HiveType(typeId: 2)
-class FoodHiveModel extends HiveObject {
-  static const String boxKey = "foodModel";
+class ConsumptionHiveModel extends HiveObject {
+  static const String boxKey = "consumptionHiveModel";
 
   @HiveField(0)
   late int id;
 
   @HiveField(1)
-  late String foodName;
+  late String name;
 
   @HiveField(2)
   late String unitType;
@@ -28,13 +29,17 @@ class FoodHiveModel extends HiveObject {
   @HiveField(7)
   late int unitId;
 
-  LocalFood toEntity() => LocalFood(
+  @HiveField(8)
+  late int consumptionType;
+
+  LocalConsumptionItem toEntity() => LocalConsumptionItem(
         Id: id,
-        FoodName: foodName,
+        Name: name,
         UnitType: unitType,
         Quantity: quantity,
         CarbTotal: carbTotal,
         Index: index,
         UnitId: unitId,
+        ConsumptionType: consumptionType,
       );
 }

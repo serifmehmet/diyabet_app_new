@@ -1,4 +1,5 @@
 import 'package:diyabet_app/data/datasources/remote/models/food_consumption/food_for_food_consumption_model.dart';
+import 'package:diyabet_app/data/datasources/remote/models/food_consumption/recipe_for_food_consumption_model.dart';
 import 'package:diyabet_app/domain/entities/food_consumption.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
@@ -11,6 +12,8 @@ class FoodConsumptionModel extends INetworkModel<FoodConsumptionModel> {
   int? id;
   @JsonKey(name: "FoodList")
   List<FoodForFoodConsumptionModel>? foodList;
+  @JsonKey(name: "RecipeList")
+  List<RecipeForFoodConsumptionModel>? recipeList;
   @JsonKey(name: "CreateDate")
   DateTime? createDate;
   @JsonKey(name: "UserId")
@@ -19,6 +22,7 @@ class FoodConsumptionModel extends INetworkModel<FoodConsumptionModel> {
   FoodConsumptionModel({
     this.id,
     this.foodList,
+    this.recipeList,
     this.createDate,
     this.userId,
   });
@@ -41,6 +45,7 @@ class FoodConsumptionModel extends INetworkModel<FoodConsumptionModel> {
   FoodConsumption toEntity() => FoodConsumption(
         Id: id,
         FoodList: foodList!.map((e) => e.toEntity()).toList(),
+        RecipeList: recipeList!.map((e) => e.toEntity()).toList(),
         CreateDate: createDate,
         UserId: userId,
       );

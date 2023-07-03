@@ -6,17 +6,14 @@ part 'consumption_model.g.dart';
 
 @JsonSerializable()
 class ConsumptionModel extends INetworkModel<ConsumptionModel> {
-  int? foodId;
-  String? foodName;
-  int? unitId;
+  String? name;
+
   String? unitName;
   int? quantity;
   double? totalCarb;
 
   ConsumptionModel({
-    this.foodId,
-    this.foodName,
-    this.unitId,
+    this.name,
     this.unitName,
     this.quantity,
     this.totalCarb,
@@ -38,9 +35,7 @@ class ConsumptionModel extends INetworkModel<ConsumptionModel> {
   }
 
   Consumption toEntity() => Consumption(
-        foodId: foodId,
-        foodName: foodName,
-        unitId: unitId,
+        name: name,
         unitName: unitName,
         quantity: quantity,
         totalCarb: totalCarb,

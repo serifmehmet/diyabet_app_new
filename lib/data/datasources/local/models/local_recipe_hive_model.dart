@@ -1,15 +1,15 @@
-import 'package:diyabet_app/data/datasources/local/models/food_hive_model.dart';
+import 'package:diyabet_app/data/datasources/local/models/consumption_hive_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-part 'local_receipt_hive_model.g.dart';
+part 'local_recipe_hive_model.g.dart';
 
 @HiveType(typeId: 10)
-class LocalRecieptHiveModel extends HiveObject {
-  static const boxKey = "receiptModel";
+class LocalRecipeHiveModel extends HiveObject {
+  static const boxKey = "recipeModel";
 
   @HiveField(0)
   late int id;
   @HiveField(1)
-  late List<FoodHiveModel> foodList;
+  late List<ConsumptionHiveModel> foodList;
   @HiveField(2)
   late double totalCarb;
   @HiveField(3)

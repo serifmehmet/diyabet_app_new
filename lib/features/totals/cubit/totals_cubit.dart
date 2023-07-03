@@ -4,7 +4,8 @@ import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/core/init/usecase/usecase.dart';
 import 'package:diyabet_app/domain/entities/food_consumption.dart';
 import 'package:diyabet_app/domain/entities/food_for_food_consumption.dart';
-import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/domain/entities/local_consumption_item.dart';
+import 'package:diyabet_app/domain/entities/recipe_for_food_consumption.dart';
 import 'package:diyabet_app/domain/usecases/food/delete_all_foods_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/delete_single_food_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/get_saved_local_foods_usecase.dart';
@@ -33,7 +34,7 @@ class TotalsCubit extends Cubit<TotalsState> {
   final SaveFoodConsumptionUseCase foodConsumptionUseCase;
   int? foodCount;
   double? carbValue;
-  List<LocalFood?>? foodsLocal;
+  List<LocalConsumptionItem?>? foodsLocal;
 
   TotalsCubit(
     this.foodCount,
@@ -50,7 +51,7 @@ class TotalsCubit extends Cubit<TotalsState> {
     getSavedLocalFoods();
   }
 
-  Future<void> saveLocalFood(LocalFood localFood) async {
+  Future<void> saveLocalFood(LocalConsumptionItem localFood) async {
     await saveLocalFoodUseCase.call(SaveLocalFoodParam(localFood));
     await saveFavoriteFoodUsecase.call(SaveFavoriteFoodParams(foodId: localFood.Id!));
     carbValue = carbValue! + localFood.CarbTotal!;
@@ -59,7 +60,7 @@ class TotalsCubit extends Cubit<TotalsState> {
     emit(GetFoodsSuccess(foodsLocal!, foodsLocal!.length, carbValue: carbValue));
   }
 
-  Future<void> updateLocalFood(LocalFood localFood) async {
+  Future<void> updateLocalFood(LocalConsumptionItem localFood) async {
     await updateLocalFoodUseCase.call(UpdateLocalFoodParam(localFood));
 
     // final element = foodsLocal!.where((element) => element!.Index == localFood.Index).single;
@@ -112,12 +113,15 @@ class TotalsCubit extends Cubit<TotalsState> {
     }
   }
 
-  Future<void> saveConsumption(List<LocalFood?> localFoods) async {
+  Future<void> saveConsumption(
+    List<LocalConsumptionItem?> localConsumptionList,
+  ) async {
     emit(FoodConsumptionSaving());
 
     List<FoodForFoodConsumption> foodList = [];
+    List<RecipeForFoodConsumption> recipeList = [];
 
-    for (var e in localFoods) {
+    for (var e in localConsumptionList.where((element) => element!.ConsumptionType == 1)) {
       FoodForFoodConsumption foodForFoodConsumption = FoodForFoodConsumption(
         FoodId: e!.Id,
         UnitTypeId: e.UnitId,
@@ -127,10 +131,21 @@ class TotalsCubit extends Cubit<TotalsState> {
 
       foodList.add(foodForFoodConsumption);
     }
+
+    for (var r in localConsumptionList.where((element) => element!.ConsumptionType == 2)) {
+      RecipeForFoodConsumption recipeForFoodConsumption = RecipeForFoodConsumption(
+        recipeId: r!.Id,
+        quantity: r.Quantity,
+      );
+
+      recipeList.add(recipeForFoodConsumption);
+    }
+
     DateFormat formattedDate = DateFormat("yyyy-MM-dd HH:mm");
     DateTime consumptionDate = formattedDate.parse(DateTime.now().toString());
 
     FoodConsumption consumption = FoodConsumption(
+      RecipeList: recipeList,
       FoodList: foodList,
       UserId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
       CreateDate: consumptionDate,

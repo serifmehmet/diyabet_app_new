@@ -11,10 +11,12 @@ class CacheFoodListItemModel extends INetworkModel<CacheFoodListItemModel> {
   int? id;
   @JsonKey(name: "name")
   String? name;
+  int? priority;
 
   CacheFoodListItemModel({
     this.id,
     this.name,
+    this.priority,
   });
 
   @override
@@ -32,10 +34,11 @@ class CacheFoodListItemModel extends INetworkModel<CacheFoodListItemModel> {
     return CacheFoodListItemModel.fromJson(json);
   }
 
-  CacheFoodListItem toEntity() => CacheFoodListItem(Id: id, Name: name);
+  CacheFoodListItem toEntity() => CacheFoodListItem(Id: id, Name: name, priority: priority);
 
   FoodToCacheHiveModel toHiveModel() => FoodToCacheHiveModel()
     ..id = id!
     ..name = name!
-    ..isRecipe = false;
+    ..isRecipe = false
+    ..priority = priority!;
 }

@@ -62,7 +62,7 @@ class _AddRecieptViewState extends State<AddRecieptView> {
                                 gapH12,
                                 Text("Toplam karbonhidrat:", style: Theme.of(context).textTheme.headline5),
                                 gapH8,
-                                Text("${totalCarb.toStringAsFixed(2)} G.", style: Theme.of(context).textTheme.carbValueText),
+                                Text("${totalCarb.toStringAsFixed(2)} g", style: Theme.of(context).textTheme.carbValueText),
                                 gapH12,
                                 Expanded(
                                   child: FoodListWidget(
@@ -82,7 +82,7 @@ class _AddRecieptViewState extends State<AddRecieptView> {
                                 gapH12,
                                 Text("Toplam karbonhidrat:", style: Theme.of(context).textTheme.headline5),
                                 gapH8,
-                                Text("${totalCarb.toStringAsFixed(2)} G.", style: Theme.of(context).textTheme.carbValueText),
+                                Text("${totalCarb.toStringAsFixed(2)} g", style: Theme.of(context).textTheme.carbValueText),
                                 gapH12,
                                 Expanded(
                                   child: FoodListWidget(

@@ -1,6 +1,6 @@
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/bottom_sheet/totals_bottom_sheet_widget.dart';
-import 'package:diyabet_app/domain/entities/local_food.dart';
+import 'package:diyabet_app/domain/entities/local_consumption_item.dart';
 import 'package:diyabet_app/features/food/cubit/food_unit_cubit.dart';
 import 'package:diyabet_app/features/totals/cubit/totals_cubit.dart';
 import 'package:diyabet_app/features/totals/view/models/total_items_model.dart';
@@ -15,7 +15,7 @@ enum FoodListType { totals, recipe }
 class FoodListWidget extends StatelessWidget {
   FoodListWidget({Key? key, this.savedFoods, required this.foodListType}) : super(key: key);
   final FoodListType foodListType;
-  final List<LocalFood?>? savedFoods;
+  final List<LocalConsumptionItem?>? savedFoods;
   var items = TotalsModel.create();
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class FoodListWidget extends StatelessWidget {
         //   style: Theme.of(context).textTheme.inputLabel,
         // ),
         Text(
-          "${savedFoods![index]!.CarbTotal!.toStringAsFixed(2)} g.",
+          "${savedFoods![index]!.CarbTotal!.toStringAsFixed(2)} g",
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ],
@@ -85,12 +85,12 @@ class FoodListWidget extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            savedFoods![index]!.FoodName!,
+            savedFoods![index]!.Name!,
             style: Theme.of(context).textTheme.addRecipeText,
             overflow: TextOverflow.fade,
           ),
         ),
-        actionIcons(context, savedFoods![index]!.Index!, savedFoods![index]!.Id!, savedFoods![index]!.FoodName!),
+        actionIcons(context, savedFoods![index]!.Index!, savedFoods![index]!.Id!, savedFoods![index]!.Name!),
       ],
     );
   }

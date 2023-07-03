@@ -1,17 +1,19 @@
 import 'package:bloc/bloc.dart';
-import 'package:diyabet_app/core/base/error/failure.dart';
 import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
+import 'package:diyabet_app/core/init/usecase/usecase.dart';
 import 'package:diyabet_app/domain/entities/recipe_food.dart';
 import 'package:diyabet_app/domain/usecases/recipe/remote/get_user_remote_recipe_usecase.dart';
 import 'package:diyabet_app/domain/usecases/recipe/remote/params/get_recipe_by_user_id_params.dart';
 import 'package:diyabet_app/domain/usecases/recipe/remote/params/save_remote_recipe_params.dart';
+import 'package:diyabet_app/domain/usecases/recipe_unit/get_recipe_units_usecase.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/base/error/error_object.dart';
-import '../../../domain/entities/local_food.dart';
+import '../../../domain/entities/local_consumption_item.dart';
 import '../../../domain/entities/recipe.dart';
 import '../../../domain/entities/recipe_root.dart';
+import '../../../domain/entities/recipe_unit.dart';
 import '../../../domain/usecases/recipe/remote/save_remote_recipe_usecase.dart';
 
 part 'recipe_cubit.freezed.dart';
@@ -21,22 +23,34 @@ class RecipeCubit extends Cubit<RecipeState> {
   RecipeCubit({
     required SaveRemoteRecipeUseCase saveRemoteRecipeUseCase,
     required GetUserRemoteRecipeUseCase getUserRemoteRecipeUseCase,
+    required GetRecipeUnitsUseCase getRecipeUnitsUseCase,
   })  : _saveRemoteRecipeUseCase = saveRemoteRecipeUseCase,
         _getUserRemoteRecipeUseCase = getUserRemoteRecipeUseCase,
+        _getRecipeUnitsUseCase = getRecipeUnitsUseCase,
         super(const RecipeState.initial());
 
   final SaveRemoteRecipeUseCase _saveRemoteRecipeUseCase;
   final GetUserRemoteRecipeUseCase _getUserRemoteRecipeUseCase;
+  final GetRecipeUnitsUseCase _getRecipeUnitsUseCase;
 
-  late final List<LocalFood> _foodsAddedToRecipe = [];
+  late final List<LocalConsumptionItem> _foodsAddedToRecipe = [];
 
   double totalCarb = 0;
 
   ///Add Food Object to List of Foods
-  void saveLocalFoodToRecipe(LocalFood foodToAdd) {
+  void saveLocalFoodToRecipe(LocalConsumptionItem foodToAdd) {
     _foodsAddedToRecipe.add(foodToAdd);
     totalCarb += foodToAdd.CarbTotal!;
     emit(_FoodAddedSuccess(foodsAddedToRecipe: _foodsAddedToRecipe, carbValue: totalCarb));
+  }
+
+  Future<void> getRecipeUnits() async {
+    final recipeUnitResponse = await _getRecipeUnitsUseCase.call(const NoParams());
+
+    recipeUnitResponse.fold(
+      (failure) => {},
+      (success) => {emit(_RecipeUnitListLoaded(recipeUnitList: success.recipeUnitList!))},
+    );
   }
 
   ///Deletes a single Food object from the list.
@@ -56,7 +70,7 @@ class RecipeCubit extends Cubit<RecipeState> {
   }
 
   /// Saves the Recipe to the Remote Database using the API
-  Future<void> saveRemoteRecipe({required String recipeName, required int portionQuantity}) async {
+  Future<void> saveRemoteRecipe({required String recipeName, required int portionQuantity, required String recipeUnit}) async {
     emit(const _Loading());
     List<RecipeFood> recipeFoodList = mapLocalFoodToRecipeFood();
     Recipe recipeEntity = Recipe(
@@ -67,6 +81,7 @@ class RecipeCubit extends Cubit<RecipeState> {
       totalCarb: totalCarb,
       userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
       recipeFoods: recipeFoodList,
+      recipeUnit: recipeUnit,
       createdDate: DateTime.now(),
     );
 
@@ -106,7 +121,7 @@ class RecipeCubit extends Cubit<RecipeState> {
     for (var localFood in _foodsAddedToRecipe) {
       RecipeFood singleRecipeFood = RecipeFood(
         recipeId: 0,
-        foodName: localFood.FoodName,
+        foodName: localFood.Name,
         carbValue: localFood.CarbTotal,
         unitId: localFood.UnitId,
         foodId: localFood.Id,

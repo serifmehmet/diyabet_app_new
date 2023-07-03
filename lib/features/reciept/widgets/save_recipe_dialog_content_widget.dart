@@ -6,6 +6,7 @@ import 'package:diyabet_app/features/reciept/cubit/recipe_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconly/iconly.dart';
 
 class SaveRecipeDialogContent extends StatefulWidget {
   const SaveRecipeDialogContent({Key? key}) : super(key: key);
@@ -23,12 +24,20 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
   String get quantity => _quantityController.text;
   String get recipeName => _recipeNameController.text;
 
+  String? dropDownValue;
+
   @override
   void dispose() {
     _node.dispose();
     // _quantityController.dispose();
     // _quantityController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    BlocProvider.of<RecipeCubit>(context).getRecipeUnits();
+    super.initState();
   }
 
   bool isChecked = false;
@@ -39,7 +48,7 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
       scrollDirection: Axis.vertical,
       reverse: true,
       child: SizedBox(
-        height: 425,
+        height: 480,
         child: FocusScope(
           node: _node,
           child: Form(
@@ -48,6 +57,49 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 gapH16,
+                Text(
+                  "Porsiyon tipi",
+                  style: Theme.of(context).textTheme.inputLabel,
+                ),
+                gapH4,
+                BlocBuilder<RecipeCubit, RecipeState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () => CircularProgressIndicator(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      recipeUnitListLoaded: (recipeUnits) {
+                        return DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            hint: const Text("Birim Seçiniz"),
+                            isExpanded: true,
+                            icon: const Icon(
+                              IconlyLight.arrow_down_circle,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            items: recipeUnits.map((item) {
+                              return DropdownMenuItem(
+                                value: item.description,
+                                child: Text(
+                                  item.description!,
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? value) {
+                              setState(() {
+                                dropDownValue = value!;
+                              });
+                            },
+                            value: dropDownValue,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+                gapH12,
                 Text(
                   "Porsiyon adedi",
                   style: Theme.of(context).textTheme.inputLabel,
@@ -107,7 +159,11 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
                     textColorOfButton: Colors.white,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        BlocProvider.of<RecipeCubit>(context).saveRemoteRecipe(recipeName: recipeName, portionQuantity: int.parse(quantity));
+                        BlocProvider.of<RecipeCubit>(context).saveRemoteRecipe(
+                          recipeName: recipeName,
+                          portionQuantity: int.parse(quantity),
+                          recipeUnit: dropDownValue!,
+                        );
                         Navigator.of(context).pop(false);
                       }
                     },

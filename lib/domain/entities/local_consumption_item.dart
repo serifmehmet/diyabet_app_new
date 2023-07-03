@@ -1,31 +1,34 @@
-import 'package:diyabet_app/data/datasources/local/models/food_hive_model.dart';
+import 'package:diyabet_app/data/datasources/local/models/consumption_hive_model.dart';
 
-class LocalFood {
+class LocalConsumptionItem {
   final int? Id;
-  final String? FoodName;
+  final String? Name;
   final String? UnitType;
   final int? Quantity;
   final double? CarbTotal;
   final int? Index;
+  final int? ConsumptionType;
 
   final int? UnitId;
 
-  LocalFood({
+  LocalConsumptionItem({
     this.Id,
-    this.FoodName,
+    this.Name,
     this.UnitType,
     this.Quantity,
     this.CarbTotal,
     this.Index,
     this.UnitId,
+    this.ConsumptionType,
   });
 
-  FoodHiveModel toHiveModel() => FoodHiveModel()
+  ConsumptionHiveModel toHiveModel() => ConsumptionHiveModel()
     ..id = Id!
-    ..foodName = FoodName!
+    ..name = Name!
     ..carbTotal = CarbTotal!
     ..quantity = Quantity!
     ..unitType = UnitType!
     ..index = Index!
+    ..consumptionType = ConsumptionType!
     ..unitId = UnitId!;
 }
