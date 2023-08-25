@@ -1,5 +1,6 @@
 import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
 import 'package:diyabet_app/core/init/cache/cache_manager.dart';
+import 'package:diyabet_app/features/home/cubit/bottom_nav_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -129,6 +130,7 @@ class ProfileView extends StatelessWidget {
             ),
             onPressed: () {
               BlocProvider.of<AuthCubit>(context).logOut();
+              BlocProvider.of<BottomNavCubit>(context).updateSelectedIndex(0);
               NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
             },
           ),
