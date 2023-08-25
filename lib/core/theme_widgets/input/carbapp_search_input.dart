@@ -31,7 +31,7 @@ class CarbAppSearchInput extends StatefulWidget {
 
 class _CarbAppSearchInputState extends State<CarbAppSearchInput> {
   late CancelableOperation<void> cancelableOperation;
-  final _delayTime = Duration(milliseconds: 300);
+  final _delayTime = const Duration(milliseconds: 300);
 
   @override
   void initState() {
@@ -61,6 +61,7 @@ class _CarbAppSearchInputState extends State<CarbAppSearchInput> {
     return TextField(
       onChanged: _onItemChanged,
       style: widget.inputTextStyle,
+      autocorrect: false,
       decoration: InputDecoration(
         fillColor: const Color(0xffF4F4F4),
         filled: true,
