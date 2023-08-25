@@ -1,16 +1,18 @@
-# diyabet_app
 
-A new Flutter project.
+![Logo](https://play-lh.googleusercontent.com/XLFGq1xP9ysogdcad6OTHMCgoaaMwRCqXQIAylku0Lcrq3WQgyEAF4Vj68Atcq32tZfj=w480-h960)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# KarbApp
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+KarbApp, Tip 1 diyabetli bireylerin besinlerin karbonhidrat miktarını doğru tespit edebilmesini, bireylerin kendi tariflerinin içeriğindeki karbonhidrat miktarını doğru hesaplamasını, ülkemizde sıklıkla tüketilen geleneksel yemeklerin tariflerine ve karbonhidrat miktarlarına ulaşabilmelerini, besin tüketeceği zamanlarda uygun insülin dozu hesaplayabilmelerini, kan şekeri düzeltme dozunu isabetli hesaplayabilmelerini sağlamayı, diyabetli bireylerin hayatını kolaylaştırmayı ve sağlıklarını korumayı amaçlar.
+
+
+
+
+## İndirme
+
+- [IOS](https://apps.apple.com/tr/app/karbapp/id6443466754)
+- [Android](https://play.google.com/store/apps/details?id=com.opentec.karbApp)
+
