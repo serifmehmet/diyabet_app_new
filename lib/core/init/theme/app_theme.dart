@@ -277,6 +277,16 @@ extension CustomStyles on TextTheme {
     );
   }
 
+  TextStyle get elevatedButtonSmallText {
+    return const TextStyle(
+      color: Color(0xfffafafa),
+      fontSize: 15,
+      fontFamily: "Signika",
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
   TextStyle get defaultEmptyWarning {
     return const TextStyle(
       color: Color(0xff000000),

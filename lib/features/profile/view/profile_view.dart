@@ -129,9 +129,14 @@ class ProfileView extends StatelessWidget {
               style: Theme.of(context).textTheme.headline4,
             ),
             onPressed: () {
-              BlocProvider.of<AuthCubit>(context).logOut();
-              BlocProvider.of<BottomNavCubit>(context).updateSelectedIndex(0);
-              NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+              BlocProvider.of<AuthCubit>(context).logOut().then(
+                (value) {
+                  if (value) {
+                    BlocProvider.of<BottomNavCubit>(context).updateSelectedIndex(0);
+                    NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+                  }
+                },
+              );
             },
           ),
         ),
@@ -173,9 +178,20 @@ class ProfileView extends StatelessWidget {
         const SizedBox(width: 16),
         Expanded(
           flex: 5,
-          child: Text(
-            "Gizlilik ve Şartlar",
-            style: Theme.of(context).textTheme.headline4,
+          child: TextButton(
+            style: ButtonStyle(
+              alignment: Alignment.centerLeft,
+              padding: MaterialStateProperty.all<EdgeInsets>(
+                const EdgeInsets.all(0),
+              ),
+            ),
+            child: Text(
+              'Gizlilik ve Şartlar',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            onPressed: () {
+              NavigationService.instance.navigateToPage(path: NavigationConstants.PRIVACY);
+            },
           ),
         ),
         Expanded(

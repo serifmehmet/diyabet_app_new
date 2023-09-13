@@ -26,7 +26,13 @@ class AppTabView extends StatefulWidget {
 }
 
 class _AppTabViewState extends State<AppTabView> {
-  final _items = [const HomeView(), SearchView(), TotalsView(), const CalcReportView(), const HomeEndDrawerWidget()];
+  final _items = [
+    const HomeView(),
+    SearchView(),
+    const TotalsView(),
+    const CalcReportView(),
+    const HomeEndDrawerWidget()
+  ];
   final ListQueue<int> _navigationQueue = ListQueue();
 
   void onTap(int index) {
@@ -36,7 +42,7 @@ class _AppTabViewState extends State<AppTabView> {
       _navigationQueue.addLast(index);
     }
     if (index == 0) BlocProvider.of<FavoriteFoodsCubit>(context).getFavoriteFoods();
-    if (index == 3 && !loggedIn) {
+    if ((index == 3 || index == 4) && !loggedIn) {
       NavigationService.instance.navigateToPage(path: NavigationConstants.NOT_AUTHENTICATED);
     } else {
       context.read<BottomNavCubit>().updateSelectedIndex(index);

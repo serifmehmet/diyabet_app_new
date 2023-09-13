@@ -1,3 +1,5 @@
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:diyabet_app/features/reciept/cubit/recipe_cubit.dart';
 import 'package:diyabet_app/features/search/widgets/recipe_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class SearchView extends StatelessWidget {
   String? lastSearchFood;
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = CacheManager.instance.getBoolValue(PreferencesKeys.IS_LOGGEDIN);
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -24,7 +27,7 @@ class SearchView extends StatelessWidget {
         }
       },
       child: DefaultTabController(
-        length: 2,
+        length: isLoggedIn ? 2 : 1,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -35,11 +38,11 @@ class SearchView extends StatelessWidget {
             bottom: TabBar(
               labelStyle: Theme.of(context).textTheme.headline5,
               labelColor: Colors.black,
-              tabs: const [
-                Tab(
+              tabs: [
+                const Tab(
                   text: "Genel Arama",
                 ),
-                Tab(text: "Tariflerim"),
+                if (isLoggedIn) const Tab(text: "Tariflerim"),
               ],
               onTap: (tabIndex) {
                 switch (tabIndex) {
@@ -118,10 +121,11 @@ class SearchView extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: context.paddingNormal,
-                child: const RecipeListWidget(),
-              ),
+              if (isLoggedIn)
+                Padding(
+                  padding: context.paddingNormal,
+                  child: const RecipeListWidget(),
+                ),
             ],
           ),
         ),

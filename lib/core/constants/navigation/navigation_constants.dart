@@ -1,5 +1,6 @@
 class NavigationConstants {
   static const DEFAULT = '/';
+  static const ONBOARD = '/onboard';
   static const PROFILE = '/profile';
   static const EDIT_PROFILE = '/editProfile';
   static const LOGIN = '/login';
@@ -10,6 +11,7 @@ class NavigationConstants {
   static const ADD_RECIEPT = 'addReciept';
   static const RECIPE_LIST = "/recipeList";
   static const MY_DIABET = '/my_diabet';
+  static const PRIVACY = '/privacy';
 
   static const NOT_AUTHENTICATED = '/not_authenticated';
 }

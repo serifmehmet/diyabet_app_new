@@ -21,6 +21,7 @@ class CarbAppTextInput extends StatefulWidget {
   final TextInputAction? inputAction;
   final EdgeInsetsGeometry? contentPadding;
   final String? Function(String?)? onFieldSubmit;
+  final AutovalidateMode? autovalidateMode;
 
   const CarbAppTextInput({
     Key? key,
@@ -42,6 +43,7 @@ class CarbAppTextInput extends StatefulWidget {
     this.focuNode,
     this.inputAction,
     this.onFieldSubmit,
+    this.autovalidateMode,
   }) : super(key: key);
 
   @override
@@ -94,6 +96,7 @@ class _CarbAppTextInputState extends State<CarbAppTextInput> {
       focusNode: widget.focuNode,
       textInputAction: widget.inputAction,
       onFieldSubmitted: widget.onFieldSubmit,
+      autovalidateMode: widget.autovalidateMode,
     );
   }
 }

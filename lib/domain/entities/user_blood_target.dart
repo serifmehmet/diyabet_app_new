@@ -24,5 +24,6 @@ class UserBloodTarget {
     ..fbstValue = fbstValue!
     ..ofbgtValue = ofbgtValue!;
 
-  UserBloodTargetModel toRemoteModel() => UserBloodTargetModel(id: id, userId: userId, fbstValue: fbstValue, ofbgtValue: ofbgtValue);
+  UserBloodTargetModel toRemoteModel() =>
+      UserBloodTargetModel(id: id, userId: userId, fbstValue: fbstValue, ofbgtValue: ofbgtValue);
 }

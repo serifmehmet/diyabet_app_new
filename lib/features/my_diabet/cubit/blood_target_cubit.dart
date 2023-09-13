@@ -76,7 +76,8 @@ class BloodTargetCubit extends Cubit<BloodTargetState> {
 
     await _saveLocalUserBloodTargetUseCase.call(SaveUserBloodTargetParams(userBloodTarget: userBTToSave));
 
-    final remoteResponse = await _saveRemoteBloodTargetUseCase.call(SaveUserBloodTargetParams(userBloodTarget: userBTToSave));
+    final remoteResponse =
+        await _saveRemoteBloodTargetUseCase.call(SaveUserBloodTargetParams(userBloodTarget: userBTToSave));
 
     remoteResponse.fold(
       (failure) {
@@ -116,7 +117,8 @@ class BloodTargetCubit extends Cubit<BloodTargetState> {
 
     await _updateLocalBloodTargetUseCase.call(UpdateBloodTargetParams(userBloodTarget: userBTToSave));
 
-    final updateResponse = await _updateRemoteBloodTargetUseCase.call(UpdateBloodTargetParams(userBloodTarget: userBTToSave));
+    final updateResponse =
+        await _updateRemoteBloodTargetUseCase.call(UpdateBloodTargetParams(userBloodTarget: userBTToSave));
 
     updateResponse.fold(
       (failure) {

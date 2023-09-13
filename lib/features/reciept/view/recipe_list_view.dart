@@ -96,9 +96,9 @@ class _RecipeListViewState extends State<RecipeListView> {
                                         "${recipeRoot.recipes![index].portionQuantity} ${recipeRoot.recipes![index].recipeUnit}",
                                         style: Theme.of(context).textTheme.recipeListPortionName,
                                       ),
-                                      recipeRoot.recipes![index].isApproved!
-                                          ? Text("Onaylandı", style: Theme.of(context).textTheme.recipeListApproved)
-                                          : Text("Onaylanmadı", style: Theme.of(context).textTheme.recipeListNotApproved),
+                                      // recipeRoot.recipes![index].isApproved!
+                                      //     ? Text("Onaylandı", style: Theme.of(context).textTheme.recipeListApproved)
+                                      //     : Text("Onaylanmadı", style: Theme.of(context).textTheme.recipeListNotApproved),
                                     ],
                                   ),
                                   Column(
@@ -138,7 +138,8 @@ class _RecipeListViewState extends State<RecipeListView> {
                                                 },
                                               );
                                             },
-                                            child: Text("Tarif İçeriği", style: Theme.of(context).textTheme.recipeListButtonText),
+                                            child: Text("Tarif İçeriği",
+                                                style: Theme.of(context).textTheme.recipeListButtonText),
                                           ),
                                           gapW4,
                                           ElevatedButton(
@@ -168,7 +169,8 @@ class _RecipeListViewState extends State<RecipeListView> {
                                                 },
                                               );
                                             },
-                                            child: Text("Ekle", style: Theme.of(context).textTheme.recipeListButtonText),
+                                            child:
+                                                Text("Ekle", style: Theme.of(context).textTheme.recipeListButtonText),
                                           ),
                                         ],
                                       ),
@@ -178,6 +180,18 @@ class _RecipeListViewState extends State<RecipeListView> {
                               );
                             },
                             itemCount: recipeRoot.recipes!.length,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            child: Text(
+                              "Tarif Ekle   +",
+                              style: Theme.of(context).textTheme.addRecipeText,
+                            ),
+                            onPressed: () {
+                              NavigationService.instance.navigateToPage(path: NavigationConstants.ADD_RECIEPT);
+                            },
                           ),
                         ),
                       ],
