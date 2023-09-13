@@ -43,8 +43,8 @@ class BolusCubit extends Cubit<BolusState> {
   late double calculatedBolusValue = 0;
 
   Future<void> checkIdfValue() async {
-    final userIdfList =
-        await _getAllUserIdfUseCase.call(GetAllUserIdfUseCaseParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
+    final userIdfList = await _getAllUserIdfUseCase
+        .call(GetAllUserIdfUseCaseParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
 
     if (userIdfList.isEmpty) {
       emit(
@@ -58,21 +58,43 @@ class BolusCubit extends Cubit<BolusState> {
     TimeOfDay now = TimeOfDay.now();
 
     //IdfList
-    final userIdfList =
-        await _getAllUserIdfUseCase.call(GetAllUserIdfUseCaseParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
+    final userIdfList = await _getAllUserIdfUseCase
+        .call(GetAllUserIdfUseCaseParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
 
     if (userIdfList.isEmpty) {
-      emit(const UserIdfListEmpty(emptyIdfMessage: "IDF Bilgileri bulunamadı."));
+      emit(const MyDiabetInfoMissing(emptyInfoMessage: "IDF Bilgileri bulunamadı."));
       return;
     }
 
-    final userIkoList =
-        await _getAllUserIkoListUseCase.call(GetAllUserIkoListParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
-    final userBloodTargetFromLocal =
-        await _getLocalUserBloodTargetUseCase.call(GetLocalUserBloodTargetParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
-    userBloodTargetFromLocal.fold((l) => null, (r) {
-      userBloodTarget = r;
+    final userIkoList = await _getAllUserIkoListUseCase
+        .call(GetAllUserIkoListParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
+
+    if (userIkoList.isEmpty) {
+      emit(
+        const MyDiabetInfoMissing(
+            emptyInfoMessage:
+                "IKO Bilgileri bulunamadı, lütfen Diyabet Bilgilerim ekranından IKO bilgilerinizi girin."),
+      );
+    }
+    final userBloodTargetFromLocal = await _getLocalUserBloodTargetUseCase
+        .call(GetLocalUserBloodTargetParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
+    //fold response...
+    userBloodTargetFromLocal.fold((l) {
+      emit(
+        const MyDiabetInfoMissing(
+            emptyInfoMessage:
+                "Kan Şekeri değerleriniz eksik, lütfen Diyabet Bilgilerim ekranından Hedef Kan Şekeri değerlerinizi girin."),
+      );
+    }, (r) {
+      if (r!.fbstValue == 0 || r.ofbgtValue == 0) {
+        emit(
+          const MyDiabetInfoMissing(
+              emptyInfoMessage:
+                  "Kan Şekeri değerleriniz eksik, lütfen Diyabet Bilgilerim ekranından Hedef Kan Şekeri değerlerinizi girin."),
+        );
+      }
     });
+
     //Sort by hour
     userIdfList.sort((a, b) => a.hour!.compareTo(b.hour!));
     //Idf içinde dön
@@ -100,12 +122,17 @@ class BolusCubit extends Cubit<BolusState> {
       }
     }
 
-    emit(BolusInfoLoaded(ikoValue: ikoValue, idfValue: idfValue, targetValue: userBloodTarget!.fbstValue!, lastMealHour: lastMealHour));
+    emit(BolusInfoLoaded(
+        ikoValue: ikoValue, idfValue: idfValue, targetValue: userBloodTarget!.fbstValue!, lastMealHour: lastMealHour));
   }
 
   void changeTargetType(int lastMealHour) {
     if (lastMealHour == 5) {
-      emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: userBloodTarget!.fbstValue!, lastMealHour: lastMealHour));
+      emit(BolusInfoLoaded(
+          idfValue: idfValue,
+          ikoValue: ikoValue,
+          targetValue: userBloodTarget!.fbstValue!,
+          lastMealHour: lastMealHour));
       return;
     }
     emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: targetValue, lastMealHour: lastMealHour));
@@ -143,11 +170,14 @@ class BolusCubit extends Cubit<BolusState> {
         calculatedBolusValue: calculatedBolusValue,
         calculatedTime: DateTime.now(),
       );
-      final response = await _saveCalculatedUserBolusUsecase.call(SaveCalculatedUserBolusParams(userBolus: userBolus, mealId: mealId));
+      final response = await _saveCalculatedUserBolusUsecase
+          .call(SaveCalculatedUserBolusParams(userBolus: userBolus, mealId: mealId));
 
       if (response.errorCode == "OK") {
         emit(CalculatedBolusSaved(
-            successMessage: "Hesaplamanız başarıyla kaydedilmiştir.", calculatedBolusValue: calculatedBolusValue, calculatedMealId: mealId));
+            successMessage: "Hesaplamanız başarıyla kaydedilmiştir.",
+            calculatedBolusValue: calculatedBolusValue,
+            calculatedMealId: mealId));
       } else {
         emit(const CalculatedBolusSaveError(failureMessage: "Hesaplama kaydedilirken bir problem oluştu."));
       }

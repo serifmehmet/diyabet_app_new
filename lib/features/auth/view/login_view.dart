@@ -26,6 +26,16 @@ class LoginView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Theme.of(context).backgroundColor,
+          actionsIconTheme: const IconThemeData(
+            color: Color(0xff000000),
+          ),
+          iconTheme: const IconThemeData(
+            color: Color(0xff000000),
+          ),
+        ),
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is LoginFailure) {

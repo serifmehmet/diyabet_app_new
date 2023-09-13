@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:diyabet_app/core/constants/app_sizes.dart';
+import 'package:diyabet_app/core/constants/enums/preferences_keys.dart';
+import 'package:diyabet_app/core/init/cache/cache_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,13 +23,24 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     var authCubit = BlocProvider.of<AuthCubit>(context);
+    bool isFirstTime = CacheManager.instance.getBoolValue(PreferencesKeys.IS_FIRST_TIME);
     Timer(
       const Duration(seconds: 2),
       () {
         if (authCubit.state is Authenticated) {
-          NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+          //This is for the first time run
+          if (!isFirstTime) {
+            NavigationService.instance.navigateToPageClear(path: NavigationConstants.ONBOARD);
+          } else {
+            NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+          }
         } else if (authCubit.state is UnAuthenticated) {
-          NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+          //This is for the first time run
+          if (!isFirstTime) {
+            NavigationService.instance.navigateToPageClear(path: NavigationConstants.ONBOARD);
+          } else {
+            NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
+          }
         }
       },
     );

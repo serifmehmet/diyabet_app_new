@@ -138,20 +138,6 @@ class _SaveRecipeDialogContentState extends State<SaveRecipeDialogContent> {
                   },
                 ),
                 gapH12,
-                Row(
-                  children: [
-                    Checkbox(
-                      value: isChecked,
-                      onChanged: (value) => setState(() {
-                        isChecked = value!;
-                      }),
-                    ),
-                    const Text(
-                      "Tarifimi onaylama sistemine gönder?",
-                      style: TextStyle(color: Colors.black, fontSize: 11),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   width: double.infinity,
                   child: AppButton(
