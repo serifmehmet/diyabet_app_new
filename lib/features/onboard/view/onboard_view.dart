@@ -158,20 +158,40 @@ class OnboardItem {
 
 final List<OnboardItem> onBoardData = [
   OnboardItem(
-    image: "assets/karbapp-giris.png",
+    image: "assets/onboard/onboard1.jpg",
     title: "Uygulmanın tüm özelliklerini kullanabilmek için kayıt olmalısınız.",
     description:
         "Bu ekrandaki Kayıt Ol butonuna tıklayarak kayıtlı kullanıcı olabilir, Şifremi Unuttum butonuna tıklayarak şifrenizi yenileyebilirsiniz. Her ihtimale karşı Spam kutunuzu kontrol etmeyi unutmayın!",
   ),
   OnboardItem(
-    image: "assets/iu-logo.png",
-    title: "Uygulama açıldığında önce kayıt olun",
-    description: "KarbApp uygulamasının tüm özelliklerinden faydalanmak için kayıtlı kullanıcı olmanız gerekmektedir.",
+    image: "assets/onboard/onboard2.jpg",
+    title: "Karbonhidrat miktarını öğrenmek istediğiniz besinin adını yazarak aramaya başlayabilirsiniz. ",
+    description:
+        "Karbonhidrat miktarını öğrenmek istediğiniz besinin adını yazıp, uygun gramaj değeri ya da veri tabanımızda tanımlanmış diğer ölçü birimlerini seçerek beslenme günlüğünüzü oluşturabilir, öğünde toplam alacağınız karbonhidrat miktarını hesaplayabilirsiniz. ",
   ),
   OnboardItem(
-    image: "assets/pedider-logo.png",
-    title: "Uygulama açıldığında önce kayıt olun",
-    description: "KarbApp uygulamasının tüm özelliklerinden faydalanmak için kayıtlı kullanıcı olmanız gerekmektedir.",
+    image: "assets/onboard/onboard3.jpg",
+    title: "Diyabet bilgilerinizi uygulamaya kaydetmeyi unutmayın. ",
+    description:
+        "İnsülin duyarlılık (düzeltme) faktörü, insülin/karbonhidrat oranları ve kan şekeri hedeflerinizi tanımlayabilirsiniz. Günün farklı zamanlarında değişebilen insülin duyarlılık (düzeltme) faktörü ve  insülin/karbonhidrat oranlarınıza göre birden fazla değeri saatlik dilimler halinde kaydedebilirsiniz.",
+  ),
+  OnboardItem(
+    image: "assets/onboard/onboard4.jpg",
+    title: "Tüketeceğiniz besinleri kaydedip bolus hesaplaması yapabilirsiniz.  ",
+    description:
+        "Tüketeceğiniz besinleri kaydettikten sonra bolus hesapla butonuna basarak, açlık kan şekerinize ve en son yediğiniz besin için yaptığınız insülin enjeksiyonunun üzerinden geçen zamana göre uygulamanın önereceği bolus insülin dozunu görebilirsiniz.",
+  ),
+  OnboardItem(
+    image: "assets/onboard/onboard5.jpg",
+    title: "Kendinize özel yemek tariflerini oluşturabilir, karbonhidrat miktarını hesaplayabilirsiniz. ",
+    description:
+        "Tarif ekle özelliği sayesinde kendi kullandığınız yemek tariflerini içindeki malzemeleri seçerek kaydedebilir, 1 porsiyon değerini hesaplayabilirsiniz. ",
+  ),
+  OnboardItem(
+    image: "assets/onboard/onboard6.jpg",
+    title: "Yardım Menüsü",
+    description:
+        "Uygulamanın kullanımıyla ilgili daha fazla yardım almak isterseniz yardım menüsünden daha detaylı bilgi alabilirsiniz ",
   ),
 ];
 
@@ -203,8 +223,12 @@ class OnBoardContent extends StatelessWidget {
         Text(
           description,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+              ),
         ),
+
         gapH24
       ],
     );

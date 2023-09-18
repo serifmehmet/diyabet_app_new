@@ -16,7 +16,12 @@ class RecipeListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecipeCubit, RecipeState>(
+    return BlocConsumer<RecipeCubit, RecipeState>(
+      listener: (context, state) {
+        if (state is RecipeSaveSuccess) {
+          Navigator.of(context).pop();
+        }
+      },
       builder: (context, state) {
         return state.maybeWhen(
           orElse: () => gapH4,
@@ -113,7 +118,8 @@ class RecipeListWidget extends StatelessWidget {
                                           },
                                         );
                                       },
-                                      child: Text("Tarif İçeriği", style: Theme.of(context).textTheme.recipeListButtonText),
+                                      child: Text("Tarif İçeriği",
+                                          style: Theme.of(context).textTheme.recipeListButtonText),
                                     ),
                                     gapW4,
                                     ElevatedButton(
@@ -135,7 +141,7 @@ class RecipeListWidget extends StatelessWidget {
                                           isScrollControlled: true,
                                           builder: (context) {
                                             return SizedBox(
-                                              height: 350,
+                                              height: 400,
                                               child: AddRecipeToConsumptionBottomSheetWidget(
                                                 recipe: recipeRoot.recipes![index],
                                               ),

@@ -42,6 +42,12 @@ class _MyDiabetViewState extends State<MyDiabetView> {
   }
 
   @override
+  void initState() {
+    BlocProvider.of<MyDiabetCubit>(context).getAllUserIdf();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
@@ -131,7 +137,8 @@ class _MyDiabetViewState extends State<MyDiabetView> {
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
-                                                      BlocProvider.of<MyDiabetCubit>(context).deleteUserIdfItem(state.userIdfList[index].id!);
+                                                      BlocProvider.of<MyDiabetCubit>(context)
+                                                          .deleteUserIdfItem(state.userIdfList[index].id!);
                                                       Navigator.pop(context, "OK");
                                                     },
                                                     child: const Text(
@@ -252,7 +259,8 @@ class _MyDiabetViewState extends State<MyDiabetView> {
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
-                                                      BlocProvider.of<IkoCubit>(context).deleteSingleUserIko(state.userIkoList[index].id!);
+                                                      BlocProvider.of<IkoCubit>(context)
+                                                          .deleteSingleUserIko(state.userIkoList[index].id!);
                                                       Navigator.pop(context, "OK");
                                                     },
                                                     child: const Text(

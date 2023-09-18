@@ -27,7 +27,7 @@ class _AddRecipeToConsumptionBottomSheetWidgetState extends State<AddRecipeToCon
   @override
   void initState() {
     quantityController.text = "1";
-    carbValue = widget.recipe.totalCarb!;
+    carbValue = widget.recipe.totalCarb! / widget.recipe.portionQuantity!;
     super.initState();
   }
 
@@ -133,7 +133,8 @@ class _AddRecipeToConsumptionBottomSheetWidgetState extends State<AddRecipeToCon
                             onChanged: (value) {
                               if (value != "") {
                                 setState(() {
-                                  carbValue = widget.recipe.totalCarb! * double.parse(value);
+                                  carbValue =
+                                      (widget.recipe.totalCarb! / widget.recipe.portionQuantity!) * double.parse(value);
                                 });
                               }
                             },
@@ -182,6 +183,7 @@ class _AddRecipeToConsumptionBottomSheetWidgetState extends State<AddRecipeToCon
                   ],
                 ),
               ),
+              gapH48,
             ],
           ),
         ),
