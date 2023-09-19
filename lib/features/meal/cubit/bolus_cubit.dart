@@ -38,7 +38,7 @@ class BolusCubit extends Cubit<BolusState> {
   late double idfValue = 0;
   late double ikoValue = 0;
   late double targetValue = 0;
-  late UserBloodTarget? userBloodTarget;
+  UserBloodTarget? userBloodTarget;
   late int lastMealHour = 5;
   late double calculatedBolusValue = 0;
 
@@ -78,6 +78,7 @@ class BolusCubit extends Cubit<BolusState> {
     }
     final userBloodTargetFromLocal = await _getLocalUserBloodTargetUseCase
         .call(GetLocalUserBloodTargetParams(userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID)));
+
     //fold response...
     userBloodTargetFromLocal.fold((l) {
       emit(
@@ -92,61 +93,132 @@ class BolusCubit extends Cubit<BolusState> {
               emptyInfoMessage:
                   "Kan Şekeri değerleriniz eksik, lütfen Diyabet Bilgilerim ekranından Hedef Kan Şekeri değerlerinizi girin."),
         );
+        //Call a function to calculate hours
+
       }
+
+      userIdfList.sort((a, b) => a.hour!.compareTo(b.hour!));
+
+      if (userIdfList.length == 1) {
+        idfValue = userIdfList[0].idfValue!;
+      } else {
+        for (var userIdf in userIdfList) {
+          //DateTime'ı TimeOfDay'e çevir
+          TimeOfDay incomingTime = TimeOfDay(hour: userIdf.hour!.hour, minute: userIdf.hour!.minute);
+
+          var hour1 = toDouble(incomingTime);
+          var hour2 = toDouble(now);
+
+          if (hour1 <= hour2) {
+            idfValue = userIdf.idfValue!;
+          }
+        }
+      }
+
+      userIkoList.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+
+      if (userIkoList.length == 1) {
+        ikoValue = userIkoList[0].ikoValue!;
+      } else {
+        for (var userIko in userIkoList) {
+          TimeOfDay incomingTime = TimeOfDay(hour: userIko.hour!.hour, minute: userIko.hour!.minute);
+
+          var hour1 = toDouble(incomingTime);
+          var hour2 = toDouble(now);
+
+          if (hour1 <= hour2) {
+            ikoValue = userIko.ikoValue!;
+          }
+        }
+      }
+
+      emit(
+        BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: r.fbstValue!, lastMealHour: lastMealHour),
+      );
     });
 
-    //Sort by hour
-    userIdfList.sort((a, b) => a.hour!.compareTo(b.hour!));
-    //Idf içinde dön
-    for (var userIdf in userIdfList) {
-      //DateTime'ı TimeOfDay'e çevir
-      TimeOfDay incomingTime = TimeOfDay(hour: userIdf.hour!.hour, minute: userIdf.hour!.minute);
+    // //Sort by hour
+    // userIdfList.sort((a, b) => a.hour!.compareTo(b.hour!));
+    // //Idf içinde dön
+    // for (var userIdf in userIdfList) {
+    //   //DateTime'ı TimeOfDay'e çevir
+    //   TimeOfDay incomingTime = TimeOfDay(hour: userIdf.hour!.hour, minute: userIdf.hour!.minute);
 
-      var hour1 = toDouble(incomingTime);
-      var hour2 = toDouble(now);
+    //   var hour1 = toDouble(incomingTime);
+    //   var hour2 = toDouble(now);
 
-      if (hour1 <= hour2) {
-        idfValue = userIdf.idfValue!;
-      }
-    }
+    //   if (hour1 <= hour2) {
+    //     idfValue = userIdf.idfValue!;
+    //   }
+    // }
 
-    //Iko içinde dön
-    for (var userIko in userIkoList) {
-      TimeOfDay incomingTime = TimeOfDay(hour: userIko.hour!.hour, minute: userIko.hour!.minute);
+    // //Iko içinde dön
+    // for (var userIko in userIkoList) {
+    //   TimeOfDay incomingTime = TimeOfDay(hour: userIko.hour!.hour, minute: userIko.hour!.minute);
 
-      var hour1 = toDouble(incomingTime);
-      var hour2 = toDouble(now);
+    //   var hour1 = toDouble(incomingTime);
+    //   var hour2 = toDouble(now);
 
-      if (hour1 <= hour2) {
-        ikoValue = userIko.ikoValue!;
-      }
-    }
+    //   if (hour1 <= hour2) {
+    //     ikoValue = userIko.ikoValue!;
+    //   }
+    // }
 
-    emit(BolusInfoLoaded(
-        ikoValue: ikoValue, idfValue: idfValue, targetValue: userBloodTarget!.fbstValue!, lastMealHour: lastMealHour));
+    // emit(BolusInfoLoaded(
+    //     ikoValue: ikoValue, idfValue: idfValue, targetValue: userBloodTarget!.fbstValue!, lastMealHour: lastMealHour));
   }
 
-  void changeTargetType(int lastMealHour) {
+  void changeTargetType(int lastMealHour) async {
     if (lastMealHour == 5) {
-      emit(BolusInfoLoaded(
+      final userBloodTargetFromLocal = await _getLocalUserBloodTargetUseCase.call(
+        GetLocalUserBloodTargetParams(
+          userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
+        ),
+      );
+
+      userBloodTargetFromLocal.fold(
+        (l) => {},
+        (r) {
+          emit(
+            BolusInfoLoaded(
+              idfValue: idfValue,
+              ikoValue: ikoValue,
+              targetValue: r!.fbstValue!,
+              lastMealHour: lastMealHour,
+            ),
+          );
+        },
+      );
+    } else {
+      emit(
+        BolusInfoLoaded(
           idfValue: idfValue,
           ikoValue: ikoValue,
-          targetValue: userBloodTarget!.fbstValue!,
-          lastMealHour: lastMealHour));
-      return;
+          targetValue: targetValue,
+          lastMealHour: lastMealHour,
+        ),
+      );
     }
-    emit(BolusInfoLoaded(idfValue: idfValue, ikoValue: ikoValue, targetValue: targetValue, lastMealHour: lastMealHour));
   }
 
-  void calculateBolus(int lastMealHour, double totalCarb, int mealId, {double? instantBloodSugarValue}) {
+  void calculateBolus(int lastMealHour, double totalCarb, int mealId, {double? instantBloodSugarValue}) async {
     double result;
     double correctionDoze;
     double calculatedInsulinDoze;
+
     //3+
     if (lastMealHour == 5) {
-      correctionDoze = (instantBloodSugarValue! - userBloodTarget!.fbstValue!) / idfValue;
-      calculatedInsulinDoze = totalCarb / ikoValue;
-      calculatedBolusValue = correctionDoze + calculatedInsulinDoze;
+      final userBloodTargetFromLocal = await _getLocalUserBloodTargetUseCase.call(
+        GetLocalUserBloodTargetParams(
+          userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
+        ),
+      );
+      if (userBloodTargetFromLocal.isRight()) {
+        final uBT = userBloodTargetFromLocal.getOrElse(() => null);
+        correctionDoze = (instantBloodSugarValue! - uBT!.fbstValue!) / idfValue;
+        calculatedInsulinDoze = totalCarb / ikoValue;
+        calculatedBolusValue = correctionDoze + calculatedInsulinDoze;
+      }
     } else if (lastMealHour == 4 || lastMealHour == 3) {
       correctionDoze = (instantBloodSugarValue! - 160) / idfValue;
       calculatedInsulinDoze = totalCarb / ikoValue;

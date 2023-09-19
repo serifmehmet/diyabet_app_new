@@ -30,6 +30,7 @@ class _SplashViewState extends State<SplashView> {
         if (authCubit.state is Authenticated) {
           //This is for the first time run
           if (!isFirstTime) {
+            CacheManager.instance.setBoolValue(PreferencesKeys.IS_FIRST_TIME, true);
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.ONBOARD);
           } else {
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);
@@ -37,6 +38,7 @@ class _SplashViewState extends State<SplashView> {
         } else if (authCubit.state is UnAuthenticated) {
           //This is for the first time run
           if (!isFirstTime) {
+            CacheManager.instance.setBoolValue(PreferencesKeys.IS_FIRST_TIME, true);
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.ONBOARD);
           } else {
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.HOME_PAGE);

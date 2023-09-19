@@ -2,6 +2,7 @@ import 'package:diyabet_app/data/datasources/remote/recipe/recipe_unit_remote_da
 import 'package:diyabet_app/data/repositories/remote/recipe_unit_repository.dart';
 import 'package:diyabet_app/domain/usecases/food/get_favorite_foods_usecase.dart';
 import 'package:diyabet_app/domain/usecases/food/save_favorite_food_usecase.dart';
+import 'package:diyabet_app/domain/usecases/recipe/remote/delete_user_remote_recipe_usecase.dart';
 import 'package:diyabet_app/domain/usecases/recipe_unit/get_recipe_units_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user/reset_user_password_usecase.dart';
 import 'package:diyabet_app/domain/usecases/user/user_update_info_usecase.dart';
@@ -111,6 +112,7 @@ Future<void> init() async {
         saveRemoteRecipeUseCase: sl.call(),
         getUserRemoteRecipeUseCase: sl.call(),
         getRecipeUnitsUseCase: sl.call(),
+        deleteUserRemoteRecipeUseCase: sl.call(),
       ));
 
   sl.registerFactory<RecipeFoodSearchCubit>(() => RecipeFoodSearchCubit(getFoodsFromCacheOnName: sl.call()));
@@ -164,7 +166,8 @@ Future<void> init() async {
   sl.registerLazySingleton<UserLoginUseCase>(() => UserLoginUseCase(userRepositoryImpl: sl()));
   sl.registerLazySingleton<UserRegisterUseCase>(() => UserRegisterUseCase(userRepository: sl()));
   sl.registerLazySingleton<GetFoodOnIdUseCase>(() => GetFoodOnIdUseCase(foodRepository: sl()));
-  sl.registerLazySingleton<SaveFoodConsumptionUseCase>(() => SaveFoodConsumptionUseCase(foodConsumptionRepository: sl()));
+  sl.registerLazySingleton<SaveFoodConsumptionUseCase>(
+      () => SaveFoodConsumptionUseCase(foodConsumptionRepository: sl()));
   sl.registerLazySingleton<GetMealByFilterUseCase>(() => GetMealByFilterUseCase(foodConsumptionRepository: sl()));
   sl.registerLazySingleton<SaveRemoteUserIdf>(() => SaveRemoteUserIdf(userRepository: sl()));
   sl.registerLazySingleton<DeleteRemoteUserIdfUseCase>(() => DeleteRemoteUserIdfUseCase(userRepository: sl()));
@@ -174,6 +177,7 @@ Future<void> init() async {
   sl.registerLazySingleton<UpdateRemoteBloodTargetUseCase>(() => UpdateRemoteBloodTargetUseCase(userRepository: sl()));
   sl.registerLazySingleton<SaveCalculatedUserBolusUsecase>(() => SaveCalculatedUserBolusUsecase(userRepository: sl()));
   sl.registerLazySingleton<SaveRemoteRecipeUseCase>(() => SaveRemoteRecipeUseCase(recipeRepository: sl()));
+  sl.registerLazySingleton<DeleteUserRemoteRecipeUseCase>(() => DeleteUserRemoteRecipeUseCase(repository: sl()));
   sl.registerLazySingleton<GetUserRemoteRecipeUseCase>(() => GetUserRemoteRecipeUseCase(recipeRepository: sl()));
   sl.registerLazySingleton<UserUpdateInfoUseCase>(() => UserUpdateInfoUseCase(userRepository: sl()));
   sl.registerLazySingleton<ResetUserPasswordUseCase>(() => ResetUserPasswordUseCase(userRepository: sl()));
@@ -185,7 +189,8 @@ Future<void> init() async {
   sl.registerLazySingleton<GetSavedLocalFoodsUseCase>(() => GetSavedLocalFoodsUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<DeleteAllFoodsUseCase>(() => DeleteAllFoodsUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<DeleteSingleFoodUseCase>(() => DeleteSingleFoodUseCase(localFoodRepository: sl()));
-  sl.registerLazySingleton<GetSingleFoodFromLocalUseCase>(() => GetSingleFoodFromLocalUseCase(localFoodRepository: sl()));
+  sl.registerLazySingleton<GetSingleFoodFromLocalUseCase>(
+      () => GetSingleFoodFromLocalUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<UpdateLocalFoodUseCase>(() => UpdateLocalFoodUseCase(localFoodRepository: sl()));
   sl.registerLazySingleton<SaveLocalUserIdfUseCase>(() => SaveLocalUserIdfUseCase(localUserIdfRepository: sl()));
   sl.registerLazySingleton<GetAllUserIdfUseCase>(() => GetAllUserIdfUseCase(localUserIdfRepository: sl()));
@@ -193,9 +198,12 @@ Future<void> init() async {
   sl.registerLazySingleton<SaveLocalUserIkoUseCase>(() => SaveLocalUserIkoUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<GetAllUserIkoListUseCase>(() => GetAllUserIkoListUseCase(localUserIkoRepository: sl()));
   sl.registerLazySingleton<DeleteSingleUserIkoUseCase>(() => DeleteSingleUserIkoUseCase(localUserIkoRepository: sl()));
-  sl.registerLazySingleton<SaveLocalUserBloodTargetUseCase>(() => SaveLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
-  sl.registerLazySingleton<GetLocalUserBloodTargetUseCase>(() => GetLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
-  sl.registerLazySingleton<UpdateLocalBloodTargetUseCase>(() => UpdateLocalBloodTargetUseCase(localUserBloodTargetRepository: sl()));
+  sl.registerLazySingleton<SaveLocalUserBloodTargetUseCase>(
+      () => SaveLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
+  sl.registerLazySingleton<GetLocalUserBloodTargetUseCase>(
+      () => GetLocalUserBloodTargetUseCase(localUserBloodTargetRepository: sl()));
+  sl.registerLazySingleton<UpdateLocalBloodTargetUseCase>(
+      () => UpdateLocalBloodTargetUseCase(localUserBloodTargetRepository: sl()));
   sl.registerLazySingleton<GetFavoriteFoodsUsecase>(() => GetFavoriteFoodsUsecase(foodRepository: sl()));
   sl.registerLazySingleton<SaveFavoriteFoodUsecase>(() => SaveFavoriteFoodUsecase(foodRepository: sl()));
   // sl.registerLazySingleton<SaveLocalRecipeUseCase>(() => SaveLocalRecipeUseCase(localReceiptRepository: sl()));
@@ -233,14 +241,18 @@ Future<void> init() async {
       userBolusRemoteDataSource: sl.call(),
     ),
   );
-  sl.registerLazySingleton<FoodConsumptionRepository>(() => FoodConsumptionRepositoryImpl(consumptionRemoteDataSource: sl.call()));
+  sl.registerLazySingleton<FoodConsumptionRepository>(
+      () => FoodConsumptionRepositoryImpl(consumptionRemoteDataSource: sl.call()));
   sl.registerLazySingleton<RecipeRepository>(() => RecipeRepositoryImpl(remoteRecipeDataSource: sl.call()));
   sl.registerLazySingleton<RecipeUnitRepository>(() => RecipeUnitRepositoryImpl(remoteRecipeUnitDataSource: sl.call()));
   //Local Repositoties
-  sl.registerLazySingleton<LocalFoodRepository>(() => LocalFoodRepositoryImpl(cacheFoodLocalDataSource: sl.call(), foodLocalDataSource: sl.call()));
-  sl.registerLazySingleton<LocalUserIdfRepository>(() => LocalUserIdfRepositoryImpl(localUserIdfLocalDataSource: sl.call()));
+  sl.registerLazySingleton<LocalFoodRepository>(
+      () => LocalFoodRepositoryImpl(cacheFoodLocalDataSource: sl.call(), foodLocalDataSource: sl.call()));
+  sl.registerLazySingleton<LocalUserIdfRepository>(
+      () => LocalUserIdfRepositoryImpl(localUserIdfLocalDataSource: sl.call()));
   sl.registerLazySingleton<LocalUserIkoRepository>(() => LocalUserIkoRepositoryImpl(localUserIkoDataSource: sl.call()));
-  sl.registerLazySingleton<LocalUserBloodTargetRepository>(() => LocalUserBloodTargetRepositoryImpl(localUserBloodTargetDataSource: sl.call()));
+  sl.registerLazySingleton<LocalUserBloodTargetRepository>(
+      () => LocalUserBloodTargetRepositoryImpl(localUserBloodTargetDataSource: sl.call()));
   sl.registerLazySingleton<LocalRecipeRepository>(() => LocalRecipeRepositoryImpl(localRecipeDataSource: sl.call()));
 
   final networkManager = NetworkManager(

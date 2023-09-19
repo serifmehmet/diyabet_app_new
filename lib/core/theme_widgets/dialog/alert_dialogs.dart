@@ -27,8 +27,24 @@ Future<bool?> showAlertDialogDefault({
           if (cancelActionText != null)
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text(cancelActionText),
+              child: Text(
+                cancelActionText,
+                style: const TextStyle(
+                  color: Color(
+                    0xff000000,
+                  ),
+                ),
+              ),
             ),
+          TextButton(
+            child: Text(
+              defaultActionText,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
+              ),
+            ),
+            onPressed: () => Navigator.of(context).pop(true),
+          ),
         ],
       );
     },

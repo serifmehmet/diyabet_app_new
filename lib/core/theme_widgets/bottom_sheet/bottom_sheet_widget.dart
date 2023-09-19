@@ -243,7 +243,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                   inputTextStyle: Theme.of(context).textTheme.headline4,
                   inputBorderRadius: 24,
-                  inputText: "1",
+                  inputText: "",
                   textController: quantityController,
                   onChanged: (value) {
                     if (dropDownValue == null) {

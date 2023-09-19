@@ -10,6 +10,7 @@ import '../../../core/base/error/failure.dart';
 abstract class RecipeRepository {
   Future<Either<Failure, GenericResponse>> addNewRecipe(Recipe recipe);
   Future<Either<Failure, RecipeRoot>> getRecipeByUserId(int userId);
+  Future<Either<Failure, GenericResponse>> deleteRecipe(int recipeId, int userId);
 }
 
 class RecipeRepositoryImpl extends RecipeRepository {
@@ -39,6 +40,17 @@ class RecipeRepositoryImpl extends RecipeRepository {
       return const Left(UnAuthorizedError());
     } on EmptyResponseError {
       return const Left(EmptyResponseError());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericResponse>> deleteRecipe(int recipeId, int userId) async {
+    try {
+      final recipeResponse = await remoteRecipeDataSource.deleteRecipe(recipeId, userId);
+
+      return Right(recipeResponse!.toEntity());
+    } on UnAuthorized {
+      return const Left(UnAuthorizedError());
     }
   }
 }

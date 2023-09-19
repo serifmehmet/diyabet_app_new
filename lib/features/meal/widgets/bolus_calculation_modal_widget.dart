@@ -261,6 +261,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                             inputBorderRadius: 10,
                             inputText: "Kan şekeri değeri",
                             textController: instantBloodSugar,
+                            keyboardType: TextInputType.number,
                           );
                         }
                       }

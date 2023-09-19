@@ -3,9 +3,11 @@ import 'package:diyabet_app/core/init/navigation/navigation_service.dart';
 import 'package:diyabet_app/core/init/theme/app_theme.dart';
 import 'package:diyabet_app/core/theme_widgets/bottom_sheet/add_recipe_to_consumption_bottomsheet_widget.dart';
 import 'package:diyabet_app/core/theme_widgets/bottom_sheet/recipe_detail_bottomsheet_widget.dart';
+import 'package:diyabet_app/core/theme_widgets/dialog/alert_dialogs.dart';
 import 'package:diyabet_app/features/reciept/cubit/recipe_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconly/iconly.dart';
 
 import '../../../core/constants/app_sizes.dart';
 
@@ -39,7 +41,12 @@ class _RecipeListViewState extends State<RecipeListView> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14),
-          child: BlocBuilder<RecipeCubit, RecipeState>(
+          child: BlocConsumer<RecipeCubit, RecipeState>(
+            listener: (context, state) {
+              if (state is RecipeSaveSuccess) {
+                Navigator.of(context).pop();
+              }
+            },
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () {
@@ -96,9 +103,41 @@ class _RecipeListViewState extends State<RecipeListView> {
                                         "${recipeRoot.recipes![index].portionQuantity} ${recipeRoot.recipes![index].recipeUnit}",
                                         style: Theme.of(context).textTheme.recipeListPortionName,
                                       ),
-                                      // recipeRoot.recipes![index].isApproved!
-                                      //     ? Text("Onaylandı", style: Theme.of(context).textTheme.recipeListApproved)
-                                      //     : Text("Onaylanmadı", style: Theme.of(context).textTheme.recipeListNotApproved),
+                                      IconButton(
+                                        onPressed: () {
+                                          final result = showAlertDialogDefault(
+                                            context: context,
+                                            title: 'Tarif Silme',
+                                            cancelActionText: "İptal",
+                                            defaultActionText: "Eminim",
+                                            content: SizedBox(
+                                              height: 70,
+                                              child: Center(
+                                                child: Text(
+                                                  "Tarifi silmek üzeresiniz, emin misiniz?",
+                                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                        color: const Color(
+                                                          0xff000000,
+                                                        ),
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.normal,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                          ).then((value) {
+                                            if (value!) {
+                                              BlocProvider.of<RecipeCubit>(context).deleteRemoteRecipe(
+                                                recipeId: recipeRoot.recipes![index].id!,
+                                              );
+                                            }
+                                          });
+                                        },
+                                        icon: Icon(
+                                          IconlyBold.delete,
+                                          color: Theme.of(context).colorScheme.error,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   Column(

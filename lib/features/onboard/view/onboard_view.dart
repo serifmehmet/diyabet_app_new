@@ -38,6 +38,7 @@ class _OnboardViewState extends State<OnboardView> {
           child: Column(
             children: [
               Expanded(
+                flex: 10,
                 child: PageView.builder(
                   itemCount: onBoardData.length,
                   controller: _pageController,
@@ -53,64 +54,67 @@ class _OnboardViewState extends State<OnboardView> {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  ...List.generate(
-                    onBoardData.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.only(right: 4.0),
-                      child: DotContainer(
-                        isActive: index == _pageIndex,
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      onBoardData.length,
+                      (index) => Padding(
+                        padding: const EdgeInsets.only(right: 4.0),
+                        child: DotContainer(
+                          isActive: index == _pageIndex,
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  AnimatedContainer(
-                    duration: const Duration(
-                      milliseconds: 300,
-                    ),
-                    height: _pageIndex < onBoardData.length - 1 ? 60 : 50,
-                    width: _pageIndex < onBoardData.length - 1 ? 60 : 120,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_pageIndex == onBoardData.length - 1) {
-                          NavigationService.instance.navigateToPageClear(
-                            path: NavigationConstants.HOME_PAGE,
-                          );
-                        } else {
-                          _pageController.nextPage(
-                            duration: const Duration(
-                              milliseconds: 300,
-                            ),
-                            curve: Curves.ease,
-                          );
-                        }
-                      },
-                      style: _pageIndex < onBoardData.length - 1
-                          ? ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(
-                                0,
+                    const Spacer(),
+                    AnimatedContainer(
+                      duration: const Duration(
+                        milliseconds: 300,
+                      ),
+                      height: _pageIndex < onBoardData.length - 1 ? 60 : 50,
+                      width: _pageIndex < onBoardData.length - 1 ? 60 : 120,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_pageIndex == onBoardData.length - 1) {
+                            NavigationService.instance.navigateToPageClear(
+                              path: NavigationConstants.HOME_PAGE,
+                            );
+                          } else {
+                            _pageController.nextPage(
+                              duration: const Duration(
+                                milliseconds: 300,
                               ),
-                              shape: const CircleBorder(),
-                            )
-                          : ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(
-                                0,
-                              ),
-                            ),
-                      child: Center(
-                        child: _pageIndex < onBoardData.length - 1
-                            ? const Icon(
-                                IconlyLight.arrow_right,
+                              curve: Curves.ease,
+                            );
+                          }
+                        },
+                        style: _pageIndex < onBoardData.length - 1
+                            ? ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(
+                                  0,
+                                ),
+                                shape: const CircleBorder(),
                               )
-                            : Text(
-                                "Tanıtımı Bitir",
-                                style: Theme.of(context).textTheme.elevatedButtonSmallText,
+                            : ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(
+                                  0,
+                                ),
                               ),
+                        child: Center(
+                          child: _pageIndex < onBoardData.length - 1
+                              ? const Icon(
+                                  IconlyLight.arrow_right,
+                                )
+                              : Text(
+                                  "Tanıtımı Bitir",
+                                  style: Theme.of(context).textTheme.elevatedButtonSmallText,
+                                ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )
             ],
           ),
@@ -158,20 +162,40 @@ class OnboardItem {
 
 final List<OnboardItem> onBoardData = [
   OnboardItem(
-    image: "assets/karbapp-giris.png",
+    image: "assets/onboard/onboard1.jpg",
     title: "Uygulmanın tüm özelliklerini kullanabilmek için kayıt olmalısınız.",
     description:
         "Bu ekrandaki Kayıt Ol butonuna tıklayarak kayıtlı kullanıcı olabilir, Şifremi Unuttum butonuna tıklayarak şifrenizi yenileyebilirsiniz. Her ihtimale karşı Spam kutunuzu kontrol etmeyi unutmayın!",
   ),
   OnboardItem(
-    image: "assets/iu-logo.png",
-    title: "Uygulama açıldığında önce kayıt olun",
-    description: "KarbApp uygulamasının tüm özelliklerinden faydalanmak için kayıtlı kullanıcı olmanız gerekmektedir.",
+    image: "assets/onboard/onboard2.jpg",
+    title: "Karbonhidrat miktarını öğrenmek istediğiniz besinin adını yazarak aramaya başlayabilirsiniz. ",
+    description:
+        "Karbonhidrat miktarını öğrenmek istediğiniz besinin adını yazıp, uygun gramaj değeri ya da veri tabanımızda tanımlanmış diğer ölçü birimlerini seçerek beslenme günlüğünüzü oluşturabilir, öğünde toplam alacağınız karbonhidrat miktarını hesaplayabilirsiniz. ",
   ),
   OnboardItem(
-    image: "assets/pedider-logo.png",
-    title: "Uygulama açıldığında önce kayıt olun",
-    description: "KarbApp uygulamasının tüm özelliklerinden faydalanmak için kayıtlı kullanıcı olmanız gerekmektedir.",
+    image: "assets/onboard/onboard3.jpg",
+    title: "Diyabet bilgilerinizi uygulamaya kaydetmeyi unutmayın. ",
+    description:
+        "İnsülin duyarlılık (düzeltme) faktörü, insülin/karbonhidrat oranları ve kan şekeri hedeflerinizi tanımlayabilirsiniz. Günün farklı zamanlarında değişebilen insülin duyarlılık (düzeltme) faktörü ve  insülin/karbonhidrat oranlarınıza göre birden fazla değeri saatlik dilimler halinde kaydedebilirsiniz.",
+  ),
+  OnboardItem(
+    image: "assets/onboard/onboard4.jpg",
+    title: "Tüketeceğiniz besinleri kaydedip bolus hesaplaması yapabilirsiniz.  ",
+    description:
+        "Tüketeceğiniz besinleri kaydettikten sonra bolus hesapla butonuna basarak, açlık kan şekerinize ve en son yediğiniz besin için yaptığınız insülin enjeksiyonunun üzerinden geçen zamana göre uygulamanın önereceği bolus insülin dozunu görebilirsiniz.",
+  ),
+  OnboardItem(
+    image: "assets/onboard/onboard5.jpg",
+    title: "Kendinize özel yemek tariflerini oluşturabilir, karbonhidrat miktarını hesaplayabilirsiniz. ",
+    description:
+        "Tarif ekle özelliği sayesinde kendi kullandığınız yemek tariflerini içindeki malzemeleri seçerek kaydedebilir, 1 porsiyon değerini hesaplayabilirsiniz. ",
+  ),
+  OnboardItem(
+    image: "assets/onboard/onboard6.jpg",
+    title: "Yardım Menüsü",
+    description:
+        "Uygulamanın kullanımıyla ilgili daha fazla yardım almak isterseniz yardım menüsünden daha detaylı bilgi alabilirsiniz ",
   ),
 ];
 
@@ -189,23 +213,30 @@ class OnBoardContent extends StatelessWidget {
     return Column(
       children: [
         //const Spacer(),
-        Image.asset(
-          image,
-          height: 350,
+        Expanded(
+          flex: 7,
+          child: Image.asset(
+            image,
+          ),
         ),
-        const Spacer(),
+        gapH8,
         Text(
           title,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline3,
         ),
-        gapH12,
-        Text(
-          description,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium,
+
+        Expanded(
+          flex: 2,
+          child: Text(
+            description,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 15,
+                  fontWeight: FontWeight.normal,
+                ),
+          ),
         ),
-        gapH24
       ],
     );
   }
