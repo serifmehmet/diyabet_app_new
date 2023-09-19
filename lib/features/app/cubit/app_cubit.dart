@@ -12,7 +12,9 @@ class AppCubit extends Cubit<AppState> {
   Future<void> throwUnAuthorizedError() async {
     emit(
       const UnAuthorizedUser(
-        errorObject: ErrorObject(errorType: ErrorType.notLoggedIn, errorMessage: "Oturum süreniz sona erdi, giriş sayfasına yönlendiriliyorsunuz."),
+        errorObject: ErrorObject(
+            errorType: ErrorType.notLoggedIn,
+            errorMessage: "Oturum süreniz sona erdi, giriş sayfasına yönlendiriliyorsunuz."),
       ),
     );
   }

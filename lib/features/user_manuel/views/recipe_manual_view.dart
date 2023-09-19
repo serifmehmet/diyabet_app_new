@@ -37,6 +37,7 @@ class _RecipeManualViewState extends State<RecipeManualView> {
           child: Column(
             children: [
               Expanded(
+                flex: 10,
                 child: PageView.builder(
                   itemCount: recipeManualData.length,
                   controller: _pageController,
@@ -52,62 +53,65 @@ class _RecipeManualViewState extends State<RecipeManualView> {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  ...List.generate(
-                    recipeManualData.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.only(right: 4.0),
-                      child: DotContainer(
-                        isActive: index == _pageIndex,
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      recipeManualData.length,
+                      (index) => Padding(
+                        padding: const EdgeInsets.only(right: 4.0),
+                        child: DotContainer(
+                          isActive: index == _pageIndex,
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  AnimatedContainer(
-                    duration: const Duration(
-                      milliseconds: 300,
-                    ),
-                    height: _pageIndex < recipeManualData.length - 1 ? 60 : 50,
-                    width: _pageIndex < recipeManualData.length - 1 ? 60 : 120,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_pageIndex == recipeManualData.length - 1) {
-                          NavigationService.instance.pop();
-                        } else {
-                          _pageController.nextPage(
-                            duration: const Duration(
-                              milliseconds: 300,
-                            ),
-                            curve: Curves.ease,
-                          );
-                        }
-                      },
-                      style: _pageIndex < recipeManualData.length - 1
-                          ? ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(
-                                0,
+                    const Spacer(),
+                    AnimatedContainer(
+                      duration: const Duration(
+                        milliseconds: 300,
+                      ),
+                      height: _pageIndex < recipeManualData.length - 1 ? 60 : 50,
+                      width: _pageIndex < recipeManualData.length - 1 ? 60 : 120,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_pageIndex == recipeManualData.length - 1) {
+                            NavigationService.instance.pop();
+                          } else {
+                            _pageController.nextPage(
+                              duration: const Duration(
+                                milliseconds: 300,
                               ),
-                              shape: const CircleBorder(),
-                            )
-                          : ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(
-                                0,
-                              ),
-                            ),
-                      child: Center(
-                        child: _pageIndex < recipeManualData.length - 1
-                            ? const Icon(
-                                IconlyLight.arrow_right,
+                              curve: Curves.ease,
+                            );
+                          }
+                        },
+                        style: _pageIndex < recipeManualData.length - 1
+                            ? ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(
+                                  0,
+                                ),
+                                shape: const CircleBorder(),
                               )
-                            : Text(
-                                "Tanıtımı Bitir",
-                                style: Theme.of(context).textTheme.elevatedButtonSmallText,
+                            : ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(
+                                  0,
+                                ),
                               ),
+                        child: Center(
+                          child: _pageIndex < recipeManualData.length - 1
+                              ? const Icon(
+                                  IconlyLight.arrow_right,
+                                )
+                              : Text(
+                                  "Tanıtımı Bitir",
+                                  style: Theme.of(context).textTheme.elevatedButtonSmallText,
+                                ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )
             ],
           ),
@@ -192,23 +196,27 @@ class RecipeManualContent extends StatelessWidget {
     return Column(
       children: [
         //const Spacer(),
-        Image.asset(
-          image,
-          height: 350,
+        Expanded(
+          flex: 7,
+          child: Image.asset(
+            image,
+          ),
         ),
-        const Spacer(),
+        gapH8,
         Text(
           title,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline3,
         ),
-        gapH12,
-        Text(
-          description,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium,
+
+        Expanded(
+          flex: 2,
+          child: Text(
+            description,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
         ),
-        gapH24
       ],
     );
   }

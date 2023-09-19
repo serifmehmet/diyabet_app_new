@@ -20,10 +20,10 @@ mixin _$MealConsumptionState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() consumptionListLoading,
-    required TResult Function(MealRoot meal) consumptionListLoaded,
+    required TResult Function(List<Meal>? mealList) consumptionListLoaded,
     required TResult Function(ErrorObject errorObject)
         consumptionListLoadFailure,
-    required TResult Function(MealRoot meal) filterSuccess,
+    required TResult Function(List<Meal>? mealList) filterSuccess,
     required TResult Function(ErrorObject errorObject) filterFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -31,9 +31,9 @@ mixin _$MealConsumptionState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,9 +41,9 @@ mixin _$MealConsumptionState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
     required TResult orElse(),
   }) =>
@@ -145,10 +145,10 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() consumptionListLoading,
-    required TResult Function(MealRoot meal) consumptionListLoaded,
+    required TResult Function(List<Meal>? mealList) consumptionListLoaded,
     required TResult Function(ErrorObject errorObject)
         consumptionListLoadFailure,
-    required TResult Function(MealRoot meal) filterSuccess,
+    required TResult Function(List<Meal>? mealList) filterSuccess,
     required TResult Function(ErrorObject errorObject) filterFailure,
   }) {
     return initial();
@@ -159,9 +159,9 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
   }) {
     return initial?.call();
@@ -172,9 +172,9 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
     required TResult orElse(),
   }) {
@@ -281,10 +281,10 @@ class _$ConsumptionListLoading implements ConsumptionListLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() consumptionListLoading,
-    required TResult Function(MealRoot meal) consumptionListLoaded,
+    required TResult Function(List<Meal>? mealList) consumptionListLoaded,
     required TResult Function(ErrorObject errorObject)
         consumptionListLoadFailure,
-    required TResult Function(MealRoot meal) filterSuccess,
+    required TResult Function(List<Meal>? mealList) filterSuccess,
     required TResult Function(ErrorObject errorObject) filterFailure,
   }) {
     return consumptionListLoading();
@@ -295,9 +295,9 @@ class _$ConsumptionListLoading implements ConsumptionListLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
   }) {
     return consumptionListLoading?.call();
@@ -308,9 +308,9 @@ class _$ConsumptionListLoading implements ConsumptionListLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
     required TResult orElse(),
   }) {
@@ -378,7 +378,7 @@ abstract class _$$ConsumptionListLoadedCopyWith<$Res> {
   factory _$$ConsumptionListLoadedCopyWith(_$ConsumptionListLoaded value,
           $Res Function(_$ConsumptionListLoaded) then) =
       __$$ConsumptionListLoadedCopyWithImpl<$Res>;
-  $Res call({MealRoot meal});
+  $Res call({List<Meal>? mealList});
 }
 
 /// @nodoc
@@ -394,13 +394,13 @@ class __$$ConsumptionListLoadedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? meal = freezed,
+    Object? mealList = freezed,
   }) {
     return _then(_$ConsumptionListLoaded(
-      meal: meal == freezed
-          ? _value.meal
-          : meal // ignore: cast_nullable_to_non_nullable
-              as MealRoot,
+      mealList: mealList == freezed
+          ? _value._mealList
+          : mealList // ignore: cast_nullable_to_non_nullable
+              as List<Meal>?,
     ));
   }
 }
@@ -408,14 +408,21 @@ class __$$ConsumptionListLoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConsumptionListLoaded implements ConsumptionListLoaded {
-  const _$ConsumptionListLoaded({required this.meal});
+  const _$ConsumptionListLoaded({required final List<Meal>? mealList})
+      : _mealList = mealList;
 
+  final List<Meal>? _mealList;
   @override
-  final MealRoot meal;
+  List<Meal>? get mealList {
+    final value = _mealList;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'MealConsumptionState.consumptionListLoaded(meal: $meal)';
+    return 'MealConsumptionState.consumptionListLoaded(mealList: $mealList)';
   }
 
   @override
@@ -423,12 +430,12 @@ class _$ConsumptionListLoaded implements ConsumptionListLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ConsumptionListLoaded &&
-            const DeepCollectionEquality().equals(other.meal, meal));
+            const DeepCollectionEquality().equals(other._mealList, _mealList));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(meal));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_mealList));
 
   @JsonKey(ignore: true)
   @override
@@ -441,13 +448,13 @@ class _$ConsumptionListLoaded implements ConsumptionListLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() consumptionListLoading,
-    required TResult Function(MealRoot meal) consumptionListLoaded,
+    required TResult Function(List<Meal>? mealList) consumptionListLoaded,
     required TResult Function(ErrorObject errorObject)
         consumptionListLoadFailure,
-    required TResult Function(MealRoot meal) filterSuccess,
+    required TResult Function(List<Meal>? mealList) filterSuccess,
     required TResult Function(ErrorObject errorObject) filterFailure,
   }) {
-    return consumptionListLoaded(meal);
+    return consumptionListLoaded(mealList);
   }
 
   @override
@@ -455,12 +462,12 @@ class _$ConsumptionListLoaded implements ConsumptionListLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
   }) {
-    return consumptionListLoaded?.call(meal);
+    return consumptionListLoaded?.call(mealList);
   }
 
   @override
@@ -468,14 +475,14 @@ class _$ConsumptionListLoaded implements ConsumptionListLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
     required TResult orElse(),
   }) {
     if (consumptionListLoaded != null) {
-      return consumptionListLoaded(meal);
+      return consumptionListLoaded(mealList);
     }
     return orElse();
   }
@@ -530,10 +537,10 @@ class _$ConsumptionListLoaded implements ConsumptionListLoaded {
 }
 
 abstract class ConsumptionListLoaded implements MealConsumptionState {
-  const factory ConsumptionListLoaded({required final MealRoot meal}) =
+  const factory ConsumptionListLoaded({required final List<Meal>? mealList}) =
       _$ConsumptionListLoaded;
 
-  MealRoot get meal;
+  List<Meal>? get mealList;
   @JsonKey(ignore: true)
   _$$ConsumptionListLoadedCopyWith<_$ConsumptionListLoaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -611,10 +618,10 @@ class _$ConsumptionListLoadFailure implements ConsumptionListLoadFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() consumptionListLoading,
-    required TResult Function(MealRoot meal) consumptionListLoaded,
+    required TResult Function(List<Meal>? mealList) consumptionListLoaded,
     required TResult Function(ErrorObject errorObject)
         consumptionListLoadFailure,
-    required TResult Function(MealRoot meal) filterSuccess,
+    required TResult Function(List<Meal>? mealList) filterSuccess,
     required TResult Function(ErrorObject errorObject) filterFailure,
   }) {
     return consumptionListLoadFailure(errorObject);
@@ -625,9 +632,9 @@ class _$ConsumptionListLoadFailure implements ConsumptionListLoadFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
   }) {
     return consumptionListLoadFailure?.call(errorObject);
@@ -638,9 +645,9 @@ class _$ConsumptionListLoadFailure implements ConsumptionListLoadFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
     required TResult orElse(),
   }) {
@@ -714,7 +721,7 @@ abstract class _$$FilterSuccessCopyWith<$Res> {
   factory _$$FilterSuccessCopyWith(
           _$FilterSuccess value, $Res Function(_$FilterSuccess) then) =
       __$$FilterSuccessCopyWithImpl<$Res>;
-  $Res call({MealRoot meal});
+  $Res call({List<Meal>? mealList});
 }
 
 /// @nodoc
@@ -730,13 +737,13 @@ class __$$FilterSuccessCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? meal = freezed,
+    Object? mealList = freezed,
   }) {
     return _then(_$FilterSuccess(
-      meal: meal == freezed
-          ? _value.meal
-          : meal // ignore: cast_nullable_to_non_nullable
-              as MealRoot,
+      mealList: mealList == freezed
+          ? _value._mealList
+          : mealList // ignore: cast_nullable_to_non_nullable
+              as List<Meal>?,
     ));
   }
 }
@@ -744,14 +751,21 @@ class __$$FilterSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FilterSuccess implements FilterSuccess {
-  const _$FilterSuccess({required this.meal});
+  const _$FilterSuccess({required final List<Meal>? mealList})
+      : _mealList = mealList;
 
+  final List<Meal>? _mealList;
   @override
-  final MealRoot meal;
+  List<Meal>? get mealList {
+    final value = _mealList;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'MealConsumptionState.filterSuccess(meal: $meal)';
+    return 'MealConsumptionState.filterSuccess(mealList: $mealList)';
   }
 
   @override
@@ -759,12 +773,12 @@ class _$FilterSuccess implements FilterSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FilterSuccess &&
-            const DeepCollectionEquality().equals(other.meal, meal));
+            const DeepCollectionEquality().equals(other._mealList, _mealList));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(meal));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_mealList));
 
   @JsonKey(ignore: true)
   @override
@@ -776,13 +790,13 @@ class _$FilterSuccess implements FilterSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() consumptionListLoading,
-    required TResult Function(MealRoot meal) consumptionListLoaded,
+    required TResult Function(List<Meal>? mealList) consumptionListLoaded,
     required TResult Function(ErrorObject errorObject)
         consumptionListLoadFailure,
-    required TResult Function(MealRoot meal) filterSuccess,
+    required TResult Function(List<Meal>? mealList) filterSuccess,
     required TResult Function(ErrorObject errorObject) filterFailure,
   }) {
-    return filterSuccess(meal);
+    return filterSuccess(mealList);
   }
 
   @override
@@ -790,12 +804,12 @@ class _$FilterSuccess implements FilterSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
   }) {
-    return filterSuccess?.call(meal);
+    return filterSuccess?.call(mealList);
   }
 
   @override
@@ -803,14 +817,14 @@ class _$FilterSuccess implements FilterSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
     required TResult orElse(),
   }) {
     if (filterSuccess != null) {
-      return filterSuccess(meal);
+      return filterSuccess(mealList);
     }
     return orElse();
   }
@@ -865,9 +879,10 @@ class _$FilterSuccess implements FilterSuccess {
 }
 
 abstract class FilterSuccess implements MealConsumptionState {
-  const factory FilterSuccess({required final MealRoot meal}) = _$FilterSuccess;
+  const factory FilterSuccess({required final List<Meal>? mealList}) =
+      _$FilterSuccess;
 
-  MealRoot get meal;
+  List<Meal>? get mealList;
   @JsonKey(ignore: true)
   _$$FilterSuccessCopyWith<_$FilterSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -941,10 +956,10 @@ class _$FilterFailure implements FilterFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() consumptionListLoading,
-    required TResult Function(MealRoot meal) consumptionListLoaded,
+    required TResult Function(List<Meal>? mealList) consumptionListLoaded,
     required TResult Function(ErrorObject errorObject)
         consumptionListLoadFailure,
-    required TResult Function(MealRoot meal) filterSuccess,
+    required TResult Function(List<Meal>? mealList) filterSuccess,
     required TResult Function(ErrorObject errorObject) filterFailure,
   }) {
     return filterFailure(errorObject);
@@ -955,9 +970,9 @@ class _$FilterFailure implements FilterFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
   }) {
     return filterFailure?.call(errorObject);
@@ -968,9 +983,9 @@ class _$FilterFailure implements FilterFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? consumptionListLoading,
-    TResult Function(MealRoot meal)? consumptionListLoaded,
+    TResult Function(List<Meal>? mealList)? consumptionListLoaded,
     TResult Function(ErrorObject errorObject)? consumptionListLoadFailure,
-    TResult Function(MealRoot meal)? filterSuccess,
+    TResult Function(List<Meal>? mealList)? filterSuccess,
     TResult Function(ErrorObject errorObject)? filterFailure,
     required TResult orElse(),
   }) {

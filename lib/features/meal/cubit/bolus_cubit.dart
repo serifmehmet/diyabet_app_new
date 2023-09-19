@@ -115,6 +115,8 @@ class BolusCubit extends Cubit<BolusState> {
         }
       }
 
+      userIkoList.sort(((a, b) => a.hour!.compareTo(b.hour!)));
+
       if (userIkoList.length == 1) {
         ikoValue = userIkoList[0].ikoValue!;
       } else {
@@ -199,15 +201,24 @@ class BolusCubit extends Cubit<BolusState> {
     }
   }
 
-  void calculateBolus(int lastMealHour, double totalCarb, int mealId, {double? instantBloodSugarValue}) {
+  void calculateBolus(int lastMealHour, double totalCarb, int mealId, {double? instantBloodSugarValue}) async {
     double result;
     double correctionDoze;
     double calculatedInsulinDoze;
+
     //3+
     if (lastMealHour == 5) {
-      correctionDoze = (instantBloodSugarValue! - userBloodTarget!.fbstValue!) / idfValue;
-      calculatedInsulinDoze = totalCarb / ikoValue;
-      calculatedBolusValue = correctionDoze + calculatedInsulinDoze;
+      final userBloodTargetFromLocal = await _getLocalUserBloodTargetUseCase.call(
+        GetLocalUserBloodTargetParams(
+          userId: CacheManager.instance.getIntValue(PreferencesKeys.USERID),
+        ),
+      );
+      if (userBloodTargetFromLocal.isRight()) {
+        final uBT = userBloodTargetFromLocal.getOrElse(() => null);
+        correctionDoze = (instantBloodSugarValue! - uBT!.fbstValue!) / idfValue;
+        calculatedInsulinDoze = totalCarb / ikoValue;
+        calculatedBolusValue = correctionDoze + calculatedInsulinDoze;
+      }
     } else if (lastMealHour == 4 || lastMealHour == 3) {
       correctionDoze = (instantBloodSugarValue! - 160) / idfValue;
       calculatedInsulinDoze = totalCarb / ikoValue;
