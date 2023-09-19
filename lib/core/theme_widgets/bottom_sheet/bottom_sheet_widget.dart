@@ -139,7 +139,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
             color: Color(0xff000000),
           ),
         ),
-        remoteFood.foodInfo != null
+        remoteFood.foodInfo!.isNotEmpty
             ? IconButton(
                 onPressed: () {
                   showAlertDialogDefault(
@@ -163,7 +163,11 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   color: Theme.of(context).colorScheme.tertiary,
                 ),
               )
-            : const SizedBox(),
+            : Icon(
+                IconlyBold.info_square,
+                size: 36,
+                color: Colors.grey.shade600,
+              ),
       ],
     );
   }
@@ -171,7 +175,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   calculateDropdownValue(RemoteFoodRoot remoteFood, BuildContext context) {
     if (remoteFood.FoodUnits!.length == 1) {
       dropDownValue = remoteFood.FoodUnits![0].UnitName;
-      BlocProvider.of<FoodUnitCubit>(context).changeSelectedFoodUnit(dropDownValue!, remoteFood.FoodUnits, quantityController.text);
+      BlocProvider.of<FoodUnitCubit>(context)
+          .changeSelectedFoodUnit(dropDownValue!, remoteFood.FoodUnits, quantityController.text);
     }
   }
 
@@ -216,7 +221,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     setter(
                       () {
                         dropDownValue = value!;
-                        BlocProvider.of<FoodUnitCubit>(context).changeSelectedFoodUnit(value, remoteFood.FoodUnits, quantityController.text);
+                        BlocProvider.of<FoodUnitCubit>(context)
+                            .changeSelectedFoodUnit(value, remoteFood.FoodUnits, quantityController.text);
                       },
                     );
                   },
@@ -237,7 +243,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                   inputTextStyle: Theme.of(context).textTheme.headline4,
                   inputBorderRadius: 24,
-                  inputText: "1",
+                  inputText: "",
                   textController: quantityController,
                   onChanged: (value) {
                     if (dropDownValue == null) {
@@ -312,7 +318,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               }
               LocalConsumptionItem localFood = LocalConsumptionItem(
                 Id: remoteFood.Food!.Id!,
-                CarbTotal: int.parse(quantityController.text) * (context.read<FoodUnitCubit>().selectedUnit!.CarbValue!),
+                CarbTotal:
+                    int.parse(quantityController.text) * (context.read<FoodUnitCubit>().selectedUnit!.CarbValue!),
                 Name: remoteFood.Food!.Name!,
                 Quantity: int.parse(quantityController.text),
                 UnitType: context.read<FoodUnitCubit>().selectedUnit!.UnitName,

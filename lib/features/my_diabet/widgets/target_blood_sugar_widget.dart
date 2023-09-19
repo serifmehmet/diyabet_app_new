@@ -20,9 +20,11 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
 
   FocusNode? ofbgFocus;
 
-  final TextEditingController fbstController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController ofbgController = TextEditingController();
+  final fbstController = TextEditingController();
+
+  final ofbgController = TextEditingController();
 
   KeyboardActionsConfig _buildConfig(BuildContext context) {
     return KeyboardActionsConfig(
@@ -83,7 +85,8 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
   @override
   void dispose() {
     fbstFocus!.dispose();
-
+    fbstController.dispose();
+    ofbgController.dispose();
     ofbgFocus!.dispose();
     super.dispose();
   }
@@ -130,7 +133,7 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
                     const Text("Hedef Kan Şekeri Değerleri"),
                     const SizedBox(height: 30),
                     Form(
-                      key: TargetBloodSugarWidget.formKey,
+                      key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -150,6 +153,13 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
                               focus.requestFocus(ofbgFocus);
                               return null;
                             },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Açlık Kan Şekeri değeri boş bırakılamaz.";
+                              }
+                              return null;
+                            },
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                           ),
                           const SizedBox(height: 30),
                           Text("Gece Açlık Kan Şekeri Hedefi", style: Theme.of(context).textTheme.inputLabel),
@@ -167,22 +177,34 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
                               ofbgFocus!.unfocus();
                               return null;
                             },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Gece Açlık Kan Şekeri değeri boş bırakılamaz.";
+                              }
+                              return null;
+                            },
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                           ),
                           const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () {
-                              if (value.userBloodTarget.fbstValue == null) {
-                                BlocProvider.of<BloodTargetCubit>(context).saveUserBloodTarget(fbstController.text, ofbgController.text);
-                              } else {
-                                BlocProvider.of<BloodTargetCubit>(context).updateBloodTarget(
-                                  fbstController.text,
-                                  ofbgController.text,
-                                  value.userBloodTarget.id,
-                                );
+                              if (_formKey.currentState!.validate()) {
+                                if (value.userBloodTarget.fbstValue == null) {
+                                  BlocProvider.of<BloodTargetCubit>(context)
+                                      .saveUserBloodTarget(fbstController.text, ofbgController.text);
+                                } else {
+                                  BlocProvider.of<BloodTargetCubit>(context).updateBloodTarget(
+                                    fbstController.text,
+                                    ofbgController.text,
+                                    value.userBloodTarget.id,
+                                  );
+                                }
                               }
                             },
                             child: Center(
-                              child: value.userBloodTarget.fbstValue == null ? const Text("Kaydet") : const Text("Güncelle"),
+                              child: value.userBloodTarget.fbstValue == null
+                                  ? const Text("Kaydet")
+                                  : const Text("Güncelle"),
                             ),
                           ),
                         ],
@@ -197,7 +219,7 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
                     const Text("Hedef Kan Şekeri Değerleri"),
                     const SizedBox(height: 30),
                     Form(
-                      key: TargetBloodSugarWidget.formKey,
+                      key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -217,6 +239,13 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
                               focus.requestFocus(ofbgFocus);
                               return null;
                             },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Açlık Kan Şekeri değeri boş bırakılamaz.";
+                              }
+                              return null;
+                            },
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                           ),
                           const SizedBox(height: 30),
                           Text("Gece Açlık Kan Şekeri Hedefi", style: Theme.of(context).textTheme.inputLabel),
@@ -234,11 +263,21 @@ class _TargetBloodSugarWidgetState extends State<TargetBloodSugarWidget> {
                               ofbgFocus!.unfocus();
                               return null;
                             },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Gece Açlık Kan Şekeri değeri boş bırakılamaz.";
+                              }
+                              return null;
+                            },
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                           ),
                           const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () {
-                              BlocProvider.of<BloodTargetCubit>(context).saveUserBloodTarget(fbstController.text, ofbgController.text);
+                              if (_formKey.currentState!.validate()) {
+                                BlocProvider.of<BloodTargetCubit>(context)
+                                    .saveUserBloodTarget(fbstController.text, ofbgController.text);
+                              }
                             },
                             child: const Center(
                               child: Text("Kaydet"),

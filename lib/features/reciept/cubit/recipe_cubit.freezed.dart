@@ -29,6 +29,7 @@ mixin _$RecipeState {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -48,6 +49,7 @@ mixin _$RecipeState {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -66,6 +68,7 @@ mixin _$RecipeState {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -80,7 +83,8 @@ mixin _$RecipeState {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -94,7 +98,8 @@ mixin _$RecipeState {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -108,7 +113,8 @@ mixin _$RecipeState {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -183,6 +189,7 @@ class _$_Initial implements _Initial {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -205,6 +212,7 @@ class _$_Initial implements _Initial {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -226,6 +234,7 @@ class _$_Initial implements _Initial {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -246,7 +255,8 @@ class _$_Initial implements _Initial {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -263,7 +273,8 @@ class _$_Initial implements _Initial {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -280,7 +291,8 @@ class _$_Initial implements _Initial {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -347,6 +359,7 @@ class _$_Loading implements _Loading {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -369,6 +382,7 @@ class _$_Loading implements _Loading {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -390,6 +404,7 @@ class _$_Loading implements _Loading {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -410,7 +425,8 @@ class _$_Loading implements _Loading {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -427,7 +443,8 @@ class _$_Loading implements _Loading {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -444,7 +461,8 @@ class _$_Loading implements _Loading {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -537,6 +555,7 @@ class _$_LoadSuccess implements _LoadSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -559,6 +578,7 @@ class _$_LoadSuccess implements _LoadSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -580,6 +600,7 @@ class _$_LoadSuccess implements _LoadSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -600,7 +621,8 @@ class _$_LoadSuccess implements _LoadSuccess {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -617,7 +639,8 @@ class _$_LoadSuccess implements _LoadSuccess {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -634,7 +657,8 @@ class _$_LoadSuccess implements _LoadSuccess {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -709,6 +733,7 @@ class _$_RecipeListInitial implements _RecipeListInitial {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -731,6 +756,7 @@ class _$_RecipeListInitial implements _RecipeListInitial {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -752,6 +778,7 @@ class _$_RecipeListInitial implements _RecipeListInitial {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -772,7 +799,8 @@ class _$_RecipeListInitial implements _RecipeListInitial {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -789,7 +817,8 @@ class _$_RecipeListInitial implements _RecipeListInitial {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -806,7 +835,8 @@ class _$_RecipeListInitial implements _RecipeListInitial {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -918,6 +948,7 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -940,6 +971,7 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -961,6 +993,7 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -981,7 +1014,8 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -998,7 +1032,8 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1015,7 +1050,8 @@ class _$_FoodAddedSuccess implements _FoodAddedSuccess {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1136,6 +1172,7 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -1158,6 +1195,7 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1179,6 +1217,7 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1199,7 +1238,8 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -1216,7 +1256,8 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1233,7 +1274,8 @@ class _$_FoodDeleteSuccess implements _FoodDeleteSuccess {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1259,29 +1301,29 @@ abstract class _FoodDeleteSuccess implements RecipeState {
 }
 
 /// @nodoc
-abstract class _$$_RecipeSaveSuccessCopyWith<$Res> {
-  factory _$$_RecipeSaveSuccessCopyWith(_$_RecipeSaveSuccess value,
-          $Res Function(_$_RecipeSaveSuccess) then) =
-      __$$_RecipeSaveSuccessCopyWithImpl<$Res>;
+abstract class _$$RecipeSaveSuccessCopyWith<$Res> {
+  factory _$$RecipeSaveSuccessCopyWith(
+          _$RecipeSaveSuccess value, $Res Function(_$RecipeSaveSuccess) then) =
+      __$$RecipeSaveSuccessCopyWithImpl<$Res>;
   $Res call({String successMessage});
 }
 
 /// @nodoc
-class __$$_RecipeSaveSuccessCopyWithImpl<$Res>
+class __$$RecipeSaveSuccessCopyWithImpl<$Res>
     extends _$RecipeStateCopyWithImpl<$Res>
-    implements _$$_RecipeSaveSuccessCopyWith<$Res> {
-  __$$_RecipeSaveSuccessCopyWithImpl(
-      _$_RecipeSaveSuccess _value, $Res Function(_$_RecipeSaveSuccess) _then)
-      : super(_value, (v) => _then(v as _$_RecipeSaveSuccess));
+    implements _$$RecipeSaveSuccessCopyWith<$Res> {
+  __$$RecipeSaveSuccessCopyWithImpl(
+      _$RecipeSaveSuccess _value, $Res Function(_$RecipeSaveSuccess) _then)
+      : super(_value, (v) => _then(v as _$RecipeSaveSuccess));
 
   @override
-  _$_RecipeSaveSuccess get _value => super._value as _$_RecipeSaveSuccess;
+  _$RecipeSaveSuccess get _value => super._value as _$RecipeSaveSuccess;
 
   @override
   $Res call({
     Object? successMessage = freezed,
   }) {
-    return _then(_$_RecipeSaveSuccess(
+    return _then(_$RecipeSaveSuccess(
       successMessage: successMessage == freezed
           ? _value.successMessage
           : successMessage // ignore: cast_nullable_to_non_nullable
@@ -1292,8 +1334,8 @@ class __$$_RecipeSaveSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
-  const _$_RecipeSaveSuccess({required this.successMessage});
+class _$RecipeSaveSuccess implements RecipeSaveSuccess {
+  const _$RecipeSaveSuccess({required this.successMessage});
 
   @override
   final String successMessage;
@@ -1307,7 +1349,7 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RecipeSaveSuccess &&
+            other is _$RecipeSaveSuccess &&
             const DeepCollectionEquality()
                 .equals(other.successMessage, successMessage));
   }
@@ -1318,9 +1360,8 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
 
   @JsonKey(ignore: true)
   @override
-  _$$_RecipeSaveSuccessCopyWith<_$_RecipeSaveSuccess> get copyWith =>
-      __$$_RecipeSaveSuccessCopyWithImpl<_$_RecipeSaveSuccess>(
-          this, _$identity);
+  _$$RecipeSaveSuccessCopyWith<_$RecipeSaveSuccess> get copyWith =>
+      __$$RecipeSaveSuccessCopyWithImpl<_$RecipeSaveSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1336,6 +1377,7 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -1358,6 +1400,7 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1379,6 +1422,7 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1399,7 +1443,8 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -1416,7 +1461,8 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1433,7 +1479,8 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1446,13 +1493,217 @@ class _$_RecipeSaveSuccess implements _RecipeSaveSuccess {
   }
 }
 
-abstract class _RecipeSaveSuccess implements RecipeState {
-  const factory _RecipeSaveSuccess({required final String successMessage}) =
-      _$_RecipeSaveSuccess;
+abstract class RecipeSaveSuccess implements RecipeState {
+  const factory RecipeSaveSuccess({required final String successMessage}) =
+      _$RecipeSaveSuccess;
 
   String get successMessage;
   @JsonKey(ignore: true)
-  _$$_RecipeSaveSuccessCopyWith<_$_RecipeSaveSuccess> get copyWith =>
+  _$$RecipeSaveSuccessCopyWith<_$RecipeSaveSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RecipeDeleteSuccessCopyWith<$Res> {
+  factory _$$_RecipeDeleteSuccessCopyWith(_$_RecipeDeleteSuccess value,
+          $Res Function(_$_RecipeDeleteSuccess) then) =
+      __$$_RecipeDeleteSuccessCopyWithImpl<$Res>;
+  $Res call({String successMessage});
+}
+
+/// @nodoc
+class __$$_RecipeDeleteSuccessCopyWithImpl<$Res>
+    extends _$RecipeStateCopyWithImpl<$Res>
+    implements _$$_RecipeDeleteSuccessCopyWith<$Res> {
+  __$$_RecipeDeleteSuccessCopyWithImpl(_$_RecipeDeleteSuccess _value,
+      $Res Function(_$_RecipeDeleteSuccess) _then)
+      : super(_value, (v) => _then(v as _$_RecipeDeleteSuccess));
+
+  @override
+  _$_RecipeDeleteSuccess get _value => super._value as _$_RecipeDeleteSuccess;
+
+  @override
+  $Res call({
+    Object? successMessage = freezed,
+  }) {
+    return _then(_$_RecipeDeleteSuccess(
+      successMessage: successMessage == freezed
+          ? _value.successMessage
+          : successMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RecipeDeleteSuccess implements _RecipeDeleteSuccess {
+  const _$_RecipeDeleteSuccess({required this.successMessage});
+
+  @override
+  final String successMessage;
+
+  @override
+  String toString() {
+    return 'RecipeState.recipeDeleteSuccess(successMessage: $successMessage)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RecipeDeleteSuccess &&
+            const DeepCollectionEquality()
+                .equals(other.successMessage, successMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(successMessage));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_RecipeDeleteSuccessCopyWith<_$_RecipeDeleteSuccess> get copyWith =>
+      __$$_RecipeDeleteSuccessCopyWithImpl<_$_RecipeDeleteSuccess>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(RecipeRoot recipeRootEntity) loadSuccess,
+    required TResult Function() recipeListInitial,
+    required TResult Function(
+            List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
+        foodAddSuccess,
+    required TResult Function(
+            List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
+        foodDeleteSuccess,
+    required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
+    required TResult Function(List<RecipeUnit> recipeUnitList)
+        recipeUnitListLoaded,
+    required TResult Function(ErrorObject errorObject) failure,
+    required TResult Function(ErrorObject errorObject) getRecipeFailure,
+  }) {
+    return recipeDeleteSuccess(successMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
+    TResult Function(
+            List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
+        foodAddSuccess,
+    TResult Function(
+            List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
+        foodDeleteSuccess,
+    TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
+    TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
+    TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
+  }) {
+    return recipeDeleteSuccess?.call(successMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(RecipeRoot recipeRootEntity)? loadSuccess,
+    TResult Function()? recipeListInitial,
+    TResult Function(
+            List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
+        foodAddSuccess,
+    TResult Function(
+            List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
+        foodDeleteSuccess,
+    TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
+    TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
+    TResult Function(ErrorObject errorObject)? failure,
+    TResult Function(ErrorObject errorObject)? getRecipeFailure,
+    required TResult orElse(),
+  }) {
+    if (recipeDeleteSuccess != null) {
+      return recipeDeleteSuccess(successMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_RecipeListInitial value) recipeListInitial,
+    required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
+    required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
+    required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_GetRecipeError value) getRecipeFailure,
+  }) {
+    return recipeDeleteSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
+    TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
+    TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
+    TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
+  }) {
+    return recipeDeleteSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_RecipeListInitial value)? recipeListInitial,
+    TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
+    TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
+    TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_GetRecipeError value)? getRecipeFailure,
+    required TResult orElse(),
+  }) {
+    if (recipeDeleteSuccess != null) {
+      return recipeDeleteSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RecipeDeleteSuccess implements RecipeState {
+  const factory _RecipeDeleteSuccess({required final String successMessage}) =
+      _$_RecipeDeleteSuccess;
+
+  String get successMessage;
+  @JsonKey(ignore: true)
+  _$$_RecipeDeleteSuccessCopyWith<_$_RecipeDeleteSuccess> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1540,6 +1791,7 @@ class _$_RecipeUnitListLoaded implements _RecipeUnitListLoaded {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -1562,6 +1814,7 @@ class _$_RecipeUnitListLoaded implements _RecipeUnitListLoaded {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1583,6 +1836,7 @@ class _$_RecipeUnitListLoaded implements _RecipeUnitListLoaded {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1603,7 +1857,8 @@ class _$_RecipeUnitListLoaded implements _RecipeUnitListLoaded {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -1620,7 +1875,8 @@ class _$_RecipeUnitListLoaded implements _RecipeUnitListLoaded {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1637,7 +1893,8 @@ class _$_RecipeUnitListLoaded implements _RecipeUnitListLoaded {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1736,6 +1993,7 @@ class _$_Failure implements _Failure {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -1758,6 +2016,7 @@ class _$_Failure implements _Failure {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1779,6 +2038,7 @@ class _$_Failure implements _Failure {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1799,7 +2059,8 @@ class _$_Failure implements _Failure {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -1816,7 +2077,8 @@ class _$_Failure implements _Failure {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1833,7 +2095,8 @@ class _$_Failure implements _Failure {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -1932,6 +2195,7 @@ class _$_GetRecipeError implements _GetRecipeError {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)
         foodDeleteSuccess,
     required TResult Function(String successMessage) recipeSaveSuccess,
+    required TResult Function(String successMessage) recipeDeleteSuccess,
     required TResult Function(List<RecipeUnit> recipeUnitList)
         recipeUnitListLoaded,
     required TResult Function(ErrorObject errorObject) failure,
@@ -1954,6 +2218,7 @@ class _$_GetRecipeError implements _GetRecipeError {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1975,6 +2240,7 @@ class _$_GetRecipeError implements _GetRecipeError {
             List<LocalConsumptionItem> foodsAddedToRecipe, double carbValue)?
         foodDeleteSuccess,
     TResult Function(String successMessage)? recipeSaveSuccess,
+    TResult Function(String successMessage)? recipeDeleteSuccess,
     TResult Function(List<RecipeUnit> recipeUnitList)? recipeUnitListLoaded,
     TResult Function(ErrorObject errorObject)? failure,
     TResult Function(ErrorObject errorObject)? getRecipeFailure,
@@ -1995,7 +2261,8 @@ class _$_GetRecipeError implements _GetRecipeError {
     required TResult Function(_RecipeListInitial value) recipeListInitial,
     required TResult Function(_FoodAddedSuccess value) foodAddSuccess,
     required TResult Function(_FoodDeleteSuccess value) foodDeleteSuccess,
-    required TResult Function(_RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(RecipeSaveSuccess value) recipeSaveSuccess,
+    required TResult Function(_RecipeDeleteSuccess value) recipeDeleteSuccess,
     required TResult Function(_RecipeUnitListLoaded value) recipeUnitListLoaded,
     required TResult Function(_Failure value) failure,
     required TResult Function(_GetRecipeError value) getRecipeFailure,
@@ -2012,7 +2279,8 @@ class _$_GetRecipeError implements _GetRecipeError {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,
@@ -2029,7 +2297,8 @@ class _$_GetRecipeError implements _GetRecipeError {
     TResult Function(_RecipeListInitial value)? recipeListInitial,
     TResult Function(_FoodAddedSuccess value)? foodAddSuccess,
     TResult Function(_FoodDeleteSuccess value)? foodDeleteSuccess,
-    TResult Function(_RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(RecipeSaveSuccess value)? recipeSaveSuccess,
+    TResult Function(_RecipeDeleteSuccess value)? recipeDeleteSuccess,
     TResult Function(_RecipeUnitListLoaded value)? recipeUnitListLoaded,
     TResult Function(_Failure value)? failure,
     TResult Function(_GetRecipeError value)? getRecipeFailure,

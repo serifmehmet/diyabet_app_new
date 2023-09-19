@@ -65,4 +65,32 @@ class RemoteRecipeDataSource {
       return null;
     }
   }
+
+  Future<GenericResponseModel?> deleteRecipe(int recipeId, int userId) async {
+    try {
+      final response = await networkManager.send<GenericResponseModel, GenericResponseModel>(
+        endpoint,
+        parseModel: GenericResponseModel(),
+        method: RequestType.DELETE,
+        queryParameters: {
+          "RecipeId": recipeId,
+          "UserId": userId,
+        },
+        options: Options(
+          headers: {
+            "X-Session-Id": CacheManager.instance.getStringValue(PreferencesKeys.X_SESSION_ID),
+            "X-User-Id": CacheManager.instance.getIntValue(PreferencesKeys.USERID),
+          },
+        ),
+      );
+
+      if (response.error != null) {
+        if (response.error!.statusCode == 401) throw const UnAuthorized();
+      }
+
+      return response.data;
+    } on DioError {
+      return null;
+    }
+  }
 }

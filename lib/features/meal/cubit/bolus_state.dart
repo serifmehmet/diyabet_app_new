@@ -26,13 +26,38 @@ class UserIdfListEmpty extends BolusState {
   List<Object?> get props => [emptyIdfMessage];
 }
 
+class MyDiabetInfoMissing extends BolusState {
+  final String emptyInfoMessage;
+
+  const MyDiabetInfoMissing({required this.emptyInfoMessage});
+  @override
+  List<Object?> get props => [emptyInfoMessage];
+}
+
+class UserIkoListEmpty extends BolusState {
+  final String emptyIkoMessage;
+
+  const UserIkoListEmpty({required this.emptyIkoMessage});
+  @override
+  List<Object?> get props => [emptyIkoMessage];
+}
+
+class BloodTargetEmpty extends BolusState {
+  final String emptyBloodTarget;
+
+  const BloodTargetEmpty({required this.emptyBloodTarget});
+  @override
+  List<Object?> get props => [emptyBloodTarget];
+}
+
 class BolusInfoLoaded extends BolusState {
   final double ikoValue;
   final double idfValue;
   final double targetValue;
   final int lastMealHour;
 
-  const BolusInfoLoaded({required this.idfValue, required this.ikoValue, required this.targetValue, required this.lastMealHour});
+  const BolusInfoLoaded(
+      {required this.idfValue, required this.ikoValue, required this.targetValue, required this.lastMealHour});
 
   @override
   List<Object?> get props => [ikoValue, idfValue, targetValue, lastMealHour];
@@ -57,7 +82,8 @@ class CalculatedBolusSaved extends BolusState {
   final double calculatedBolusValue;
   final int calculatedMealId;
 
-  const CalculatedBolusSaved({required this.successMessage, required this.calculatedBolusValue, required this.calculatedMealId});
+  const CalculatedBolusSaved(
+      {required this.successMessage, required this.calculatedBolusValue, required this.calculatedMealId});
 
   @override
   List<Object?> get props => [successMessage, calculatedBolusValue, calculatedMealId];

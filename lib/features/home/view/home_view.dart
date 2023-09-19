@@ -62,7 +62,10 @@ class _HomeViewState extends State<HomeView> {
 
       if (message.data.isNotEmpty) {
         await service.showNotificaction(
-            id: message.hashCode, title: "Aktivasyon", body: message.data["messageText"], payload: message.data["messageType"]);
+            id: message.hashCode,
+            title: "Aktivasyon",
+            body: message.data["messageText"],
+            payload: message.data["messageType"]);
       }
 
       // if (notification != null && android != null && !kIsWeb) {
@@ -117,10 +120,21 @@ class _HomeViewState extends State<HomeView> {
                   }
 
                   if (state is Registered) {
-                    return Text(
-                      "Kayıt işleminiz başarılı bir şekilde sonuçlandı. Aktivasyon için lütfen e-posta kutunuzu kontrol ediniz.",
-                      style: Theme.of(context).textTheme.headline4,
-                      textAlign: TextAlign.center,
+                    return Column(
+                      children: [
+                        Text(
+                          "Kayıt işleminiz başarılı bir şekilde sonuçlandı. Aktivasyon için lütfen e-posta kutunuzu kontrol ediniz.",
+                          style: Theme.of(context).textTheme.headline4,
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Not: Bazen gönderdiğimiz e-postalar Spam kutunuza gidebiliyor. Aktivasyon başlıklı e-postamızı göremezseniz lütfen Spam kutunuzu da kontrol ediniz.',
+                          style: Theme.of(context).textTheme.headline4,
+                        )
+                      ],
                     );
                   }
                   return const SizedBox();
@@ -129,7 +143,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             Center(
               child: Text(
-                "Karbonhidrat hesaplamak için yemek ekleyerek başlayabilirsin.",
+                "Karbonhidrat hesaplamaya yemek ekleyerek başlayabilirsin. Yemek eklemek için 'Arama' ekranına geçin.",
                 style: Theme.of(context).textTheme.headline4,
                 textAlign: TextAlign.center,
               ),
@@ -163,7 +177,8 @@ class _HomeViewState extends State<HomeView> {
               BlocBuilder<FavoriteFoodsCubit, FavoriteFoodsState>(
                 builder: (context, state) {
                   return state.map(
-                      loading: (loading) => Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor)),
+                      loading: (loading) =>
+                          Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor)),
                       emptyFavoriteFoods: (emptyFavoriteFoods) => Center(
                             child: Text(
                               emptyFavoriteFoods.emptyListMessage,
@@ -220,7 +235,14 @@ class _HomeViewState extends State<HomeView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(favoriteFoods[index].foodName!, style: Theme.of(context).textTheme.orangeText),
+                    SizedBox(
+                      width: 300,
+                      child: Text(
+                        favoriteFoods[index].foodName!,
+                        style: Theme.of(context).textTheme.orangeText,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                     Icon(
                       Icons.add,
                       color: Theme.of(context).colorScheme.secondary,
@@ -335,7 +357,8 @@ class _HomeViewState extends State<HomeView> {
           children: [
             SizedBox(
               width: context.width * 0.40,
-              child: Text("Günlük tüketim ve hesaplamalarını kaydetmek için giriş yap.", style: Theme.of(context).textTheme.subtitle1),
+              child: Text("Günlük tüketim ve hesaplamalarını kaydetmek için giriş yap.",
+                  style: Theme.of(context).textTheme.subtitle1),
             ),
           ],
         ),

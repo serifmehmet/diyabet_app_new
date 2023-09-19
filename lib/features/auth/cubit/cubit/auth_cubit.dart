@@ -1,4 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:diyabet_app/data/datasources/local/models/local_recipe_hive_model.dart';
+import 'package:diyabet_app/data/datasources/local/models/user_blood_target_hive_model.dart';
+import 'package:diyabet_app/data/datasources/local/models/user_idf_hive_model.dart';
+import 'package:diyabet_app/data/datasources/local/models/user_iko_hive_model.dart';
 import 'package:diyabet_app/domain/entities/user_blood_target.dart';
 import 'package:diyabet_app/domain/usecases/user/params/reset_user_password_params.dart';
 import 'package:diyabet_app/domain/usecases/user/params/user_register_param.dart';
@@ -11,6 +15,7 @@ import 'package:diyabet_app/domain/usecases/user_idf/params/save_user_idf_params
 import 'package:diyabet_app/domain/usecases/user_iko/params/save_user_iko_params.dart';
 import 'package:diyabet_app/domain/usecases/user_iko/local/save_local_user_iko_usecase.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../core/constants/enums/preferences_keys.dart';
 import '../../../../core/constants/navigation/navigation_constants.dart';
@@ -116,9 +121,29 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> logOut() async {
+  Future<bool> logOut() async {
     emit(UnAuthenticated());
     CacheManager.instance.setBoolValue(PreferencesKeys.IS_LOGGEDIN, false);
+    CacheManager.instance.clearKey(PreferencesKeys.USERID);
+    CacheManager.instance.clearKey(PreferencesKeys.USER_NAME);
+    CacheManager.instance.clearKey(PreferencesKeys.PASSWORD);
+
+    final idfBox = Hive.box<UserIdfHiveModel>(UserIdfHiveModel.boxKey);
+    final ikoBox = Hive.box<UserIkoHiveModel>(UserIkoHiveModel.boxKey);
+    final bloodBox = Hive.box<UserBloodTargetHiveModel>(UserBloodTargetHiveModel.boxKey);
+    final recipeBox = Hive.box<LocalRecipeHiveModel>(LocalRecipeHiveModel.boxKey);
+    bool deleted = false;
+
+    await idfBox.clear().then((value) => deleted = true);
+    await ikoBox.clear().then((value) => deleted = true);
+    await bloodBox.clear().then((value) => deleted = true);
+    await recipeBox.clear().then((value) => deleted = true);
+    // await Hive.box(UserIkoHiveModel.boxKey).clear();
+    // await Hive.box(UserBloodTargetHiveModel.boxKey).clear();
+
+    // await Hive.box(LocalRecipeHiveModel.boxKey).clear();
+
+    return deleted;
   }
 
   Future<void> checkAuthentication() async {
@@ -151,7 +176,8 @@ class AuthCubit extends Cubit<AuthState> {
     final response = await resetUserPasswordUseCase.call(ResetUserPasswordParams(email: email, password: password));
 
     if (response.errorCode == "OK") {
-      emit(const ResetPasswordSuccess("Şifre yenileme talebiniz alınmıştır. E-Posta kutunuzu kontrol edin lütfen."));
+      emit(const ResetPasswordSuccess(
+          "Şifre yenileme talebiniz alınmıştır. E-Posta kutunuzu kontrol edin lütfen. Not: Şifre yenileme e-postası gelmediyse Spam kutunuzu da kontrol edin lütfen."));
     }
 
     if (response.errorCode == "E9998") {

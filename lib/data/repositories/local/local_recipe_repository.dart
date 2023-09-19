@@ -3,6 +3,7 @@ import 'package:diyabet_app/data/datasources/local/receipt/local_recipe_datasour
 
 abstract class LocalRecipeRepository {
   Future<void> saveLocalReceipt(LocalRecipeHiveModel receiptToSave);
+  Future<void> deleteLocalRecipe(int recipeId);
 }
 
 class LocalRecipeRepositoryImpl extends LocalRecipeRepository {
@@ -13,5 +14,10 @@ class LocalRecipeRepositoryImpl extends LocalRecipeRepository {
   @override
   Future<void> saveLocalReceipt(LocalRecipeHiveModel receiptToSave) async {
     await localRecipeDataSource.saveLocalReceipt(receiptToSave);
+  }
+
+  @override
+  Future<void> deleteLocalRecipe(int recipeId) async {
+    await localRecipeDataSource.deleteLocalRecipe(recipeId);
   }
 }

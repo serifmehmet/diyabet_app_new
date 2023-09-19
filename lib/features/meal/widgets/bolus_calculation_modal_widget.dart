@@ -57,7 +57,8 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                     child: Column(
                       children: [
                         Text("Hesaplamanız başarıyla kaydedilmiştir.", style: Theme.of(context).textTheme.bodyLarge),
-                        Text("${state.resultValue.toStringAsFixed(2)} Ünite", style: Theme.of(bolusDialogContext!).textTheme.bodyLarge),
+                        Text("${state.resultValue.toStringAsFixed(2)} Ünite",
+                            style: Theme.of(bolusDialogContext!).textTheme.bodyLarge),
                       ],
                     ),
                   ),
@@ -75,7 +76,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
           }
         },
         builder: (context, state) {
-          if (state is UserIdfListEmpty) {
+          if (state is MyDiabetInfoMissing) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -85,7 +86,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                   color: Theme.of(context).errorColor,
                 ),
                 Text(
-                  "Diyabet bilgileriniz eksik olduğu için Bolus Hesaplama modülü kullanılamıyor.",
+                  state.emptyInfoMessage,
                   style: Theme.of(context).textTheme.bolusScreenUserValues,
                   textAlign: TextAlign.center,
                 ),
@@ -157,7 +158,8 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                     "K/I Oranı:",
                                     style: Theme.of(context).textTheme.headline5,
                                   ),
-                                  Text(state.ikoValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
+                                  Text(state.ikoValue.toString(),
+                                      style: Theme.of(context).textTheme.bolusScreenUserValues),
                                 ],
                               ),
                               const Divider(thickness: 1, color: Colors.grey),
@@ -168,7 +170,8 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                     "IDF:",
                                     style: Theme.of(context).textTheme.headline5,
                                   ),
-                                  Text(state.idfValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
+                                  Text(state.idfValue.toString(),
+                                      style: Theme.of(context).textTheme.bolusScreenUserValues),
                                 ],
                               ),
                               const Divider(thickness: 1, color: Colors.grey),
@@ -179,7 +182,8 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                     "Açlık Hedef Kan Şekeri Değeri:",
                                     style: Theme.of(context).textTheme.headline5,
                                   ),
-                                  Text(state.targetValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
+                                  Text(state.targetValue.toString(),
+                                      style: Theme.of(context).textTheme.bolusScreenUserValues),
                                 ],
                               ),
                             ],
@@ -194,7 +198,8 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                     "K/I Oranı:",
                                     style: Theme.of(context).textTheme.headline5,
                                   ),
-                                  Text(state.ikoValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
+                                  Text(state.ikoValue.toString(),
+                                      style: Theme.of(context).textTheme.bolusScreenUserValues),
                                 ],
                               ),
                               const Divider(thickness: 1, color: Colors.grey),
@@ -205,7 +210,8 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                                     "IDF:",
                                     style: Theme.of(context).textTheme.headline5,
                                   ),
-                                  Text(state.idfValue.toString(), style: Theme.of(context).textTheme.bolusScreenUserValues),
+                                  Text(state.idfValue.toString(),
+                                      style: Theme.of(context).textTheme.bolusScreenUserValues),
                                 ],
                               ),
                               const Divider(thickness: 1, color: Colors.grey),
@@ -255,6 +261,7 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                             inputBorderRadius: 10,
                             inputText: "Kan şekeri değeri",
                             textController: instantBloodSugar,
+                            keyboardType: TextInputType.number,
                           );
                         }
                       }
@@ -270,7 +277,8 @@ class _BolusCalculationModalState extends State<BolusCalculationModal> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (lastMealHour < 3) {
-                            BlocProvider.of<BolusCubit>(context).calculateBolus(lastMealHour, widget.totalCarbValue, widget.mealId);
+                            BlocProvider.of<BolusCubit>(context)
+                                .calculateBolus(lastMealHour, widget.totalCarbValue, widget.mealId);
                           } else {
                             BlocProvider.of<BolusCubit>(context).calculateBolus(
                               lastMealHour,

@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/init/theme/app_theme.dart';
+import '../../auth/cubit/cubit/auth_cubit.dart';
 import '../cubit/meal_consumption_cubit.dart';
 import '../models/calc_report_model.dart';
 import '../widgets/calc_tile_widget.dart';
@@ -92,9 +93,15 @@ class _CalcReportViewState extends State<CalcReportView> {
                     ),
                   ),
                 ),
-              ).then(
-                (value) => NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN),
-              );
+              ).then((value) {
+                BlocProvider.of<AuthCubit>(context).logOut().then(
+                  (value) {
+                    if (value) {
+                      NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
+                    }
+                  },
+                );
+              });
             }
           },
         );
@@ -139,12 +146,12 @@ class _CalcReportViewState extends State<CalcReportView> {
                     consumptionListLoading: () => const CircularProgressIndicator(),
                     consumptionListLoaded: (mealList) => Expanded(
                       child: CalcTileWidget(
-                        mealList: mealList.meals,
+                        mealList: mealList,
                       ),
                     ),
                     filterSuccess: (mealList) => Expanded(
                       child: CalcTileWidget(
-                        mealList: mealList.meals,
+                        mealList: mealList,
                       ),
                     ),
                     filterFailure: (errorObject) => Column(

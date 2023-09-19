@@ -21,6 +21,10 @@ class CacheManager {
     await _preferences!.clear();
   }
 
+  Future<void> clearKey(PreferencesKeys key) async {
+    await _preferences!.remove(key.toString());
+  }
+
   Future<void> clearAllSaveFirst() async {
     if (_preferences != null) {
       await _preferences!.clear();
